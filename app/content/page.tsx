@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import FloatingWriteReviewButton from "../components/FloatingWriteReviewButton";
 import ReviewsDrawer from "../components/ReviewsDrawer";
 import { 
@@ -166,8 +167,17 @@ function ContentPageContent() {
               >
                 <FaBars size={20} />
               </button>
-              <Link href="/" className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                CodeWithArqam
+              <Link href="/" className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity">
+                <Image
+                  src="/codewitharqam-logo.svg"
+                  alt="CodeWithArqam Logo"
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 md:w-10 md:h-10"
+                />
+                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  CodeWithArqam
+                </span>
               </Link>
             </div>
             <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block w-full max-w-2xl px-4">

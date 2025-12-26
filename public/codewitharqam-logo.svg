@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9333ea;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with rounded square for modern look -->
+  <rect x="4" y="4" width="56" height="56" rx="12" fill="url(#gradient1)" />
+  
+  <!-- Code brackets representing coding -->
+  <path d="M 18 20 L 12 32 L 18 44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <path d="M 46 20 L 52 32 L 46 44" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  
+  <!-- Letter "C" for Code -->
+  <path d="M 28 24 Q 24 24 24 32 Q 24 40 28 40" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none" />
+  
+  <!-- Small accent representing "A" -->
+  <path d="M 38 24 L 40 28 L 42 24" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <line x1="39" y1="26" x2="41" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+</svg>
+

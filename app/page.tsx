@@ -195,9 +195,18 @@ export default function Home() {
             {/* Logo */}
             <button
               onClick={() => scrollToSection("home")}
-              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity"
+              className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
             >
-              CodeWithArqam
+              <Image
+                src="/codewitharqam-logo.svg"
+                alt="CodeWithArqam Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8 md:w-10 md:h-10"
+              />
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                CodeWithArqam
+              </span>
             </button>
             
             {/* Desktop Navigation */}
