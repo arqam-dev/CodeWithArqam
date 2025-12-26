@@ -45,7 +45,7 @@ export default function Home() {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["home", "content", "experience", "skills", "education", "publications", "contact"];
+      const sections = ["home", "experience", "skills", "education", "publications", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -203,37 +203,29 @@ export default function Home() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {["Home", "Content", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
-                if (item === "Content") {
-                  return (
-                    <Link
-                      key={item}
-                      href="/content"
-                      className="relative text-sm font-bold transition-all duration-200 group"
-                    >
-                      <span className="relative z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
-                        <FaMagic className="animate-pulse" size={14} />
-                        <span>{item}</span>
-                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
-                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-                      </span>
-                    </Link>
-                  );
-                }
-                return (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className={`text-sm font-medium transition-colors duration-200 ${
-                      activeSection === item.toLowerCase()
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+              {["Home", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className={`text-sm font-medium transition-colors duration-200 ${
+                    activeSection === item.toLowerCase()
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
+              <Link
+                href="/content"
+                className="relative text-sm font-bold transition-all duration-200 group"
+              >
+                <span className="relative z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
+                  <FaMagic className="text-blue-200" size={14} />
+                  <span>Content</span>
+                  <FaArrowRight size={12} />
+                </span>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -300,37 +292,28 @@ export default function Home() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
             <div className="px-4 py-4 space-y-3">
-              {["Home", "Content", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
-                if (item === "Content") {
-                  return (
-                    <Link
-                      key={item}
-                      href="/content"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="relative block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <FaMagic className="animate-pulse" size={14} />
-                        <span>{item}</span>
-                        <span className="ml-auto px-2 py-0.5 bg-white/20 rounded-full text-xs">24+ Topics</span>
-                      </div>
-                    </Link>
-                  );
-                }
-                return (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className={`block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 ${
-                      activeSection === item.toLowerCase()
-                        ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
+              {["Home", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 ${
+                    activeSection === item.toLowerCase()
+                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
+              <Link
+                href="/content"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105 flex items-center space-x-2"
+              >
+                <FaMagic className="text-blue-200" size={14} />
+                <span>Content</span>
+                <span className="ml-auto px-2 py-0.5 bg-white/20 rounded-full text-xs">24+ Topics</span>
+              </Link>
               <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-center space-x-4">
                   <a
