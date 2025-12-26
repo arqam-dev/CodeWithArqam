@@ -35,3 +35,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## AI Content Enrichment
+
+The website includes AI-powered content enrichment for expandable sections. Users can click "Enrich with AI" button in any expandable section to get detailed explanations.
+
+**How it works:**
+- Uses Hugging Face Inference API (completely free, no signup needed) by default
+- Optionally supports OpenAI API (free tier available) for better results
+- Provides fallback content if AI services are unavailable
+
+**Optional: Enhanced AI with OpenAI (Recommended)**
+1. Get a free API key from [OpenAI](https://platform.openai.com/api-keys) (free tier available)
+2. Add it to your `.env.local` file:
+   ```
+   NEXT_PUBLIC_OPENAI_API_KEY=your-openai-api-key-here
+   ```
+3. Restart your development server
+
+**Note:** The feature works without any API key using Hugging Face, but OpenAI provides better quality responses.

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import AIEnrichment from "./support/AIEnrichment";
 
 interface ExpandableSectionProps {
   title: string;
@@ -23,6 +24,7 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
       {isOpen && (
         <div className="expandable-content">
           <ReactMarkdown>{content}</ReactMarkdown>
+          <AIEnrichment title={title} originalContent={content} />
         </div>
       )}
     </div>
