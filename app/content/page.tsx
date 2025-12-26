@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import FloatingWriteReviewButton from "../components/FloatingWriteReviewButton";
+import ReviewsDrawer from "../components/ReviewsDrawer";
 import { 
   FaSearch, 
   FaCode, 
@@ -24,7 +26,9 @@ import {
   FaUsers,
   FaBrain,
   FaCheckCircle,
-  FaArrowUp
+  FaArrowUp,
+  FaStar,
+  FaComments
 } from "react-icons/fa";
 
 interface Concept {
@@ -89,6 +93,7 @@ function ContentPageContent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [expandedConcepts, setExpandedConcepts] = useState<Set<string>>(new Set());
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [showReviewsDrawer, setShowReviewsDrawer] = useState(false);
 
   // Update category when URL changes
   useEffect(() => {
@@ -406,6 +411,31 @@ function ContentPageContent() {
           <FaArrowUp size={20} />
         </button>
       )}
+
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end space-y-3">
+        {/* View Reviews Button - Disabled for now */}
+        {/* <button
+          onClick={() => setShowReviewsDrawer(true)}
+          className="group"
+          aria-label="View Reviews"
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
+            <div className="relative px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white rounded-full font-semibold text-base shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 border-2 border-white/20 backdrop-blur-sm cursor-pointer">
+              <FaComments className="text-purple-200" size={16} />
+              <span className="hidden sm:inline">View Reviews</span>
+              <span className="sm:hidden">Reviews</span>
+            </div>
+          </div>
+        </button> */}
+
+        {/* Write Review Button - Opens drawer to write reviews - Hidden when scroll to top is visible */}
+        {!showScrollTop && <FloatingWriteReviewButton />}
+      </div>
+
+      {/* Interactive Reviews Drawer */}
+      <ReviewsDrawer isOpen={showReviewsDrawer} onClose={() => setShowReviewsDrawer(false)} />
     </div>
   );
 }

@@ -46,7 +46,7 @@ export default function Home() {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["home", "experience", "skills", "education", "publications", "contact"];
+      const sections = ["home", "experience", "skills", "education", "publications", "reviews", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -198,8 +198,8 @@ export default function Home() {
             </div>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {["Home", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => (
+                    <div className="hidden md:flex items-center space-x-8">
+                      {["Home", "Experience", "Skills", "Education", "Publications", "Reviews", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
@@ -287,8 +287,8 @@ export default function Home() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-            <div className="px-4 py-4 space-y-3">
-              {["Home", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => (
+                    <div className="px-4 py-4 space-y-3">
+                      {["Home", "Experience", "Skills", "Education", "Publications", "Reviews", "Contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}

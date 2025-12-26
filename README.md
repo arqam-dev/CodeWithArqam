@@ -54,3 +54,50 @@ The website includes AI-powered content enrichment for expandable sections. User
 3. Restart your development server
 
 **Note:** The feature works without any API key using Hugging Face, but OpenAI provides better quality responses.
+
+## Reviews System
+
+The website includes a reviews/feedback system that uses Google Sheets as a free database alternative.
+
+**Setup Instructions:**
+1. Create a Google Sheet with columns: `Name`, `Email`, `Rating`, `Comment`, `Timestamp`
+2. Go to **Extensions** → **Apps Script** in your Google Sheet
+3. Copy and paste this code:
+
+```javascript
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    sheet.appendRow([data.name, data.email, data.rating, data.comment, new Date().toISOString()]);
+    return ContentService.createTextOutput(JSON.stringify({success: true})).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({error: error.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = sheet.getDataRange().getValues();
+    const reviews = [];
+    for (let i = 1; i < data.length; i++) {
+      if (data[i][0] && data[i][0].toString().trim() !== '') {
+        reviews.push({name: data[i][0], email: data[i][1], rating: data[i][2], comment: data[i][3], timestamp: data[i][4]});
+      }
+    }
+    return ContentService.createTextOutput(JSON.stringify({reviews: reviews.reverse()})).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({error: error.toString(), reviews: []})).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
+
+4. Click **Deploy** → **New deployment** → **Web app**
+5. Set "Who has access" to **Anyone** and deploy
+6. Copy the Web App URL and add to `.env.local`:
+   ```
+   GOOGLE_SHEETS_WEBHOOK_URL=your-web-app-url
+   GOOGLE_SHEETS_PUBLIC_URL=your-web-app-url
+   ```
+7. Restart your dev server
