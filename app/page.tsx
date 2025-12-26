@@ -30,7 +30,8 @@ import {
   FaFire,
   FaStar,
   FaGem,
-  FaMagic
+  FaMagic,
+  FaExclamationTriangle
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -235,7 +236,7 @@ export default function Home() {
             {/* Social Media Icons */}
             <div className="hidden md:flex items-center space-x-4">
               <a
-                href="https://www.linkedin.com/in/muhammadarqam-845b4614b/"
+                href="https://www.linkedin.com/in/arqam-dev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
@@ -312,7 +313,7 @@ export default function Home() {
               <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-center space-x-4">
                   <a
-                    href="https://www.linkedin.com/in/muhammadarqam-845b4614b/"
+                    href="https://www.linkedin.com/in/arqam-dev/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
@@ -627,8 +628,8 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-900 dark:text-white">Email</h3>
-                  <a href="mailto:arqam.career@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    arqam.career@gmail.com
+                  <a href="mailto:codewitharqam@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">
+                    codewitharqam@gmail.com
                   </a>
                 </div>
               </div>
@@ -636,11 +637,23 @@ export default function Home() {
                 <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                   <FaPhone className="text-blue-600 dark:text-blue-400" size={24} />
                 </div>
-                <div>
+                <div className="flex-1 relative group">
                   <h3 className="font-semibold text-slate-900 dark:text-white">Phone</h3>
-                  <a href="tel:+351912998774" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    (+351) 912998774
-                  </a>
+                  <div className="inline-flex items-center">
+                    <span className="text-blue-600 dark:text-blue-400 blur-sm select-none pointer-events-none">
+                      (+351) 912998774
+                    </span>
+                    <FaExclamationTriangle 
+                      className="ml-2 text-yellow-500 dark:text-yellow-400 cursor-help" 
+                      size={16}
+                    />
+                  </div>
+                  <div className="absolute left-0 top-full mt-2 w-64 p-3 bg-slate-900 dark:bg-slate-800 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none z-50 border border-slate-700">
+                    <div className="flex items-start space-x-2">
+                      <FaExclamationTriangle className="text-yellow-400 mt-0.5 flex-shrink-0" size={14} />
+                      <p>Phone number is hidden due to too many queries in pipeline</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex items-center space-x-4">
@@ -659,7 +672,7 @@ export default function Home() {
                 <div>
                   <h3 className="font-semibold text-slate-900 dark:text-white">LinkedIn</h3>
                   <a
-                    href="https://www.linkedin.com/in/muhammadarqam-845b4614b/"
+                    href="https://www.linkedin.com/in/arqam-dev/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 dark:text-blue-400 hover:underline"
@@ -675,7 +688,7 @@ export default function Home() {
               </h3>
               <div className="flex justify-center space-x-6">
                 <a
-                  href="https://www.linkedin.com/in/muhammadarqam-845b4614b/"
+                  href="https://www.linkedin.com/in/arqam-dev/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-200"
