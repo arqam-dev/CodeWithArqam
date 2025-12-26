@@ -450,12 +450,12 @@ Secondary Concepts
 
 </expand>
 
-<expand title="Pushing the Files"">
-## Pushing the Files"
+<expand title="Pushing the Files">
+## Pushing the Files
 
-- git push origin branch_name
-- git push origin branch_name --force
-- git push --set-upstream origin branch_name // used for new branch only. Push the newly created local branch to the remote and set up tracking
+- `git push origin branch_name`
+- `git push origin branch_name --force`
+- `git push --set-upstream origin branch_name` // used for new branch only. Push the newly created local branch to the remote and set up tracking
 
 </expand>
 
@@ -689,23 +689,37 @@ husky???
 
 </expand>
 
-<expand title="Scenarios where we need to use "-f" with git push">
-## Scenarios where we need to use "-f" with git push
+<expand title="Scenarios where we need to use -f with git push">
+## Scenarios where we need to use -f with git push
 
-- Overwriting Commits:
-  - You've made changes in your local branch, and you want to push them to a remote branch that has new commits that you don't have in your local branch.
-  - NOTE: avoid it as it overwrites
-- Rewriting History:
-  - You've "amended", "rebased", or "squashed" commits in your local branch, resulting in a different commit history than what's on the remote branch.
-- Forced Deletion:
-  - 
-- Renaming Branches:
-  - If you're renaming a branch locally and want the remote branch to have the same name.
-  - git branch -m new-branch-name // rename a local branch
-  - git push -f origin new-branch-name // forcefully push
-- Sync with a Fresh Start:
-  - In situations where you want to make a clean start with your branch, discarding all previous history.
-- After Squash
+### Overwriting Commits
+
+- You've made changes in your local branch, and you want to push them to a remote branch that has new commits that you don't have in your local branch
+- **NOTE:** avoid it as it overwrites
+
+### Rewriting History
+
+- You've "amended", "rebased", or "squashed" commits in your local branch, resulting in a different commit history than what's on the remote branch
+
+### Forced Deletion
+
+- Used when you need to delete a remote branch
+
+### Renaming Branches
+
+- If you're renaming a branch locally and want the remote branch to have the same name
+
+**Commands:**
+- `git branch -m new-branch-name` // rename a local branch
+- `git push -f origin new-branch-name` // forcefully push
+
+### Sync with a Fresh Start
+
+- In situations where you want to make a clean start with your branch, discarding all previous history
+
+### After Squash
+
+- When you've squashed commits and need to force push the new history
 
 </expand>
 
