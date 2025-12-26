@@ -2,9 +2,10 @@
 
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import ExpandableSection from "./ExpandableSection";
+import { useEffect, useState } from "react";
 
 interface ConceptPageContentProps {
   content: string;
@@ -13,8 +14,34 @@ interface ConceptPageContentProps {
 
 export default function ConceptPageContent({ content, conceptName }: ConceptPageContentProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const [displayName, setDisplayName] = useState<string>("");
+
+  // Helper function to convert to title case
+  const toTitleCase = (str: string): string => {
+    return str
+      .replace(/-/g, ' ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
+  useEffect(() => {
+    // Use conceptName prop if available, otherwise extract from URL
+    if (conceptName) {
+      setDisplayName(conceptName);
+    } else if (pathname) {
+      // Extract concept name from pathname (e.g., "/concepts/javascript" -> "javascript")
+      const pathParts = pathname.split("/");
+      const conceptFromPath = pathParts[pathParts.length - 1];
+      if (conceptFromPath && conceptFromPath !== "concepts") {
+        setDisplayName(conceptFromPath);
+      }
+    }
+  }, [conceptName, pathname]);
   // Parse expandable sections: <expand title="Title">content</expand>
-  const expandableRegex = /<expand\s+title="([^"]+)">([\s\S]*?)<\/expand>/g;
+  // Handle titles with quotes by matching everything between title=" and ">
+  const expandableRegex = /<expand\s+title="(.*?)">([\s\S]*?)<\/expand>/g;
   const parts: Array<{ type: "text" | "expandable"; content: string; title?: string }> = [];
   let lastIndex = 0;
   let match;
@@ -48,7 +75,7 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
+          <div className="flex items-center h-16 relative">
             <button
               onClick={() => router.back()}
               className="flex items-center space-x-2 px-4 py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200 cursor-pointer"
@@ -56,18 +83,16 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
               <FaArrowLeft size={18} />
               <span className="hidden sm:inline">Back</span>
             </button>
+            {displayName && (
+              <h1 className="absolute left-1/2 transform -translate-x-1/2 text-lg md:text-xl font-semibold text-slate-900 dark:text-white">
+                {toTitleCase(displayName)}
+              </h1>
+            )}
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {conceptName && (
-          <div className="mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-2 capitalize">
-              {conceptName.replace(/-/g, ' ')}
-            </h1>
-          </div>
-        )}
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 lg:p-12">
           <div className="text-slate-900 dark:text-slate-100 leading-relaxed">
             {parts.map((part, index) => {
