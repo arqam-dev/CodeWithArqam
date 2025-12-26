@@ -79,7 +79,6 @@ export default function Home() {
       location: "Lisbon, Portugal",
       role: "PRINCIPAL SOFTWARE ENGINEER",
       period: "07/06/2021 - CURRENT",
-      level: "Level 4",
       roles: "Principal Software Engineer | Tech Lead | Pre-Sales Engineer | Javascript Trainer",
       locations: "Portugal | London, Poland, Seattle, Boston, U.A.E",
       technologies: "AWS, AWS APIs (Lambdas), Amplify, GraphQL, DynamoDB, Angular 17, Node 18",
@@ -96,7 +95,6 @@ export default function Home() {
       location: "Brooklyn, NY, United States",
       role: "SENIOR SOFTWARE ENGINEER",
       period: "01/08/2018 - 01/06/2021",
-      level: "Level 3",
       roles: "Senior Software Engineer | Team Lead",
       technologies: "NodeJS (Express JS, Loopback 3, Loopback 4), Angular 8, React JS, React Native, MySQL, MongoDB, PostgreSQL, WordPress, Android",
       responsibilities: [
@@ -112,7 +110,6 @@ export default function Home() {
       location: "Washington, United States",
       role: "SOFTWARE ENGINEER",
       period: "01/08/2017 - 01/09/2018",
-      level: "Level 2",
       roles: "Software Engineer",
       office: "Redmond, WA, United States",
       technologies: ".Net (C#), Microsoft SQL Server, MS Access DB",
@@ -128,7 +125,6 @@ export default function Home() {
       location: "Abu Dhabi Emirates, United Arab Emirates",
       role: "ASSOCIATE SOFTWARE ENGINEER",
       period: "01/02/2017 - 01/07/2017",
-      level: "Level 1",
       roles: "Associate Software Engineer",
       technologies: ".Net (C#), MySQL",
       responsibilities: [
@@ -142,7 +138,6 @@ export default function Home() {
       location: "Düsseldorf, Germany",
       role: "WEB DEVELOPER",
       period: "01/06/2015 - 01/11/2015",
-      level: "Level 1",
       roles: "Internee",
       technologies: ".Net (C#), SQL Server",
       responsibilities: [
@@ -196,8 +191,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Arqam
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer">
+                CodeWithArqam
               </span>
             </div>
             
@@ -207,7 +202,7 @@ export default function Home() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-colors duration-200 ${
+                  className={`text-sm font-medium transition-colors duration-200 cursor-pointer ${
                     activeSection === item.toLowerCase()
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -218,7 +213,7 @@ export default function Home() {
               ))}
               <Link
                 href="/content"
-                className="relative text-sm font-bold transition-all duration-200 group"
+                className="relative text-sm font-bold transition-all duration-200 group cursor-pointer"
               >
                 <span className="relative z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
                   <FaMagic className="text-blue-200" size={14} />
@@ -231,7 +226,7 @@ export default function Home() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-slate-600 dark:text-slate-300"
+              className="md:hidden p-2 text-slate-600 dark:text-slate-300 cursor-pointer"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -296,7 +291,7 @@ export default function Home() {
                 <button
                   key={item}
                   onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 ${
+                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${
                     activeSection === item.toLowerCase()
                       ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
                       : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
@@ -308,7 +303,7 @@ export default function Home() {
               <Link
                 href="/content"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105 flex items-center space-x-2"
+                className="block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105 flex items-center space-x-2 cursor-pointer"
               >
                 <FaMagic className="text-blue-200" size={14} />
                 <span>Content</span>
@@ -382,7 +377,7 @@ export default function Home() {
                 Muhammad Arqam
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300">
-                Solution Architect Based In <span className="font-semibold text-blue-600 dark:text-blue-400">Lisbon, Portugal</span>
+                Solutions Architect Based In <span className="font-semibold text-blue-600 dark:text-blue-400">Portugal, Europe</span>
               </p>
               <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
                 I am a Full-Stack Software Engineer with <strong className="text-slate-900 dark:text-white">9+ years</strong> of experience. 
@@ -391,11 +386,11 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 pt-4">
                 <button
                   onClick={() => scrollToSection("experience")}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="px-6 py-3 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 flex items-center space-x-2"
                 >
-                  <FaCode size={18} />
+                  <FaCode size={16} />
                   <span>View My Experience</span>
-                  <FaArrowRight size={16} />
+                  <FaArrowRight size={14} />
                 </button>
                 <button
                   onClick={() => scrollToSection("contact")}
@@ -453,9 +448,6 @@ export default function Home() {
                     )}
                   </div>
                   <div className="text-right mt-4 md:mt-0">
-                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium mb-2">
-                      {exp.level}
-                    </span>
                     <p className="text-slate-600 dark:text-slate-400 font-medium">{exp.period}</p>
                   </div>
                 </div>
@@ -511,7 +503,7 @@ export default function Home() {
                   </div>
                   <div className="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-2.5">
                     <div
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 h-2.5 rounded-full transition-all duration-1000"
+                      className="bg-gradient-to-r from-teal-400 via-cyan-500 to-teal-600 dark:from-teal-500 dark:via-cyan-600 dark:to-teal-700 h-2.5 rounded-full transition-all duration-1000"
                       style={{ width: `${skill.percentage}%` }}
                     ></div>
                   </div>
@@ -750,8 +742,11 @@ export default function Home() {
               <span className="sm:hidden">Learn</span>
               <FaArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
               
-              {/* Subtle notification badge */}
-              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-white dark:ring-slate-900"></div>
+              {/* Bubbling notification badge */}
+              <div className="absolute -top-0.5 -right-0.5">
+                <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full animate-ping opacity-75"></div>
+                <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-white dark:ring-slate-900 animate-pulse"></div>
+              </div>
             </div>
           </div>
         </Link>
@@ -764,7 +759,7 @@ export default function Home() {
             © {new Date().getFullYear()} Muhammad Arqam. All rights reserved.
           </p>
           <p className="text-slate-500 text-sm mt-2">
-            Full-Stack Software Engineer & Solution Architect | Lisbon, Portugal
+            Full-Stack Software Engineer & Solutions Architect | Portugal, Europe
           </p>
         </div>
       </footer>

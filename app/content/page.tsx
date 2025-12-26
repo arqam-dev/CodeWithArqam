@@ -165,7 +165,7 @@ function ContentPageContent() {
                 CodeWithArqam
               </Link>
             </div>
-            <div className="flex-1 max-w-2xl mx-4">
+            <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block w-full max-w-2xl px-4">
               <div className="relative">
                 <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
                 <input
@@ -177,12 +177,18 @@ function ContentPageContent() {
                 />
               </div>
             </div>
-            <Link
-              href="/"
-              className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              Home
-            </Link>
+            <div className="md:hidden flex-1 max-w-2xl mx-4">
+              <div className="relative">
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
+                <input
+                  type="text"
+                  placeholder="Search concepts, topics..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </header>
