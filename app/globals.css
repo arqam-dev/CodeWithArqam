@@ -24,3 +24,212 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Expandable Section Styles */
+.expandable-section {
+  margin: 1.5rem 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.expandable-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: #f7fafc;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.expandable-header:hover {
+  background: #edf2f7;
+}
+
+.expandable-title {
+  flex: 1;
+  color: var(--foreground);
+}
+
+.expandable-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #4a5568;
+  line-height: 1;
+}
+
+.expandable-content {
+  padding: 1.25rem;
+  background: var(--background);
+  border-top: 1px solid #e2e8f0;
+  line-height: 1.7;
+}
+
+/* Markdown heading styles inside expandable content */
+.expandable-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.expandable-content h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.4rem;
+}
+
+.expandable-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.expandable-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.expandable-content h5 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+  color: var(--foreground);
+}
+
+.expandable-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.4rem;
+  color: var(--foreground);
+}
+
+.expandable-content p {
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.expandable-content ul,
+.expandable-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.expandable-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.expandable-content code {
+  background: #f7fafc;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.9em;
+  border: 1px solid #e2e8f0;
+}
+
+.expandable-content pre {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 1rem;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.expandable-content pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+}
+
+.expandable-content strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.expandable-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.expandable-content table th,
+.expandable-content table td {
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.expandable-content table th {
+  background: #f7fafc;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .expandable-section {
+    border-color: #2d3748;
+  }
+  
+  .expandable-header {
+    background: #1a202c;
+  }
+  
+  .expandable-header:hover {
+    background: #2d3748;
+  }
+  
+  .expandable-content {
+    border-top-color: #2d3748;
+  }
+  
+  .expandable-icon {
+    color: #cbd5e0;
+  }
+  
+  .expandable-content h1,
+  .expandable-content h2 {
+    border-bottom-color: #2d3748;
+  }
+  
+  .expandable-content code {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+  
+  .expandable-content pre {
+    background: #2d3748;
+    border-color: #4a5568;
+  }
+  
+  .expandable-content table th,
+  .expandable-content table td {
+    border-color: #2d3748;
+  }
+  
+  .expandable-content table th {
+    background: #1a202c;
+  }
+}
