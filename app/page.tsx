@@ -40,13 +40,14 @@ export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showFloatingCTA, setShowFloatingCTA] = useState(true);
+  const [showSocialDropdown, setShowSocialDropdown] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["home", "experience", "skills", "education", "publications", "reviews", "contact"];
+      const sections = ["home", "experience", "skills", "education", "publications", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -191,37 +192,116 @@ export default function Home() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer">
-                CodeWithArqam
-              </span>
-            </div>
+            {/* Logo */}
+            <button
+              onClick={() => scrollToSection("home")}
+              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              CodeWithArqam
+            </button>
             
             {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
-                      {["Home", "Experience", "Skills", "Education", "Publications", "Reviews", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`text-sm font-medium transition-colors duration-200 cursor-pointer ${
-                    activeSection === item.toLowerCase()
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
+            <div className="hidden md:flex items-center space-x-4">
               <Link
                 href="/content"
-                className="relative text-sm font-bold transition-all duration-200 group cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
-                <span className="relative z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
-                  <FaMagic className="text-blue-200" size={14} />
-                  <span>Content</span>
-                  <FaArrowRight size={12} />
-                </span>
+                <FaMagic size={14} />
+                <span>Learning Guides</span>
               </Link>
+
+              {/* Interactive Social Media Menu */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setShowSocialDropdown(true)}
+                onMouseLeave={() => setShowSocialDropdown(false)}
+              >
+                <button
+                  className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-700 border border-blue-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-200 cursor-pointer relative group"
+                  aria-label="Social Media"
+                >
+                  <div className="flex items-center space-x-2">
+                    <div className="relative flex items-center space-x-0.5">
+                      <FaLinkedin size={14} className="text-blue-600" />
+                      <FaYoutube size={12} className="text-red-600" />
+                      <FaInstagram size={12} className="text-pink-600" />
+                    </div>
+                    <span className="text-xs font-semibold text-slate-700 dark:text-slate-200 hidden lg:inline">Social</span>
+                  </div>
+                  {/* Pulse indicator */}
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full animate-ping opacity-75"></span>
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
+                </button>
+                
+                {/* Half-Circular Social Menu */}
+                {showSocialDropdown && (
+                  <div className="absolute top-full right-0 mt-2 origin-top-right z-50 pointer-events-auto">
+                    {/* Invisible bridge to prevent gap */}
+                    <div className="absolute top-0 right-0 w-20 h-4 -mt-4"></div>
+                    <div className="relative w-72 h-72">
+                      {/* Social Icons in Half Circle */}
+                      {[
+                        { icon: FaLinkedin, href: "https://www.linkedin.com/in/arqam-dev/", color: "text-blue-600", bgColor: "bg-blue-50 dark:bg-blue-900/20", label: "LinkedIn", angle: 15, hoverColor: "hover:bg-blue-100 dark:hover:bg-blue-900/40" },
+                        { icon: FaYoutube, href: "https://www.youtube.com/@codewitharqam", color: "text-red-600", bgColor: "bg-red-50 dark:bg-red-900/20", label: "YouTube", angle: 45, hoverColor: "hover:bg-red-100 dark:hover:bg-red-900/40" },
+                        { icon: FaInstagram, href: "https://www.instagram.com/codewitharqam", color: "text-pink-600", bgColor: "bg-pink-50 dark:bg-pink-900/20", label: "Instagram", angle: 75, hoverColor: "hover:bg-pink-100 dark:hover:bg-pink-900/40" },
+                        { icon: FaTiktok, href: "https://www.tiktok.com/@codewitharqam", color: "text-slate-900 dark:text-white", bgColor: "bg-slate-50 dark:bg-slate-800", label: "TikTok", angle: 105, hoverColor: "hover:bg-slate-100 dark:hover:bg-slate-700" },
+                        { icon: FaGithub, href: "https://github.com/arqam-dev", color: "text-slate-900 dark:text-white", bgColor: "bg-slate-50 dark:bg-slate-800", label: "GitHub", angle: 135, hoverColor: "hover:bg-slate-100 dark:hover:bg-slate-700" }
+                      ].map((social, index) => {
+                        const radius = 110;
+                        const angleRad = (social.angle * Math.PI) / 180;
+                        const x = Math.cos(angleRad) * radius;
+                        const y = Math.sin(angleRad) * radius;
+                        const Icon = social.icon;
+                        
+                        return (
+                          <a
+                            key={index}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute group/item transition-all duration-300 ease-out cursor-pointer"
+                            style={{
+                              left: `${144 + x}px`,
+                              top: `${y}px`,
+                              transform: 'translate(-50%, -50%) scale(0)',
+                              animation: `socialBubbleIn 0.2s ease-out ${index * 0.03}s forwards`
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1.4)';
+                              e.currentTarget.style.zIndex = '10';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.transform = 'translate(-50%, -50%) scale(1)';
+                              e.currentTarget.style.zIndex = '1';
+                            }}
+                          >
+                            <div className="relative">
+                              {/* Multiple bubbling effects on hover */}
+                              <div className="absolute inset-0 rounded-full opacity-0 group-hover/item:opacity-30 group-hover/item:animate-ping" style={{ animationDelay: '0s' }}></div>
+                              <div className="absolute inset-0 rounded-full opacity-0 group-hover/item:opacity-20 group-hover/item:animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                              <div className="absolute inset-0 rounded-full opacity-0 group-hover/item:opacity-10 group-hover/item:animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                              
+                              {/* Icon container */}
+                              <div className={`relative w-14 h-14 rounded-full ${social.bgColor} ${social.hoverColor} shadow-xl border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover/item:shadow-2xl group-hover/item:border-blue-400 dark:group-hover/item:border-blue-500 transition-all duration-300 group-hover/item:rotate-12`}>
+                                <Icon size={22} className={`${social.color} group-hover/item:scale-125 transition-transform duration-300`} />
+                              </div>
+                              
+                              {/* Label tooltip */}
+                              <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover/item:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap transform translate-x-0 group-hover/item:translate-x-2">
+                                <div className={`px-3 py-2 rounded-lg ${social.bgColor} shadow-xl border border-slate-200 dark:border-slate-700 backdrop-blur-sm`}>
+                                  <span className="text-sm font-bold text-slate-900 dark:text-white">{social.label}</span>
+                                </div>
+                                {/* Tooltip arrow */}
+                                <div className={`absolute right-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-b-4 border-b-transparent border-r-4 ${social.bgColor.replace('bg-', 'border-')} border-r-slate-200 dark:border-r-slate-700`}></div>
+                              </div>
+                            </div>
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
@@ -232,130 +312,71 @@ export default function Home() {
             >
               {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
-
-            {/* Social Media Icons */}
-            <div className="hidden md:flex items-center space-x-4">
-              <a
-                href="https://www.linkedin.com/in/arqam-dev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin size={20} />
-              </a>
-              <a
-                href="https://www.youtube.com/@codewitharqam"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200"
-                aria-label="YouTube"
-              >
-                <FaYoutube size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/codewitharqam"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-200"
-                aria-label="Instagram"
-              >
-                <FaInstagram size={20} />
-              </a>
-              <a
-                href="https://www.tiktok.com/@codewitharqam"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white transition-colors duration-200"
-                aria-label="TikTok"
-              >
-                <FaTiktok size={20} />
-              </a>
-              <a
-                href="https://github.com/arqam-dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200"
-                aria-label="GitHub"
-              >
-                <FaGithub size={20} />
-              </a>
-            </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-                    <div className="px-4 py-4 space-y-3">
-                      {["Home", "Experience", "Skills", "Education", "Publications", "Reviews", "Contact"].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className={`block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 cursor-pointer ${
-                    activeSection === item.toLowerCase()
-                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                  }`}
-                >
-                  {item}
-                </button>
-              ))}
+            <div className="px-4 py-4 space-y-2">
               <Link
                 href="/content"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105 flex items-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
-                <FaMagic className="text-blue-200" size={14} />
-                <span>Content</span>
-                <span className="ml-auto px-2 py-0.5 bg-white/20 rounded-full text-xs">24+ Topics</span>
+                <FaMagic size={14} />
+                <span>Learning Guides</span>
               </Link>
+
               <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
-                <div className="flex items-center justify-center space-x-4">
+                <div className="px-4 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+                  Social
+                </div>
+                <div className="grid grid-cols-2 gap-2">
                   <a
                     href="https://www.linkedin.com/in/arqam-dev/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                    aria-label="LinkedIn"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
-                    <FaLinkedin size={20} />
+                    <FaLinkedin size={16} />
+                    <span className="text-sm">LinkedIn</span>
                   </a>
                   <a
                     href="https://www.youtube.com/@codewitharqam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200"
-                    aria-label="YouTube"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
-                    <FaYoutube size={20} />
+                    <FaYoutube size={16} />
+                    <span className="text-sm">YouTube</span>
                   </a>
                   <a
                     href="https://www.instagram.com/codewitharqam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors duration-200"
-                    aria-label="Instagram"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
-                    <FaInstagram size={20} />
+                    <FaInstagram size={16} />
+                    <span className="text-sm">Instagram</span>
                   </a>
                   <a
                     href="https://www.tiktok.com/@codewitharqam"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-black dark:hover:text-white transition-colors duration-200"
-                    aria-label="TikTok"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   >
-                    <FaTiktok size={20} />
+                    <FaTiktok size={16} />
+                    <span className="text-sm">TikTok</span>
                   </a>
                   <a
                     href="https://github.com/arqam-dev"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200"
-                    aria-label="GitHub"
+                    className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors col-span-2"
                   >
-                    <FaGithub size={20} />
+                    <FaGithub size={16} />
+                    <span className="text-sm">GitHub</span>
                   </a>
                 </div>
               </div>
