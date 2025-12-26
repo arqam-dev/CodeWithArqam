@@ -26,7 +26,11 @@ import {
   FaTools,
   FaBrain,
   FaQuestionCircle,
-  FaRocket
+  FaRocket,
+  FaFire,
+  FaStar,
+  FaGem,
+  FaMagic
 } from "react-icons/fa";
 import Link from "next/link";
 
@@ -34,13 +38,14 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showFloatingCTA, setShowFloatingCTA] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Update active section based on scroll position
-      const sections = ["home", "content", "about", "experience", "skills", "education", "publications", "contact"];
+      const sections = ["home", "content", "experience", "skills", "education", "publications", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -198,15 +203,20 @@ export default function Home() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {["Home", "Content", "About", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
+              {["Home", "Content", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
                 if (item === "Content") {
                   return (
                     <Link
                       key={item}
                       href="/content"
-                      className="text-sm font-medium transition-colors duration-200 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400"
+                      className="relative text-sm font-bold transition-all duration-200 group"
                     >
-                      {item}
+                      <span className="relative z-10 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2">
+                        <FaMagic className="animate-pulse" size={14} />
+                        <span>{item}</span>
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></span>
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+                      </span>
                     </Link>
                   );
                 }
@@ -290,16 +300,20 @@ export default function Home() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
             <div className="px-4 py-4 space-y-3">
-              {["Home", "Content", "About", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
+              {["Home", "Content", "Experience", "Skills", "Education", "Publications", "Contact"].map((item) => {
                 if (item === "Content") {
                   return (
                     <Link
                       key={item}
                       href="/content"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      className="relative block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold hover:shadow-lg transform hover:scale-105"
                     >
-                      {item}
+                      <div className="flex items-center space-x-2">
+                        <FaMagic className="animate-pulse" size={14} />
+                        <span>{item}</span>
+                        <span className="ml-auto px-2 py-0.5 bg-white/20 rounded-full text-xs">24+ Topics</span>
+                      </div>
                     </Link>
                   );
                 }
@@ -393,16 +407,18 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <button
-                  onClick={() => scrollToSection("contact")}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                  onClick={() => scrollToSection("experience")}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-bold text-lg hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
-                  Get In Touch
+                  <FaCode size={18} />
+                  <span>View My Experience</span>
+                  <FaArrowRight size={16} />
                 </button>
                 <button
-                  onClick={() => scrollToSection("experience")}
+                  onClick={() => scrollToSection("contact")}
                   className="px-6 py-3 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200"
                 >
-                  View My Work
+                  Get In Touch
                 </button>
               </div>
             </div>
@@ -419,225 +435,6 @@ export default function Home() {
           priority
         />
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Content Preview Section */}
-      <section id="content" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-block mb-4">
-              <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-medium flex items-center space-x-2">
-                <FaRocket size={14} />
-                <span>Explore My Content</span>
-              </span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Learn & Grow With Me
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              Comprehensive guides, tutorials, and resources covering everything from frontend to backend, cloud to databases, and beyond.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {/* Frontend Card */}
-            <Link
-              href="/content?category=Frontend"
-              className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <FaCode className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
-                <FaArrowRight className="text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" size={18} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Frontend</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
-                JavaScript, React, Angular, HTML, CSS and more
-              </p>
-              <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 text-sm font-medium">
-                <span>5+ Topics</span>
-                <FaArrowRight size={12} />
-              </div>
-            </Link>
-
-            {/* Backend Card */}
-            <Link
-              href="/content?category=Backend"
-              className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <FaServer className="text-green-600 dark:text-green-400" size={24} />
-                </div>
-                <FaArrowRight className="text-slate-400 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors" size={18} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Backend</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
-                Node.js, GraphQL, APIs, and server-side development
-              </p>
-              <div className="flex items-center space-x-2 text-green-600 dark:text-green-400 text-sm font-medium">
-                <span>2+ Topics</span>
-                <FaArrowRight size={12} />
-              </div>
-            </Link>
-
-            {/* Cloud Card */}
-            <Link
-              href="/content?category=Cloud"
-              className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <FaCloud className="text-purple-600 dark:text-purple-400" size={24} />
-                </div>
-                <FaArrowRight className="text-slate-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors" size={18} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Cloud & DevOps</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
-                AWS, Cloud Computing, DevOps, CI/CD
-              </p>
-              <div className="flex items-center space-x-2 text-purple-600 dark:text-purple-400 text-sm font-medium">
-                <span>3+ Topics</span>
-                <FaArrowRight size={12} />
-              </div>
-            </Link>
-
-            {/* Database Card */}
-            <Link
-              href="/content?category=Database"
-              className="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="p-3 bg-orange-100 dark:bg-orange-900/30 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                  <FaDatabase className="text-orange-600 dark:text-orange-400" size={24} />
-                </div>
-                <FaArrowRight className="text-slate-400 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors" size={18} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Database</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mb-4">
-                SQL, NoSQL, Database design and optimization
-              </p>
-              <div className="flex items-center space-x-2 text-orange-600 dark:text-orange-400 text-sm font-medium">
-                <span>1+ Topics</span>
-                <FaArrowRight size={12} />
-              </div>
-            </Link>
-          </div>
-
-          {/* Additional Categories Row */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Link
-              href="/content?category=CS Fundamentals"
-              className="group bg-white dark:bg-slate-800 rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center space-x-3 mb-3">
-                <FaBrain className="text-indigo-600 dark:text-indigo-400" size={20} />
-                <h3 className="font-semibold text-slate-900 dark:text-white">CS Fundamentals</h3>
-                <FaArrowRight className="ml-auto text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" size={14} />
-              </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Data Structures, OOP, OS, Networking</p>
-            </Link>
-
-            <Link
-              href="/content?category=Tools"
-              className="group bg-white dark:bg-slate-800 rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center space-x-3 mb-3">
-                <FaTools className="text-teal-600 dark:text-teal-400" size={20} />
-                <h3 className="font-semibold text-slate-900 dark:text-white">Tools & Practices</h3>
-                <FaArrowRight className="ml-auto text-slate-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors" size={14} />
-              </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Git, Web Dev, QA, Best Practices</p>
-            </Link>
-
-            <Link
-              href="/content?category=Professional"
-              className="group bg-white dark:bg-slate-800 rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
-            >
-              <div className="flex items-center space-x-3 mb-3">
-                <FaGraduationCap className="text-pink-600 dark:text-pink-400" size={20} />
-                <h3 className="font-semibold text-slate-900 dark:text-white">Professional Skills</h3>
-                <FaArrowRight className="ml-auto text-slate-400 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors" size={14} />
-              </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Soft Skills, PMP, Problem Solving</p>
-            </Link>
-          </div>
-
-          {/* CTA Section */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
-            <FaBook className="mx-auto mb-4" size={48} />
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
-              Explore 24+ Comprehensive Guides
-            </h3>
-            <p className="text-lg md:text-xl mb-6 opacity-90 max-w-2xl mx-auto">
-              From beginner-friendly tutorials to advanced concepts, everything you need to master software development.
-            </p>
-            <Link
-              href="/content"
-              className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-slate-100 transform hover:scale-105 transition-all duration-200 shadow-lg"
-            >
-              <span>Start Learning Now</span>
-              <FaArrowRight />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            About Myself
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-700 dark:to-slate-900 rounded-2xl p-8 md:p-12 shadow-xl">
-              <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-                I am a <strong className="text-slate-900 dark:text-white">Full-Stack Software Engineer</strong> with experience of around <strong className="text-blue-600 dark:text-blue-400">9 years</strong>. 
-                My core competency is in <strong className="text-slate-900 dark:text-white">JavaScript and RDBMs</strong>. I have also done different certifications. 
-                I worked on <strong className="text-slate-900 dark:text-white">MEAN Stack, MERN Stack, CMS & serverless</strong> too.
-              </p>
-              <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed">
-                I have also created multiple <strong className="text-slate-900 dark:text-white">NPM packages</strong> and published a review paper. 
-                I have visited multiple countries for onsite project discoveries.
-              </p>
-            </div>
-            
-            {/* Personal Info Cards */}
-            <div className="grid md:grid-cols-2 gap-6 mt-8">
-              <div className="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <FaMapMarkerAlt className="text-blue-600 dark:text-blue-400" size={20} />
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Location</h3>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300">Lisbon, Portugal</p>
-              </div>
-              <div className="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <FaEnvelope className="text-blue-600 dark:text-blue-400" size={20} />
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Email</h3>
-                </div>
-                <a href="mailto:arqam.career@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">
-                  arqam.career@gmail.com
-                </a>
-              </div>
-              <div className="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <FaPhone className="text-blue-600 dark:text-blue-400" size={20} />
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Phone</h3>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300">(+351) 912998774</p>
-              </div>
-              <div className="bg-white dark:bg-slate-700 rounded-xl p-6 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <FaCalendarAlt className="text-blue-600 dark:text-blue-400" size={20} />
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Date of Birth</h3>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300">11/12/1992</p>
               </div>
             </div>
           </div>
@@ -952,6 +749,30 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Floating CTA Button */}
+      {showFloatingCTA && (
+        <Link
+          href="/content"
+          className="fixed bottom-6 right-6 z-50 group"
+        >
+          <div className="relative">
+            {/* Subtle glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
+            
+            {/* Main button */}
+            <div className="relative px-5 py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white rounded-full font-semibold text-base shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 border-2 border-white/20 backdrop-blur-sm">
+              <FaMagic className="text-blue-200" size={16} />
+              <span className="hidden sm:inline">Explore Guides</span>
+              <span className="sm:hidden">Learn</span>
+              <FaArrowRight className="group-hover:translate-x-1 transition-transform" size={14} />
+              
+              {/* Subtle notification badge */}
+              <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-white dark:ring-slate-900"></div>
+            </div>
+          </div>
+        </Link>
+      )}
 
       {/* Footer */}
       <footer className="bg-slate-900 dark:bg-black text-white py-8 px-4 sm:px-6 lg:px-8">

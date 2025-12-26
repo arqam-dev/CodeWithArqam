@@ -73,6 +73,19 @@ body {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
+
 /* Smooth transitions for interactive elements */
 .interactive-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
