@@ -211,6 +211,15 @@ export default function Home() {
             
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4">
+              <a
+                href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+              >
+                <FaCalendarAlt size={14} />
+                <span>Book Free Mentoring</span>
+              </a>
               <Link
                 href="/content"
                 className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
@@ -328,6 +337,16 @@ export default function Home() {
         {isMobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
             <div className="px-4 py-4 space-y-2">
+              <a
+                href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                <FaCalendarAlt size={14} />
+                <span>Book Free Mentoring</span>
+              </a>
               <Link
                 href="/content"
                 onClick={() => setIsMobileMenuOpen(false)}
