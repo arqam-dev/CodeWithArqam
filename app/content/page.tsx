@@ -74,7 +74,9 @@ const concepts: Concept[] = [
   { name: "Git", slug: "git", category: "Tools", icon: FaTools, description: "Version control, branching, and collaboration" },
   { name: "Web Development", slug: "webdevelopment", category: "Tools", icon: FaCode, description: "Full-stack web development practices" },
   { name: "Quality Assurance", slug: "qualityassurance", category: "Tools", icon: FaCheckCircle, description: "Testing, QA processes, and best practices" },
-  { name: "VS Comparisons", slug: "vs-comparisons", category: "Tools", icon: FaQuestionCircle, description: "Compare conflicting and interchangeable concepts: JavaScript, React, Angular, Node.js, and more" },
+  
+  // Comparisons
+  { name: "VS Comparisons", slug: "vs-comparisons", category: "Comparisons", icon: FaQuestionCircle, description: "Compare conflicting and interchangeable concepts: JavaScript, React, Angular, Node.js, and more" },
   
   // Professional Skills
   { name: "Language Learning", slug: "language", category: "Professional", icon: FaGraduationCap, description: "Programming languages and learning resources" },
@@ -84,7 +86,7 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Professional"];
+const categories = ["All", "Frontend", "Backend", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Comparisons", "Professional"];
 
 function ContentPageContent() {
   const searchParams = useSearchParams();
