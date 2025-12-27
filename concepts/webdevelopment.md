@@ -3,19 +3,19 @@
 <expand title="Diagram for assistance in learning below topics">
 ## Diagram for assistance in learning below topics
 
-Security <-		Applicationnnnnnnnnnnnnnnnnnnnn 				-> Deployment
+Security <-		Application 				-> Deployment
 
-|							 |
+                |		|
 
-Backend Server  			 Frontend Code
+   Backend Server  	Frontend Code
 
-|							  |
+          |							  |
 
-Backend Code <-- Communication --
+  Backend Code <-- Communication --> Frontend Code
 
-|
+          |
 
-Data
+        Data
 
 </expand>
 
