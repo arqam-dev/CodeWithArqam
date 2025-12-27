@@ -3,256 +3,151 @@
 <expand title="Architectures (how responsibilities are divided, whether in code, servers, or data)">
 ## Architectures (how responsibilities are divided, whether in code, servers, or data)
 
-Types:
+### Types:
 
-- Backend System Architecture - System Shape (how the system is split) -- BE/Server
+#### 1. Backend System Architecture - System Shape (how the system is split) -- BE/Server
 
-- Client–Server (A-Architecture):
-
+##### 1.1 Client–Server (A-Architecture):
 - Client–Server is a foundational interaction model.
-
 - It coexists with: Monolith, Microservices, SOA, Serverless like Client–Server + Microservices, Client–Server + Monolith, etc.
+- **When to use it (good fit):**
+  - Centralized data & control
+  - Web & mobile applications
+  - CRUD systems
+  - Early-stage or simple systems
+- **When Client–Server is NOT the right model (KEY INSIGHT):**
+  - Peer-to-peer systems (file sharing)
+  - Blockchain networks (no central owner)
+  - Gossip-based systems
+  - Some distributed databases
+  - Offline-first, device-to-device systems
 
-- When to use it (good fit):
-
-- Centralized data & control
-
-- Web & mobile applications
-
-- CRUD systems
-
-- Early-stage or simple systems
-
-- When Client–Server is NOT the right model (KEY INSIGHT):
-
-- Peer-to-peer systems (file sharing)
-
-- Blockchain networks (no central owner)
-
-- Gossip-based systems
-
-- Some distributed databases
-
-- Offline-first, device-to-device systems
-
-- Monolith / Modular Monolith (A):
-
+##### 1.2 Monolith / Modular Monolith (A):
 - A monolithic architecture is where the entire backend application is built, deployed, and scaled as a single unit.
-
 - Backend: Auth, Users, Orders, Payments, etc
-
 - Works inside Client–Server Architecture
+- **NOTE:** It does NOT mean frontend + backend + database are one thing. It is specifically about backend business logic. It can be colocated and cannot be.
+- **Modular Monolith (clean upgrade):**
+  - A Modular Monolith is a monolithic backend where the codebase is strictly divided into independent modules
+  - Backend: Auth Module, Users, etc
+- **When to use Monolith / Modular Monolith:**
+  - Startups, MVPs, Internal enterprise systems, etc
+- **When it stops working well:**
+  - Independent scaling is needed
+  - Deployments become risky
+  - Domains become tightly coupled, etc.
 
-- NOTE:
-
-- It does NOT mean frontend + backend + database are one thing. It is specifically about backend business logic. It can be colocated and cannot be.
-
-- Modular Monolith (clean upgrade):
-
-- A Modular Monolith is a monolithic backend where the codebase is strictly divided into independent modules Module
-
-- Backend: Auth Module, Users, etc
-
-- When to use Monolith / Modular Monolith:
-
-- Startups, MVPs, Internal enterprise systems, etc
-
-- When it stops working well:
-
-- Independent scaling is needed, Deployments become risky, Domains become tightly coupled, etc.
-
-- Service-Oriented Architecture (SOA) (A):
-
+##### 1.3 Service-Oriented Architecture (SOA) (A):
 - SOA is an architecture where the backend is split into reusable services that communicate over a network and are shared across multiple applications.
-
 - Sits between Monolith and Microservices. Predecessor of Microservices.
-
 - Works inside Client–Server Architecture
-
 - Services are: Independent, Reusable, Centrally governed
+- **Example:** Same Customer Service used by - Web, Mobile, Partner systems, internal tools, etc
+- **SOA vs Microservices:**
+  - **SOA:** shared services, centralized control. Usually has same DB. services are deployed separately, but centrally governed.
+  - **Microservices:** independent services, decentralized control. Usually has separate DBs. services are deployed separately, but not centrally governed.
 
-- Example: Same Customer Service used by - Web, Mobile, Partner systems, internal tools, etc
-
-- SOA vs Microservices:
-
-- SOA: shared services, centralized control. Usually has same DB. services are deployed separately, but centrally governed.
-
-- Microservices: independent services, decentralized control. Usually has seperate DBs. services are deployed separately, but not centrally governed.
-
-- Microservices (A):
-
+##### 1.4 Microservices (A):
 - Microservices is an architecture where the backend is split into small, independent services, each owning its own business logic and data, and deployed separately.
-
 - Works inside Client–Server
-
 - Evolution of SOA
+- **Each service:** Runs independently, Deploys independently, Scales independently, Owns its database
+- **Applications:** Same as SOA. Netflix, Uber, etc
 
-- Each service: Runs independently, Deploys independently, Scales independently, Owns its database
-
-- Applications: Same as SOA. Netflix, Uber, etc
-
-- Event-Driven Architecture (EDA) (A):
-
+##### 1.5 Event-Driven Architecture (EDA) (A):
 - Event-Driven Architecture is a model where services communicate by producing and reacting to events instead of calling each other directly.
-
 - Works inside Client–Server
-
 - Commonly used with Microservices. Can coexist with Monolith or SOA
+- **Example:** E-commerce system (Order processing), Notifications
+- **Key characteristics:**
+  - Loose coupling
+  - Asynchronous communication
+  - High scalability
+  - Eventual consistency
+- **Trade-offs:**
+  - Harder debugging
+  - Duplicate event handling
+  - Complex failure scenarios
 
-- Example: E-commerce system (Order processing), Notifications
-
-- Key characteristics:
-
-- Loose coupling, Asynchronous communication, High scalability, Eventual consistency.
-
-- Trade-offs:
-
-- Harder debugging, Duplicate event handling, Complex failure scenarios
-
-- Serverless Architecture (A):
-
+##### 1.6 Serverless Architecture (A):
 - Serverless architecture is a model where you run backend code without managing servers, and the cloud provider handles provisioning, scaling, and infrastructure.
-
 - Works inside Client–Server
+- **When Serverless is a good fit:**
+  - Variable or spiky traffic
+  - Event-driven workloads
+  - APIs with unpredictable load
+  - Background jobs
+- **AWS Serverless services:**
+  - Lambda functions
+  - S3
+  - DynamoDB, Aurora serverless
+  - API gateway
+  - SNS, SQS
+  - EventBridge
+  - Step Functions
+- **NOTE:** EC2, ECS, EKS, RDS, etc are NOT Serverless
+- **When Serverless is NOT a good fit:**
+  - Long-running processes
+  - Heavy in-memory workloads
+- **NOTE:** for this situation, Containers or VMs are better.
 
-- When Serverless is a good fit:
-
-- Variable or spiky traffic
-
-- Event-driven workloads
-
-- APIs with unpredictable load
-
-- Background jobs
-
-- AWS Serverless services:
-
-- Lambda functions
-
-- S3
-
-- DynamoDB, Aurora serverless
-
-- API gateway
-
-- SNS, SQS
-
-- EventBridge
-
-- Step Functions
-
-- NOTE: EC2, ECS, EKS, RDS, etc are NOT Serverless
-
-- When Serverless is NOT a good fit:
-
-- Long-running processes
-
-- Heavy in-memory workloads
-
-- NOTE: for this sistuation, Containers or VMs are better.
-
-- Backend Application Architecture - Inside a Service (how code is written in above System) -- BE Coding Patterns
-
+#### 2. Backend Application Architecture - Inside a Service (how code is written in above System) -- BE Coding Patterns
 - Layered (N-tier) (A)
-
 - MVC / MVVM (A)
-
 - Clean Architecture (A)
-
 - Hexagonal (Ports & Adapters) (A)
-
 - DDD (C-Concept)
-
 - BFF (A)
 
-- Frontend Architecture (UI app)
-
+#### 3. Frontend Architecture (UI app)
 - Component-based (A)
-
 - MVC / MVVM (frontend) (A)
-
 - Micro-frontends (A)
-
 - Rendering models: CSR / SSR / SSG / ISR (C)
-
 - State management: Flux / Redux (C)
 
-- Data
-
+#### 4. Data
 - Data modeling (RDBMS / NoSQL / Graph) (C)
-
 - Partitioning / Sharding (C)
-
 - Replication (C)
-
 - Indexing (C)
-
 - Caching (C)
-
 - Consistency models (C)
-
 - CAP theorem (C)
-
 - Backups / DR / Multi-region (C)
-
 - OLTP vs OLAP, ETL/ELT/CDC (C)
 
-- Communication
-
+#### 5. Communication
 - REST / GraphQL / gRPC (C)
-
 - Sync vs Async (C)
-
 - Queues / Pub-Sub / Streams (C)
-
 - API Gateway (A)
-
 - Schema contracts (OpenAPI / Protobuf / AsyncAPI) (C)
 
-- Security (how trust is enforced)
-
+#### 6. Security (how trust is enforced)
 - Authentication vs Authorization (C)
-
 - RBAC / ABAC (C)
-
 - OAuth2 / OIDC (C)
-
 - JWT (C)
-
 - Zero Trust (C)
-
 - Encryption (in transit / at rest) (C)
-
 - Secrets & key management (C)
-
 - Network security (WAF, segmentation) (C)
-
 - Audit logging / compliance (C)
 
-- Delivery & Operations (how it runs in production)
-
+#### 7. Delivery & Operations (how it runs in production)
 - VM / Containers / Serverless (A)
-
 - CI/CD (C)
-
 - Release strategies (Blue/Green, Canary) (C)
-
 - IaC (C)
-
 - Observability (logs/metrics/traces) (C)
-
 - Scaling (horizontal/autoscaling) (C)
 
-- Development Practices / Engineering Discipline (NOT ARCHITECTURE):
-
+#### 8. Development Practices / Engineering Discipline (NOT ARCHITECTURE):
 - TAD - Test (unit test) After Development
-
 - TDD - Test (unit test) Driven Development
-
 - BDD - Behavior-Driven Development
-
 - Code Reviews
-
 - CI
 
 </expand>
