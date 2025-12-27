@@ -113,7 +113,7 @@
 
 ##### 2.3 Clean Architecture (A):
 - Dependency rule: Dependencies point inward (toward business logic)
-- Business logic is independent of frameworks, UI, and databases
+- Business logic is independent of frameworks, UI, and databases. Angular Example- Business logic is written in the same language (TypeScript), but NOT in the Angular framework (decorators, DI, components, lifecycle, RxJS-heavy APIs, etc).
 - **Layers:** Entities (innermost) → Use Cases → Interface Adapters → Frameworks (outermost)
 - **When to use:** Long-term projects, need for testability and independence
 - **Benefit:** Easy to change frameworks without affecting business logic
