@@ -72,8 +72,12 @@ const concepts: Concept[] = [
   
   // Tools & Practices
   { name: "Git", slug: "git", category: "Tools", icon: FaTools, description: "Version control, branching, and collaboration" },
-  { name: "Web Development", slug: "webdevelopment", category: "Tools", icon: FaCode, description: "Full-stack web development practices" },
-  { name: "Quality Assurance", slug: "qualityassurance", category: "Tools", icon: FaCheckCircle, description: "Testing, QA processes, and best practices" },
+  
+  // Web Development
+  { name: "Web Development", slug: "webdevelopment", category: "Web Development", icon: FaCode, description: "Full-stack web development practices" },
+  
+  // Quality Assurance
+  { name: "Quality Assurance", slug: "qualityassurance", category: "Quality Assurance", icon: FaCheckCircle, description: "Testing, QA processes, and best practices" },
   
   // Comparisons
   { name: "VS Comparisons", slug: "vs-comparisons", category: "Comparisons", icon: FaQuestionCircle, description: "Compare conflicting and interchangeable concepts: JavaScript, React, Angular, Node.js, and more" },
@@ -86,7 +90,7 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Comparisons", "Professional"];
+const categories = ["All", "Frontend", "Backend", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
 
 function ContentPageContent() {
   const searchParams = useSearchParams();
