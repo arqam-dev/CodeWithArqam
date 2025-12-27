@@ -155,209 +155,121 @@
 <expand title="Cache - Overall Application">
 ## Cache - Overall Application
 
-- Browser:
-
-- NOTE: Saves images/js/css and sometimes API responses using HTTP headers.
-
+### 1. Browser:
+- **NOTE:** Saves images/js/css and sometimes API responses using HTTP headers.
 - HTTP caching: Cache-Control, ETag, Last-Modified
-
 - Service Worker cache (offline / stale-while-revalidate)
-
 - Storage caches: LocalStorage, Session Storage, IndexedDB
-
 - Asset caching via CDN behavior (browser respects headers)
 
-- Frontend:
+### 2. Frontend:
+- **NOTE:** Don't call the API again if I already have the data.
+- **React:**
+  - React Query
+  - SWR
+  - Redux (store as cache)
+  - Redux Toolkit Query (RTK Query)
+- **Angular:**
+  - NgRX store
+  - NgRx Entity
+  - NgRX component store
+  - RxJS "shareReplay" based cache
 
-- NOTE: Don’t call the API again if I already have the data.
-
-- React:
-
-- React Query
-
-- SWR
-
-- Redux (store as cache)
-
-- Redux Toolkit Query (RTK Query)
-
-- Anguar:
-
-- NgRX store
-
-- NgRx Entity
-
-- NgRX component store
-
-- RxJS "shareReplay" based cache
-
-- Backend:
-
-- NOTE: Don’t hit the database every time for the same read
-
-- In-memory cache:
-
-- Node process memory
-
-- JVM heap cache
-
-- Distributed cache:
-
-- Redis
-
-- Memcached
-
+### 3. Backend:
+- **NOTE:** Don't hit the database every time for the same read
+- **In-memory cache:**
+  - Node process memory
+  - JVM heap cache
+- **Distributed cache:**
+  - Redis
+  - Memcached
 - HTTP response cache (API Gateway / Reverse Proxy)
 
-- Database:
-
-- NOTE: Databases also avoid disk reads by caching in memory.
-
-- Relational DB:
-
-- DB buffer cache (automatic) - DB keeps data pages/rows in RAM. MySQL: InnoDB Buffer Pool. Postgres: Shared Buffers
-
-- Query cache - before MySQL8, it cached entire query results.
-
-- Materialized views - Caching like feature
-
-- Read replicas (read-scale cache-like behavior)
-
-- NoSQL-Search DB:
-
--
+### 4. Database:
+- **NOTE:** Databases also avoid disk reads by caching in memory.
+- **Relational DB:**
+  - DB buffer cache (automatic) - DB keeps data pages/rows in RAM. MySQL: InnoDB Buffer Pool. Postgres: Shared Buffers
+  - Query cache - before MySQL8, it cached entire query results.
+  - Materialized views - Caching like feature
+  - Read replicas (read-scale cache-like behavior)
+- **NoSQL-Search DB:**
+  - (To be added)
 
 </expand>
 
 <expand title="Security / Reliability - Overall Application">
 ## Security / Reliability - Overall Application
 
-- Browser:
-
-- Purpose: protect user session, data in browser. session + injection protection
-
+### 1. Browser:
+- **Purpose:** protect user session, data in browser. session + injection protection
 - Secure cookies (HttpOnly, Secure, SameSite)
-
 - Token storage rules (avoid localStorage for sensitive tokens)
-
 - Browser storage controls (localStorage / IndexedDB usage discipline)
-
 - CSRF protection (same-site cookies, CSRF tokens)
-
 - Content Security Policy (CSP)
-
 - XSS protection (escaping, sanitization)
 
-- Frontend:
-
-- Purpose: enforce UI-level access & safe data handling
-
+### 2. Frontend:
+- **Purpose:** enforce UI-level access & safe data handling
 - Route guards (Angular Guards, React Protected Routes)
-
 - Role/permission-based UI rendering
-
 - Token handling (access vs refresh tokens)
-
 - API request signing (auth headers)
-
 - Input validation (client-side)
-
 - Secure state management (Redux / NgRx store hygiene)
 
-- Backend:
-
-- Purpose: REAL security enforcement
-
+### 3. Backend:
+- **Purpose:** REAL security enforcement
 - Authentication (OAuth2 / OIDC)
-
 - Authorization (RBAC / ABAC)
-
 - API authentication (JWT, opaque tokens)
-
 - Token validation & rotation
-
 - Rate limiting & throttling
-
 - Input validation & sanitization
-
 - Output filtering (no overexposure)
-
 - Audit logs
-
 - Secrets management (env, vault)
-
 - Idempotency keys (abuse protection)
 
-- Communication / Network Layer:
-
-- Purpose: protect data in transit & service boundaries. secure pipes
-
+### 4. Communication / Network Layer:
+- **Purpose:** protect data in transit & service boundaries. secure pipes
 - TLS / HTTPS everywhere
-
 - mTLS (service-to-service)
-
 - API Gateway security -> auth, rate limiting, IP allow/deny
-
 - WAF (Web Application Firewall)
-
 - Network segmentation (VPC, subnets, security groups)
 
-- Database:
-
-- Purpose: protect stored data. least privilege + encryption
-
+### 5. Database:
+- **Purpose:** protect stored data. least privilege + encryption
 - Encryption at rest
-
 - DB user roles & permissions
-
 - Row/column-level security
-
 - Parameterized queries (SQL injection protection)
-
 - Audit logging
-
 - Backup encryption
 
-- Deployment / Infrastructure:
-
-- Purpose: protect runtime & secrets
-
+### 6. Deployment / Infrastructure:
+- **Purpose:** protect runtime & secrets
 - IAM roles (no hardcoded creds)
-
 - Secrets manager (Vault, AWS Secrets Manager)
-
 - Image scanning (containers)
-
 - OS hardening
-
 - Patch management
-
 - Infrastructure-as-Code security
-
 - Environment isolation (dev/stage/prod)
 
-- Compliances:
+### 7. Compliances:
+- **Tech-Cloud:** ISO 27001, SOC 2
+- **Health:** HIPAA
+- **Finance:** PCI DSS
+- **ECommerce-Retail:** PCI DSS, GDPR
+- **Govt:** NIST
 
-- Tech-Cloud - ISO 27001, SOC 2
-
-- Health - HIPPA
-
-- Finance - PCI DSS
-
-- ECommerce-Retail - PCI DSS, GDPR
-
-- Govt - NIST
-
-- Cross-cutting Security Concepts (apply everywhere):
-
+### 8. Cross-cutting Security Concepts (apply everywhere):
 - Zero Trust (never trust, always verify)
-
 - Principle of Least Privilege
-
 - Defense in Depth
-
 - Secure defaults
-
 - Auditability & compliance
 
 </expand>
@@ -365,98 +277,58 @@
 <expand title="Performance / Scalability - Overall Application:">
 ## Performance / Scalability - Overall Application:
 
-- Browser:
-
+### 1. Browser:
 - CDN-delivered static assets (reduce origin load)
-
 - Lazy loading (images/routes) to reduce payload
-
-- Pagination / infinite scroll (don’t load everything)
-
+- Pagination / infinite scroll (don't load everything)
 - Client-side caching (avoid repeat calls)
 
-- Frontend:
-
+### 2. Frontend:
 - Server-state libraries to reduce refetch (React Query / SWR, NgRx patterns)
-
 - Debouncing/throttling (search, filters)
-
 - Virtualized lists (large tables/lists)
-
 - Prefetching critical data only
-
 - Split bundles (route-level)
 
-- Backend:
-
+### 3. Backend:
 - Stateless services (enable horizontal scaling)
-
 - Load balancing (spread traffic)
-
 - Autoscaling (scale-out on CPU/RPS/latency)
-
 - Caching hot reads (Redis)
-
 - Async processing for heavy work (queues/workers)
-
 - Rate limiting (protect capacity)
-
 - Read/write separation (route reads differently than writes)
 
-- Communication:
-
+### 4. Communication:
 - Queue-based buffering (smooth traffic spikes)
-
 - Pub-Sub for fanout (avoid N sync calls)
-
-- Backpressure (don’t overload downstream)
-
+- Backpressure (don't overload downstream)
 - Timeouts/retries tuned for scale (avoid retry storms)
-
 - API Gateway for throttling + routing
 
-- Database:
+### 5. Database:
+- **Relational:**
+  - Indexing + query optimization (first)
+  - Connection pooling
+  - Read replicas
+  - Partitioning (by tenant/date)
+  - Sharding (when partitioning isn't enough)
+  - Avoid hot rows (counters, leaderboards)
+- **NoSQL:**
+  - Partition key design (avoid hot partitions)
+  - Denormalization for read scale
+  - TTL + precomputed views
 
-- Relational:
-
-- Indexing + query optimization (first)
-
-- Connection pooling
-
-- Read replicas
-
-- Partitioning (by tenant/date)
-
-- Sharding (when partitioning isn’t enough)
-
-- Avoid hot rows (counters, leaderboards)
-
-- NoSQL:
-
-- Partition key design (avoid hot partitions)
-
-- Denormalization for read scale
-
-- TTL + precomputed views
-
-- Storage/Files:
-
+### 6. Storage/Files:
 - Object storage (S3-style) for files
-
 - CDN in front of object storage
-
 - Pre-signed uploads (client uploads directly, bypass backend)
 
-- Deployment / Infrastructure:
-
+### 7. Deployment / Infrastructure:
 - Multi-AZ deployment (capacity + resilience)
-
 - Horizontal scaling policies
-
 - Blue/Green or Canary (safe growth)
-
 - Capacity planning + load testing
-
 - Observability for scale signals (RPS, p95 latency, saturation)
 
 </expand>
@@ -464,90 +336,65 @@
 <expand title="Testing - Overall Application">
 ## Testing - Overall Application
 
-- Browser (usually not required explicitly):
-
+### 1. Browser (usually not required explicitly):
 - Does the app work in different browsers?
-
 - Does localStorage/session behave as expected on different browsers
 
-- Frontend:
+### 2. Frontend:
+- **Unit tests** → small UI logic
+- **Component tests** → UI + logic together
+- **E2E tests** → full user journey
 
-- Unit tests → small UI logic
+### 3. Backend:
+- **Unit tests** → pure logic
+- **API tests** → request/response
+- **Integration tests** → API + DB
 
-- Component tests → UI + logic together
-
-- E2E tests → full user journey
-
-- Backend:
-
-- Unit tests → pure logic
-
-- API tests → request/response
-
-- Integration tests → API + DB
-
-- Communication:
-
+### 4. Communication:
 - Contract testing (API contracts, schemas)
-
 - Backward compatibility testing
-
 - Error-handling testing (timeouts, retries)
-
 - Message format testing (events, queues)
-
 - Idempotency testing
 
-- Database (usually not required explicitly. done in integration testing in BE):
-
+### 5. Database (usually not required explicitly. done in integration testing in BE):
 - Migration tests
-
 - Data integrity checks
 
-- Deployment / Infrastructure:
-
+### 6. Deployment / Infrastructure:
 - Smoke tests
-
 - Post-deploy checks
 
-- Notes:
-
-- WHO is testing (developer vs QA)
-
-- WHAT is being tested (unit, integration, E2E, etc)
-
-- HOW it is tested (black box, white box, etc)
-
-- Production Monitoring - Sentry
+### 7. Notes:
+- **WHO** is testing (developer vs QA)
+- **WHAT** is being tested (unit, integration, E2E, etc)
+- **HOW** it is tested (black box, white box, etc)
+- **Production Monitoring** - Sentry
 
 </expand>
 
 <expand title="System/Application Characteristics - Overall Application">
 ## System/Application Characteristics - Overall Application
 
-- NOTE: while designing a system we should consider following attributes
+**NOTE:** while designing a system we should consider following attributes:
 
-- Scalability
-
-- Maintainability
-
-- Load balancing
-
-- Caching
-
-- ACID
-
-- BASE
-
-- Low Latency
-
-- High Throughput
-
-- CAP Theorem
-
-- Fault Tolerance - Acheived by multiple instances, Automatic failover, Retries with timeouts, Circuit breakers, Data replication, Graceful degradation, etc.
-
-Primary Concepts
+1. Scalability
+2. Maintainability
+3. Load balancing
+4. Caching
+5. ACID
+6. BASE
+7. Low Latency
+8. High Throughput
+9. CAP Theorem
+10. Fault Tolerance - Achieved by:
+    - Multiple instances
+    - Automatic failover
+    - Retries with timeouts
+    - Circuit breakers
+    - Data replication
+    - Graceful degradation
+    - etc.
 
 </expand>
 
@@ -606,99 +453,83 @@ Primary Concepts
 <expand title="Idempotent">
 ## Idempotent
 
-- making the same request multiple times will produce the same result as making the request once. like Submission of form multiple time immidiately should not insert the same data multiple times.
-- Example:
-  - GET Requests:
-  - inherently idempotent. Doesn't have any affect on server state.
-  - PUT and DELETE Requests:
-  - These methods are typically designed to be idempotent.
-  - If you repeat the same PUT or DELETE request, the end result should still be the same, either the resource is updated to the same state or it is deleted.
-  - POST Requests;
-  - POST requests are not inherently idempotent.
-  - Ways to avoid it:
-    - Use Unique Identifiers - Generate and include a unique identifier (e.g., a UUID) in the request payload or headers for each POST request.
-    - Idempotent Tokens:
-    - Provide clients with idempotent tokens that can be included in the request headers.
-    - Conditional Requests:
-    - Use conditional headers such as If-Match or If-None-Match to prevent unintended duplication.
-    - These headers allow the server to compare the current state of a resource with a previous state.
-    - Response Headers
-    - Transaction IDs
-    - Retries and Idempotence
-    - Conflict Resolution
+Making the same request multiple times will produce the same result as making the request once. Like submission of form multiple times immediately should not insert the same data multiple times.
+
+### Examples by HTTP Method:
+
+1. **GET Requests:**
+   - Inherently idempotent. Doesn't have any effect on server state.
+
+2. **PUT and DELETE Requests:**
+   - These methods are typically designed to be idempotent.
+   - If you repeat the same PUT or DELETE request, the end result should still be the same, either the resource is updated to the same state or it is deleted.
+
+3. **POST Requests:**
+   - POST requests are not inherently idempotent.
+   - **Ways to make POST idempotent:**
+     - **Use Unique Identifiers:** Generate and include a unique identifier (e.g., a UUID) in the request payload or headers for each POST request.
+     - **Idempotent Tokens:** Provide clients with idempotent tokens that can be included in the request headers.
+     - **Conditional Requests:** Use conditional headers such as If-Match or If-None-Match to prevent unintended duplication. These headers allow the server to compare the current state of a resource with a previous state.
+     - **Response Headers**
+     - **Transaction IDs**
+     - **Retries and Idempotence**
+     - **Conflict Resolution**
 
 </expand>
 
 <expand title="CAP Theorem">
 ## CAP Theorem
 
-- Distributed systems can provide at most 2 of 3 guarantees:
-  - Consistency: All clients see same data at same time
-  - Availability: System responds even if some nodes are down
-  - Partition Tolerance: The system continues to operate despite network failures that split nodes
+Distributed systems can provide at most 2 of 3 guarantees:
 
-into isolated groups.
+1. **Consistency:** All clients see same data at same time
+2. **Availability:** System responds even if some nodes are down
+3. **Partition Tolerance:** The system continues to operate despite network failures that split nodes into isolated groups.
 
-- Common combinations: CP (consistency + partition), AP (availability + partition)
+### Common combinations:
+- **CP (Consistency + Partition):** Prioritizes consistency and partition tolerance
+- **AP (Availability + Partition):** Prioritizes availability and partition tolerance
 
 </expand>
 
 <expand title="ACID vs BASE Properties">
 ## ACID vs BASE Properties
 
-- ACID:
+### ACID:
 
-- A = Atomicity
+1. **A = Atomicity**
+   - Transaction is all or nothing. Partial updates are not allowed.
+   - **Example:** Money deducted and added — or neither
 
-= Transaction is all or nothing. Partial updates are not allowed.
+2. **C = Consistency**
+   - Database moves from one valid state to another. All rules, constraints, and validations are preserved.
+   - **Example:** Balance can't become negative if rule forbids it.
 
-= Example: Money deducted and added — or neither
+3. **I = Isolation**
+   - Concurrent transactions don't interfere. Each behaves as if it runs alone.
+   - **Example:** Two users editing data won't corrupt it.
 
-- C = Consistency
+4. **D = Durability**
+   - Once committed, data is permanently saved. Survives crashes and restarts.
+   - **Example:** Committed transfer remains after power failure.
 
-= Database moves from one valid state to another. All rules, constraints, and validations are preserved.
+### BASE:
 
-= Example: Balance can’t become negative if rule forbids it.
+1. **BA = Basically Available**
+   - System always responds, even during failures. May return stale or partial data, but not an error
+   - **Example:** Social media feed loads even if some likes/comments are missing
 
-- I = Isolation
+2. **S = Soft state**
+   - Data may change over time without new input. State is not immediately consistent across all nodes
+   - **Example:** Cache value updates asynchronously across servers
 
-= Concurrent transactions don’t interfere. Each behaves as if it runs alone.
+3. **E = Eventual consistency**
+   - If no new updates occur, all replicas will eventually become consistent. No guarantee of immediate consistency
+   - **Example:** Like count differs across regions but becomes same after some time
 
-= Example: Two users editing data won’t corrupt it.
-
-- D = Durability
-
-= Once committed, data is permanently saved. Survives crashes and restarts.
-
-= Example: Committed transfer remains after power failure.
-
-- BASE:
-
-- BA = Basically Available
-
-= System always responds, even during failures. May return stale or partial data, but not an error
-
-= Example: Social media feed loads even if some likes/comments are missing
-
-- S = Soft state
-
-= Data may change over time without new input. State is not immediately consistent across all nodes
-
-= Example: Cache value updates asynchronously across servers
-
-- E = Eventual consistency
-
-= If no new updates occur, all replicas will eventually become consistent. No guarantee of immediate consistency
-
-= Example: Like count differs across regions but becomes same after some time
-
-Summary:
-
-- in CAP theorem, ACID systems → CP , BASE systems → AP
-
-- BASE = eventual consistency. NOT bad consitency.
-
-Secondary Concepts
+### Summary:
+- In CAP theorem, ACID systems → CP, BASE systems → AP
+- BASE = eventual consistency. NOT bad consistency.
 
 </expand>
 
@@ -750,34 +581,38 @@ Secondary Concepts
 <expand title="Single Table Architecture VS Multi-Table Architecture in NoSQL Databases?">
 ## Single Table Architecture VS Multi-Table Architecture in NoSQL Databases?
 
-- Single table doesn't means that the whole application will have the single table.
-- This means the set of tables through which we have to get the data frequently, will be combined to a single table. means
+1. Single table doesn't mean that the whole application will have the single table.
 
-will denormalize the database.
+2. This means the set of tables through which we have to get the data frequently, will be combined to a single table. This means we will denormalize the database.
 
-- Example:
-  - Whenever we need to get a customer, we need to get the records as well. So, we will combine this table to avoid the join (RDBMS) or extra call for the second table (NoSQL).
+3. **Example:**
+   - Whenever we need to get a customer, we need to get the records as well. So, we will combine this table to avoid the join (RDBMS) or extra call for the second table (NoSQL).
 
 </expand>
 
-<expand title="Scenerio: Two Requests hit a DB at the same time">
-## Scenerio: Two Requests hit a DB at the same time
+<expand title="Scenario: Two Requests hit a DB at the same time">
+## Scenario: Two Requests hit a DB at the same time
 
-NOTE: Requests can never hit the database at the exact same instant, even at microsecond or nanosecond level.
+**NOTE:** Requests can never hit the database at the exact same instant, even at microsecond or nanosecond level.
 
-- Internally, the DB schedules work across CPU cores and uses below techniques to keep data consistent.
-- DBMS:
-  - Isolation levels:
-  - Isolation levels include "Read Uncommitted," "Read Committed," "Repeatable Read," and "Serializable."
-  - Locking:
-  - Locks can be placed on rows, tables, or even at a finer granularity.
-  - Locking helps avoid conflicts but can also lead to potential deadlocks.
-  - Concurrency Control Algorithms:
-  - Techniques like two-phase locking, timestamp ordering, and optimistic concurrency control are used to manage concurrent updates.
-  - Timestamps and Versioning
-  - Rollback and Redo
-  - Conflict Resolution
-  - Transaction Isolation and Durability
+Internally, the DB schedules work across CPU cores and uses below techniques to keep data consistent.
+
+### DBMS Techniques:
+
+1. **Isolation levels:**
+   - Isolation levels include "Read Uncommitted," "Read Committed," "Repeatable Read," and "Serializable."
+
+2. **Locking:**
+   - Locks can be placed on rows, tables, or even at a finer granularity.
+   - Locking helps avoid conflicts but can also lead to potential deadlocks.
+
+3. **Concurrency Control Algorithms:**
+   - Techniques like two-phase locking, timestamp ordering, and optimistic concurrency control are used to manage concurrent updates.
+
+4. **Timestamps and Versioning**
+5. **Rollback and Redo**
+6. **Conflict Resolution**
+7. **Transaction Isolation and Durability**
 
 </expand>
 
@@ -792,26 +627,39 @@ NOTE: Requests can never hit the database at the exact same instant, even at mic
 
 </expand>
 
-<expand title="Scenerio: If we get the token of one ecommerce web and utilize it for the other ecommerce, how they get to know that this token doesn’t belongs to their web?">
-## Scenerio: If we get the token of one ecommerce web and utilize it for the other ecommerce, how they get to know that this token doesn’t belongs to their web?
+<expand title="Scenario: If we get the token of one ecommerce web and utilize it for the other ecommerce, how they get to know that this token doesn't belongs to their web?">
+## Scenario: If we get the token of one ecommerce web and utilize it for the other ecommerce, how they get to know that this token doesn't belongs to their web?
 
-- When a platform generates a token (JWT), it includes various pieces of information in the token's payload, such as user ID, email, and potentially other claims.
-- The platform uses its private key, which is kept securely and known only to that platform, to create a digital signature based on the token's payload.
+1. When a platform generates a token (JWT), it includes various pieces of information in the token's payload, such as user ID, email, and potentially other claims.
+
+2. The platform uses its **private key**, which is kept securely and known only to that platform, to create a digital signature based on the token's payload.
+
+3. When another platform receives the token, it cannot verify the signature because it doesn't have the original platform's private key, thus rejecting the token as invalid.
 
 </expand>
 
 <expand title="JSON vs JSONB">
 ## JSON vs JSONB
 
-- JSON is a data type that stores JSON data as plain text. It preserves the original formatting and structure of the JSON data.
-- JSONB data is stored in a binary format that is optimized for fast read and write operations. It doesn't retain the original formatting and is usually more compact in terms of storage space.
-- Indexing:
-  - SQL supports JSON.
-  - We can do indexing over it and can do indexing on a single attribute known as Generated Column.
+### Differences:
+
+1. **JSON:**
+   - Data type that stores JSON data as plain text
+   - Preserves the original formatting and structure of the JSON data
+
+2. **JSONB:**
+   - Data is stored in a binary format optimized for fast read and write operations
+   - Doesn't retain the original formatting
+   - Usually more compact in terms of storage space
+
+### Indexing:
+
+- **SQL:** Supports JSON
+  - We can do indexing over it and can do indexing on a single attribute known as Generated Column
   - Generated columns are of two types:
     - Stored Generated Columns
     - Virtual Generated Columns
-  - PostGres supports JSONB.
+- **PostgreSQL:** Supports JSONB
 
 </expand>
 
@@ -1052,92 +900,102 @@ NOTE: Requests can never hit the database at the exact same instant, even at mic
 <expand title="Logging">
 ## Logging
 
-- AWS Cloud Watch
-- Graylog - management tool for logging. collects, stores, indexes, and visualizes the logs.
-  - Winston (Node.js) → creates and formats the logs.
-
-Browser Working
+1. **AWS CloudWatch**
+2. **Graylog** - Management tool for logging. Collects, stores, indexes, and visualizes the logs.
+   - **Winston (Node.js)** → creates and formats the logs.
 
 </expand>
 
 <expand title="Testing">
 ## Testing
 
-- Unit
-- Funcitonal
-- Integration
+1. **Unit Testing**
+2. **Functional Testing**
+3. **Integration Testing**
 
 </expand>
 
 <expand title="Search Engines">
 ## Search Engines
 
-- Elastic Search:
-  - Elasticsearch is a document oriented database.
-  - We also call it a search engine.
-  - Elasticsearch is a standalone database. Its main use case is for searching text and text and/number related queries such as aggregations.
-  - Generally, it's not recommended to use Elasticsearch as the main database, as some operations such as indexing (inserting values) are more expensive compared to other databases.
-  - You can use Elasticsearch along with any other database such as MongoDB or MySQL, where the other databases can act as the primary database, and you can sync Elasticsearch with your primary database for the "searchable" parts of the data.
-  - Example: best suit for Log analysis case
-- Solr:
-  - Solr has more advantages when it comes to the static data, because of its caches and the ability to use an uninverted reader for faceting and sorting
-  - Example: best suit for e-commerce.
+### 1. Elasticsearch:
+- Elasticsearch is a document oriented database.
+- We also call it a search engine.
+- Elasticsearch is a standalone database. Its main use case is for searching text and text/number related queries such as aggregations.
+- Generally, it's not recommended to use Elasticsearch as the main database, as some operations such as indexing (inserting values) are more expensive compared to other databases.
+- You can use Elasticsearch along with any other database such as MongoDB or MySQL, where the other databases can act as the primary database, and you can sync Elasticsearch with your primary database for the "searchable" parts of the data.
+- **Example:** Best suited for Log analysis case
+
+### 2. Solr:
+- Solr has more advantages when it comes to the static data, because of its caches and the ability to use an uninverted reader for faceting and sorting
+- **Example:** Best suited for e-commerce
 
 </expand>
 
 <expand title="Security">
 ## Security
 
-- Auditability
-- Legality:
-  - Compliances:
+### 1. Auditability
+
+### 2. Legality:
+- **Compliances:**
   - AWS supports more security standards and compliance certifications than any other offering, including PCI-DSS, HIPAA/HITECH, FedRAMP, GDPR, FIPS 140-2, and NIST 800-171, helping customers satisfy compliance requirements for virtually every regulatory agency around the globe.
-  - Privacy
-  - Certification
-- Authentication  & Authorization:
-  - MFA
+- **Privacy**
+- **Certification**
+
+### 3. Authentication & Authorization:
+- MFA (Multi-Factor Authentication)
 
 </expand>
 
 <expand title="GraphQL">
 ## GraphQL
 
-- pick specific data. make the query smarter. avoid over fetching. use in case of millions of users.
-- NOTE: There are a lot of ways to implement graphql.
-- Command: npm i express graphql express-graphql nanoid
-- Parts:
-  - Main parts:
-  - Schema
-  - Resolvers
-  - Other parts:
-  - Pagination
-  - Authorization
-  - Caching
-  - etc etc.
-- Resolver:
-  - Accept the query and sending the response on the base of logic used.
-- Query:
-  - keyword use to get data from the schema (or db)
-- Mutation:
-  - keyword use to enter or filling the data in the schema (or db)
-- graphql tools:
-  - ways how we persist the data in postgres, etc db.
-- We should use rest apis as well. not only graphQL.
-- How it avoids over-fetching and under-fetching: (https://www.programmersinc.com/over-fetching-and-under-fetching-rest-apis-exhaustion-signs/)
-  - Example:
-  - We want to show data for web and mobiles. We usually requires less data in the mobile device.
-  - So, let supose an endpoint "users/1" shows the complete user profile with all friends. Let suppose on mobile, you do not need friends. So, in that case this will be
+Pick specific data. Make the query smarter. Avoid over fetching. Use in case of millions of users.
 
-the over-fetching for mobile. Otherwise, you need to create another endpoint for it.
+**NOTE:** There are a lot of ways to implement GraphQL.
 
-  - So, creating excess end points will make the code unorganized that will definitely hard to manage.
+### Installation:
+```bash
+npm i express graphql express-graphql nanoid
+```
 
-- Uses the http request behind the scene similar to the rest APIs.
-- Limitations:
-  - As we have a single endpoint, we have a cache issue.
-- 
+### Parts:
 
-</expand>
+1. **Main parts:**
+   - Schema
+   - Resolvers
+
+2. **Other parts:**
+   - Pagination
+   - Authorization
+   - Caching
+   - etc.
+
+### Key Concepts:
+
+- **Resolver:** Accepts the query and sends the response based on the logic used.
+- **Query:** Keyword used to get data from the schema (or db)
+- **Mutation:** Keyword used to enter or fill data in the schema (or db)
+- **GraphQL tools:** Ways how we persist the data in postgres, etc db.
+
+**NOTE:** We should use REST APIs as well, not only GraphQL.
+
+### How it avoids over-fetching and under-fetching:
+(https://www.programmersinc.com/over-fetching-and-under-fetching-rest-apis-exhaustion-signs/)
+
+**Example:**
+- We want to show data for web and mobiles. We usually require less data in the mobile device.
+- Suppose an endpoint "users/1" shows the complete user profile with all friends. On mobile, you do not need friends. In that case, this will be the over-fetching for mobile. Otherwise, you need to create another endpoint for it.
+- Creating excess endpoints will make the code unorganized and hard to manage.
+
+### Technical Details:
+- Uses the HTTP request behind the scene similar to REST APIs.
+
+### Limitations:
+- As we have a single endpoint, we have a cache issue.
+
+</expand></expand>
 
 <expand title="HTM vs HTML">
 ## HTM vs HTML
@@ -1216,17 +1074,18 @@ the over-fetching for mobile. Otherwise, you need to create another endpoint for
 <expand title="Indexing: (https://chartio.com/learn/databases/how-does-indexing-work/)">
 ## Indexing: (https://chartio.com/learn/databases/how-does-indexing-work/)
 
-- Algorithm:
+### Algorithms:
 
-- Relational DB: B-Tree, B+ Tree, Hash Index, etc.
+1. **Relational DB:** B-Tree, B+ Tree, Hash Index, etc.
+2. **NoSQL DB:** LSM Tree, Bloom filter, etc.
 
-- NoSQL DB: LSM Tree, Bloom filter, etc
+### How Indexing Works:
 
-- Indexing adds a data structure with columns for the search conditions and a pointer
-- The pointer is the address on the memory disk of the row with the rest of the information
-- The index data structure is sorted to optimize query efficiency
-- The query looks for the specific row in the index; the index refers to the pointer which will find the rest of the information.
-- The index reduces the number of rows the query has to search through from 17 to 4.
+1. Indexing adds a data structure with columns for the search conditions and a pointer
+2. The pointer is the address on the memory disk of the row with the rest of the information
+3. The index data structure is sorted to optimize query efficiency
+4. The query looks for the specific row in the index; the index refers to the pointer which will find the rest of the information
+5. **Example:** The index reduces the number of rows the query has to search through from 17 to 4.
 
 </expand>
 
@@ -1264,70 +1123,86 @@ the over-fetching for mobile. Otherwise, you need to create another endpoint for
 <expand title="Databases (Inside any DB / Behind the scene)">
 ## Databases (Inside any DB / Behind the scene)
 
-- Query Parser + Query Optimizer
-- Execution Engine
-- Cache
-- Authentication Backup Metrics (Utilities)
-- Managers: Transaction Manager, Lock Manager, Recovery Manager (Maintain logs usign "Append only" data structure), etc.
-- Data File / Index File (Meta data)
-- Storage Engine (SQL or NoSQL)
+1. **Query Parser + Query Optimizer**
+2. **Execution Engine**
+3. **Cache**
+4. **Authentication Backup Metrics (Utilities)**
+5. **Managers:**
+   - Transaction Manager
+   - Lock Manager
+   - Recovery Manager (Maintain logs using "Append only" data structure)
+   - etc.
+6. **Data File / Index File (Meta data)**
+7. **Storage Engine (SQL or NoSQL)**
 
 </expand>
 
 <expand title="GitHub Codespace">
 ## GitHub Codespace
 
-- Intro:
-  - GitHub Codespaces is an instant, cloud-based development environment that uses a container to provide you with common languages, tools, and utilities for development.
-  - GitHub Codespaces is also configurable, allowing you to create a customized development environment for your project.
-  - It actually uses the microsoft container images in which we have the pre-defined dependencies like we can use the image of nodeJS, node with mongo, etc. NOTE: These are not the github or docker images.
-  - Any (docker, microsoft, etc) Container Image:
-  - A Docker image is a standalone, executable package that includes everything needed to run a piece of software, including the application code, runtime, system libraries, and dependencies
-  - It is used to create and run containers, which are isolated environments where the application can run consistently across different platforms and environments.
-- Steps for looking for the images:
-  - cmd+shift+p
-  - type "Add Dev configuration File".
-  - Then modify or create a new configuration.
-  - In the end, rebuild the image. Always do it after making the changes. (type "rebuild" in the cmd+shift+p)
-- Application:
-  - Major Advantage: Pre-configured env (through microsoft container images)
-  - Contributing to Open Source Projects
-  - Reviewing Pull Requests:
-  - Collaborative Coding
-  - Education and Onboarding
-  - Working on Multiple Devices
-  - Continuous Integration and Deployment (CI/CD)
-- Forward a Port:
-  - Process of exposing a specific network port from the cloud-hosted development environment to the local machine or to the internet.
-  - This allows you to access services or applications running inside the Codespace from your local computer or other devices.
+### Introduction:
+
+1. GitHub Codespaces is an instant, cloud-based development environment that uses a container to provide you with common languages, tools, and utilities for development.
+
+2. GitHub Codespaces is also configurable, allowing you to create a customized development environment for your project.
+
+3. It actually uses the Microsoft container images in which we have the pre-defined dependencies like we can use the image of nodeJS, node with mongo, etc. **NOTE:** These are not the GitHub or Docker images.
+
+4. **Any (docker, microsoft, etc) Container Image:**
+   - A Docker image is a standalone, executable package that includes everything needed to run a piece of software, including the application code, runtime, system libraries, and dependencies
+   - It is used to create and run containers, which are isolated environments where the application can run consistently across different platforms and environments.
+
+### Steps for looking for the images:
+
+1. `cmd+shift+p` (or `ctrl+shift+p`)
+2. Type "Add Dev configuration File"
+3. Then modify or create a new configuration
+4. In the end, rebuild the image. Always do it after making the changes. (type "rebuild" in the cmd+shift+p)
+
+### Applications:
+
+- **Major Advantage:** Pre-configured env (through Microsoft container images)
+- Contributing to Open Source Projects
+- Reviewing Pull Requests
+- Collaborative Coding
+- Education and Onboarding
+- Working on Multiple Devices
+- Continuous Integration and Deployment (CI/CD)
+
+### Forward a Port:
+
+- Process of exposing a specific network port from the cloud-hosted development environment to the local machine or to the internet.
+- This allows you to access services or applications running inside the Codespace from your local computer or other devices.
 
 </expand>
 
 <expand title="System Design Interview Preparation">
 ## System Design Interview Preparation
 
-- Key Concepts: Scalability, Fault tolerance, Load balancing, Caching, Availability, Consistency, Latency, Throughput, Partition Tolerance, CAP Theorem, ACID
-- Common Patterns: Microservices, Sharding, Event sourcing, Circuit Breaker, Reverse proxy, CQRS
-- Database Types: Relational, NoSQL, Distributed key-value, Document, Graph, Time-series
-- Distributed Algorithms: Merkle Tree, Consistent Hashing, Read Repair, Gossip Protocol, Bloom Filter, Heartbeat
-- Interview Steps:
+### Key Concepts:
+Scalability, Fault tolerance, Load balancing, Caching, Availability, Consistency, Latency, Throughput, Partition Tolerance, CAP Theorem, ACID
+
+### Common Patterns:
+Microservices, Sharding, Event sourcing, Circuit Breaker, Reverse proxy, CQRS
+
+### Database Types:
+Relational, NoSQL, Distributed key-value, Document, Graph, Time-series
+
+### Distributed Algorithms:
+Merkle Tree, Consistent Hashing, Read Repair, Gossip Protocol, Bloom Filter, Heartbeat
+
+### Interview Steps:
 
 1. Requirements clarification
-
 2. Back-of-the-envelope estimation
-
 3. System interface definition
-
 4. Data model definition
-
 5. High-level design
-
 6. Detailed design
-
 7. Identify and resolve bottlenecks
 
-- Common System Design Questions:
-  - Design: Messenger, Youtube, Newsfeed, Rate Limiter, Twitter, Dropbox/Drive, Web Crawler, URL Shortener, Instagram, Uber
+### Common System Design Questions:
+Design: Messenger, Youtube, Newsfeed, Rate Limiter, Twitter, Dropbox/Drive, Web Crawler, URL Shortener, Instagram, Uber
 
 </expand>
 
