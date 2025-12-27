@@ -690,7 +690,7 @@ export default function Home() {
                   <h3 className="font-semibold text-slate-900 dark:text-white">Phone</h3>
                   <div className="inline-flex items-center">
                     <span className="text-blue-600 dark:text-blue-400 blur-sm select-none pointer-events-none">
-                      (+351) 912998774
+                      (+351) 000000000
                     </span>
                     <FaExclamationTriangle 
                       className="ml-2 text-yellow-500 dark:text-yellow-400 cursor-help" 
