@@ -1,24 +1,5 @@
 # Primary Concepts
 
-<expand title="Diagram for assistance in learning below topics">
-## Diagram for assistance in learning below topics
-
-Security <-		Application 				-> Deployment
-
-                |		|
-
-   Backend Server  	Frontend Code
-
-          |							  |
-
-  Backend Code <-- Communication --> Frontend Code
-
-          |
-
-        Data
-
-</expand>
-
 <expand title="Architectures (how responsibilities are divided, whether in code, servers, or data)">
 ## Architectures (how responsibilities are divided, whether in code, servers, or data)
 
