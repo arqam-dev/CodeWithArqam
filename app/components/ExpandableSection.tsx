@@ -49,9 +49,11 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
         </button>
         {isOpen && (
           <div className="expandable-content">
-            <ReactMarkdown>{content}</ReactMarkdown>
-            <AIEnrichment title={title} originalContent={content} />
-            {/* Fullscreen button */}
+            <div className="expandable-content-inner">
+              <ReactMarkdown>{content}</ReactMarkdown>
+              <AIEnrichment title={title} originalContent={content} />
+            </div>
+            {/* Fullscreen button - sticky */}
             <button
               onClick={() => setIsModalOpen(true)}
               className="expandable-fullscreen-btn"
