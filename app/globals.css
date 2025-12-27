@@ -265,6 +265,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  position: relative;
 }
 
 /* Custom scrollbar for expandable content */
@@ -457,6 +458,217 @@ body {
   
   .expandable-content table th {
     background: #1a202c;
+  }
+}
+
+/* Fullscreen button */
+.expandable-fullscreen-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 6px;
+  color: #3b82f6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+
+.expandable-fullscreen-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  .expandable-fullscreen-btn {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: rgba(96, 165, 250, 0.3);
+    color: #60a5fa;
+  }
+  
+  .expandable-fullscreen-btn:hover {
+    background: rgba(96, 165, 250, 0.25);
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+  }
+}
+
+/* Modal Overlay */
+.expandable-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal Content */
+.expandable-modal-content {
+  background: var(--background);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 95%;
+  max-width: 1400px;
+  height: 90vh;
+  max-height: 900px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Header */
+.expandable-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f7fafc;
+  flex-shrink: 0;
+}
+
+.expandable-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.expandable-modal-close {
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.expandable-modal-close:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+  transform: rotate(90deg);
+}
+
+/* Modal Body */
+.expandable-modal-body {
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  scroll-behavior: smooth;
+}
+
+.expandable-modal-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.expandable-modal-body::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 5px;
+}
+
+.expandable-modal-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 5px;
+}
+
+.expandable-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@media (prefers-color-scheme: dark) {
+  .expandable-modal-header {
+    background: #1a202c;
+    border-bottom-color: #2d3748;
+  }
+  
+  .expandable-modal-content {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .expandable-modal-close {
+    color: #cbd5e0;
+  }
+  
+  .expandable-modal-close:hover {
+    background: #2d3748;
+    color: #f1f5f9;
+  }
+  
+  .expandable-modal-body::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+  
+  .expandable-modal-body::-webkit-scrollbar-thumb {
+    background: #475569;
+  }
+  
+  .expandable-modal-body::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .expandable-modal-content {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .expandable-modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .expandable-modal-title {
+    font-size: 1.25rem;
+  }
+  
+  .expandable-modal-body {
+    padding: 1.5rem;
   }
 }
 
