@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from "react";
-import { FaPlay, FaPause, FaVolumeUp } from "react-icons/fa";
+import { FaPlay, FaPause, FaVolumeUp, FaDownload, FaSpinner } from "react-icons/fa";
 
 interface TextToSpeechProps {
   text: string;
@@ -22,6 +22,7 @@ const TextToSpeech = forwardRef<TextToSpeechRef, TextToSpeechProps>(
     const [volume, setVolume] = useState(1);
     const [voice, setVoice] = useState<SpeechSynthesisVoice | null>(null);
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+    const [isDownloading, setIsDownloading] = useState(false);
     const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
     const rateRef = useRef(rate);
     const pitchRef = useRef(pitch);
@@ -409,6 +410,50 @@ const TextToSpeech = forwardRef<TextToSpeechRef, TextToSpeechProps>(
       }
     };
 
+    const handleDownload = async () => {
+      if (!text || text.trim().length === 0) {
+        return;
+      }
+
+      setIsDownloading(true);
+      try {
+        const cleanedText = cleanText(text);
+        const voiceLang = voice?.lang || "en-US";
+        
+        const response = await fetch("/api/tts-download", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: cleanedText,
+            rate: rate,
+            pitch: pitch,
+            volume: volume,
+            voiceLang: voiceLang.split("-")[0], // Use language code
+          }),
+        });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${title || "audio"}-tts.mp3`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        } else {
+          console.error("Failed to download audio");
+        }
+      } catch (error) {
+        console.error("Error downloading audio:", error);
+      } finally {
+        setIsDownloading(false);
+      }
+    };
+
     if (!isSupported) {
       return null;
     }
@@ -455,6 +500,25 @@ const TextToSpeech = forwardRef<TextToSpeechRef, TextToSpeechProps>(
               Resume
             </button>
           )}
+          
+          <button
+            onClick={handleDownload}
+            disabled={isDownloading || !text || text.trim().length === 0}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-medium cursor-pointer"
+            aria-label="Download Audio"
+          >
+            {isDownloading ? (
+              <>
+                <FaSpinner className="animate-spin" size={14} />
+                Generating...
+              </>
+            ) : (
+              <>
+                <FaDownload size={14} />
+                Download
+              </>
+            )}
+          </button>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
