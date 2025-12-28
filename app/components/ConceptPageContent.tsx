@@ -39,6 +39,16 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
       }
     }
   }, [conceptName, pathname]);
+
+  // Stop all speech when navigating to a different page
+  useEffect(() => {
+    return () => {
+      // Stop all speech synthesis when component unmounts (page change)
+      if (typeof window !== "undefined" && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, [pathname]);
   // Parse expandable sections: <expand title="Title">content</expand>
   // Handle titles with quotes by matching everything between title=" and ">
   const expandableRegex = /<expand\s+title="(.*?)">([\s\S]*?)<\/expand>/g;

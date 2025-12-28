@@ -7,6 +7,12 @@ import ReactMarkdown from "react-markdown";
 interface AIEnrichmentProps {
   title: string;
   originalContent: string;
+  hideBorder?: boolean;
+  onOpen?: () => void; // Callback when AI Enrichment is opened
+  showButtonOnly?: boolean; // Show only the button
+  showContentOnly?: boolean; // Show only the content (requires enrichedContent prop)
+  enrichedContent?: string | null; // Controlled enriched content
+  onEnrichedContentChange?: (content: string | null) => void; // Callback when content changes
 }
 
 // Helper function to generate a basic explanation from content
@@ -21,11 +27,27 @@ ${relevantSentences}
 This concept is an important part of programming. The content above provides key information about how it works and its usage.`;
 }
 
-export default function AIEnrichment({ title, originalContent }: AIEnrichmentProps) {
+export default function AIEnrichment({ title, originalContent, hideBorder = false, onOpen, showButtonOnly = false, showContentOnly = false, enrichedContent: controlledEnrichedContent, onEnrichedContentChange }: AIEnrichmentProps) {
   const [isEnriching, setIsEnriching] = useState(false);
-  const [enrichedContent, setEnrichedContent] = useState<string | null>(null);
+  const [internalEnrichedContent, setInternalEnrichedContent] = useState<string | null>(null);
+  
+  // Use controlled content if provided, otherwise use internal state
+  const enrichedContent = controlledEnrichedContent !== undefined ? controlledEnrichedContent : internalEnrichedContent;
+  
+  const setEnrichedContent = (content: string | null) => {
+    if (controlledEnrichedContent === undefined) {
+      setInternalEnrichedContent(content);
+    }
+    if (onEnrichedContentChange) {
+      onEnrichedContentChange(content);
+    }
+  };
 
   const handleEnrich = async () => {
+    // Notify parent that AI Enrichment is opening
+    if (onOpen) {
+      onOpen();
+    }
     setIsEnriching(true);
 
     try {
@@ -68,8 +90,57 @@ export default function AIEnrichment({ title, originalContent }: AIEnrichmentPro
     }
   };
 
+  // If showButtonOnly, only render the button
+  if (showButtonOnly) {
+    return (
+      <button
+        onClick={handleEnrich}
+        disabled={isEnriching}
+        className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+      >
+        {isEnriching ? (
+          <>
+            <FaSpinner className="animate-spin" size={16} />
+            <span>Enriching with AI...</span>
+          </>
+        ) : (
+          <>
+            <FaRobot size={16} />
+            <span>Enrich with AI</span>
+          </>
+        )}
+      </button>
+    );
+  }
+
+  // If showContentOnly, only render the content
+  if (showContentOnly && enrichedContent) {
+    return (
+      <div className={hideBorder ? "" : "mt-4 pt-4 border-t border-slate-200 dark:border-slate-700"}>
+        <div className="p-4 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-700 dark:to-slate-900 rounded-lg border border-purple-200 dark:border-purple-800">
+          <div className="flex items-center space-x-2 mb-3">
+            <FaCheckCircle className="text-purple-600 dark:text-purple-400" size={16} />
+            <h4 className="font-semibold text-slate-900 dark:text-white">Enriched Content</h4>
+          </div>
+          <div className="markdown-content text-sm">
+            <ReactMarkdown>{enrichedContent}</ReactMarkdown>
+          </div>
+          <button
+            onClick={() => {
+              setEnrichedContent(null);
+            }}
+            className="mt-3 text-sm text-purple-600 dark:text-purple-400 hover:underline cursor-pointer"
+          >
+            Hide enriched content
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Default behavior
   return (
-    <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+    <div className={hideBorder ? "" : "mt-4 pt-4 border-t border-slate-200 dark:border-slate-700"}>
       {!enrichedContent && (
         <button
           onClick={handleEnrich}
