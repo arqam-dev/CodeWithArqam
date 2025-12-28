@@ -439,7 +439,9 @@ const TextToSpeech = forwardRef<TextToSpeechRef, TextToSpeechProps>(
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = `${title || "audio"}-tts.mp3`;
+          // Format filename: topic-title-CodeWithArqam.mp3
+          const sanitizedTitle = title ? title.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase() : "audio";
+          a.download = `${sanitizedTitle}-CodeWithArqam.mp3`;
           document.body.appendChild(a);
           a.click();
           window.URL.revokeObjectURL(url);
