@@ -682,10 +682,290 @@
 
 - Solution to common recurring problems in software design
 - Template that can be applied to real-life problems
-- Categories:
-  - Creational (5): Object instantiation (Singleton, Factory, Abstract Factory, Builder, Prototype)
-  - Structural (7): Class/object composition and relationships (Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy)
-  - Behavioral (11): Communication between objects (Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Observer, State, Strategy, Template Method, Visitor, Memento)
+
+### Categories:
+
+#### 1. Creational Patterns (5): Object instantiation
+
+##### 1.1 Singleton Pattern:
+- **What it is:** A pattern that ensures only one instance of a class can ever exist in your application. No matter how many times you try to create it, you always get the same single instance.
+- **Why use it:** Prevents multiple instances when you only need one, saving memory and ensuring consistent state across your application.
+- **When to use:** 
+  - When you need exactly one instance shared across the entire application
+  - When creating multiple instances would cause problems or waste resources
+  - For services that manage shared resources
+- **Examples:**
+  1. **Database Connection Manager:** Only one connection pool manager should exist to efficiently manage all database connections. Creating multiple managers would waste resources and cause conflicts.
+  2. **Application Logger:** One logger instance that all parts of your app use to write logs. Multiple loggers would create duplicate log files or inconsistent logging behavior.
+  3. **Configuration Manager:** One place to store and access application settings. Multiple config managers could lead to inconsistent settings.
+
+##### 1.2 Factory Pattern:
+- **What it is:** A pattern that creates objects for you without you needing to know the exact class name. You tell the factory what you want, and it creates the right object for you.
+- **Why use it:** Simplifies object creation, especially when you don't know ahead of time which specific type you'll need. Makes your code more flexible and easier to maintain.
+- **When to use:**
+  - When you need to create objects but don't know the exact type until runtime
+  - When object creation logic is complex and you want to centralize it
+  - When you want to decouple object creation from object usage
+- **Examples:**
+  1. **UI Button Factory:** Instead of writing `new PrimaryButton()` or `new SecondaryButton()`, you call `factory.createButton('primary')` and the factory decides which button type to create based on the parameter.
+  2. **Notification Factory:** Create different notification types (Email, SMS, Push) based on user preferences. The factory handles the complexity of choosing the right notification class.
+  3. **Vehicle Factory:** Create different vehicles (Car, Truck, Motorcycle) based on user selection. Your code doesn't need to know the specific vehicle class, just the type name.
+
+##### 1.3 Abstract Factory Pattern:
+- **What it is:** A pattern that creates families of related objects that work together. Instead of creating individual objects, you create a whole set of compatible objects at once.
+- **Why use it:** Ensures that objects you create are compatible with each other and belong to the same "family" or theme. Prevents mixing incompatible objects.
+- **When to use:**
+  - When you need to create groups of related objects that must work together
+  - When you want to ensure objects are compatible (same theme, same platform, etc.)
+  - When you might need to switch between different families of objects
+- **Examples:**
+  1. **UI Theme Factory:** Create a LightThemeFactory that produces LightButton, LightInput, LightModal - all matching light theme. Or DarkThemeFactory for dark theme components. Ensures all UI components match the selected theme.
+  2. **Cross-Platform Factory:** Create WindowsFactory that produces WindowsButton, WindowsMenu, WindowsDialog - all for Windows. Or MacFactory for Mac-specific components. Ensures all components are for the same platform.
+  3. **Database Factory:** Create MySQLFactory that produces MySQLConnection, MySQLQuery, MySQLTransaction - all MySQL-specific. Or PostgreSQLFactory for PostgreSQL components. Ensures all database operations use the same database system.
+
+##### 1.4 Builder Pattern:
+- **What it is:** A pattern that builds complex objects step by step, letting you set different properties one at a time. You can build the same object in different ways by choosing which steps to include.
+- **Why use it:** Makes it easy to create objects with many optional parts. Instead of a constructor with 10 parameters, you set what you need step by step.
+- **When to use:**
+  - When an object has many optional parameters or configurations
+  - When you want to build objects in different ways
+  - When object construction is complex and you want to make it clearer
+- **Examples:**
+  1. **SQL Query Builder:** Build a database query step by step - add WHERE clauses, ORDER BY, LIMIT, etc. You can build simple or complex queries using the same builder. Example: `query.select('users').where('age > 18').orderBy('name').limit(10).build()`
+  2. **Email Builder:** Build an email by adding recipient, subject, body, attachments one by one. You can create simple or complex emails using the same process. Example: `email.to('user@example.com').subject('Hello').body('Message').attach(file).build()`
+  3. **HTTP Request Builder:** Build HTTP requests by adding method, URL, headers, body separately. Makes it easy to create different types of requests. Example: `request.get('/api/users').header('Authorization', 'token').body(data).build()`
+
+##### 1.5 Prototype Pattern:
+- **What it is:** A pattern that creates new objects by copying an existing object (the prototype) instead of building from scratch. Like making a photocopy of a document.
+- **Why use it:** Faster than creating objects from scratch, especially when object creation is expensive. You clone a ready-made object and modify only what's different.
+- **When to use:**
+  - When creating objects is expensive (takes time or resources)
+  - When you need many similar objects with slight variations
+  - When you want to avoid the cost of initializing objects
+- **Examples:**
+  1. **Game Character Cloning:** Instead of creating each enemy from scratch (loading graphics, setting stats), clone a base enemy prototype and just change the position. Much faster when creating 100 enemies.
+  2. **Document Templates:** Clone a document template (with formatting, structure) and just fill in the content. Faster than creating a new document with all formatting from scratch.
+  3. **Database Record Cloning:** Clone a user record template with default permissions and settings, then modify only the name and email. Avoids setting up all default values repeatedly.
+
+#### 2. Structural Patterns (7): Class/object composition and relationships
+
+##### 2.1 Adapter Pattern:
+- **What it is:** A pattern that acts like a translator between two incompatible interfaces. It wraps one object so it can work with code that expects a different interface - like a power adapter that lets you use a US plug in a European socket.
+- **Why use it:** Allows you to use existing code or libraries that don't match your current interface without rewriting everything.
+- **When to use:**
+  - When you need to use a class/library that doesn't match your code's expected interface
+  - When integrating third-party code that has different method names or parameters
+  - When you want to make old code work with new code
+- **Examples:**
+  1. **Payment Gateway Adapter:** Your code expects a `pay(amount)` method, but Stripe uses `charge(amountInCents)`. An adapter wraps Stripe and converts your interface to Stripe's interface, so your code works with Stripe, PayPal, or any payment provider.
+  2. **Legacy System Adapter:** Your new system expects modern API calls, but you need to connect to an old system with different method names. An adapter translates your modern calls into the old system's format.
+  3. **Data Format Adapter:** Your application expects JSON, but a service returns XML. An adapter converts XML to JSON so your code doesn't need to change.
+
+##### 2.2 Bridge Pattern:
+- **What it is:** A pattern that separates what something does (abstraction) from how it does it (implementation). They can change independently - like separating a remote control from the TV it controls. You can have different remotes controlling the same TV, or the same remote controlling different TVs.
+- **Why use it:** Prevents a permanent connection between interface and implementation, making your code more flexible. You can swap implementations without changing the abstraction.
+- **When to use:**
+  - When you want to avoid permanent binding between abstraction and implementation
+  - When both abstraction and implementation need to vary independently
+  - When you want to hide implementation details from clients
+- **Examples:**
+  1. **Remote Control and Devices:** A universal remote (abstraction) can control different devices (TV, DVD, Sound System - implementations). You can add new devices without changing the remote, or create new remotes for the same devices.
+  2. **Drawing Shapes:** Shape abstraction (Circle, Square) separated from rendering implementation (Vector, Raster). You can draw shapes in different ways (vector graphics, raster images) without changing the shape classes.
+  3. **Database Drivers:** Database abstraction (Connection, Query) separated from database implementation (MySQL, PostgreSQL, MongoDB). Your code uses the same interface, but can work with different databases by swapping the implementation.
+
+##### 2.3 Composite Pattern:
+- **What it is:** A pattern that lets you treat individual objects and groups of objects the same way. Like how a single file and a folder full of files can both be treated as "file system items" - you can get size, delete, or move either one.
+- **Why use it:** Simplifies working with tree structures. You don't need different code for handling single items vs. groups of items.
+- **When to use:**
+  - When you need to represent part-whole hierarchies (tree structures)
+  - When you want to treat individual objects and compositions uniformly
+  - When you have recursive structures
+- **Examples:**
+  1. **File System:** Both files and folders are "FileSystemItem". You can get size of a file or a folder (which sums sizes of all files inside). You can delete a file or a folder (which deletes everything inside). Same operations work on both.
+  2. **Organization Chart:** Both employees and departments are "OrganizationUnit". You can get total salary of an employee or a department (sums all employees). You can move an employee or an entire department.
+  3. **UI Components:** Both simple buttons and complex panels (containing multiple buttons) are "Component". You can render, resize, or hide either one. A panel renders itself by rendering all its child components.
+
+##### 2.4 Decorator Pattern:
+- **What it is:** A pattern that lets you add new features to objects by wrapping them with decorators, one on top of another. Like adding layers - start with basic coffee, wrap it with milk decorator, then sugar decorator, then whipped cream decorator.
+- **Why use it:** Adds functionality dynamically without modifying the original class. You can mix and match features at runtime.
+- **When to use:**
+  - When you want to add features to objects at runtime
+  - When you need many combinations of features
+  - When you can't modify the original class but need to extend it
+- **Examples:**
+  1. **Coffee Shop Ordering:** Start with basic Coffee ($5). Add MilkDecorator (+$2) = $7. Add SugarDecorator (+$1) = $8. Add WhippedCreamDecorator (+$3) = $11. Each decorator wraps the previous one and adds its cost.
+  2. **Text Formatting:** Start with plain Text. Add BoldDecorator = bold text. Add ItalicDecorator = bold and italic. Add ColorDecorator = bold, italic, and colored. Each decorator adds formatting without changing the base text class.
+  3. **Web Request Middleware:** Start with basic HTTP request. Add AuthenticationDecorator (adds auth header). Add LoggingDecorator (logs the request). Add CachingDecorator (caches response). Each decorator adds functionality to the request.
+
+##### 2.5 Facade Pattern:
+- **What it is:** A pattern that provides a simple, easy-to-use interface that hides the complexity of a larger system behind it. Like a restaurant menu that simplifies ordering - you just say "I want the combo meal" instead of ordering each item separately from different departments.
+- **Why use it:** Makes complex systems easier to use by providing a simple interface. Users don't need to understand all the internal complexity.
+- **When to use:**
+  - When you have a complex subsystem with many classes
+  - When you want to provide a simple interface for common tasks
+  - When you want to hide implementation details from clients
+- **Examples:**
+  1. **Home Theater System:** Instead of manually turning on TV, DVD player, sound system, and dimming lights, a Facade provides one method `watchMovie()` that does all of this. The user doesn't need to know about all the individual components.
+  2. **E-commerce Checkout:** Instead of calling payment service, inventory service, shipping service, and email service separately, a CheckoutFacade provides one `placeOrder()` method that coordinates all these services behind the scenes.
+  3. **Database Operations:** Instead of manually opening connection, creating transaction, executing query, committing, and closing connection, a DatabaseFacade provides `executeQuery()` that handles all these steps internally.
+
+##### 2.6 Flyweight Pattern:
+- **What it is:** A pattern that shares common data between many objects to save memory. Instead of each object storing all its data, objects share common parts and only store what's unique to them.
+- **Why use it:** Saves memory when you have many similar objects. Like having 1000 trees in a game - they all share the same texture and model, but each has its own position.
+- **When to use:**
+  - When you need to create many similar objects
+  - When memory usage is a concern
+  - When objects have both shared (intrinsic) and unique (extrinsic) state
+- **Examples:**
+  1. **Text Editor Characters:** Instead of each character storing its font, size, and style (wasting memory), all 'A' characters share the same formatting data. Each character only stores its position and the shared formatting reference.
+  2. **Game Trees:** Instead of each tree storing its 3D model, texture, and animation data, all trees of the same type share this data. Each tree only stores its position, rotation, and health - the unique parts.
+  3. **Web Browser Tabs:** Multiple tabs showing the same website share the same HTML, CSS, and JavaScript. Each tab only stores its scroll position and form data - the unique state.
+
+##### 2.7 Proxy Pattern:
+- **What it is:** A pattern that provides a placeholder or stand-in for another object. The proxy controls access to the real object and can add extra functionality like lazy loading, security checks, or caching.
+- **Why use it:** Controls how and when the real object is accessed. Can add functionality without changing the real object.
+- **When to use:**
+  - When you need to control access to an object
+  - When you want to add lazy loading (load only when needed)
+  - When you need to add security, caching, or logging
+- **Examples:**
+  1. **Image Lazy Loading:** Instead of loading a large image immediately, an ImageProxy shows a placeholder. Only when the user scrolls to it does the proxy load the actual image. Saves bandwidth and improves page load time.
+  2. **Access Control Proxy:** A SecureProxy checks if a user has permission before allowing access to sensitive data. The real object doesn't need to know about security - the proxy handles it.
+  3. **API Caching Proxy:** A CachingProxy stores API responses. If the same request is made again, the proxy returns cached data instead of calling the real API, making responses faster.
+
+#### 3. Behavioral Patterns (11): Communication between objects
+
+##### 3.1 Chain of Responsibility Pattern:
+- **What it is:** A pattern where a request is passed through a chain of handlers. Each handler decides if it can process the request or should pass it to the next handler. Like a customer service system where your request goes through different departments until someone can help.
+- **Why use it:** Decouples the sender from receivers. You don't need to know which handler will process the request. Handlers can be added or removed easily.
+- **When to use:**
+  - When multiple objects might handle a request and you don't know which one
+  - When you want to decouple the sender from receivers
+  - When you want to add or remove handlers dynamically
+- **Examples:**
+  1. **Request Validation Chain:** An HTTP request goes through AuthenticationHandler (checks if user is logged in), then AuthorizationHandler (checks if user has permission), then RateLimitHandler (checks if too many requests), then finally to the actual handler. Each handler either processes or passes to next.
+  2. **Customer Support System:** A support ticket goes through Level1Support (handles simple issues), then Level2Support (handles complex issues), then Level3Support (handles critical issues). Each level either solves it or escalates.
+  3. **Error Handling Chain:** An error goes through ConsoleLogger (logs to console), then FileLogger (logs to file), then EmailLogger (sends email for critical errors). Each logger either handles it or passes to next.
+
+##### 3.2 Command Pattern:
+- **What it is:** A pattern that turns a request into an object. This object contains all the information needed to execute the request. Like writing down instructions on a piece of paper that can be executed now, later, or undone.
+- **Why use it:** Allows you to parameterize objects with operations, queue requests, log operations, and support undo/redo functionality.
+- **When to use:**
+  - When you need to queue operations or execute them at different times
+  - When you need undo/redo functionality
+  - When you want to log or audit operations
+- **Examples:**
+  1. **Text Editor Undo/Redo:** Each action (type text, delete, format) becomes a command object. Commands are stored in a history. Undo executes the reverse command, redo executes the command again. You can undo multiple steps.
+  2. **Remote Control:** Each button press creates a command object (TurnOnCommand, VolumeUpCommand). Commands can be executed immediately, scheduled for later, or stored in a macro. The remote doesn't need to know what device it controls.
+  3. **Task Queue System:** User actions become command objects that are queued. Commands can be executed immediately, scheduled, or retried if they fail. Commands can be logged for audit purposes.
+
+##### 3.3 Interpreter Pattern:
+- **What it is:** A pattern that defines how to evaluate sentences in a language. It interprets expressions according to grammar rules. Like a calculator that understands mathematical expressions and evaluates them.
+- **Why use it:** Useful for implementing domain-specific languages or when you need to interpret expressions or queries.
+- **When to use:**
+  - When you need to interpret a language or expression
+  - When you have a grammar that can be represented as a syntax tree
+  - When the grammar is simple (complex grammars need parser generators)
+- **Examples:**
+  1. **SQL Query Interpreter:** Interprets SQL syntax like "SELECT * FROM users WHERE age > 18". The interpreter understands SELECT, FROM, WHERE clauses and executes them against a database.
+  2. **Mathematical Expression Evaluator:** Interprets expressions like "2 + 3 * 4" or "(10 - 5) / 2". The interpreter understands operators, precedence, and parentheses, then calculates the result.
+  3. **Search Query Parser:** Interprets search queries like "title:javascript AND (author:john OR author:jane)". The interpreter understands keywords, operators, and parentheses, then searches accordingly.
+
+##### 3.4 Iterator Pattern:
+- **What it is:** A pattern that provides a way to access elements of a collection one by one without knowing how the collection is stored internally. Like a universal remote that can navigate through any playlist, whether it's an array, linked list, or tree.
+- **Why use it:** Provides a uniform way to traverse different data structures. Your code doesn't need to know if it's iterating an array, tree, or database result.
+- **When to use:**
+  - When you want to traverse different data structures uniformly
+  - When you want to hide the internal structure of a collection
+  - When you need multiple ways to traverse the same collection
+- **Examples:**
+  1. **Collection Iteration:** Whether you have an array, linked list, or tree, you use the same iterator interface (hasNext(), next()). Your code works the same way regardless of the underlying data structure.
+  2. **Database Result Iteration:** Database query results can be iterated the same way as arrays. You don't need to know if results are in memory, streaming from database, or paginated.
+  3. **File System Traversal:** Iterate through files in a directory, subdirectories, or entire file system using the same interface. The iterator handles the complexity of navigating the file system structure.
+
+##### 3.5 Mediator Pattern:
+- **What it is:** A pattern where objects don't talk directly to each other. Instead, they communicate through a mediator. Like an air traffic controller - planes don't talk to each other, they all talk to the controller who coordinates everything.
+- **Why use it:** Reduces dependencies between objects. Objects don't need to know about each other, only about the mediator. Makes the system easier to understand and maintain.
+- **When to use:**
+  - When communication between objects is complex
+  - When you want to reduce coupling between objects
+  - When you want to centralize communication logic
+- **Examples:**
+  1. **Chat Room System:** Users don't send messages directly to each other. They send messages to a ChatMediator, which then broadcasts to all users. The mediator handles adding/removing users and message routing.
+  2. **Airport Control Tower:** Airplanes don't communicate directly. They all communicate with the control tower (mediator), which coordinates takeoffs, landings, and runway assignments to prevent conflicts.
+  3. **Form Validation:** Form fields don't validate each other directly. A FormMediator coordinates validation - when one field changes, the mediator checks related fields and updates the form state accordingly.
+
+##### 3.6 Observer Pattern:
+- **What it is:** A pattern where an object (subject) notifies multiple dependent objects (observers) when its state changes. Like a newsletter - when a new article is published, all subscribers are automatically notified.
+- **Why use it:** Establishes a one-to-many dependency. When the subject changes, all observers are automatically updated. Keeps objects loosely coupled.
+- **When to use:**
+  - When changes to one object require updating multiple other objects
+  - When you want to decouple the subject from its observers
+  - When you need a publish-subscribe mechanism
+- **Examples:**
+  1. **Newsletter Subscription:** When a blog publishes a new article, all subscribers (observers) are automatically notified via email. Subscribers can subscribe or unsubscribe without affecting the blog.
+  2. **Stock Price Updates:** When a stock price changes, all investors watching that stock (observers) are notified. Investors can start or stop watching without affecting the stock price system.
+  3. **UI State Management:** When application data changes, all UI components displaying that data (observers) are automatically updated. Components can be added or removed without modifying the data model.
+
+##### 3.7 State Pattern:
+- **What it is:** A pattern where an object's behavior changes based on its internal state. Instead of using many if-else statements, each state is a separate object with its own behavior. Like a traffic light that behaves differently in red, yellow, and green states.
+- **Why use it:** Makes state-specific behavior explicit and organized. Each state is a class, making it easy to add new states or modify existing ones.
+- **When to use:**
+  - When an object's behavior depends on its state
+  - When you have many conditional statements based on state
+  - When state transitions are well-defined
+- **Examples:**
+  1. **Vending Machine:** Different states (NoMoney, HasMoney, Dispensing, OutOfStock) with different behaviors. In NoMoney state, inserting coin transitions to HasMoney. In HasMoney, pressing button transitions to Dispensing. Each state knows what to do.
+  2. **Document Workflow:** Document has states (Draft, Review, Approved, Published). In Draft state, you can edit. In Review, you can only comment. In Approved, you can publish. Each state has different allowed actions.
+  3. **Media Player:** Player has states (Stopped, Playing, Paused). In Stopped, play() starts playing. In Playing, pause() pauses. In Paused, play() resumes. Each state handles buttons differently.
+
+##### 3.8 Strategy Pattern:
+- **What it is:** A pattern that defines a family of algorithms and makes them interchangeable. You can switch between different ways of doing something at runtime. Like choosing a navigation strategy - fastest route, shortest route, or scenic route.
+- **Why use it:** Lets you choose an algorithm at runtime. Makes algorithms interchangeable and easy to add new ones without changing existing code.
+- **When to use:**
+  - When you have multiple ways of doing something
+  - When you want to choose the algorithm at runtime
+  - When you want to isolate algorithm implementation
+- **Examples:**
+  1. **Payment Processing:** At checkout, choose payment strategy - CreditCardStrategy, PayPalStrategy, or BankTransferStrategy. The checkout process remains the same, only the payment method changes.
+  2. **Sorting Algorithms:** Choose sorting strategy - QuickSortStrategy for speed, MergeSortStrategy for stability, or BubbleSortStrategy for simplicity. The code using sorting doesn't change, only the strategy.
+  3. **Compression Algorithms:** Choose compression strategy - ZipStrategy, RarStrategy, or GzipStrategy. The file compression interface stays the same, but the compression method can be swapped.
+
+##### 3.9 Template Method Pattern:
+- **What it is:** A pattern that defines the skeleton of an algorithm in a base class, but lets subclasses override specific steps. Like a recipe template - the steps are the same, but you can customize ingredients.
+- **Why use it:** Ensures the algorithm structure stays the same while allowing customization of specific steps. Prevents code duplication.
+- **When to use:**
+  - When you have an algorithm with steps that are mostly the same
+  - When you want to enforce the algorithm structure
+  - When you want to allow subclasses to customize specific steps
+- **Examples:**
+  1. **Data Processing Pipeline:** Base class defines steps: fetchData(), processData(), saveData(). Subclasses override processData() - CSVProcessor processes CSV, JSONProcessor processes JSON, but both follow the same pipeline structure.
+  2. **Beverage Making:** Base class defines steps: boilWater(), brew(), pourInCup(), addCondiments(). Tea subclass overrides brew() and addCondiments() differently than Coffee, but both follow the same template.
+  3. **Report Generation:** Base class defines steps: gatherData(), formatData(), generateReport(), sendReport(). Different report types (PDF, Excel, HTML) override formatData() but follow the same generation process.
+
+##### 3.10 Visitor Pattern:
+- **What it is:** A pattern that lets you add new operations to object structures without modifying the objects themselves. The operation is separated into a visitor object that "visits" each element. Like an inspector visiting different parts of a building to check them.
+- **Why use it:** Allows adding new operations without changing the object structure. Useful when you have a stable object structure but frequently need new operations.
+- **When to use:**
+  - When you need to perform operations on object structures
+  - When the object structure is stable but operations change frequently
+  - When you want to separate algorithms from object structure
+- **Examples:**
+  1. **Code Analyzer:** A code structure has classes, methods, and variables. A Visitor (like CodeMetricsVisitor) visits each element to collect metrics. You can add new visitors (SecurityVisitor, PerformanceVisitor) without changing the code structure.
+  2. **File System Operations:** File system has files and folders. A Visitor (like FileSizeVisitor) visits each element to calculate total size. You can add new visitors (SearchVisitor, DeleteVisitor) without modifying file/folder classes.
+  3. **AST (Abstract Syntax Tree) Processing:** A program's AST has nodes (expressions, statements). A Visitor (like CompilerVisitor) visits each node to generate code. You can add new visitors (OptimizerVisitor, DebugVisitor) without changing AST node classes.
+
+##### 3.11 Memento Pattern:
+- **What it is:** A pattern that saves an object's state so you can restore it later. Like a save point in a game - you can save your progress and load it back later.
+- **Why use it:** Enables undo/redo functionality, checkpoints, and state restoration without violating encapsulation.
+- **When to use:**
+  - When you need to save and restore object states
+  - When you need undo/redo functionality
+  - When you need checkpoints or snapshots
+- **Examples:**
+  1. **Text Editor Undo:** Each edit operation saves the document state (Memento) before making changes. Undo restores the previous Memento. You can undo multiple steps by restoring previous states.
+  2. **Game Save System:** Game state (player position, health, inventory) is saved as a Memento. When player loads the game, the Memento is restored, bringing back the exact saved state.
+  3. **Configuration Management:** Application settings are saved as Mementos. Users can revert to previous configurations by restoring a Memento. Useful for testing different configurations.
 
 </expand>
 
