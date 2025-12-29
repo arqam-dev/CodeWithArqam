@@ -255,25 +255,6 @@ function ContentPageContent() {
                 </button>
               ))}
             </div>
-
-            {/* Quick Stats */}
-            <div className="mt-8 p-4 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-700 dark:to-slate-900 rounded-lg">
-              <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-2">Content Stats</h3>
-              <div className="space-y-1 text-sm text-slate-600 dark:text-slate-400">
-                <div className="flex justify-between">
-                  <span>Total Concepts:</span>
-                  <span className="font-medium text-blue-600 dark:text-blue-400">{concepts.length}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Categories:</span>
-                  <span className="font-medium text-blue-600 dark:text-blue-400">{categories.length - 1}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Filtered:</span>
-                  <span className="font-medium text-blue-600 dark:text-blue-400">{filteredConcepts.length}</span>
-                </div>
-              </div>
-            </div>
           </div>
         </aside>
 
