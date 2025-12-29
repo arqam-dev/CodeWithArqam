@@ -29,6 +29,7 @@ Next.js is a React framework for building full-stack web applications. It provid
 - Server-Side Rendering (SSR)
 - Static Site Generation (SSG)
 - Incremental Static Regeneration (ISR)
+- Client-Side Rendering (CSR)
 - API Routes (backend functionality)
 - File-based routing
 - Automatic code splitting
