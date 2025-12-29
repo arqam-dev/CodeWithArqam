@@ -318,19 +318,19 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center md:justify-end">
-              <div className="relative">
+              <Link href="/portfolio" className="relative group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl">
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl">
                   <Image
                     src="/arqam-pic.jpg"
                     alt="Muhammad Arqam"
                     width={320}
                     height={320}
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
                     priority
                   />
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -523,6 +523,17 @@ export default function Home() {
           <p className="text-slate-500 text-sm mt-2">
             Learn Full-Stack Development with Industry Experts | Portugal, Europe
           </p>
+          <div className="mt-4">
+            <a
+              href="https://www.linkedin.com/in/arqam-dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
+            >
+              <FaLinkedin size={18} />
+              <span className="text-sm">Connect on LinkedIn</span>
+            </a>
+          </div>
         </div>
       </footer>
     </div>

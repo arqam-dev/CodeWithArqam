@@ -582,7 +582,7 @@ export default function Portfolio() {
                   <FaLinkedin className="text-blue-600 dark:text-blue-400" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Personal LinkedIn</h3>
+                  <h3 className="font-semibold text-slate-900 dark:text-white">LinkedIn</h3>
                   <a
                     href="https://www.linkedin.com/in/arqam-dev/"
                     target="_blank"
@@ -590,22 +590,6 @@ export default function Portfolio() {
                     className="text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     Connect with me
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
-                  <FaLinkedin className="text-slate-600 dark:text-slate-400" size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Company LinkedIn</h3>
-                  <a
-                    href="https://www.linkedin.com/company/106984678"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-600 dark:text-slate-400 hover:underline"
-                  >
-                    Follow CodeWithArqam
                   </a>
                 </div>
               </div>
@@ -620,18 +604,8 @@ export default function Portfolio() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-4 bg-slate-600 text-white rounded-full hover:bg-slate-700 transition-colors duration-200"
-                  aria-label="Personal LinkedIn"
-                  title="Personal LinkedIn Profile"
-                >
-                  <FaLinkedin size={24} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/106984678"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-slate-700 text-white rounded-full hover:bg-slate-800 transition-colors duration-200"
-                  aria-label="Company LinkedIn"
-                  title="CodeWithArqam Company Page"
+                  aria-label="LinkedIn"
+                  title="LinkedIn Profile"
                 >
                   <FaLinkedin size={24} />
                 </a>
@@ -686,6 +660,17 @@ export default function Portfolio() {
           <p className="text-slate-500 text-sm mt-2">
             Full-Stack Software Engineer & Solutions Architect | Portugal, Europe
           </p>
+          <div className="mt-4">
+            <a
+              href="https://www.linkedin.com/in/arqam-dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
+            >
+              <FaLinkedin size={18} />
+              <span className="text-sm">Connect on LinkedIn</span>
+            </a>
+          </div>
         </div>
       </footer>
     </div>
