@@ -307,13 +307,13 @@ export default function Home() {
                   <FaArrowRight size={14} />
                 </Link>
                 <a
-                  href="https://www.linkedin.com/company/106984678"
+                  href="https://www.linkedin.com/in/arqam-dev/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 border-2 border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200 flex items-center space-x-2"
                 >
                   <FaLinkedin size={16} />
-                  <span>Follow Company</span>
+                  <span>Connect on LinkedIn</span>
                 </a>
               </div>
             </div>
@@ -482,12 +482,12 @@ export default function Home() {
             <p className="text-slate-300 mb-4">Follow us on social media for updates and tips</p>
             <div className="flex justify-center space-x-4">
               <a
-                href="https://www.linkedin.com/company/106984678"
+                href="https://www.linkedin.com/in/arqam-dev/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="Company LinkedIn"
-                title="CodeWithArqam Company Page"
+                aria-label="LinkedIn"
+                title="LinkedIn Profile"
               >
                 <FaLinkedin size={20} />
               </a>
