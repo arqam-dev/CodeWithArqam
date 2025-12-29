@@ -16,8 +16,6 @@
 - Node.js 20.0.0 - 2023 (LTS)
 - Node.js 22.0.0 - 2024 (LTS)
 
-Primary Concepts
-
 </expand>
 
 <expand title="Node.js Execution Cycle">
@@ -216,26 +214,37 @@ project-root/
 ## General Points
 
 - Node 6 and 7 are no longer supported
-- Although nodejs is a single threaded but chrome or V8 is a multi-threaded.
-- window = in browsers, global = in nodejs
-- JS puts following tasks on a separate thread by itself using LibUV library (they are expensive even in async on single thread):
-  - file reading
-  - Encryption/Decryption (like using Crypto)
-  - Compressions of media (like Zipping)
-  - Resolving DNS
-  - Hashing
+- Although Node.js is single-threaded, V8 engine is multi-threaded
+- `window` = in browsers, `global` = in Node.js
+- Node.js automatically offloads expensive operations to LibUV thread pool (see "LibUV Thread Pool" section for details)
 
 </expand>
 
-<expand title="Crypto">
-## Crypto
+<expand title="Crypto Module">
+## Crypto Module
 
-- js crypto module provides cryptographic functions to help you secure your Node.js app.
-- It includes a set of wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign, and verify functions.
-- crypto is built into Node.
-- For hashed data, a password cannot be decrypted with a predetermined key, unlike encrypted data.
-- It allows access to a cryptographically strong random number generator and to cryptographic primitives.
-- crypto property, which is a Crypto object.
+- **Purpose:** Provides cryptographic functionality to secure Node.js applications
+- **Built-in:** Crypto module is built into Node.js (no installation needed)
+- **What it is:** Set of wrappers for OpenSSL's cryptographic functions
+- **Key Concepts:**
+  - **Hashing vs Encryption:** Hashed data cannot be decrypted with a key (one-way function), unlike encrypted data
+  - **Random Number Generator:** Access to cryptographically strong random number generator
+  - **Cryptographic Primitives:** Hash, HMAC, cipher, decipher, sign, and verify functions
+- **Hash Functions:**
+  - `crypto.createHash('sha256')` - Create hash
+  - Algorithms: sha256, sha512, md5 (deprecated)
+- **HMAC (Hash-based Message Authentication Code):**
+  - `crypto.createHmac('sha256', secret)` - Create HMAC with secret key
+- **Cipher/Decipher:**
+  - `crypto.createCipheriv()` - Encrypt data
+  - `crypto.createDecipheriv()` - Decrypt data
+- **Random:**
+  - `crypto.randomBytes()` - Generate random bytes
+  - `crypto.randomInt()` - Generate random integer
+- **Sign/Verify:**
+  - `crypto.createSign()` - Create digital signature
+  - `crypto.createVerify()` - Verify signature
+- **See also:** "createhmac vs createhash" section for detailed comparison
 
 </expand>
 
@@ -298,30 +307,28 @@ project-root/
 
 </expand>
 
-<expand title="JS puts following tasks on a separate thread by itself using LibUV library (they are expensive even in async on single thread)">
-## JS puts following tasks on a separate thread by itself using LibUV library (they are expensive even in async on single thread)
+<expand title="LibUV Thread Pool">
+## LibUV Thread Pool
 
-- File reading/writing
-
-- Crypto (async versions only)
-
-- Compression (zlib)
-
-- DNS lookup
-
-- Some system I/O (not networking)
-
-Tasks Node.js does NOT offload automatically:
-
-- CPU-intensive JS code
-
-- Networking (HTTP/TCP/UDP)
-
-- Package imports
-
-- Crypto sync functions
-
-NOTE: Networking operations always run on the main thread except for the DNS
+- **Purpose:** Node.js automatically offloads expensive I/O operations to LibUV thread pool to prevent blocking the main event loop
+- **Why needed:** These operations are expensive even when async, so they run on separate threads managed by LibUV
+- **Tasks automatically offloaded to thread pool:**
+  - File reading/writing (`fs` operations)
+  - Crypto operations (async versions only, e.g., `crypto.pbkdf2()`)
+  - Compression/decompression (zlib operations)
+  - DNS lookups
+  - Some system I/O operations (not networking)
+- **Tasks NOT offloaded (run on main thread):**
+  - CPU-intensive JavaScript code
+  - Networking operations (HTTP/TCP/UDP) - always run on main thread
+  - Package imports (`require()`)
+  - Crypto synchronous functions (blocking operations)
+- **Thread Pool Configuration:**
+  - Default: 4 threads
+  - Can be increased using `UV_THREADPOOL_SIZE` environment variable
+  - Cannot exceed number of logical CPU cores
+  - Example: `UV_THREADPOOL_SIZE=8 node app.js`
+- **Note:** DNS lookups are the only networking-related operations that use thread pool; all other networking runs on main thread
 
 </expand>
 
@@ -447,6 +454,7 @@ NOTE: Networking operations always run on the main thread except for the DNS
 
 - **What it is:** Core Node.js class that enables event-driven programming
 - **Purpose:** Allows objects to emit named events and register listeners
+- **Core Pattern:** Foundation of Node.js event-driven architecture
 - **Usage:**
   ```javascript
   const EventEmitter = require('events');
@@ -462,10 +470,11 @@ NOTE: Networking operations always run on the main thread except for the DNS
   ```
 - **Key Methods:**
   - `emitter.on(event, listener)` - Register listener
-  - `emitter.emit(event, ...args)` - Emit event
-  - `emitter.once(event, listener)` - Listen once then remove
-  - `emitter.removeListener(event, listener)` - Remove listener
-  - `emitter.removeAllListeners(event)` - Remove all listeners
+  - `emitter.once(event, listener)` - Listen once then auto-remove
+  - `emitter.emit(event, ...args)` - Trigger event
+  - `emitter.removeListener(event, listener)` - Remove specific listener
+  - `emitter.removeAllListeners(event)` - Remove all listeners for event
+  - `emitter.listeners(event)` - Get all listeners for event
   - `emitter.setMaxListeners(n)` - Set max listeners (default: 10)
 - **Inheritance:**
   ```javascript
@@ -475,10 +484,19 @@ NOTE: Networking operations always run on the main thread except for the DNS
     }
   }
   ```
-- **Built-in Usage:**
-  - HTTP server (request events)
-  - File streams (data, end events)
+- **Built-in Event Emitters:**
+  - HTTP server (request, connection events)
+  - File streams (data, end, error events)
   - Process (exit, uncaughtException events)
+  - Custom classes extending EventEmitter
+- **Error Handling:**
+  - Always handle 'error' events (unhandled errors crash Node.js)
+  - Example:
+    ```javascript
+    emitter.on('error', (err) => {
+      console.error('Error:', err);
+    });
+    ```
 - **Event-driven Architecture:** Foundation of Node.js non-blocking I/O
 
 </expand>
@@ -486,7 +504,13 @@ NOTE: Networking operations always run on the main thread except for the DNS
 <expand title="Profiling in nodeJS">
 ## Profiling in nodeJS
 
-- **Purpose:** Analyze application performance to identify bottlenecks
+- **Purpose:** Analyze application performance to identify bottlenecks and optimize code execution
+- **What is a Profiler:**
+  - Monitors code execution and tracks performance metrics
+  - Records how many times code is executed
+  - Identifies hot paths (frequently executed code)
+  - Works with V8's JIT compiler: when same code runs multiple times, profiler passes it to JIT compiler for optimization
+  - JIT compiler replaces bytecode with optimized machine code for better performance
 - **Methods:**
   1. **CPU Profiling:**
      - `node --prof app.js` - Generates `isolate-*.log` file
@@ -494,9 +518,10 @@ NOTE: Networking operations always run on the main thread except for the DNS
   2. **Memory Profiling:**
      - `node --inspect app.js` - Use Chrome DevTools Memory tab
      - `heapdump` package for heap snapshots
-  3. **Built-in Profiler:**
+  3. **Built-in V8 Profiler:**
      - V8 profiler integrated in Node.js
      - Tracks function execution time
+     - Automatically optimizes frequently executed code
   4. **Third-party Tools:**
      - `clinic.js` - Comprehensive profiling suite
      - `0x` - Flame graph generator
@@ -509,16 +534,7 @@ NOTE: Networking operations always run on the main thread except for the DNS
   - Profile in production-like environment
   - Focus on hot paths (frequently executed code)
   - Use sampling profilers for minimal overhead
-
-</expand>
-
-<expand title="Profilers in nodeJS">
-## Profilers in nodeJS
-
-- This monitor watches our code as it runs and makes notes on how to optimize it.
-- Example: It records how many times it is being run.
-- By using this Profiler to see how code is being run in the interpreter, if the same lines of code are run a few times, it passes this code off to the JIT Compiler for optimizations.
-- The Compiler will then replace sections that can be improved of the byte code with optimized machine code so that optimized machine code is used from that point on instead of the slower byte code.
+  - Monitor both CPU and memory usage
 
 </expand>
 
@@ -736,35 +752,6 @@ NOTE: Networking operations always run on the main thread except for the DNS
 
 </expand>
 
-<expand title="Event Emitter (Detailed)">
-## Event Emitter (Detailed)
-
-- **Core Pattern:** Foundation of Node.js event-driven architecture
-- **All Event Emitters:**
-  - HTTP server (request, connection events)
-  - File streams (data, end, error events)
-  - Process (exit, uncaughtException events)
-  - Custom classes extending EventEmitter
-
-### Methods:
-- `on(event, listener)` - Register listener
-- `once(event, listener)` - Listen once then auto-remove
-- `emit(event, ...args)` - Trigger event
-- `removeListener(event, listener)` - Remove specific listener
-- `removeAllListeners(event)` - Remove all listeners for event
-- `listeners(event)` - Get all listeners for event
-- `setMaxListeners(n)` - Set max listeners (default: 10)
-
-### Error Handling:
-- Always handle 'error' events (unhandled errors crash Node.js)
-- Example:
-  ```javascript
-  emitter.on('error', (err) => {
-    console.error('Error:', err);
-  });
-  ```
-
-</expand>
 
 <expand title="HTTP & Web Server">
 ## HTTP & Web Server
@@ -902,7 +889,7 @@ NOTE: Networking operations always run on the main thread except for the DNS
 - **Example:**
   ```javascript
   const cluster = require('cluster');
-  if (cluster.isMaster) {
+  if (cluster.isPrimary) {  // Note: cluster.isMaster is deprecated, use isPrimary
     for (let i = 0; i < numCPUs; i++) {
       cluster.fork();
     }
@@ -979,26 +966,6 @@ NOTE: Networking operations always run on the main thread except for the DNS
 
 </expand>
 
-<expand title="Crypto Module (Detailed)">
-## Crypto Module (Detailed)
-
-- **Purpose:** Cryptographic functionality
-- **Hash Functions:**
-  - `crypto.createHash('sha256')` - Create hash
-  - Algorithms: sha256, sha512, md5 (deprecated)
-- **HMAC:**
-  - `crypto.createHmac('sha256', secret)` - Create HMAC
-- **Cipher/Decipher:**
-  - `crypto.createCipheriv()` - Encrypt data
-  - `crypto.createDecipheriv()` - Decrypt data
-- **Random:**
-  - `crypto.randomBytes()` - Generate random bytes
-  - `crypto.randomInt()` - Generate random integer
-- **Sign/Verify:**
-  - `crypto.createSign()` - Create digital signature
-  - `crypto.createVerify()` - Verify signature
-
-</expand>
 
 <expand title="WebSockets & Socket.io">
 ## WebSockets & Socket.io
