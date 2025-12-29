@@ -1,0 +1,156 @@
+{
+  "title": "Operating System Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is an Operating System?",
+      "options": ["Application software", "System software that manages computer hardware and software resources", "Hardware", "Programming language"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is process management?",
+      "options": ["File management", "Managing running programs and their resources", "Memory only", "No management"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is memory management?",
+      "options": ["File management", "Managing computer's primary memory (RAM)", "Process only", "No management"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is file system?",
+      "options": ["Process system", "Method of storing and organizing files on storage device", "Memory system", "No system"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is multitasking?",
+      "options": ["Single task", "Running multiple processes simultaneously", "No tasks", "Sequential tasks"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is a process?",
+      "options": ["File", "Program in execution", "Memory", "Device"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a thread?",
+      "options": ["Process", "Lightweight process, unit of execution within process", "File", "Memory"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is scheduling?",
+      "options": ["File organization", "Determining which process runs when", "Memory allocation", "No determination"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is virtual memory?",
+      "options": ["Physical memory", "Extension of physical memory using disk storage", "Only RAM", "No memory"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is a kernel?",
+      "options": ["Application", "Core component of OS that manages system resources", "File system", "User interface"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is deadlock?",
+      "options": ["Process completion", "Situation where processes are blocked waiting for each other", "Process start", "No blocking"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is context switching?",
+      "options": ["File switching", "Switching CPU from one process to another", "Memory switching", "No switching"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is paging?",
+      "options": ["File organization", "Memory management technique using fixed-size blocks", "Process management", "No technique"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is fragmentation?",
+      "options": ["Memory organization", "Waste of memory space", "Memory allocation", "No waste"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is a device driver?",
+      "options": ["Application", "Software that enables OS to communicate with hardware", "File", "Process"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is an interrupt?",
+      "options": ["Process", "Signal to CPU to handle event", "File", "Memory"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is a semaphore?",
+      "options": ["File", "Synchronization mechanism for processes", "Memory", "Process"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is a mutex?",
+      "options": ["File", "Mutual exclusion lock for thread synchronization", "Memory", "Process"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is a file?",
+      "options": ["Process", "Collection of data stored on storage device", "Memory", "Device"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is a directory?",
+      "options": ["File", "Container for organizing files", "Process", "Memory"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is booting?",
+      "options": ["Shutting down", "Process of starting computer and loading OS", "Running application", "No process"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is a system call?",
+      "options": ["Function call", "Interface for programs to request services from OS", "File operation", "Memory operation"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is CPU scheduling?",
+      "options": ["File scheduling", "Determining which process uses CPU", "Memory scheduling", "No scheduling"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is preemption?",
+      "options": ["Process start", "Interrupting running process to give CPU to another", "Process end", "No interruption"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main purpose of an Operating System?",
+      "options": ["Only running applications", "Managing hardware resources and providing services to applications", "Only file management", "No management"],
+      "correct": 1
+    }
+  ]
+}
+

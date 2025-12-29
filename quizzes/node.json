@@ -6,7 +6,150 @@
       "question": "What is the default number of threads in LibUV thread pool?",
       "options": ["2", "4", "8", "16"],
       "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "Which environment variable can be used to increase the LibUV thread pool size?",
+      "options": ["THREAD_POOL_SIZE", "UV_THREADPOOL_SIZE", "NODE_THREADS", "LIBUV_THREADS"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is the purpose of the Event Loop in Node.js?",
+      "options": ["To manage synchronous operations", "To manage asynchronous operations and callbacks", "To compile JavaScript code", "To handle file system operations"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "Which of the following operations are automatically offloaded to LibUV thread pool?",
+      "options": ["Networking operations (HTTP/TCP)", "File reading/writing", "CPU-intensive JavaScript code", "Package imports (require())"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is the highest priority async operation in Node.js event loop?",
+      "options": ["setTimeout", "setImmediate", "process.nextTick()", "Promise callbacks"],
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "question": "Which module is used for cryptographic functionality in Node.js?",
+      "options": ["hash", "encrypt", "crypto", "security"],
+      "correct": 2
+    },
+    {
+      "id": 7,
+      "question": "What is the difference between hashing and encryption?",
+      "options": ["Hashing can be decrypted, encryption cannot", "Hashed data cannot be decrypted with a key (one-way function), unlike encrypted data", "There is no difference", "Hashing is faster than encryption"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is NOT a core module in Node.js?",
+      "options": ["http", "fs", "express", "path"],
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": "What does REPL stand for?",
+      "options": ["Read-Eval-Print-Loop", "Run-Execute-Parse-Log", "Read-Execute-Print-Log", "Run-Eval-Parse-Loop"],
+      "correct": 0
+    },
+    {
+      "id": 10,
+      "question": "In Node.js, what is the global object equivalent to 'window' in browsers?",
+      "options": ["global", "window", "process", "module"],
+      "correct": 0
+    },
+    {
+      "id": 11,
+      "question": "Which method is used to create an HTTP server in Node.js?",
+      "options": ["http.create()", "http.createServer()", "http.server()", "http.newServer()"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is the purpose of streams in Node.js?",
+      "options": ["To handle large files without loading entire file into memory", "To compile JavaScript code", "To manage threads", "To handle HTTP requests"],
+      "correct": 0
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is a type of stream in Node.js?",
+      "options": ["Readable, Writable, Duplex, Transform", "Input, Output, Both, None", "File, Network, Memory, Disk", "Sync, Async, Promise, Callback"],
+      "correct": 0
+    },
+    {
+      "id": 14,
+      "question": "What is the purpose of the Buffer class in Node.js?",
+      "options": ["To handle binary data", "To manage memory", "To compile code", "To handle HTTP requests"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "Which child process method enables IPC (Inter-Process Communication)?",
+      "options": ["exec()", "spawn()", "fork()", "execFile()"],
+      "correct": 2
+    },
+    {
+      "id": 16,
+      "question": "What is the purpose of Worker Threads in Node.js?",
+      "options": ["To handle file I/O", "To run JavaScript in parallel (true parallelism)", "To manage HTTP requests", "To compile code"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is the purpose of Clusters in Node.js?",
+      "options": ["To create multiple Node.js processes sharing server ports", "To handle file operations", "To manage memory", "To compile JavaScript"],
+      "correct": 0
+    },
+    {
+      "id": 18,
+      "question": "Which method in the path module joins path segments and handles separators?",
+      "options": ["path.join()", "path.resolve()", "path.concat()", "path.merge()"],
+      "correct": 0
+    },
+    {
+      "id": 19,
+      "question": "What is the main purpose of body-parser middleware in Express?",
+      "options": ["To parse incoming request bodies and make them accessible via req.body", "To handle authentication", "To manage routes", "To compile templates"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "In Express 4.16+, body parser is:",
+      "options": ["Not available", "Built into Express", "A separate package", "Deprecated"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is the difference between CommonJS and ES Modules?",
+      "options": ["CommonJS is asynchronous, ES Modules are synchronous", "CommonJS is synchronous loading, ES Modules are asynchronous loading", "There is no difference", "CommonJS is for browsers, ES Modules for Node.js"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "Which command starts Node.js with the inspector for debugging?",
+      "options": ["node --debug app.js", "node --inspect app.js", "node --dev app.js", "node --trace app.js"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is the Event Emitter pattern used for in Node.js?",
+      "options": ["To compile code", "To enable event-driven programming by allowing objects to emit named events and register listeners", "To manage threads", "To handle file operations"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "Which of the following operations does NOT use the LibUV thread pool?",
+      "options": ["File reading/writing", "Crypto operations (async versions)", "Networking operations (HTTP/TCP)", "DNS lookups"],
+      "correct": 2
+    },
+    {
+      "id": 25,
+      "question": "What is the purpose of profiling in Node.js?",
+      "options": ["To analyze application performance and identify bottlenecks", "To compile code", "To manage memory", "To handle HTTP requests"],
+      "correct": 0
     }
   ]
 }
-

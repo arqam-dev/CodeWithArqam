@@ -1,0 +1,156 @@
+{
+  "title": "Problem Solving Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is problem-solving?",
+      "options": ["Avoiding problems", "Process of finding solutions to challenges", "Creating problems", "Ignoring problems"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is the first step in problem-solving?",
+      "options": ["Implementing solution", "Identifying and defining the problem", "Testing solution", "Avoiding problem"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is root cause analysis?",
+      "options": ["Treating symptoms", "Identifying underlying cause of problem", "Ignoring cause", "No analysis"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is brainstorming?",
+      "options": ["Single idea", "Generating multiple ideas and solutions", "No ideas", "One solution"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is critical thinking?",
+      "options": ["Accepting everything", "Analyzing and evaluating information objectively", "No thinking", "Random thinking"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is a hypothesis?",
+      "options": ["Proven fact", "Proposed explanation to be tested", "Final answer", "No explanation"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is trial and error?",
+      "options": ["Only success", "Trying different solutions until finding one that works", "No trying", "Only error"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is divide and conquer?",
+      "options": ["Solving whole problem at once", "Breaking problem into smaller parts", "Avoiding problem", "No breaking"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is analytical thinking?",
+      "options": ["Random thinking", "Breaking down complex problems into components", "No thinking", "Simple thinking"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is creative thinking?",
+      "options": ["Only logical", "Thinking outside the box for innovative solutions", "No thinking", "Only traditional"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is decision-making?",
+      "options": ["Avoiding decisions", "Choosing best course of action", "No choice", "Random choice"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a solution?",
+      "options": ["Problem", "Answer or method to solve problem", "Question", "No answer"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is evaluation?",
+      "options": ["No assessment", "Assessing effectiveness of solution", "Only implementation", "Avoiding assessment"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is optimization?",
+      "options": ["Making worse", "Improving solution for better results", "No improvement", "Keeping same"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is troubleshooting?",
+      "options": ["Creating problems", "Systematic approach to identify and fix issues", "Ignoring issues", "No approach"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is pattern recognition?",
+      "options": ["No patterns", "Identifying patterns to understand problem", "Random recognition", "Only differences"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is abstraction?",
+      "options": ["All details", "Simplifying problem by focusing on essential aspects", "No simplification", "Complex details"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is iteration?",
+      "options": ["Single attempt", "Repeating process to improve solution", "No repetition", "Only once"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is validation?",
+      "options": ["No checking", "Verifying solution works correctly", "Only testing", "Avoiding verification"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is a constraint?",
+      "options": ["Solution", "Limitation or restriction on problem", "No limitation", "Only possibilities"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is a requirement?",
+      "options": ["Optional", "Necessary condition for solution", "No condition", "Only suggestion"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is debugging?",
+      "options": ["Creating bugs", "Finding and fixing errors in code", "Ignoring bugs", "No fixing"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is systematic approach?",
+      "options": ["Random approach", "Methodical step-by-step process", "No process", "Only intuition"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is problem decomposition?",
+      "options": ["Keeping whole", "Breaking complex problem into manageable parts", "No breaking", "Only combining"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the key to effective problem-solving?",
+      "options": ["Avoiding problems", "Systematic approach, critical thinking, and persistence", "Only intuition", "No approach"],
+      "correct": 1
+    }
+  ]
+}
+

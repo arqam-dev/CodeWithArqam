@@ -1,0 +1,156 @@
+{
+  "title": "Project Management Professional Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does PMP stand for?",
+      "options": ["Project Management Process", "Project Management Professional", "Program Management Professional", "Project Management Practice"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a project?",
+      "options": ["Ongoing operation", "Temporary endeavor with specific goal", "Permanent activity", "No goal"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is project management?",
+      "options": ["Only planning", "Application of knowledge, skills, tools to achieve project objectives", "Only execution", "No application"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is a project manager?",
+      "options": ["Team member", "Person responsible for leading project to success", "Stakeholder only", "No responsibility"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is scope?",
+      "options": ["Time only", "Work that must be done to deliver project", "Budget only", "No work"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is a stakeholder?",
+      "options": ["Only team", "Person or group with interest in project", "Only customer", "No interest"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a milestone?",
+      "options": ["Task", "Significant point or event in project", "Resource", "No point"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is a deliverable?",
+      "options": ["Process", "Tangible or intangible output of project", "Resource", "No output"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is risk management?",
+      "options": ["Avoiding risks", "Identifying and managing project risks", "Ignoring risks", "No management"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is a Gantt chart?",
+      "options": ["Budget chart", "Bar chart showing project schedule", "Risk chart", "No chart"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is critical path?",
+      "options": ["Shortest path", "Longest path determining project duration", "Random path", "No path"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a WBS?",
+      "options": ["Work Breakdown Structure", "Work Breakdown System", "Work Breakdown Schedule", "Work Breakdown Strategy"],
+      "correct": 0
+    },
+    {
+      "id": 13,
+      "question": "What is change management?",
+      "options": ["Avoiding changes", "Process of managing changes to project", "Ignoring changes", "No process"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is quality management?",
+      "options": ["Only testing", "Ensuring project meets quality standards", "No quality", "Only speed"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is resource management?",
+      "options": ["Only people", "Managing project resources (people, materials, equipment)", "Only materials", "No management"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is communication management?",
+      "options": ["Only emails", "Ensuring effective communication among stakeholders", "No communication", "Only meetings"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is procurement?",
+      "options": ["Selling", "Acquiring goods and services for project", "Only buying", "No acquisition"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is integration management?",
+      "options": ["Only planning", "Coordinating all project activities", "Only execution", "No coordination"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is a project charter?",
+      "options": ["Contract", "Document authorizing project and project manager", "Budget", "Schedule"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is a baseline?",
+      "options": ["Current plan", "Original approved plan used for comparison", "Future plan", "No plan"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is earned value?",
+      "options": ["Budget", "Value of work actually completed", "Planned value", "No value"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is a project phase?",
+      "options": ["Task", "Distinct stage of project with specific deliverables", "Milestone", "No stage"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is stakeholder management?",
+      "options": ["Ignoring stakeholders", "Managing relationships with stakeholders", "Avoiding stakeholders", "No management"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is project closure?",
+      "options": ["Project start", "Finalizing all project activities", "Project execution", "No finalization"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What are the main constraints in project management?",
+      "options": ["Only time", "Scope, Time, Cost (Triple Constraint)", "Only cost", "No constraints"],
+      "correct": 1
+    }
+  ]
+}
+

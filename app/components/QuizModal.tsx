@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { FaTimes } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
+import { FaTimes, FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 interface Question {
   id: number;
@@ -25,6 +25,7 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
   const [answers, setAnswers] = useState<{ [key: number]: number }>({});
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -66,6 +67,18 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
     setScore(0);
   };
 
+  const scrollToTop = () => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (modalContentRef.current) {
+      modalContentRef.current.scrollTo({ top: modalContentRef.current.scrollHeight, behavior: 'smooth' });
+    }
+  };
+
   if (!isOpen) return null;
 
   const correctAnswers = showResults ? Object.keys(answers).filter(
@@ -87,20 +100,21 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
 
       {/* Modal */}
       <div
+        ref={modalContentRef}
         className="fixed inset-0 bg-white dark:bg-slate-800 shadow-2xl overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
         style={{ overscrollBehavior: 'contain' }}
       >
         {/* Header */}
-        <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between z-10 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{quizData.title}</h2>
+        <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center z-10 shadow-sm relative">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white pr-12">{quizData.title}</h2>
           <button
             onClick={onClose}
-            className="p-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-colors cursor-pointer border border-slate-300 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500"
+            className="absolute top-4 right-4 p-2.5 hover:bg-red-100 dark:hover:bg-red-900/30 text-slate-700 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 rounded-full transition-all cursor-pointer border-2 border-transparent hover:border-red-300 dark:hover:border-red-700 z-20"
             aria-label="Close modal"
             title="Close Quiz"
           >
-            <FaTimes size={20} />
+            <FaTimes size={26} className="font-bold" />
           </button>
         </div>
 
@@ -214,11 +228,15 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
                     {quizData.questions.map((q, index) => {
                       const userAnswer = answers[q.id];
                       const isCorrect = userAnswer === q.correct;
+                      const isUnanswered = userAnswer === undefined;
+                      const isWrong = userAnswer !== undefined && userAnswer !== q.correct;
                       
                       return (
                         <div key={q.id} className={`p-6 rounded-lg shadow-md border-l-4 ${
                           isCorrect
                             ? 'bg-teal-50 dark:bg-teal-900/20 border-teal-300 dark:border-teal-700'
+                            : (isWrong || isUnanswered)
+                            ? 'bg-rose-50 dark:bg-rose-900/20 border-rose-400 dark:border-rose-600'
                             : 'bg-slate-100 dark:bg-slate-700/50 border-slate-300 dark:border-slate-600'
                         }`}>
                           <span className="inline-block bg-indigo-500 dark:bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-bold mb-4">
@@ -227,6 +245,11 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
                           <div className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4">
                             {q.question}
                           </div>
+                          {isUnanswered && (
+                            <div className="mb-4 p-3 bg-rose-100 dark:bg-rose-900/30 border-2 border-rose-400 dark:border-rose-600 rounded-lg text-rose-900 dark:text-rose-200 font-semibold">
+                              ⚠️ This question was not answered
+                            </div>
+                          )}
                           <div className="space-y-3">
                             {q.options.map((option, optIndex) => {
                               const isSelected = userAnswer === optIndex;
@@ -235,9 +258,12 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
                               let optionClassName = "flex items-center p-3 rounded-lg border-2 ";
                               
                               if (isCorrectOption) {
-                                optionClassName += "bg-teal-50 dark:bg-teal-900/30 border-teal-300 dark:border-teal-700 text-teal-800 dark:text-teal-200";
+                                optionClassName += "bg-emerald-100 dark:bg-emerald-900/30 border-emerald-400 dark:border-emerald-600 text-emerald-900 dark:text-emerald-200";
                               } else if (isWrongOption) {
-                                optionClassName += "bg-slate-100 dark:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300";
+                                optionClassName += "bg-rose-100 dark:bg-rose-900/30 border-rose-400 dark:border-rose-600 text-rose-900 dark:text-rose-200";
+                              } else if (isUnanswered && isCorrectOption) {
+                                // Show correct answer in red border if question was unanswered
+                                optionClassName += "bg-rose-50 dark:bg-rose-900/20 border-rose-300 dark:border-rose-500 border-dashed text-rose-800 dark:text-rose-200";
                               } else {
                                 optionClassName += "bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600";
                               }
@@ -252,7 +278,8 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
                                     className="mr-3 w-5 h-5"
                                   />
                                   <span>{option}</span>
-                                  {isCorrectOption && <span className="ml-auto text-teal-700 dark:text-teal-300 font-semibold">✓ Correct</span>}
+                                  {isCorrectOption && <span className="ml-auto text-emerald-700 dark:text-emerald-300 font-semibold">✓ Correct Answer</span>}
+                                  {isWrongOption && <span className="ml-auto text-rose-700 dark:text-rose-300 font-semibold">✗ Wrong Answer</span>}
                                 </div>
                               );
                             })}
@@ -280,6 +307,26 @@ export default function QuizModal({ isOpen, onClose, quizData }: QuizModalProps)
               </div>
             </>
           )}
+        </div>
+
+        {/* Scroll Buttons */}
+        <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-30">
+          <button
+            onClick={scrollToTop}
+            className="p-3 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer"
+            aria-label="Scroll to top"
+            title="Scroll to Top"
+          >
+            <FaArrowUp size={20} />
+          </button>
+          <button
+            onClick={scrollToBottom}
+            className="p-3 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all cursor-pointer"
+            aria-label="Scroll to bottom"
+            title="Scroll to Bottom"
+          >
+            <FaArrowDown size={20} />
+          </button>
         </div>
       </div>
     </div>

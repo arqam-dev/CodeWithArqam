@@ -1,0 +1,156 @@
+{
+  "title": "AWS Certification Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was AWS launched?",
+      "options": ["2004", "2005", "2006", "2007"],
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": "What does AWS stand for?",
+      "options": ["Amazon Web Services", "Amazon Work Services", "Amazon Web Systems", "Amazon Work Systems"],
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "question": "What year was AWS Lambda launched?",
+      "options": ["2012", "2013", "2014", "2015"],
+      "correct": 2
+    },
+    {
+      "id": 4,
+      "question": "What is AWS's pricing model?",
+      "options": ["Fixed pricing", "Pay-as-you-go", "Monthly subscription", "Annual only"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is AWS's biggest client?",
+      "options": ["Google", "Microsoft", "Netflix", "Facebook"],
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "question": "What does EC2 stand for?",
+      "options": ["Elastic Compute Cloud", "Elastic Container Cloud", "Elastic Cloud Compute", "Enterprise Compute Cloud"],
+      "correct": 0
+    },
+    {
+      "id": 7,
+      "question": "What does S3 stand for?",
+      "options": ["Simple Storage Service", "Secure Storage Service", "Scalable Storage Service", "System Storage Service"],
+      "correct": 0
+    },
+    {
+      "id": 8,
+      "question": "What does IAM stand for?",
+      "options": ["Identity and Access Management", "Internet Access Management", "Internal Access Management", "Identity Access Module"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What does RDS stand for?",
+      "options": ["Relational Database Service", "Remote Database Service", "Rapid Database Service", "Reliable Database Service"],
+      "correct": 0
+    },
+    {
+      "id": 10,
+      "question": "What does Lambda provide?",
+      "options": ["Virtual machines", "Serverless computing", "Database services", "Storage services"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is CloudFormation?",
+      "options": ["A database", "IaaC (Infrastructure as a Code) service", "A programming language", "A web framework"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What does SQS stand for?",
+      "options": ["Simple Queue Service", "Secure Queue Service", "Scalable Queue Service", "System Queue Service"],
+      "correct": 0
+    },
+    {
+      "id": 13,
+      "question": "What does SNS stand for?",
+      "options": ["Simple Notification Service", "Secure Notification Service", "Scalable Notification Service", "System Notification Service"],
+      "correct": 0
+    },
+    {
+      "id": 14,
+      "question": "What does EBS stand for?",
+      "options": ["Elastic Block Storage", "Elastic Backup Storage", "Elastic Base Storage", "Enterprise Block Storage"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "What is Route 53?",
+      "options": ["A database service", "A DNS service", "A storage service", "A compute service"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What does DynamoDB provide?",
+      "options": ["Relational database", "NoSQL database service", "File storage", "Virtual machines"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is CloudFront?",
+      "options": ["A database", "A CDN (Content Delivery Network)", "A compute service", "A storage service"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What does API Gateway do?",
+      "options": ["Manages databases", "Manages APIs", "Manages storage", "Manages compute"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What does ECS stand for?",
+      "options": ["Elastic Container Service", "Elastic Compute Service", "Elastic Cloud Service", "Enterprise Container Service"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "What does ASG stand for?",
+      "options": ["Auto Scaling Group", "Application Service Group", "Automated Scaling Group", "Auto Service Gateway"],
+      "correct": 0
+    },
+    {
+      "id": 21,
+      "question": "What is CloudWatch used for?",
+      "options": ["Storage", "Monitoring and logging", "Compute", "Database"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What does KMS stand for?",
+      "options": ["Key Management Service", "Key Monitoring Service", "Key Maintenance Service", "Key Management System"],
+      "correct": 0
+    },
+    {
+      "id": 23,
+      "question": "What is Amplify?",
+      "options": ["A database", "A development platform for building scalable applications", "A compute service", "A storage service"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What year was AWS Amplify launched?",
+      "options": ["2015", "2016", "2017", "2018"],
+      "correct": 2
+    },
+    {
+      "id": 25,
+      "question": "What is the evolution path mentioned for infrastructure?",
+      "options": ["Cloud => In-house servers => Serverless", "In-house servers => Cloud => Serverless", "Serverless => Cloud => In-house servers", "Cloud => Serverless => In-house servers"],
+      "correct": 1
+    }
+  ]
+}
+

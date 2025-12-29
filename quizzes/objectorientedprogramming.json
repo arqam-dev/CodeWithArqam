@@ -1,0 +1,156 @@
+{
+  "title": "Object Oriented Programming Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Can static member functions be virtual?",
+      "options": ["Yes", "No, static member functions can never be virtual", "Sometimes", "Depends on language"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is an Interface?",
+      "options": ["A class with implementation", "Contains only declarations of methods, properties (no implementation)", "A concrete class", "An abstract class"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "How many interfaces can a class implement?",
+      "options": ["Only one", "Multiple interfaces (enables multiple inheritance)", "Two", "Three"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is an Abstract Class?",
+      "options": ["A class that can be instantiated", "A class that is declared abstract, may or may not include abstract methods", "A concrete class", "An interface"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "How many abstract classes can a class extend?",
+      "options": ["Multiple", "Only one", "Two", "Three"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "Can an abstract class be instantiated?",
+      "options": ["Yes", "No, abstract class cannot be instantiated", "Sometimes", "Depends on language"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a Concrete Class?",
+      "options": ["A class with no implementation", "A class that has implementation for all of its methods", "An abstract class", "An interface"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is Abstraction?",
+      "options": ["Hiding data with getters and setters", "Works on design level - hides unnecessary data, highlights what object does", "Binding data and functionalities", "Access modifiers"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is Encapsulation?",
+      "options": ["Hiding implementation", "Works on application level - binds data and functionalities, hides code and data together", "Highlighting what object does", "Interface implementation"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is UpCasting?",
+      "options": ["Using sub class reference for super class object", "Using super class's reference to refer to sub class's object", "Creating new object", "Deleting object"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the main purpose of an Abstract Class?",
+      "options": ["To be instantiated", "To define common behavior that can be inherited by multiple subclasses", "To replace interfaces", "To hide data"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What access modifier must implementing members use when a class implements an interface?",
+      "options": ["Private", "Protected", "Public", "Internal"],
+      "correct": 2
+    },
+    {
+      "id": 13,
+      "question": "Can an interface include private members?",
+      "options": ["Yes", "No, interface cannot include private, protected, or internal members", "Sometimes", "Depends on language"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What are methods declared in interface by default?",
+      "options": ["Concrete", "Abstract (only method signature, no body)", "Virtual", "Static"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What are variables declared in interface by default?",
+      "options": ["Private", "Public, static & final", "Protected", "Internal"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "Can abstract classes have constructors?",
+      "options": ["No", "Yes, abstract classes can have constructors", "Only in some languages", "Never"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is the difference between Abstraction and Encapsulation?",
+      "options": ["They are the same", "Abstraction focuses on design level, Encapsulation on application level", "Encapsulation focuses on design, Abstraction on application", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is an Abstract Method?",
+      "options": ["Method with full implementation", "Method declared without implementation in abstract class", "Static method", "Private method"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What must a class do when implementing an interface?",
+      "options": ["Implement some methods", "Implement all methods (unless abstract class)", "Not implement any", "Only declare methods"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the main advantage of interfaces?",
+      "options": ["Single inheritance", "Multiple inheritance, security, contract enforcement", "No advantages", "Only security"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What happens if a subclass doesn't implement all abstract methods?",
+      "options": ["Compilation error", "It must also be declared abstract", "Runtime error", "Nothing"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is the main use of abstract classes?",
+      "options": ["To be instantiated", "Mainly used for UpCasting", "To replace interfaces", "To hide data"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What does Encapsulation support?",
+      "options": ["Interfaces", "Access modifiers (public, private, protected)", "Abstract classes", "Inheritance only"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What does Abstraction support?",
+      "options": ["Access modifiers", "Interface and abstract class", "Only interfaces", "Only abstract classes"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the relationship between Abstraction, Interface, and Encapsulation?",
+      "options": ["They are unrelated", "Abstraction extracts required attributes, Encapsulation makes a class from those things", "They are the same", "One replaces the other"],
+      "correct": 1
+    }
+  ]
+}
+

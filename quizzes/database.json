@@ -1,0 +1,156 @@
+{
+  "title": "Database Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was MySQL 8.0 released?",
+      "options": ["2016", "2017", "2018", "2019"],
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": "What is the default storage engine in MySQL 5.5+?",
+      "options": ["MyISAM", "InnoDB", "Memory", "Archive"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between SQL and MySQL?",
+      "options": ["SQL is a language, MySQL is software/application", "They are the same", "MySQL is a language, SQL is software", "SQL is for NoSQL databases"],
+      "correct": 0
+    },
+    {
+      "id": 4,
+      "question": "What is the difference between CHAR and VARCHAR?",
+      "options": ["CHAR uses fixed space, VARCHAR length varies", "VARCHAR uses fixed space, CHAR length varies", "They are the same", "CHAR is for numbers, VARCHAR for text"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What is a PRIMARY KEY constraint?",
+      "options": ["Ensures all values are different", "Unique identifier for each row", "Sets default value", "Validates data"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is the purpose of an INDEX?",
+      "options": ["To store data", "To improve speed of operations", "To delete data", "To encrypt data"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a VIEW?",
+      "options": ["A physical table", "Virtual table created by query joining tables", "A data type", "A constraint"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What does CTE stand for?",
+      "options": ["Common Table Expression", "Complex Table Expression", "Compiled Table Expression", "Conditional Table Expression"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is a Temporary Table?",
+      "options": ["Permanent table", "Visible only to current session, automatically dropped when session closes", "Table that never deletes", "Table with no data"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is the maximum recursion level for Recursive CTE (default)?",
+      "options": ["100", "500", "1000", "Unlimited"],
+      "correct": 2
+    },
+    {
+      "id": 11,
+      "question": "What is a Clustered Index?",
+      "options": ["Points to location containing reference of actual data", "Points to location containing actual data", "Same as non-clustered index", "Doesn't exist"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "How many clustered indexes can a table have?",
+      "options": ["Unlimited", "One", "Two", "Three"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What keyword is used before a query to see how it works internally?",
+      "options": ["DESCRIBE", "EXPLAIN", "SHOW", "ANALYZE"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What does TRUNCATE TABLE do?",
+      "options": ["Removes table completely", "Removes all data without removing table structure", "Adds data", "Modifies structure"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is a FOREIGN KEY constraint?",
+      "options": ["Unique identifier", "Referential integrity between tables", "Default value", "Data validation"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "Can a VIEW be nested?",
+      "options": ["Yes", "No", "Only in MySQL 8.0+", "Only with CTE"],
+      "correct": 0
+    },
+    {
+      "id": 17,
+      "question": "Can a CTE be nested?",
+      "options": ["Yes", "No", "Only in MySQL 8.0+", "Only with views"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is AUTO_INCREMENT used for?",
+      "options": ["To delete rows", "To auto-generate unique numbers", "To validate data", "To encrypt data"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is the purpose of the UNIQUE constraint?",
+      "options": ["To set default value", "To ensure all values in column are different", "To validate data", "To link tables"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "Where are Temporary Tables stored?",
+      "options": ["In the main database", "In TempDB", "In memory only", "In a separate file"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is a Non-Clustered Index?",
+      "options": ["Points to location containing actual data", "Points to location containing reference of actual data", "Same as clustered index", "Doesn't exist"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What data type is used for storing year values?",
+      "options": ["DATE", "YEAR", "TIME", "DATETIME"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is the purpose of the CHECK constraint?",
+      "options": ["To set default value", "To validate data against condition", "To ensure uniqueness", "To link tables"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What does ALTER TABLE do?",
+      "options": ["Deletes table", "Adds, modifies, drops columns; renames table", "Only adds columns", "Only deletes columns"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the default PRIMARY KEY index type?",
+      "options": ["Non-clustered", "Clustered", "Hash", "B-tree"],
+      "correct": 1
+    }
+  ]
+}
+

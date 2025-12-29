@@ -1,0 +1,156 @@
+{
+  "title": "Quality Assurance Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is QA?",
+      "options": ["Quality Analysis", "Quality Assurance - process of ensuring quality", "Quality Assessment", "Quality Application"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is testing?",
+      "options": ["Only development", "Process of evaluating software to find defects", "Only deployment", "No process"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is a bug?",
+      "options": ["Feature", "Defect or error in software", "Documentation", "Requirement"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is a test case?",
+      "options": ["Bug report", "Set of conditions to verify functionality", "Code only", "Documentation only"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is unit testing?",
+      "options": ["System testing", "Testing individual components or functions", "Integration testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is integration testing?",
+      "options": ["Unit testing", "Testing interaction between components", "System testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is system testing?",
+      "options": ["Unit testing", "Testing complete system as whole", "Integration testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is regression testing?",
+      "options": ["New feature testing", "Testing to ensure changes don't break existing functionality", "Only bug fixes", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is manual testing?",
+      "options": ["Automated testing", "Testing performed by human testers", "No testing", "Code testing"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is automated testing?",
+      "options": ["Manual testing", "Testing performed by scripts and tools", "No testing", "Human testing"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is a test plan?",
+      "options": ["Bug report", "Document outlining testing approach and strategy", "Code", "No document"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a test script?",
+      "options": ["Test plan", "Step-by-step instructions for executing test", "Bug report", "No instructions"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is black box testing?",
+      "options": ["White box testing", "Testing without knowledge of internal code", "Code review", "Unit testing"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is white box testing?",
+      "options": ["Black box testing", "Testing with knowledge of internal code", "No code knowledge", "Manual testing"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is UAT?",
+      "options": ["Unit Acceptance Testing", "User Acceptance Testing", "User Application Testing", "Unit Application Testing"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is performance testing?",
+      "options": ["Functionality testing", "Testing system performance under load", "Security testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is load testing?",
+      "options": ["Stress testing", "Testing system under expected load", "No load", "Light load"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is stress testing?",
+      "options": ["Load testing", "Testing system beyond normal capacity", "Normal testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is security testing?",
+      "options": ["Functionality testing", "Testing for vulnerabilities and security issues", "Performance testing", "No testing"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is a defect?",
+      "options": ["Feature", "Issue or bug in software", "Requirement", "Documentation"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is a test environment?",
+      "options": ["Production", "Environment where testing is performed", "Development only", "No environment"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is test coverage?",
+      "options": ["Number of tests", "Percentage of code or functionality tested", "Bug count", "Test time"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is smoke testing?",
+      "options": ["Full testing", "Quick test to verify basic functionality", "No testing", "Detailed testing"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is sanity testing?",
+      "options": ["Full testing", "Quick test to verify system is stable", "No testing", "Detailed testing"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main goal of QA?",
+      "options": ["Finding all bugs", "Ensuring software meets quality standards", "Only testing", "No quality"],
+      "correct": 1
+    }
+  ]
+}
+

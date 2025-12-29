@@ -1,0 +1,156 @@
+{
+  "title": "Networking Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is a Public IP address?",
+      "options": ["IP address used only locally", "IP address accessible over the internet", "Private IP address", "Localhost address"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a Private IP address?",
+      "options": ["IP address accessible over internet", "IP address used within private network", "Public IP address", "Dynamic IP"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What does TCP stand for?",
+      "options": ["Transfer Control Protocol", "Transmission Control Protocol", "Transport Control Protocol", "Transfer Communication Protocol"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What does UDP stand for?",
+      "options": ["User Datagram Protocol", "Universal Datagram Protocol", "Unified Data Protocol", "User Data Protocol"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What is the main difference between TCP and UDP?",
+      "options": ["TCP is faster", "TCP is connection-oriented and reliable, UDP is connectionless", "UDP is more reliable", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What does HTTP stand for?",
+      "options": ["HyperText Transfer Protocol", "HyperText Transport Protocol", "High Transfer Text Protocol", "Hyper Transfer Text Protocol"],
+      "correct": 0
+    },
+    {
+      "id": 7,
+      "question": "What does HTTPS stand for?",
+      "options": ["HyperText Transfer Protocol Secure", "HyperText Transport Protocol Secure", "High Transfer Text Protocol Secure", "Hyper Transfer Text Protocol Secure"],
+      "correct": 0
+    },
+    {
+      "id": 8,
+      "question": "What is the default HTTP port?",
+      "options": ["80", "443", "8080", "3000"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is the default HTTPS port?",
+      "options": ["80", "443", "8080", "3000"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What does DNS stand for?",
+      "options": ["Domain Name System", "Domain Network System", "Data Name System", "Domain Name Service"],
+      "correct": 0
+    },
+    {
+      "id": 11,
+      "question": "What is the purpose of DNS?",
+      "options": ["To encrypt data", "To translate domain names to IP addresses", "To transfer files", "To authenticate users"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What does IP stand for?",
+      "options": ["Internet Protocol", "Internal Protocol", "Internet Program", "Internal Program"],
+      "correct": 0
+    },
+    {
+      "id": 13,
+      "question": "What is a Router?",
+      "options": ["A device that connects networks", "A server", "A database", "A programming language"],
+      "correct": 0
+    },
+    {
+      "id": 14,
+      "question": "What is a Switch?",
+      "options": ["A device that connects devices within a network", "A router", "A server", "A database"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "What is a Firewall?",
+      "options": ["A security device that monitors and controls network traffic", "A router", "A switch", "A server"],
+      "correct": 0
+    },
+    {
+      "id": 16,
+      "question": "What is Latency?",
+      "options": ["Data transfer speed", "Time delay in data transmission", "Data size", "Network capacity"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is Bandwidth?",
+      "options": ["Time delay", "Maximum data transfer rate", "Data size", "Network protocol"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What does LAN stand for?",
+      "options": ["Local Area Network", "Large Area Network", "Local Access Network", "Large Access Network"],
+      "correct": 0
+    },
+    {
+      "id": 19,
+      "question": "What does WAN stand for?",
+      "options": ["Wide Area Network", "Wireless Area Network", "Wide Access Network", "Wireless Access Network"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "What is a Subnet?",
+      "options": ["A separate network", "A logical subdivision of a network", "A router", "A switch"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is a Gateway?",
+      "options": ["A router", "A device that connects different networks", "A switch", "A server"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is Packet Loss?",
+      "options": ["Data packets arriving out of order", "Data packets failing to reach destination", "Slow data transfer", "Fast data transfer"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is Load Balancing?",
+      "options": ["Distributing network traffic across multiple servers", "Increasing network speed", "Decreasing latency", "Encrypting data"],
+      "correct": 0
+    },
+    {
+      "id": 24,
+      "question": "What is a Proxy Server?",
+      "options": ["A database", "An intermediary server between client and destination", "A router", "A switch"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the OSI Model?",
+      "options": ["A programming model", "Open Systems Interconnection model - 7 layer network model", "A database model", "A security model"],
+      "correct": 1
+    }
+  ]
+}
+

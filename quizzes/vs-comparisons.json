@@ -1,0 +1,156 @@
+{
+  "title": "Technology Comparisons Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the main difference between React and Angular?",
+      "options": ["They are the same", "React is a library, Angular is a framework", "Angular is a library, React is a framework", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is the main difference between SQL and NoSQL?",
+      "options": ["They are the same", "SQL is relational, NoSQL is non-relational", "NoSQL is relational, SQL is non-relational", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is the main difference between REST and GraphQL?",
+      "options": ["They are the same", "REST uses multiple endpoints, GraphQL uses single endpoint", "GraphQL uses multiple endpoints, REST uses single", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is the main difference between JavaScript and TypeScript?",
+      "options": ["They are the same", "TypeScript adds static typing to JavaScript", "JavaScript adds typing to TypeScript", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is the main difference between let and var in JavaScript?",
+      "options": ["They are the same", "let has block scope, var has function scope", "var has block scope, let has function scope", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is the main difference between == and === in JavaScript?",
+      "options": ["They are the same", "== performs type coercion, === does strict comparison", "=== performs type coercion, == does strict", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is the main difference between class and functional components in React?",
+      "options": ["They are the same", "Class components use classes, functional use functions with hooks", "Functional use classes, class use functions", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is the main difference between MongoDB and MySQL?",
+      "options": ["They are the same", "MongoDB is NoSQL document database, MySQL is SQL relational", "MySQL is NoSQL, MongoDB is SQL", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is the main difference between Git and GitHub?",
+      "options": ["They are the same", "Git is version control system, GitHub is hosting service", "GitHub is version control, Git is hosting", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is the main difference between HTTP and HTTPS?",
+      "options": ["They are the same", "HTTPS is HTTP with SSL/TLS encryption", "HTTP is HTTPS with encryption", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the main difference between synchronous and asynchronous?",
+      "options": ["They are the same", "Synchronous blocks, asynchronous doesn't block", "Asynchronous blocks, synchronous doesn't", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is the main difference between frontend and backend?",
+      "options": ["They are the same", "Frontend is user interface, backend is server-side logic", "Backend is interface, frontend is server", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is the main difference between compiled and interpreted languages?",
+      "options": ["They are the same", "Compiled translated before execution, interpreted at runtime", "Interpreted before, compiled at runtime", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is the main difference between static and dynamic typing?",
+      "options": ["They are the same", "Static checked at compile time, dynamic at runtime", "Dynamic at compile, static at runtime", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is the main difference between Docker and Virtual Machine?",
+      "options": ["They are the same", "Docker shares host OS, VM has guest OS", "VM shares host, Docker has guest", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is the main difference between microservices and monolith?",
+      "options": ["They are the same", "Microservices are separate services, monolith is single unit", "Monolith is separate, microservices are single", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is the main difference between SQL and MySQL?",
+      "options": ["They are the same", "SQL is language, MySQL is database system", "MySQL is language, SQL is database", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is the main difference between let and const in JavaScript?",
+      "options": ["They are the same", "let can be reassigned, const cannot", "const can be reassigned, let cannot", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is the main difference between array and object in JavaScript?",
+      "options": ["They are the same", "Array uses numeric indices, object uses keys", "Object uses numeric, array uses keys", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the main difference between GET and POST?",
+      "options": ["They are the same", "GET retrieves data, POST submits data", "POST retrieves, GET submits", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is the main difference between PUT and PATCH?",
+      "options": ["They are the same", "PUT updates entire resource, PATCH partial update", "PATCH updates entire, PUT partial", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is the main difference between state and props in React?",
+      "options": ["They are the same", "State is internal, props are passed from parent", "Props are internal, state is passed", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is the main difference between CSS and SCSS?",
+      "options": ["They are the same", "SCSS is CSS preprocessor with variables and nesting", "CSS is preprocessor, SCSS is not", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is the main difference between localStorage and sessionStorage?",
+      "options": ["They are the same", "localStorage persists, sessionStorage clears on tab close", "sessionStorage persists, localStorage clears", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main difference between async and await?",
+      "options": ["They are the same", "async declares async function, await pauses execution", "await declares, async pauses", "No difference"],
+      "correct": 1
+    }
+  ]
+}
+

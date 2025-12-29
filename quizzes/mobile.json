@@ -1,0 +1,156 @@
+{
+  "title": "Mobile Development Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is React Native used for?",
+      "options": ["Web development", "Mobile app development", "Backend development", "Database management"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is Flutter?",
+      "options": ["A database", "A framework for building cross-platform mobile apps", "A programming language", "A web framework"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What language does Flutter use?",
+      "options": ["JavaScript", "Dart", "Python", "Java"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is native app development?",
+      "options": ["Cross-platform", "Platform-specific development using platform's native language", "Web apps", "Hybrid apps"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is a hybrid app?",
+      "options": ["Native app", "App that combines web and native technologies", "Web app only", "Desktop app"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is the main advantage of cross-platform frameworks?",
+      "options": ["Better performance", "Code reuse across platforms", "Native look only", "More features"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is iOS development primarily done in?",
+      "options": ["Java", "Swift or Objective-C", "JavaScript", "Python"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is Android development primarily done in?",
+      "options": ["Swift", "Java or Kotlin", "JavaScript", "Python"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is Progressive Web App (PWA)?",
+      "options": ["Native app", "Web app that works like native app", "Desktop app", "Mobile website"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is the main benefit of native apps?",
+      "options": ["Code reuse", "Best performance and access to platform features", "Easier development", "Lower cost"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is Xamarin?",
+      "options": ["A database", "Cross-platform mobile development framework", "A programming language", "A web framework"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is Ionic?",
+      "options": ["Native framework", "Hybrid mobile app framework", "Database", "Programming language"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is the main disadvantage of hybrid apps?",
+      "options": ["Better performance", "May have performance limitations compared to native", "More features", "Easier development"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is App Store?",
+      "options": ["Android app store", "iOS app distribution platform", "Web store", "Desktop store"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is Google Play?",
+      "options": ["iOS app store", "Android app distribution platform", "Web store", "Desktop store"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is hot reload?",
+      "options": ["App restart", "See code changes instantly without full app restart", "Code compilation", "App deployment"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is responsive design in mobile development?",
+      "options": ["Fixed layout", "Layout that adapts to different screen sizes", "Native only", "Desktop only"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is an APK?",
+      "options": ["iOS app file", "Android app package file", "Web app file", "Desktop app file"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is an IPA?",
+      "options": ["Android app file", "iOS app package file", "Web app file", "Desktop app file"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is mobile-first design?",
+      "options": ["Design for desktop first", "Design for mobile devices first, then adapt to larger screens", "Design for tablet only", "No design"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is touch gesture handling?",
+      "options": ["Mouse events", "Handling user touch interactions (tap, swipe, pinch)", "Keyboard input", "Voice input"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is offline functionality?",
+      "options": ["Always online", "App works without internet connection", "Online only", "No functionality"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is push notification?",
+      "options": ["Email notification", "Real-time message sent to user's device", "SMS only", "In-app only"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is app performance optimization?",
+      "options": ["Making app slower", "Improving app speed and responsiveness", "Adding more features", "Increasing app size"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main consideration for mobile app development?",
+      "options": ["Desktop compatibility", "Battery usage, network conditions, screen sizes", "Server performance", "Database size"],
+      "correct": 1
+    }
+  ]
+}
+

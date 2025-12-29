@@ -1,0 +1,156 @@
+{
+  "title": "Cloud Computing Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Cloud Computing?",
+      "options": ["Local server computing", "Delivery of computing services over the internet", "Desktop applications", "Mobile applications"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What are the main service models in cloud computing?",
+      "options": ["IaaS, PaaS, SaaS", "Public, Private, Hybrid", "On-premise, Cloud, Hybrid", "Local, Remote, Distributed"],
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "question": "What does IaaS stand for?",
+      "options": ["Infrastructure as a Service", "Internet as a Service", "Integration as a Service", "Information as a Service"],
+      "correct": 0
+    },
+    {
+      "id": 4,
+      "question": "What does PaaS stand for?",
+      "options": ["Platform as a Service", "Program as a Service", "Process as a Service", "Protocol as a Service"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What does SaaS stand for?",
+      "options": ["Software as a Service", "Server as a Service", "Storage as a Service", "System as a Service"],
+      "correct": 0
+    },
+    {
+      "id": 6,
+      "question": "What are the main deployment models in cloud computing?",
+      "options": ["IaaS, PaaS, SaaS", "Public, Private, Hybrid, Community", "On-premise, Cloud", "Local, Remote"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a Public Cloud?",
+      "options": ["Cloud owned by single organization", "Cloud services available to general public over internet", "Cloud for government only", "Cloud for private companies only"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is a Private Cloud?",
+      "options": ["Cloud for public use", "Cloud infrastructure dedicated to single organization", "Cloud for government", "Free cloud service"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is a Hybrid Cloud?",
+      "options": ["Only public cloud", "Only private cloud", "Combination of public and private clouds", "No cloud"],
+      "correct": 2
+    },
+    {
+      "id": 10,
+      "question": "What is the main advantage of cloud computing?",
+      "options": ["Higher cost", "Scalability and flexibility", "Less security", "Slower performance"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is serverless computing?",
+      "options": ["No servers needed", "Cloud provider manages server infrastructure", "Servers are free", "No cloud needed"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is auto-scaling in cloud computing?",
+      "options": ["Manual scaling", "Automatic adjustment of resources based on demand", "Fixed resources", "No scaling"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is load balancing?",
+      "options": ["Distributing workload across multiple computing resources", "Storing data", "Compiling code", "Managing databases"],
+      "correct": 0
+    },
+    {
+      "id": 14,
+      "question": "What is virtualization in cloud computing?",
+      "options": ["Creating physical servers", "Creating virtual versions of resources", "Deleting resources", "Compiling applications"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is multi-tenancy?",
+      "options": ["Single tenant only", "Multiple tenants sharing same resources", "No tenants", "One tenant per resource"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is the pay-as-you-go model?",
+      "options": ["Fixed monthly fee", "Pay only for what you use", "Annual payment", "Free service"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is cloud storage?",
+      "options": ["Local storage", "Storing data on remote servers accessed over internet", "RAM storage", "Cache storage"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is a CDN?",
+      "options": ["Content Delivery Network", "Cloud Data Network", "Central Data Node", "Content Data Network"],
+      "correct": 0
+    },
+    {
+      "id": 19,
+      "question": "What is the main benefit of CDN?",
+      "options": ["Slower content delivery", "Faster content delivery to users globally", "More expensive", "Less reliable"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is disaster recovery in cloud computing?",
+      "options": ["Preventing disasters", "Process of restoring data and systems after disaster", "Ignoring disasters", "Creating disasters"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is elasticity in cloud computing?",
+      "options": ["Fixed capacity", "Ability to scale resources up or down as needed", "No scaling", "Manual scaling only"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is the difference between scalability and elasticity?",
+      "options": ["They are the same", "Scalability is ability to handle growth, elasticity is automatic scaling", "Elasticity is manual, scalability is automatic", "No difference"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is containerization?",
+      "options": ["Virtual machines", "Packaging applications with dependencies in containers", "Storing data", "Compiling code"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is Infrastructure as Code (IaC)?",
+      "options": ["Manual infrastructure setup", "Managing infrastructure through code", "No infrastructure", "Physical servers"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main security concern in cloud computing?",
+      "options": ["No security concerns", "Data security and privacy", "Performance", "Cost"],
+      "correct": 1
+    }
+  ]
+}
+

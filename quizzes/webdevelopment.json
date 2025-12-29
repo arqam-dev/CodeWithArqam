@@ -1,0 +1,156 @@
+{
+  "title": "Web Development Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Client-Server Architecture?",
+      "options": ["Peer-to-peer system", "Foundational interaction model with client and server", "Blockchain network", "Gossip-based system"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a Monolith Architecture?",
+      "options": ["Multiple separate services", "Entire backend application built, deployed, and scaled as single unit", "Microservices", "Serverless"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is Microservices Architecture?",
+      "options": ["Single large application", "Backend split into small, independent services", "Monolith", "Client-server only"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is SOA?",
+      "options": ["Service-Oriented Architecture", "Server-Only Architecture", "Single-Object Architecture", "System-Only Architecture"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What is Event-Driven Architecture?",
+      "options": ["Services call each other directly", "Services communicate by producing and reacting to events", "Synchronous communication", "Request-response only"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is Serverless Architecture?",
+      "options": ["No servers needed", "Run backend code without managing servers, cloud provider handles infrastructure", "Only servers", "Traditional servers"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is Layered (N-tier) Architecture?",
+      "options": ["Vertical layers", "Organizes code into horizontal layers (Presentation, Business Logic, Data Access)", "No layers", "Single layer"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is MVC?",
+      "options": ["Model-View-Controller", "Model-View-Component", "Module-View-Controller", "Model-Variable-Controller"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is the main advantage of Microservices?",
+      "options": ["Easier to maintain", "Services run, deploy, and scale independently", "Single point of failure", "Tight coupling"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is the main disadvantage of Microservices?",
+      "options": ["Easy maintenance", "Resource wastage due to virtual machines", "Scalability", "Isolation"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the difference between SOA and Microservices?",
+      "options": ["They are the same", "SOA: shared services, centralized control. Microservices: independent services, decentralized control", "SOA is newer", "Microservices is older"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "When is Serverless a good fit?",
+      "options": ["Long-running processes", "Variable or spiky traffic, event-driven workloads", "Heavy in-memory workloads", "Always"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is the key characteristic of Event-Driven Architecture?",
+      "options": ["Tight coupling", "Loose coupling", "Synchronous", "Request-response"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is a Modular Monolith?",
+      "options": ["Multiple services", "Monolithic backend where codebase is strictly divided into independent modules", "Microservices", "Serverless"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is the typical flow in Layered Architecture?",
+      "options": ["Controller → Database → Service", "Controller → Service → Repository → Database", "Service → Controller → Database", "Database → Service → Controller"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What does each Microservice own?",
+      "options": ["Shared database", "Its own business logic and data", "No database", "Only business logic"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is the main trade-off of Event-Driven Architecture?",
+      "options": ["Easy debugging", "Harder debugging, duplicate event handling", "Simple failure scenarios", "Tight coupling"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is the main use of Monolith?",
+      "options": ["Large enterprises only", "Startups, MVPs, Internal enterprise systems", "Only for production", "Only for development"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is the evolution path: Monolith => ?",
+      "options": ["SOA => Microservices", "Microservices => SOA", "Serverless => SOA", "SOA => Monolith"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "What is the main characteristic of SOA services?",
+      "options": ["Independent, not reusable", "Independent, Reusable, Centrally governed", "Dependent, not reusable", "Not governed"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What does EDA stand for?",
+      "options": ["Event-Driven Architecture", "Event-Data Architecture", "Event-Database Architecture", "Event-Design Architecture"],
+      "correct": 0
+    },
+    {
+      "id": 22,
+      "question": "What is the communication style in Event-Driven Architecture?",
+      "options": ["Synchronous", "Asynchronous", "Request-response", "Direct calls"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is eventual consistency?",
+      "options": ["Immediate consistency", "System will become consistent over time", "No consistency", "Partial consistency"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is the main benefit of Serverless?",
+      "options": ["Server management", "Cloud provider handles provisioning, scaling, and infrastructure", "More control", "Lower cost always"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "When does Monolith stop working well?",
+      "options": ["Never", "When independent scaling is needed, deployments become risky", "Always works", "Only in production"],
+      "correct": 1
+    }
+  ]
+}
+

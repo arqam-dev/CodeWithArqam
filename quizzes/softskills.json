@@ -1,0 +1,156 @@
+{
+  "title": "Soft Skills Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What are soft skills?",
+      "options": ["Technical skills", "Interpersonal and communication skills", "Programming skills", "Hardware skills"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is communication?",
+      "options": ["Only speaking", "Exchange of information and ideas", "Only writing", "Only listening"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is teamwork?",
+      "options": ["Working alone", "Collaborating effectively with others", "Competing with others", "Avoiding others"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is leadership?",
+      "options": ["Following others", "Ability to guide and influence others", "Avoiding responsibility", "Working alone"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is problem-solving?",
+      "options": ["Avoiding problems", "Identifying and resolving issues effectively", "Creating problems", "Ignoring problems"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is time management?",
+      "options": ["Working longer hours", "Organizing and planning time effectively", "No planning", "Random scheduling"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is adaptability?",
+      "options": ["Resisting change", "Ability to adjust to new situations", "Staying the same", "Avoiding change"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is emotional intelligence?",
+      "options": ["Only IQ", "Ability to understand and manage emotions", "No emotions", "Ignoring emotions"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is active listening?",
+      "options": ["Only hearing", "Fully concentrating on and understanding speaker", "Interrupting", "Ignoring"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is conflict resolution?",
+      "options": ["Avoiding conflicts", "Finding solutions to disagreements", "Creating conflicts", "Ignoring conflicts"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is empathy?",
+      "options": ["Ignoring others", "Understanding and sharing feelings of others", "Only self-awareness", "Avoiding emotions"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is critical thinking?",
+      "options": ["Accepting everything", "Analyzing and evaluating information objectively", "No thinking", "Random thinking"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is creativity?",
+      "options": ["Following rules only", "Generating new and original ideas", "Copying others", "No ideas"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is work ethic?",
+      "options": ["Avoiding work", "Dedication and commitment to work", "Minimal effort", "No commitment"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is networking?",
+      "options": ["Avoiding people", "Building professional relationships", "Only online", "No relationships"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is presentation skills?",
+      "options": ["Avoiding presentations", "Ability to present information effectively", "Only writing", "No communication"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is negotiation?",
+      "options": ["Avoiding discussions", "Reaching mutually beneficial agreements", "Only winning", "No compromise"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is stress management?",
+      "options": ["Ignoring stress", "Coping with and reducing stress effectively", "Increasing stress", "No coping"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is self-motivation?",
+      "options": ["Waiting for others", "Driving oneself to achieve goals", "No goals", "Dependency on others"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is cultural awareness?",
+      "options": ["Ignoring differences", "Understanding and respecting different cultures", "Only own culture", "No understanding"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is feedback?",
+      "options": ["Only criticism", "Constructive information about performance", "Only praise", "No information"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is delegation?",
+      "options": ["Doing everything alone", "Assigning tasks to others effectively", "Avoiding tasks", "No assignment"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is patience?",
+      "options": ["Impatience", "Ability to remain calm in difficult situations", "Anger", "Frustration"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is positivity?",
+      "options": ["Negativity", "Maintaining optimistic attitude", "Pessimism", "No attitude"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "Why are soft skills important?",
+      "options": ["Not important", "Essential for workplace success and collaboration", "Only for managers", "Optional"],
+      "correct": 1
+    }
+  ]
+}
+

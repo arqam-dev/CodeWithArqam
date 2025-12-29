@@ -1,0 +1,156 @@
+{
+  "title": "GraphQL Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was GraphQL open-sourced?",
+      "options": ["2012", "2015", "2016", "2018"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is GraphQL?",
+      "options": ["A database", "A query language for APIs and runtime for executing queries", "A programming language", "A framework"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is the primary purpose of GraphQL?",
+      "options": ["To replace REST completely", "To allow clients to request exactly the data they need", "To improve database performance", "To simplify authentication"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is over-fetching?",
+      "options": ["Getting less data than needed", "Getting more data than needed", "Not fetching data", "Fetching wrong data"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "How many endpoints does GraphQL typically use?",
+      "options": ["Multiple endpoints like REST", "Single endpoint", "No endpoints", "Depends on the implementation"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "Which HTTP method does GraphQL use for all operations?",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What are the three core GraphQL operations?",
+      "options": ["Create, Read, Update", "Query, Mutation, Subscription", "GET, POST, PUT", "Select, Insert, Delete"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is a Query operation used for?",
+      "options": ["Modifying data", "Reading/fetching data", "Deleting data", "Authenticating"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is a Mutation operation used for?",
+      "options": ["Reading data", "Modifying data (create, update, delete)", "Subscribing to events", "Caching data"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is a Subscription operation used for?",
+      "options": ["Reading data", "Modifying data", "Real-time data (uses WebSocket)", "Caching data"],
+      "correct": 2
+    },
+    {
+      "id": 11,
+      "question": "How are Mutations executed?",
+      "options": ["In parallel", "Sequentially in order", "Randomly", "Only one at a time"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What HTTP status code does GraphQL always return?",
+      "options": ["200", "400", "500", "Depends on the operation"],
+      "correct": 0
+    },
+    {
+      "id": 13,
+      "question": "Where are GraphQL errors returned?",
+      "options": ["In HTTP status code", "In response body errors array", "In headers", "In query string"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is the GraphQL Schema?",
+      "options": ["A database schema", "A contract between client and server", "A query template", "A response format"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is under-fetching?",
+      "options": ["Getting more data than needed", "Requiring multiple API calls to fetch related data", "Not fetching data", "Fetching wrong data"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "Is GraphQL a replacement for REST?",
+      "options": ["Yes, always", "No, it's an alternative that solves specific problems", "Only for new projects", "Only for mobile apps"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What does GraphQL solve regarding versioning?",
+      "options": ["Requires versioning like REST", "Schema evolution is backward compatible", "No versioning needed", "Uses semantic versioning"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "How does GraphQL handle caching compared to REST?",
+      "options": ["Better than REST", "More complex, typically handled at application level", "Same as REST", "No caching support"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What technology does GraphQL Subscription use?",
+      "options": ["HTTP", "WebSocket", "TCP", "UDP"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the main advantage of GraphQL's single endpoint?",
+      "options": ["Better performance", "Simpler API structure", "Easier caching", "Better security"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What does 'strongly typed' mean in GraphQL?",
+      "options": ["Schema acts as a contract", "Only supports strings", "Requires type casting", "No type checking"],
+      "correct": 0
+    },
+    {
+      "id": 22,
+      "question": "Can Queries be executed in parallel?",
+      "options": ["Yes", "No", "Only in some implementations", "Only with subscriptions"],
+      "correct": 0
+    },
+    {
+      "id": 23,
+      "question": "What should Mutations return?",
+      "options": ["Nothing", "The modified object", "Only success status", "Error message"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "Who developed GraphQL?",
+      "options": ["Google", "Facebook", "Microsoft", "Twitter"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What year was GraphQL first used internally at Facebook?",
+      "options": ["2010", "2012", "2015", "2016"],
+      "correct": 1
+    }
+  ]
+}
+

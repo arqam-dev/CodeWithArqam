@@ -1,0 +1,156 @@
+{
+  "title": "JavaScript Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was ES6/ES2015 released?",
+      "options": ["2013", "2014", "2015", "2016"],
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": "What does typeof null return in JavaScript?",
+      "options": ["null", "object", "undefined", "string"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "Which of the following is a falsy value in JavaScript?",
+      "options": ["'0'", "'false'", "0", "[]"],
+      "correct": 2
+    },
+    {
+      "id": 4,
+      "question": "What is the result of: 0 == '0' in JavaScript?",
+      "options": ["true", "false", "undefined", "null"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What is the result of: NaN !== NaN?",
+      "options": ["true", "false", "undefined", "Error"],
+      "correct": 0
+    },
+    {
+      "id": 6,
+      "question": "Which operator performs strict equality comparison without type coercion?",
+      "options": ["==", "===", "=", "!="],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is the result of typeof([]) in JavaScript?",
+      "options": ["array", "object", "undefined", "null"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is NOT a primitive type in JavaScript?",
+      "options": ["boolean", "number", "object", "string"],
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": "What does the 'new' keyword do in JavaScript?",
+      "options": ["Creates a new variable", "Binds 'this' automatically", "Imports a module", "Declares a function"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "JavaScript uses which type of compilation?",
+      "options": ["AOT (Ahead of Time)", "JIT (Just in Time)", "Interpreted only", "Compiled only"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the best way to check if a language is single-threaded?",
+      "options": ["Check if it has one call stack", "Check if it has one heap", "Check if it uses one CPU core", "Check if it has one event loop"],
+      "correct": 0
+    },
+    {
+      "id": 12,
+      "question": "Which of the following is a garbage collector language?",
+      "options": ["C", "C++", "JavaScript", "Rust"],
+      "correct": 2
+    },
+    {
+      "id": 13,
+      "question": "What does the Alert function do?",
+      "options": ["Accepts user input", "Shows a message and pauses script execution", "Shows a confirmation dialog", "Logs to console"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is the result of: Boolean('0')?",
+      "options": ["true", "false", "undefined", "null"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "Which method is used to convert a value to a string?",
+      "options": ["toString()", "String()", "Both String() and toString()", "str()"],
+      "correct": 2
+    },
+    {
+      "id": 16,
+      "question": "What is shallow copy?",
+      "options": ["Complete duplicate of an object", "Copy by reference, faster", "Deep nested copy", "Immutable copy"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "In JavaScript, objects, arrays, and functions are:",
+      "options": ["Primitive types", "Reference types", "Value types", "Immutable types"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What happens when you set arr.length = 0 on an array?",
+      "options": ["Array becomes undefined", "Array becomes empty", "Array length becomes 0 but keeps elements", "Error occurs"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "Which of the following is NOT an environment for JavaScript?",
+      "options": ["Node", "Deno", "Python", "Browser"],
+      "correct": 2
+    },
+    {
+      "id": 20,
+      "question": "What does the garbage collector use to identify unreachable objects?",
+      "options": ["Mark-and-Sweep algorithm", "Reference counting", "Copy collection", "Generational collection"],
+      "correct": 0
+    },
+    {
+      "id": 21,
+      "question": "What is the result of: null == undefined?",
+      "options": ["true", "false", "null", "undefined"],
+      "correct": 0
+    },
+    {
+      "id": 22,
+      "question": "What is the result of: null === undefined?",
+      "options": ["true", "false", "null", "undefined"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "Which of the following can cause memory leakage in JavaScript?",
+      "options": ["Local variables", "Global variables", "Function parameters", "Arrow functions"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What does the Prompt function return?",
+      "options": ["Boolean", "User input string or null", "Number", "Object"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "JavaScript is both a scripting language and:",
+      "options": ["Compiled language", "Compile-time language (due to JIT)", "Assembly language", "Machine language"],
+      "correct": 1
+    }
+  ]
+}
+

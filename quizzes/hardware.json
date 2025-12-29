@@ -1,0 +1,156 @@
+{
+  "title": "Hardware Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is hardware?",
+      "options": ["Software", "Physical components of computer system", "Data", "Programs"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is CPU?",
+      "options": ["Central Processing Unit", "Computer Processing Unit", "Central Program Unit", "Computer Program Unit"],
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "question": "What is RAM?",
+      "options": ["Read Access Memory", "Random Access Memory", "Read Only Memory", "Random Only Memory"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is ROM?",
+      "options": ["Random Access Memory", "Read Only Memory", "Read Access Memory", "Random Only Memory"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is a motherboard?",
+      "options": ["CPU", "Main circuit board connecting all components", "RAM", "Hard drive"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is a hard drive?",
+      "options": ["RAM", "Storage device for data", "CPU", "Motherboard"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is SSD?",
+      "options": ["Solid State Drive", "Software Storage Device", "System Storage Device", "Secure Storage Device"],
+      "correct": 0
+    },
+    {
+      "id": 8,
+      "question": "What is HDD?",
+      "options": ["Hard Disk Drive", "High Definition Drive", "Hardware Data Drive", "High Data Drive"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is GPU?",
+      "options": ["General Processing Unit", "Graphics Processing Unit", "General Program Unit", "Graphics Program Unit"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is a power supply?",
+      "options": ["CPU", "Component that provides power to computer", "RAM", "Storage"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is a network card?",
+      "options": ["Storage device", "Hardware for network connectivity", "CPU", "RAM"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a graphics card?",
+      "options": ["CPU", "Hardware for rendering graphics and images", "Storage", "Network device"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is cache memory?",
+      "options": ["Main memory", "Fast memory for frequently accessed data", "Storage", "Network memory"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is BIOS?",
+      "options": ["Basic Input Output System", "Basic Input Output Software", "Basic Internal Output System", "Basic Internal Output Software"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "What is a port?",
+      "options": ["Software", "Connection point for external devices", "Storage", "Memory"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is USB?",
+      "options": ["Universal Serial Bus", "Universal System Bus", "Universal Serial Board", "Universal System Board"],
+      "correct": 0
+    },
+    {
+      "id": 17,
+      "question": "What is a processor?",
+      "options": ["Storage", "CPU that executes instructions", "Memory", "Network device"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is clock speed?",
+      "options": ["Storage speed", "Speed at which CPU executes instructions", "Network speed", "Memory speed"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is a bus?",
+      "options": ["Storage", "Communication pathway between components", "CPU", "Memory"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is a peripheral?",
+      "options": ["CPU", "External device connected to computer", "Memory", "Storage"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is thermal paste?",
+      "options": ["Adhesive", "Material to improve heat transfer from CPU", "Coolant", "Insulator"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is overclocking?",
+      "options": ["Reducing speed", "Running CPU at higher speed than specified", "Normal speed", "No speed"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is form factor?",
+      "options": ["Size only", "Physical size and layout of component", "Speed", "Capacity"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is firmware?",
+      "options": ["Software only", "Software embedded in hardware", "Hardware only", "No software"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main function of hardware?",
+      "options": ["Only storage", "To process, store, and communicate data", "Only processing", "Only communication"],
+      "correct": 1
+    }
+  ]
+}
+

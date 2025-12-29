@@ -1,0 +1,156 @@
+{
+  "title": "HTML Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was HTML5 released?",
+      "options": ["2012", "2013", "2014", "2015"],
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": "What does HTML stand for?",
+      "options": ["HyperText Markup Language", "High-level Text Markup Language", "Hyperlink Text Markup Language", "Home Tool Markup Language"],
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "question": "Which tag is used to define the root element of an HTML document?",
+      "options": ["<root>", "<html>", "<document>", "<head>"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "Which HTML5 semantic tag is used for independent piece of content like a blog post?",
+      "options": ["<section>", "<article>", "<aside>", "<main>"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "Which tag is used for navigation links?",
+      "options": ["<nav>", "<menu>", "<links>", "<navigation>"],
+      "correct": 0
+    },
+    {
+      "id": 6,
+      "question": "Which input type is used for email addresses?",
+      "options": ["type='text'", "type='email'", "type='mail'", "type='address'"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "Which tag is used to embed audio content?",
+      "options": ["<sound>", "<audio>", "<music>", "<media>"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "Which tag is used for drawing graphics via JavaScript?",
+      "options": ["<svg>", "<canvas>", "<draw>", "<graphics>"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is the purpose of the <meta> tag?",
+      "options": ["To create metadata", "To link stylesheets", "To embed scripts", "To create forms"],
+      "correct": 0
+    },
+    {
+      "id": 10,
+      "question": "Which tag is used for the main content of a document?",
+      "options": ["<content>", "<main>", "<body>", "<primary>"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "Which form method sends data in the request body, not visible in URL?",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "Which tag is used for a table row?",
+      "options": ["<row>", "<tr>", "<td>", "<table-row>"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "Which heading level is the highest/most important?",
+      "options": ["<h6>", "<h1>", "<h3>", "<heading>"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "Which tag is used for a line break?",
+      "options": ["<break>", "<br>", "<lb>", "<newline>"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "Which tag is used for emphasized text (semantic)?",
+      "options": ["<i>", "<em>", "<b>", "<strong>"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "Which tag is used for bold text (semantic, preferred)?",
+      "options": ["<b>", "<strong>", "<bold>", "<weight>"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "Which tag is used for computer code?",
+      "options": ["<code>", "<script>", "<programming>", "<syntax>"],
+      "correct": 0
+    },
+    {
+      "id": 18,
+      "question": "Which tag is used to embed another HTML page?",
+      "options": ["<embed>", "<iframe>", "<include>", "<import>"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "Which tag is used for a description list term?",
+      "options": ["<dt>", "<dd>", "<dl>", "<term>"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "Which attribute is used for alternative text for images (accessibility)?",
+      "options": ["title", "src", "alt", "description"],
+      "correct": 2
+    },
+    {
+      "id": 21,
+      "question": "Which tag creates a popup dialog on a webpage?",
+      "options": ["<popup>", "<dialog>", "<modal>", "<window>"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "Which tag is used for preformatted text that preserves whitespace?",
+      "options": ["<pre>", "<code>", "<format>", "<text>"],
+      "correct": 0
+    },
+    {
+      "id": 23,
+      "question": "Which tag is used for a multi-line text input?",
+      "options": ["<input>", "<textarea>", "<text>", "<multiline>"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "Which tag provides autocomplete feature for input fields?",
+      "options": ["<autocomplete>", "<datalist>", "<suggest>", "<complete>"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "Which tag is used for a footer of a document or section?",
+      "options": ["<bottom>", "<footer>", "<end>", "<close>"],
+      "correct": 1
+    }
+  ]
+}
+

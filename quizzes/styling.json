@@ -1,0 +1,156 @@
+{
+  "title": "Styling Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What does CSS stand for?",
+      "options": ["Computer Style Sheets", "Cascading Style Sheets", "Creative Style Sheets", "Color Style Sheets"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is the purpose of CSS?",
+      "options": ["To structure content", "To style and layout web pages", "To add functionality", "To manage databases"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is a CSS selector?",
+      "options": ["A function", "Pattern used to select elements to style", "A variable", "A class"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is the box model?",
+      "options": ["A database model", "Content, padding, border, margin", "Only content", "Only margin"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is Flexbox?",
+      "options": ["A database", "Layout method for arranging items in container", "A programming language", "A framework"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is CSS Grid?",
+      "options": ["A database", "Two-dimensional layout system", "One-dimensional layout", "No layout"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a media query?",
+      "options": ["Database query", "CSS feature for responsive design based on screen size", "JavaScript function", "HTML tag"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is responsive design?",
+      "options": ["Fixed layout", "Design that adapts to different screen sizes", "Desktop only", "Mobile only"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is a CSS variable?",
+      "options": ["JavaScript variable", "Custom property that stores value for reuse", "HTML attribute", "Database field"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is specificity in CSS?",
+      "options": ["Speed", "Rule that determines which style applies when multiple rules match", "Performance", "Size"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is !important in CSS?",
+      "options": ["Comment", "Declaration that overrides other styles", "Variable", "Function"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a pseudo-class?",
+      "options": ["Real class", "Keyword added to selector to style element in specific state", "Variable", "Function"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is a pseudo-element?",
+      "options": ["Real element", "Keyword for styling specific parts of element", "Variable", "Class"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is CSS animation?",
+      "options": ["JavaScript animation", "Technique for animating element properties", "HTML animation", "No animation"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is a CSS framework?",
+      "options": ["Programming language", "Pre-written CSS library for faster development", "Database", "Server"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is Bootstrap?",
+      "options": ["A database", "Popular CSS framework", "A programming language", "A server"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is Tailwind CSS?",
+      "options": ["A database", "Utility-first CSS framework", "A programming language", "A server"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is SASS?",
+      "options": ["A database", "CSS preprocessor", "A programming language", "A framework"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is LESS?",
+      "options": ["A database", "CSS preprocessor", "A programming language", "A framework"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is inline CSS?",
+      "options": ["External stylesheet", "CSS written directly in HTML element", "Internal stylesheet", "No CSS"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is internal CSS?",
+      "options": ["Inline CSS", "CSS in <style> tag in HTML head", "External CSS", "No CSS"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is external CSS?",
+      "options": ["Inline CSS", "CSS in separate file linked to HTML", "Internal CSS", "No CSS"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is z-index?",
+      "options": ["Horizontal position", "Property that controls stacking order of elements", "Vertical position", "Size"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is CSS reset?",
+      "options": ["Removing all styles", "Removing browser default styles for consistency", "Adding all styles", "No styles"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the cascade in CSS?",
+      "options": ["No order", "Order of priority when multiple styles apply", "Single style", "Random order"],
+      "correct": 1
+    }
+  ]
+}
+

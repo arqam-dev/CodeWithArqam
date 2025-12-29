@@ -1,0 +1,156 @@
+{
+  "title": "Git Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which command initializes a Git repository?",
+      "options": ["git start", "git init", "git create", "git new"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "Which command adds all files to the staging area?",
+      "options": ["git add all", "git add .", "git stage all", "git add *"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "Which command commits changes with a message?",
+      "options": ["git commit", "git commit -m 'message'", "git save -m 'message'", "git commit message"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "Which command shows the commit history?",
+      "options": ["git history", "git log", "git commits", "git show"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "Which command creates a new branch?",
+      "options": ["git new branch", "git branch branch_name", "git create branch", "git add branch"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "Which command switches to a branch?",
+      "options": ["git switch", "git checkout branch_name", "git change branch", "git move branch"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "Which command merges two branches?",
+      "options": ["git combine", "git merge branch_name", "git join branch", "git unite branch"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "Which command pushes changes to a remote repository?",
+      "options": ["git send", "git push", "git upload", "git publish"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "Which command pulls changes from a remote repository?",
+      "options": ["git fetch", "git pull", "git download", "git get"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "Which command shows the repository status?",
+      "options": ["git info", "git status", "git check", "git state"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What does 'git reset --hard' do?",
+      "options": ["Moves branch pointer and discards all changes", "Moves branch pointer but keeps changes", "Only discards staged changes", "Creates a new commit"],
+      "correct": 0
+    },
+    {
+      "id": 12,
+      "question": "What does 'git reset --soft' do?",
+      "options": ["Moves branch pointer and discards all changes", "Moves branch pointer while preserving changes in working directory and staging area", "Only discards working directory changes", "Creates a backup"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "Which command shows remote URLs?",
+      "options": ["git remote", "git remote -v", "git remote show", "git remote list"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "Which command deletes a branch?",
+      "options": ["git remove branch", "git branch -d branch_name", "git delete branch", "git branch --delete"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What does 'git fetch' do?",
+      "options": ["Downloads changes but doesn't merge", "Downloads and merges changes", "Uploads changes", "Shows remote branches"],
+      "correct": 0
+    },
+    {
+      "id": 16,
+      "question": "Which command amends the last commit?",
+      "options": ["git commit --amend", "git amend", "git fix commit", "git update commit"],
+      "correct": 0
+    },
+    {
+      "id": 17,
+      "question": "What does 'git cherry-pick commitHash' do?",
+      "options": ["Deletes a commit", "Merges all code of that specific commit", "Shows commit details", "Reverts a commit"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "Which command reverts unstaged changes?",
+      "options": ["git revert filename", "git checkout filename", "git undo filename", "git reset filename"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "Which command reverts staged changes?",
+      "options": ["git unstage filename", "git reset HEAD filename", "git revert HEAD filename", "git checkout filename"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What does 'git rebase branch_name' do?",
+      "options": ["Merges branches", "Replays commits on top of another branch", "Deletes a branch", "Shows branch history"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "Which command shows changes before committing?",
+      "options": ["git show", "git diff", "git changes", "git status"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "Which command renames a file?",
+      "options": ["git rename oldfile newfile", "git mv oldfile newfile", "git move oldfile newfile", "git change oldfile newfile"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What does 'git reset HEAD~1' do?",
+      "options": ["Undoes the last commit", "Shows last commit", "Creates a new commit", "Merges branches"],
+      "correct": 0
+    },
+    {
+      "id": 24,
+      "question": "Which command forces a push?",
+      "options": ["git push --force", "git push -f", "Both git push --force and git push -f", "git push --overwrite"],
+      "correct": 2
+    },
+    {
+      "id": 25,
+      "question": "Which command creates and switches to a new branch?",
+      "options": ["git branch -b branch_name", "git checkout -b branch_name", "git new -b branch_name", "git create -b branch_name"],
+      "correct": 1
+    }
+  ]
+}
+

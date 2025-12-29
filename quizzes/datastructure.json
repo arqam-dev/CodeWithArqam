@@ -1,0 +1,156 @@
+{
+  "title": "Data Structure Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What are data structures?",
+      "options": ["Programming languages", "Ways of organizing and storing data in computer memory", "Algorithms", "Databases"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What are algorithms?",
+      "options": ["Data structures", "Step-by-step procedures for solving problems", "Programming languages", "Databases"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What does Big-O notation represent?",
+      "options": ["Best case complexity", "Worst case time complexity (upper bound)", "Average case", "Space complexity only"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is O(1) complexity?",
+      "options": ["Linear time", "Constant time", "Quadratic time", "Logarithmic time"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is O(n) complexity?",
+      "options": ["Constant time", "Linear time", "Quadratic time", "Logarithmic time"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is O(n²) complexity?",
+      "options": ["Linear time", "Constant time", "Quadratic time", "Logarithmic time"],
+      "correct": 2
+    },
+    {
+      "id": 7,
+      "question": "What is O(log n) complexity?",
+      "options": ["Linear time", "Constant time", "Quadratic time", "Logarithmic time"],
+      "correct": 3
+    },
+    {
+      "id": 8,
+      "question": "What is the most important case for algorithm analysis?",
+      "options": ["Best case", "Average case", "Worst case", "All cases equally"],
+      "correct": 2
+    },
+    {
+      "id": 9,
+      "question": "What is a Greedy Algorithm?",
+      "options": ["Always finds optimal solution", "Makes locally optimal choice at each step", "Never finds solution", "Uses recursion"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is Divide and Conquer?",
+      "options": ["Single step solution", "Divide problem into subproblems, solve recursively, combine", "Only divide, never conquer", "Only conquer, never divide"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is the purpose of learning data structures?",
+      "options": ["To learn programming", "To handle data search efficiently, optimize processor usage", "To design websites", "To manage databases"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is an Interface in data structures?",
+      "options": ["Implementation", "Set of operations a data structure supports", "Algorithm", "Data type"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is Implementation in data structures?",
+      "options": ["Interface", "Internal representation of data structure and algorithm definitions", "Data type", "Algorithm only"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What are the characteristics of good data structures?",
+      "options": ["Only correctness", "Correctness, Time Complexity, Space Complexity", "Only time complexity", "Only space complexity"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is Time Complexity?",
+      "options": ["Memory usage", "Execution time should be minimal", "Code size", "Number of variables"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is Space Complexity?",
+      "options": ["Execution time", "Memory usage should be minimal", "Code size", "Number of functions"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is Ω (Omega) notation?",
+      "options": ["Upper bound", "Lower bound, best-case time complexity", "Tight bound", "Average case"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is θ (Theta) notation?",
+      "options": ["Upper bound only", "Lower bound only", "Both upper and lower bound (tight bound)", "Average case"],
+      "correct": 2
+    },
+    {
+      "id": 19,
+      "question": "What is O(n log n) complexity?",
+      "options": ["Linear time", "Linearithmic time", "Quadratic time", "Constant time"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is O(2ⁿ) complexity?",
+      "options": ["Linear time", "Quadratic time", "Exponential time", "Logarithmic time"],
+      "correct": 2
+    },
+    {
+      "id": 21,
+      "question": "What is O(n!) complexity?",
+      "options": ["Linear time", "Quadratic time", "Exponential time", "Factorial time"],
+      "correct": 3
+    },
+    {
+      "id": 22,
+      "question": "What is a Record?",
+      "options": ["Single value", "Collection of field values for an entity", "File", "Data item"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is a File?",
+      "options": ["Single value", "Record", "Collection of records", "Data item"],
+      "correct": 2
+    },
+    {
+      "id": 24,
+      "question": "What are Elementary Items?",
+      "options": ["Can be divided further", "Cannot be divided further", "Collections", "Files"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What are common applications of data structures?",
+      "options": ["Only sorting", "Search, Sort, Insert, Update, Delete operations, Database indexing, Network routing", "Only searching", "Only deleting"],
+      "correct": 1
+    }
+  ]
+}
+

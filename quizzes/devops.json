@@ -1,0 +1,156 @@
+{
+  "title": "DevOps Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was Docker 1.0 released?",
+      "options": ["2012", "2013", "2014", "2015"],
+      "correct": 2
+    },
+    {
+      "id": 2,
+      "question": "What is Docker?",
+      "options": ["A programming language", "A containerization platform", "A database", "A web framework"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What does Docker use instead of guest OS?",
+      "options": ["Virtual Machine", "Host OS", "Container OS", "No OS"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What are Docker Images?",
+      "options": ["Running containers", "Read-only templates used to create containers", "Virtual machines", "Applications"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What are Docker Containers?",
+      "options": ["Docker Images", "Runtime instances of Docker images", "Virtual machines", "Operating systems"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is Docker Hub?",
+      "options": ["A container", "Cloud repository for Docker images (can be private or public)", "A virtual machine", "A programming language"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a Dockerfile?",
+      "options": ["A running container", "Instructions to build Docker images", "A virtual machine", "A database"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is the architecture layer order in Docker?",
+      "options": ["Host machine => Docker Engine => Containers", "VM => Host machine => Containers", "Containers => Docker Engine => Host machine", "Docker Engine => VM => Containers"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is Microservices Architecture?",
+      "options": ["Single large application", "Small processes that communicate over network to fulfill one goal", "Virtual machines", "Containers"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is an advantage of Microservices Architecture?",
+      "options": ["More resource usage", "If any service goes down, rest of project remains unaffected", "Easier to break", "Single point of failure"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is a disadvantage of Microservices Architecture?",
+      "options": ["Easy to maintain", "Resource wastage due to virtual machines", "Scalability", "Isolation"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "Why are containers lightweight alternatives to VMs?",
+      "options": ["They use more resources", "They share the host OS kernel", "They are larger", "They need more memory"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is Docker Registry?",
+      "options": ["A container", "Storage component for Docker images", "A virtual machine", "A programming language"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "How many images are usually needed per project?",
+      "options": ["Multiple always", "Usually one image per project", "No images needed", "Depends on the language"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "When are multiple images required for a project?",
+      "options": ["Never", "For Microservices Architecture, Different Environments, Versioning", "Only for large projects", "Only for small projects"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is the workflow: Docker File => ?",
+      "options": ["Docker Container", "Docker Images", "Docker Hub", "Virtual Machine"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What year was Docker Swarm mode introduced?",
+      "options": ["2014", "2015", "2016", "2017"],
+      "correct": 2
+    },
+    {
+      "id": 18,
+      "question": "What does Docker solve in development?",
+      "options": ["Code compilation", "Same environment in dev, test and prod", "Database management", "Authentication"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is stored in Docker Hub?",
+      "options": ["Containers", "Docker Images", "Virtual Machines", "Source Code"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the lowest layer in Docker architecture?",
+      "options": ["Docker Engine", "Containers", "Host machine", "Virtual Machine"],
+      "correct": 2
+    },
+    {
+      "id": 21,
+      "question": "What is the highest layer in Docker architecture?",
+      "options": ["Host machine", "Docker Engine", "Containers", "Virtual Machine"],
+      "correct": 2
+    },
+    {
+      "id": 22,
+      "question": "What does a Docker Image include?",
+      "options": ["Only application code", "Application code, runtime, system libraries, and dependencies", "Only runtime", "Only system libraries"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is the purpose of containers?",
+      "options": ["To replace virtual machines completely", "To create isolated environments that run consistently across platforms", "To compile code", "To manage databases"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What year was Docker CE/EE split?",
+      "options": ["2016", "2017", "2018", "2019"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main benefit of using Docker?",
+      "options": ["Faster compilation", "Consistency across different environments", "Better database performance", "Improved authentication"],
+      "correct": 1
+    }
+  ]
+}
+

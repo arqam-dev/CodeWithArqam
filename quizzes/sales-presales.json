@@ -1,0 +1,156 @@
+{
+  "title": "Sales & Pre-Sales Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is pre-sales?",
+      "options": ["After sales", "Activities before closing a sale", "Sales only", "No activities"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a sales cycle?",
+      "options": ["Single step", "Process from initial contact to closing sale", "Only closing", "No process"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is a lead?",
+      "options": ["Customer", "Potential customer or prospect", "Product", "Service"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is a prospect?",
+      "options": ["Current customer", "Potential customer who has shown interest", "Product", "Competitor"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is a sales pitch?",
+      "options": ["Product", "Presentation to persuade customer to buy", "Price only", "No presentation"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is a proposal?",
+      "options": ["Informal offer", "Formal document outlining solution and pricing", "Only pricing", "No document"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is a demo?",
+      "options": ["Document", "Demonstration of product or service", "Price list", "Contract"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is objection handling?",
+      "options": ["Ignoring concerns", "Addressing customer concerns and doubts", "Avoiding questions", "No response"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is closing?",
+      "options": ["Starting sale", "Finalizing the sale", "Avoiding sale", "No action"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is CRM?",
+      "options": ["Customer Relationship Management", "Customer Record Management", "Customer Response Management", "Customer Revenue Management"],
+      "correct": 0
+    },
+    {
+      "id": 11,
+      "question": "What is a sales quota?",
+      "options": ["Product quantity", "Sales target or goal", "Price", "Discount"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is upselling?",
+      "options": ["Selling less", "Selling higher-value product to existing customer", "Selling same", "No selling"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is cross-selling?",
+      "options": ["Selling one product", "Selling additional products to existing customer", "No selling", "Avoiding sales"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is a sales funnel?",
+      "options": ["Single stage", "Process showing customer journey from awareness to purchase", "Only purchase", "No process"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is lead qualification?",
+      "options": ["No assessment", "Assessing if lead is potential customer", "Only closing", "Avoiding assessment"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is BANT?",
+      "options": ["Product name", "Budget, Authority, Need, Timeline - qualification framework", "Sales tool", "CRM system"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is a cold call?",
+      "options": ["Warm call", "Unsolicited call to potential customer", "Hot call", "No call"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is a warm lead?",
+      "options": ["Cold lead", "Lead who has shown some interest", "Hot lead", "No lead"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is ROI?",
+      "options": ["Return on Investment", "Return on Income", "Rate of Interest", "Return on Interest"],
+      "correct": 0
+    },
+    {
+      "id": 20,
+      "question": "What is value proposition?",
+      "options": ["Price only", "Unique value product/service provides to customer", "Product only", "No value"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is a sales pipeline?",
+      "options": ["Single deal", "Visual representation of sales opportunities at different stages", "Only closed deals", "No deals"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is negotiation?",
+      "options": ["Accepting all terms", "Discussion to reach mutually acceptable agreement", "No discussion", "Only accepting"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is a follow-up?",
+      "options": ["Initial contact", "Contact after initial meeting or interaction", "No contact", "Avoiding contact"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is customer retention?",
+      "options": ["Losing customers", "Keeping existing customers", "Avoiding customers", "No customers"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main goal of pre-sales?",
+      "options": ["Closing immediately", "Understanding customer needs and presenting solution", "Only selling", "No interaction"],
+      "correct": 1
+    }
+  ]
+}
+

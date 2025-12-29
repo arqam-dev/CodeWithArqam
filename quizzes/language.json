@@ -1,0 +1,156 @@
+{
+  "title": "Programming Languages Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is a programming language?",
+      "options": ["A database", "A formal language for writing computer programs", "An operating system", "A web browser"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a compiled language?",
+      "options": ["Interpreted at runtime", "Translated to machine code before execution", "No translation needed", "Only for web"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is an interpreted language?",
+      "options": ["Compiled before execution", "Executed line by line at runtime", "No execution", "Only compiled"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is a statically typed language?",
+      "options": ["Types checked at runtime", "Types checked at compile time", "No types", "Dynamic types"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What is a dynamically typed language?",
+      "options": ["Types checked at compile time", "Types checked at runtime", "No types", "Static types"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is object-oriented programming?",
+      "options": ["Procedural programming", "Programming paradigm based on objects and classes", "Functional programming", "No paradigm"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is functional programming?",
+      "options": ["Object-oriented", "Programming paradigm based on functions and immutability", "Procedural only", "No paradigm"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is procedural programming?",
+      "options": ["Object-oriented", "Programming paradigm based on procedures/functions", "Functional only", "No paradigm"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is garbage collection?",
+      "options": ["Manual memory management", "Automatic memory management", "No memory management", "Memory allocation only"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is memory management?",
+      "options": ["Code organization", "Allocation and deallocation of memory", "File management", "Database management"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is a high-level language?",
+      "options": ["Close to machine code", "Abstraction from machine details, easier to read", "Assembly language", "Binary code"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is a low-level language?",
+      "options": ["High abstraction", "Close to machine code, less abstraction", "Very abstract", "No code"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is syntax?",
+      "options": ["Program logic", "Rules that define structure of valid code", "Program output", "Program input"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is semantics?",
+      "options": ["Code structure", "Meaning of code", "Code syntax", "Code comments"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What is a variable?",
+      "options": ["Constant value", "Container for storing data values", "Function", "Class"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is a function?",
+      "options": ["Variable", "Reusable block of code that performs specific task", "Class", "Object"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is a class?",
+      "options": ["Function", "Blueprint for creating objects", "Variable", "Constant"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is an object?",
+      "options": ["Class", "Instance of a class", "Function", "Variable"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is inheritance?",
+      "options": ["Creating new class", "Mechanism where class inherits properties and methods from another class", "Deleting class", "Modifying class"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is polymorphism?",
+      "options": ["Single form", "Ability to take multiple forms", "No forms", "Fixed form"],
+      "correct": 1
+    },
+    {
+      "id": 21,
+      "question": "What is encapsulation?",
+      "options": ["Exposing all data", "Bundling data and methods together, hiding implementation", "Separating data", "No data"],
+      "correct": 1
+    },
+    {
+      "id": 22,
+      "question": "What is abstraction?",
+      "options": ["Showing all details", "Hiding complex implementation, showing only essential features", "No features", "All features visible"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What is recursion?",
+      "options": ["Iteration only", "Function calling itself", "No function calls", "Single call"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is an algorithm?",
+      "options": ["Data structure", "Step-by-step procedure for solving problem", "Programming language", "Database"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the main purpose of programming languages?",
+      "options": ["To manage databases", "To communicate instructions to computers", "To design websites", "To manage servers"],
+      "correct": 1
+    }
+  ]
+}
+
