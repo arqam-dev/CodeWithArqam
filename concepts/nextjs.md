@@ -48,25 +48,59 @@ Next.js is a React framework for building full-stack web applications. It provid
 <expand title="App Router vs Pages Router">
 ## App Router vs Pages Router
 
-### Pages Router (Legacy):
-- File-based routing using `pages/` directory
-- `pages/index.js` → `/`
-- `pages/about.js` → `/about`
-- `pages/blog/[id].js` → `/blog/:id`
-- Uses `getServerSideProps`, `getStaticProps`, `getStaticPaths`
+### What They Are:
 
-### App Router (Next.js 13+):
-- File-based routing using `app/` directory
-- `app/page.js` → `/`
-- `app/about/page.js` → `/about`
-- `app/blog/[id]/page.js` → `/blog/:id`
-- Uses Server Components by default
-- Supports layouts, loading states, error boundaries
-- Better for modern React features
+**Pages Router (Legacy - Next.js 1-12):**
+- The original routing system in Next.js
+- Uses a `pages/` folder in your project root
+- Each file in `pages/` automatically becomes a route
+- Files are React components that export as pages
+- Uses special functions like `getServerSideProps` and `getStaticProps` for data fetching
+
+**App Router (Next.js 13+):**
+- The new routing system introduced in Next.js 13
+- Uses an `app/` folder instead of `pages/`
+- More structured: each route needs a `page.js` file inside a folder
+- Uses Server Components by default (better performance)
+- Built-in support for layouts, loading states, and error handling
+
+### Key Differences:
+
+**Directory:**
+- Pages Router: Uses `pages/` folder
+- App Router: Uses `app/` folder
+
+**File Structure:**
+- Pages Router: `pages/about.js` → `/about`
+- App Router: `app/about/page.js` → `/about`
+
+**Home Page:**
+- Pages Router: `pages/index.js`
+- App Router: `app/page.js`
+
+**Data Fetching:**
+- Pages Router: Uses `getServerSideProps`, `getStaticProps`
+- App Router: Direct `async/await` in components
+
+**Components:**
+- Pages Router: All Client Components
+- App Router: Server Components by default
+
+**Layouts:**
+- Pages Router: Custom `_app.js`
+- App Router: Built-in `layout.js` files
+
+**Loading States:**
+- Pages Router: Manual implementation
+- App Router: Built-in `loading.js`
+
+**Error Handling:**
+- Pages Router: Manual implementation
+- App Router: Built-in `error.js`
 
 ### When to Use:
-- **Pages Router:** Existing projects, simpler routing needs
-- **App Router:** New projects, need Server Components, better performance
+- **Pages Router:** Existing projects, simpler routing needs, legacy codebase
+- **App Router:** New projects, need Server Components, better performance, modern React features
 </expand>
 
 <expand title="Server Components vs Client Components">
