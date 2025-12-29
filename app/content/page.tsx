@@ -52,6 +52,9 @@ const concepts: Concept[] = [
   { name: "Node.js", slug: "node", category: "Backend", icon: FaServer, description: "Node.js runtime, Express, and server-side development" },
   { name: "GraphQL", slug: "graphql", category: "Backend", icon: FaServer, description: "GraphQL queries, mutations, and schema design" },
   
+  // Full Stack
+  { name: "Next.js", slug: "nextjs", category: "Full Stack", icon: FaCode, description: "Next.js framework, App Router, Server Components, and full-stack React" },
+  
   // Cloud & DevOps
   { name: "AWS Certification", slug: "aws-certification", category: "Cloud", icon: FaCloud, description: "AWS services, architecture, and certification prep" },
   { name: "Cloud Computing", slug: "cloudcomputing", category: "Cloud", icon: FaCloud, description: "Cloud platforms, services, and deployment" },
@@ -90,7 +93,7 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
 
 function ContentPageContent() {
   const searchParams = useSearchParams();

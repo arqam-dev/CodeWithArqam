@@ -1,0 +1,156 @@
+{
+  "title": "Next.js Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What year was Next.js 1.0 released?",
+      "options": ["2015", "2016", "2017", "2018"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What year was the App Router introduced in Next.js?",
+      "options": ["2020", "2021", "2022", "2023"],
+      "correct": 2
+    },
+    {
+      "id": 3,
+      "question": "What is Next.js?",
+      "options": ["A database", "A React framework for building full-stack web applications", "A CSS framework", "A testing library"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What directory is used for App Router?",
+      "options": ["pages/", "app/", "src/", "components/"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "question": "What directory is used for Pages Router?",
+      "options": ["app/", "pages/", "src/", "routes/"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What is the default rendering method in App Router?",
+      "options": ["Client Components", "Server Components", "Static Components", "Hybrid Components"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What directive is needed to make a component a Client Component?",
+      "options": ["'use server'", "'use client'", "'use browser'", "'use interactive'"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "question": "What is SSG?",
+      "options": ["Server-Side Generation", "Static Site Generation", "Server-Side GraphQL", "Static Site GraphQL"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "question": "What is SSR?",
+      "options": ["Static Site Rendering", "Server-Side Rendering", "Server-Side Routing", "Static Site Routing"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is ISR?",
+      "options": ["Incremental Static Rendering", "Incremental Static Regeneration", "Incremental Server Rendering", "Incremental Server Regeneration"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "Where are API routes placed in App Router?",
+      "options": ["app/api/route.js", "pages/api/route.js", "api/route.js", "routes/api/route.js"],
+      "correct": 0
+    },
+    {
+      "id": 12,
+      "question": "What component is used for optimized images?",
+      "options": ["<img>", "<Image> from next/image", "<Picture>", "<OptimizedImage>"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is the main benefit of Server Components?",
+      "options": ["Can use hooks", "No JavaScript sent to client, better performance", "Can use browser APIs", "Interactive UI"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is the main benefit of Client Components?",
+      "options": ["Better SEO", "Can use React hooks and browser APIs", "No JavaScript", "Server-side only"],
+      "correct": 1
+    },
+    {
+      "id": 15,
+      "question": "What file is used for middleware in Next.js?",
+      "options": ["middleware.ts", "middleware.js in root", "app/middleware.js", "pages/middleware.js"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What prefix is needed for client-side environment variables?",
+      "options": ["CLIENT_", "PUBLIC_", "NEXT_PUBLIC_", "BROWSER_"],
+      "correct": 2
+    },
+    {
+      "id": 17,
+      "question": "What is the recommended deployment platform for Next.js?",
+      "options": ["AWS", "Netlify", "Vercel", "Heroku"],
+      "correct": 2
+    },
+    {
+      "id": 18,
+      "question": "What does Next.js solve that React alone doesn't?",
+      "options": ["Component creation", "SEO issues in Client-Side Rendering", "State management", "Styling"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is the file name for the root layout in App Router?",
+      "options": ["root.js", "layout.js in app/", "main.js", "app.js"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is the file name for a loading UI in App Router?",
+      "options": ["loading.js", "spinner.js", "loader.js", "waiting.js"],
+      "correct": 0
+    },
+    {
+      "id": 21,
+      "question": "What is the file name for an error UI in App Router?",
+      "options": ["error.js", "error-boundary.js", "catch.js", "failure.js"],
+      "correct": 0
+    },
+    {
+      "id": 22,
+      "question": "What rendering method generates pages at build time?",
+      "options": ["SSR", "SSG", "ISR", "CSR"],
+      "correct": 1
+    },
+    {
+      "id": 23,
+      "question": "What rendering method generates pages on each request?",
+      "options": ["SSG", "SSR", "ISR", "CSR"],
+      "correct": 1
+    },
+    {
+      "id": 24,
+      "question": "What is the main advantage of Next.js over plain React?",
+      "options": ["Better components", "Production-ready features, SSR, routing built-in", "Better hooks", "Better styling"],
+      "correct": 1
+    },
+    {
+      "id": 25,
+      "question": "What is the latest major version of Next.js as of 2024?",
+      "options": ["Next.js 13", "Next.js 14", "Next.js 15", "Next.js 16"],
+      "correct": 2
+    }
+  ]
+}
+
