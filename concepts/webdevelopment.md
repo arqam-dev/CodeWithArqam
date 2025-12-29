@@ -9,7 +9,7 @@
 
 ##### 1.1 Client–Server (A-Architecture):
 - Client–Server is a foundational interaction model.
-- It coexists with: Monolith, Microservices, SOA, Serverless like Client–Server + Microservices, Client–Server + Monolith, etc.
+- It coexists with: Monolith, Microservices, SOA, Serverless like Client–Server + Microservices, Client–Server + Monolith, etc..
 - **When to use it (good fit):**
   - Centralized data & control
   - Web & mobile applications
