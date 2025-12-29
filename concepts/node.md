@@ -244,50 +244,6 @@ project-root/
 - **Sign/Verify:**
   - `crypto.createSign()` - Create digital signature
   - `crypto.createVerify()` - Verify signature
-- **See also:** "createhmac vs createhash" section for detailed comparison
-
-</expand>
-
-<expand title="createhmac vs createhash">
-## createhmac vs createhash
-
-### createHash:
-- **Purpose:** Creates a hash from input data (one-way function)
-- **Use case:** Password hashing, data integrity verification, checksums
-- **Security:** No secret key required
-- **Example:**
-  ```javascript
-  const crypto = require('crypto');
-  const hash = crypto.createHash('sha256');
-  hash.update('password123');
-  const hashed = hash.digest('hex');
-  ```
-- **Characteristics:**
-  - Deterministic: Same input always produces same output
-  - One-way: Cannot reverse to get original input
-  - Fast computation
-
-### createHmac (Hash-based Message Authentication Code):
-- **Purpose:** Creates a hash with a secret key for authentication
-- **Use case:** API authentication, JWT tokens, message verification, digital signatures
-- **Security:** Requires a secret key (shared secret)
-- **Example:**
-  ```javascript
-  const crypto = require('crypto');
-  const hmac = crypto.createHmac('sha256', 'secret-key');
-  hmac.update('message');
-  const signature = hmac.digest('hex');
-  ```
-- **Characteristics:**
-  - More secure than plain hash (requires secret key)
-  - Prevents tampering (anyone without key cannot generate valid HMAC)
-  - Used for authentication and integrity verification
-
-### Key Differences:
-- **Hash:** No secret key, just hashes data
-- **HMAC:** Uses secret key, provides authentication + integrity
-- **Security:** HMAC is more secure for authentication scenarios
-- **Performance:** Hash is slightly faster (no key processing)
 
 </expand>
 
@@ -1031,6 +987,124 @@ project-root/
   - CORS
   - Error handling
 - **Execution Order:** Middleware executes in order of definition
+
+</expand>
+
+<expand title="Body Parser">
+## Body Parser
+
+- **Purpose:** Parse incoming request bodies in Express.js applications
+- **Main Purpose:** Converts raw HTTP request body data into a usable JavaScript object accessible via `req.body`
+- **Why it's needed:**
+  - HTTP requests send data in the body as raw strings/buffers
+  - Express doesn't parse request bodies by default
+  - Body parser middleware extracts and parses the body based on Content-Type header
+  - Makes form data, JSON, and other payloads easily accessible in route handlers
+
+### Content Types Handled:
+1. **JSON (`application/json`):**
+   - Parses JSON strings into JavaScript objects
+   - Example: `{ "name": "John", "age": 30 }` → `req.body = { name: "John", age: 30 }`
+
+2. **URL-encoded (`application/x-www-form-urlencoded`):**
+   - Parses form data (like HTML forms)
+   - Example: `name=John&age=30` → `req.body = { name: "John", age: "30" }`
+
+3. **Text (`text/plain`):**
+   - Parses plain text bodies
+   - Example: `"Hello World"` → `req.body = "Hello World"`
+
+4. **Raw (`application/octet-stream`):**
+   - Handles binary data as Buffer
+   - Useful for file uploads or binary data
+
+### Usage:
+
+**Express 4.16+ (Built-in):**
+- Body parser is now built into Express
+- No need to install separate package
+- Example:
+  ```javascript
+  const express = require('express');
+  const app = express();
+  
+  // Parse JSON bodies
+  app.use(express.json());
+  
+  // Parse URL-encoded bodies
+  app.use(express.urlencoded({ extended: true }));
+  
+  // Access parsed data in routes
+  app.post('/api/users', (req, res) => {
+    console.log(req.body); // Parsed object
+    res.json({ success: true });
+  });
+  ```
+
+**Express < 4.16 (body-parser package):**
+- Need to install: `npm install body-parser`
+- Example:
+  ```javascript
+  const express = require('express');
+  const bodyParser = require('body-parser');
+  const app = express();
+  
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+  ```
+
+### Configuration Options:
+
+**JSON Parser:**
+- `express.json(options)`
+- Options:
+  - `limit`: Maximum request body size (default: '100kb')
+  - `strict`: Only parse arrays and objects (default: true)
+  - `type`: Content-Type to parse (default: 'application/json')
+
+**URL-encoded Parser:**
+- `express.urlencoded(options)`
+- Options:
+  - `extended`: Use `qs` library (true) or `querystring` (false)
+    - `true`: Supports nested objects (recommended)
+    - `false`: Only supports flat key-value pairs
+  - `limit`: Maximum request body size
+  - `parameterLimit`: Maximum number of parameters (default: 1000)
+
+### Common Use Cases:
+- **API endpoints:** Receiving JSON data from frontend
+- **Form submissions:** Processing HTML form data
+- **File uploads:** Handling multipart/form-data (requires `multer` middleware)
+- **Webhooks:** Parsing incoming webhook payloads
+- **REST APIs:** Processing POST, PUT, PATCH request bodies
+
+### Example:
+```javascript
+const express = require('express');
+const app = express();
+
+// Middleware setup
+app.use(express.json()); // Parse JSON
+app.use(express.urlencoded({ extended: true })); // Parse form data
+
+// Route handlers
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body; // Access parsed data
+  // Process login...
+});
+
+app.post('/api/users', (req, res) => {
+  const userData = req.body; // Already parsed JSON object
+  // Create user...
+});
+```
+
+### Important Notes:
+- **Order matters:** Body parser middleware should be registered before routes that need it
+- **Size limits:** Set appropriate limits to prevent DoS attacks
+- **Security:** Always validate and sanitize parsed data before use
+- **File uploads:** Use `multer` middleware for multipart/form-data (file uploads)
+- **Built-in vs package:** Express 4.16+ includes body parser, older versions need the package
 
 </expand>
 
