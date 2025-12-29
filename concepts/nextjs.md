@@ -426,19 +426,234 @@ This gives you the best of all worlds: fast performance, good SEO, and rich inte
 <expand title="Font Optimization">
 ## Font Optimization
 
-- Automatic font optimization
-- Zero layout shift
-- Self-hosted fonts
-- Component: `next/font`
+Next.js provides built-in font optimization to improve performance, user experience, and SEO. Understanding font optimization is crucial for building fast, professional websites.
 
-### Font Types:
-- `next/font/google` → Google Fonts
-- `next/font/local` → Local fonts
+### What is Font Optimization?
 
-### Benefits:
-- Reduced layout shift
-- Better performance
-- Privacy (self-hosted)
+Font optimization involves:
+- Loading fonts efficiently
+- Preventing layout shifts when fonts load
+- Reducing font file sizes
+- Hosting fonts on your own domain
+
+### The Problem Without Optimization
+
+**Traditional Font Loading Issues:**
+
+1. **FOUT (Flash of Unstyled Text):**
+   - Text appears in fallback font first
+   - Then switches to custom font when loaded
+   - Creates visual "flash" or "jump"
+
+2. **Layout Shift (CLS - Cumulative Layout Shift):**
+   - Text changes size when font loads
+   - Page elements move/shift
+   - Poor user experience
+   - Bad for SEO (Core Web Vitals)
+
+3. **Performance Issues:**
+   - Large font files slow page load
+   - External requests to Google Fonts
+   - Blocking render process
+
+4. **Privacy Concerns:**
+   - Google Fonts tracks user IP addresses
+   - GDPR compliance issues
+
+### Zero Layout Shift Explained
+
+**What is Layout Shift?**
+- When page elements move after initial render
+- Measured as Cumulative Layout Shift (CLS)
+- Happens when fonts load and text size changes
+
+**Why Zero Layout Shift Matters:**
+- ✅ Better user experience (no jumping content)
+- ✅ Better SEO scores (Core Web Vitals)
+- ✅ Professional appearance
+- ✅ Prevents user frustration
+
+**How Next.js Achieves Zero Layout Shift:**
+1. Pre-calculates font metrics (width, height, ascent, descent)
+2. Reserves exact space for text before font loads
+3. Uses fallback font with matching metrics
+4. Seamlessly swaps to custom font when ready
+5. No visible shift or movement
+
+**Example:**
+```
+Without optimization:
+- Text renders in Arial (fallback)
+- Font loads, text switches to Roboto
+- Text size changes → layout shifts
+
+With Next.js optimization:
+- Space reserved for Roboto metrics
+- Text renders in fallback with same size
+- Font loads, swaps invisibly
+- No layout shift!
+```
+
+### Self-Hosted Fonts Explained
+
+**What are Self-Hosted Fonts?**
+- Fonts stored on your own server/domain
+- Not loaded from external CDN (like Google Fonts)
+- Served from your Next.js application
+
+**Benefits of Self-Hosting:**
+- ✅ **Privacy:** No third-party tracking
+- ✅ **Performance:** Faster (same domain, no DNS lookup)
+- ✅ **Reliability:** No dependency on external services
+- ✅ **Control:** Full control over font files
+- ✅ **GDPR Compliance:** No data sent to Google
+
+**How Next.js Self-Hosts:**
+1. Downloads font files at build time
+2. Optimizes and stores in `.next` folder
+3. Serves from your domain
+4. Automatically generates CSS with correct paths
+
+### Automatic Font Optimization
+
+**What Next.js Does Automatically:**
+
+1. **Font Subsetting:**
+   - Removes unused characters
+   - Reduces file size significantly
+   - Only includes characters you use
+
+2. **Format Optimization:**
+   - Converts to modern formats (WOFF2)
+   - Better compression
+   - Smaller file sizes
+
+3. **Preloading:**
+   - Adds `<link rel="preload">` tags
+   - Starts downloading fonts early
+   - Improves perceived performance
+
+4. **CSS Generation:**
+   - Generates optimized CSS
+   - Includes font-display strategy
+   - Adds fallback fonts
+
+### Font Types in Next.js
+
+#### 1. Google Fonts (`next/font/google`)
+
+**What it does:**
+- Automatically downloads from Google Fonts
+- Self-hosts on your domain
+- Optimizes and subsets fonts
+
+**Usage:**
+```javascript
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+```
+
+**Features:**
+- ✅ Automatic optimization
+- ✅ Self-hosted
+- ✅ Zero layout shift
+- ✅ Easy to use
+
+#### 2. Local Fonts (`next/font/local`)
+
+**What it does:**
+- Uses fonts from your project folder
+- Optimizes local font files
+- Same optimization benefits
+
+**Usage:**
+```javascript
+import localFont from 'next/font/local'
+
+const myFont = localFont({ src: './fonts/my-font.woff2' })
+```
+
+**When to use:**
+- Custom fonts not on Google Fonts
+- Brand-specific fonts
+- Premium font licenses
+
+### Font Display Strategy
+
+**What is font-display?**
+- Controls how fonts render during loading
+- Prevents invisible text
+- Improves perceived performance
+
+**Next.js Default:**
+- Uses `font-display: optional` or `swap`
+- Balances performance and visual quality
+- Ensures text is always visible
+
+### Benefits Summary
+
+**Performance:**
+- Faster page loads (optimized files)
+- Reduced bandwidth (subsetting)
+- Better Core Web Vitals scores
+
+**User Experience:**
+- No layout shifts
+- Smooth font loading
+- Professional appearance
+
+**SEO:**
+- Better CLS scores
+- Improved page speed metrics
+- Better search rankings
+
+**Privacy & Compliance:**
+- No third-party tracking
+- GDPR compliant
+- Full data control
+
+### Best Practices
+
+1. **Use Next.js font optimization:**
+   - Always use `next/font` instead of external links
+   - Get automatic optimization benefits
+
+2. **Limit font families:**
+   - Use 1-2 font families maximum
+   - Each font adds load time
+
+3. **Subset fonts:**
+   - Only include needed character sets
+   - Reduces file size significantly
+
+4. **Use system fonts as fallback:**
+   - Next.js does this automatically
+   - Ensures text is always readable
+
+5. **Preload critical fonts:**
+   - Next.js handles this automatically
+   - Ensures fonts load early
+
+### Common Mistakes to Avoid
+
+❌ **Don't:** Use `<link>` tags for Google Fonts
+```html
+<!-- Bad -->
+<link href="https://fonts.googleapis.com/css2?family=Inter" />
+```
+
+✅ **Do:** Use `next/font/google`
+```javascript
+// Good
+import { Inter } from 'next/font/google'
+```
+
+❌ **Don't:** Load multiple font weights separately
+✅ **Do:** Load all weights in one import
+
+❌ **Don't:** Ignore font optimization
+✅ **Do:** Always use Next.js font optimization
 </expand>
 
 <expand title="Metadata & SEO">
