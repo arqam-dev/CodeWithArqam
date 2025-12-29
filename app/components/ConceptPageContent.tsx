@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import ExpandableSection from "./ExpandableSection";
+import FloatingStartQuizButton from "./FloatingStartQuizButton";
 import { useEffect, useState } from "react";
 
 interface ConceptPageContentProps {
@@ -122,8 +123,16 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
               );
             })}
           </div>
+
         </div>
       </main>
+
+      {/* Floating Start Quiz Button */}
+      {displayName && (
+        <div className="fixed bottom-6 right-6 z-30">
+          <FloatingStartQuizButton conceptName={displayName.toLowerCase()} />
+        </div>
+      )}
     </div>
   );
 }

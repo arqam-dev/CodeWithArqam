@@ -1,0 +1,12 @@
+{
+  "title": "Node.js Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is the default number of threads in LibUV thread pool?",
+      "options": ["2", "4", "8", "16"],
+      "correct": 1
+    }
+  ]
+}
+
