@@ -210,53 +210,64 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
               </button>
             </div>
             <div className="expandable-modal-body">
-              <ReactMarkdown>{content}</ReactMarkdown>
-              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                <div className="flex items-center gap-3 flex-wrap mb-4">
-                  <TextToSpeechSection 
-                    text={content} 
-                    title={title} 
-                    hideBorder={true}
-                    isOpen={isTextToSpeechOpen}
-                    onOpen={handleTextToSpeechOpen}
-                    onClose={() => setIsTextToSpeechOpen(false)}
-                    showButtonOnly={true}
-                  />
-                  <AIEnrichment 
-                    title={title} 
-                    originalContent={content} 
-                    hideBorder={true}
-                    onOpen={handleAIEnrichmentOpen}
-                    showButtonOnly={true}
-                    enrichedContent={aiEnrichedContent}
-                    onEnrichedContentChange={setAIEnrichedContent}
-                  />
-                </div>
-                {isTextToSpeechOpen && (
-                  <div className="w-full">
+              <div className="expandable-modal-body-inner">
+                <ReactMarkdown>{content}</ReactMarkdown>
+                <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center gap-3 flex-wrap mb-4">
                     <TextToSpeechSection 
                       text={content} 
                       title={title} 
-                      hideBorder={false}
-                      isOpen={true}
+                      hideBorder={true}
+                      isOpen={isTextToSpeechOpen}
+                      onOpen={handleTextToSpeechOpen}
                       onClose={() => setIsTextToSpeechOpen(false)}
-                      showContentOnly={true}
+                      showButtonOnly={true}
                     />
-                  </div>
-                )}
-                {isAIEnrichmentOpen && !isTextToSpeechOpen && aiEnrichedContent && (
-                  <div className="w-full">
                     <AIEnrichment 
                       title={title} 
                       originalContent={content} 
-                      hideBorder={false}
-                      showContentOnly={true}
+                      hideBorder={true}
+                      onOpen={handleAIEnrichmentOpen}
+                      showButtonOnly={true}
                       enrichedContent={aiEnrichedContent}
                       onEnrichedContentChange={setAIEnrichedContent}
                     />
                   </div>
-                )}
+                  {isTextToSpeechOpen && (
+                    <div className="w-full">
+                      <TextToSpeechSection 
+                        text={content} 
+                        title={title} 
+                        hideBorder={false}
+                        isOpen={true}
+                        onClose={() => setIsTextToSpeechOpen(false)}
+                        showContentOnly={true}
+                      />
+                    </div>
+                  )}
+                  {isAIEnrichmentOpen && !isTextToSpeechOpen && aiEnrichedContent && (
+                    <div className="w-full">
+                      <AIEnrichment 
+                        title={title} 
+                        originalContent={content} 
+                        hideBorder={false}
+                        showContentOnly={true}
+                        enrichedContent={aiEnrichedContent}
+                        onEnrichedContentChange={setAIEnrichedContent}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
+              {/* Copy button in fullscreen modal - sticky at bottom right */}
+              <button
+                onClick={handleCopy}
+                className="expandable-modal-copy-btn cursor-pointer"
+                aria-label="Copy content"
+                title={copied ? "Copied!" : "Copy content"}
+              >
+                {copied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+              </button>
             </div>
           </div>
         </div>
