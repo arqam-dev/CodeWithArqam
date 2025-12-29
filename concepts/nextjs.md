@@ -174,26 +174,201 @@ Next.js is a React framework for building full-stack web applications. It provid
 <expand title="Rendering Methods">
 ## Rendering Methods
 
-### Static Site Generation (SSG):
-- Pages generated at build time
-- Served as static HTML
-- Fastest performance
-- No server needed
-- Use: Blog posts, documentation, marketing pages
+Next.js offers four rendering strategies. Understanding when to use each is crucial for building performant applications.
 
-### Server-Side Rendering (SSR):
-- Pages generated on each request
-- Fresh data on every request
-- Use: User-specific content, real-time data
+### What is Rendering?
+Rendering is the process of converting React components into HTML that browsers can display. The **when** and **where** this happens determines the rendering method.
 
-### Incremental Static Regeneration (ISR):
-- Static pages regenerated in background
-- Combines benefits of SSG and SSR
-- Use: Content that updates periodically
+---
 
-### Client-Side Rendering (CSR):
-- Rendered in browser
-- Use: Dashboard, admin panels, authenticated content
+### 1. Static Site Generation (SSG)
+
+**What it is:**
+- Pages are pre-rendered at **build time** (when you run `next build`)
+- HTML is generated once and stored as static files
+- Same HTML is served to all users
+
+**How it works:**
+1. During build: Next.js runs your component code on the server
+2. Generates HTML files for each page
+3. Stores these HTML files
+4. When user visits: Serves the pre-built HTML instantly
+
+**Characteristics:**
+- ✅ Fastest performance (HTML already ready)
+- ✅ Best SEO (content in HTML source)
+- ✅ Works without server (can use CDN)
+- ✅ Lowest server costs
+- ❌ Content is static until next build
+- ❌ Must rebuild to update content
+
+**When to use:**
+- Blog posts and articles
+- Documentation sites
+- Marketing/landing pages
+- Product catalogs (if products don't change often)
+- Any content that doesn't change frequently
+
+**Example scenario:**
+A blog post about "JavaScript Basics" doesn't change daily. Generate it once at build time, serve the same HTML to everyone.
+
+---
+
+### 2. Server-Side Rendering (SSR)
+
+**What it is:**
+- Pages are generated **on each request** (when user visits)
+- HTML is created fresh for every page load
+- Server processes the request and generates HTML dynamically
+
+**How it works:**
+1. User requests a page
+2. Server runs your component code
+3. Server generates HTML with current data
+4. Sends HTML to user's browser
+5. Process repeats for every request
+
+**Characteristics:**
+- ✅ Always shows fresh, up-to-date data
+- ✅ Good SEO (content in HTML)
+- ✅ Can access server resources (databases, APIs)
+- ❌ Slower than SSG (must generate on each request)
+- ❌ Requires server running (higher costs)
+- ❌ More server load
+
+**When to use:**
+- User-specific dashboards
+- Real-time data (stock prices, live scores)
+- Content that changes frequently
+- Pages requiring authentication
+- E-commerce product pages with inventory
+
+**Example scenario:**
+A user's dashboard showing their account balance. Each user sees different data, and it must be current. Generate HTML on each request with fresh data.
+
+---
+
+### 3. Incremental Static Regeneration (ISR)
+
+**What it is:**
+- Combines SSG and SSR benefits
+- Pages are pre-rendered at build time (like SSG)
+- But can be **regenerated in the background** after a time period
+- First user gets cached HTML, regeneration happens in background
+
+**How it works:**
+1. Build time: Generate static HTML (like SSG)
+2. User visits: Serve cached static HTML (fast!)
+3. After time period (e.g., 60 seconds): Next request triggers background regeneration
+4. Next user gets the newly generated page
+5. Process repeats
+
+**Characteristics:**
+- ✅ Fast performance (serves cached HTML)
+- ✅ Good SEO (content in HTML)
+- ✅ Can update without full rebuild
+- ✅ Best of both SSG and SSR
+- ❌ First request after revalidation period is slower
+- ❌ Slightly more complex than pure SSG
+
+**When to use:**
+- Blog with occasional updates
+- Product pages that update daily
+- News sites (update every few minutes)
+- Content that changes periodically but not constantly
+- When you want SSG speed but need occasional updates
+
+**Example scenario:**
+A news article page. Generate it once, but if the article gets updated, regenerate it every hour. Users get fast cached pages, but content stays relatively fresh.
+
+---
+
+### 4. Client-Side Rendering (CSR)
+
+**What it is:**
+- Pages are rendered **in the user's browser** using JavaScript
+- Server sends minimal HTML + JavaScript bundle
+- Browser executes JavaScript to create the page
+
+**How it works:**
+1. Server sends basic HTML shell + JavaScript files
+2. Browser downloads JavaScript
+3. Browser executes JavaScript
+4. JavaScript fetches data (if needed)
+5. JavaScript renders components in browser
+6. User sees the page
+
+**Characteristics:**
+- ✅ Fast navigation between pages (after initial load)
+- ✅ Rich interactivity
+- ✅ Can use browser APIs
+- ❌ Slower initial load (must download and execute JS)
+- ❌ Poor SEO (content not in initial HTML)
+- ❌ Requires JavaScript enabled
+- ❌ Larger bundle size
+
+**When to use:**
+- Admin panels and dashboards
+- Single Page Applications (SPAs)
+- Highly interactive applications
+- Pages behind authentication
+- When SEO is not important
+
+**Example scenario:**
+An admin dashboard with complex charts and filters. SEO doesn't matter (it's behind login), and you need rich interactivity. Render everything in the browser.
+
+---
+
+### Comparison Table
+
+| Feature | SSG | SSR | ISR | CSR |
+|---------|-----|-----|-----|-----|
+| **When rendered** | Build time | Each request | Build + background | Browser |
+| **Performance** | Fastest | Slower | Fast | Slow initial |
+| **SEO** | Excellent | Good | Excellent | Poor |
+| **Fresh data** | No | Yes | Periodic | Yes |
+| **Server needed** | No | Yes | Yes | No |
+| **Cost** | Lowest | Higher | Medium | Low |
+| **Use case** | Static content | Dynamic per user | Periodic updates | Interactive apps |
+
+---
+
+### How to Choose?
+
+**Ask yourself:**
+1. **Does content change frequently?**
+   - No → SSG
+   - Yes, but periodically → ISR
+   - Yes, constantly → SSR
+
+2. **Is it user-specific?**
+   - No → SSG or ISR
+   - Yes → SSR or CSR
+
+3. **Is SEO important?**
+   - Yes → SSG, SSR, or ISR
+   - No → CSR is fine
+
+4. **Do you need interactivity?**
+   - High interactivity → CSR (or hybrid)
+   - Mostly static → SSG/SSR/ISR
+
+**Best Practice:**
+- Default to **SSG** (fastest, best SEO)
+- Use **ISR** when you need occasional updates
+- Use **SSR** only when you need fresh data on every request
+- Use **CSR** for interactive parts, but keep main content as SSG/SSR
+
+---
+
+### Hybrid Approach (Recommended)
+
+You can mix rendering methods:
+- **Main page**: SSG (fast, SEO-friendly)
+- **Interactive components**: CSR (buttons, modals, forms)
+- **Dynamic sections**: SSR or ISR (user data, real-time content)
+
+This gives you the best of all worlds: fast performance, good SEO, and rich interactivity.
 </expand>
 
 <expand title="API Routes">
