@@ -270,7 +270,7 @@ body {
 
 .expandable-content-inner {
   padding: 1.25rem;
-  padding-bottom: 3.5rem; /* Space for sticky button */
+  padding-bottom: 5rem; /* Space for sticky buttons (copy + fullscreen) */
 }
 
 /* Custom scrollbar for expandable content */
@@ -487,15 +487,47 @@ body {
   }
 }
 
-/* Fullscreen button */
-.expandable-fullscreen-btn {
+/* Action buttons container */
+.expandable-action-buttons {
   position: sticky;
   bottom: 1rem;
   float: right;
   clear: both;
-  margin-top: -2.5rem;
+  margin-top: -5rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+  width: fit-content;
+}
+
+/* Copy button */
+.expandable-copy-btn {
+  padding: 0.5rem;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 6px;
+  color: #22c55e;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  width: fit-content;
+}
+
+.expandable-copy-btn:hover {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.5);
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* Fullscreen button */
+.expandable-fullscreen-btn {
   padding: 0.5rem;
   background: rgba(59, 130, 246, 0.1);
   border: 1px solid rgba(59, 130, 246, 0.3);
@@ -506,7 +538,6 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  z-index: 10;
   backdrop-filter: blur(4px);
   width: fit-content;
 }
@@ -519,6 +550,18 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  .expandable-copy-btn {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: #4ade80;
+  }
+  
+  .expandable-copy-btn:hover {
+    background: rgba(74, 222, 128, 0.25);
+    border-color: rgba(74, 222, 128, 0.5);
+    box-shadow: 0 4px 12px rgba(74, 222, 128, 0.3);
+  }
+
   .expandable-fullscreen-btn {
     background: rgba(96, 165, 250, 0.15);
     border-color: rgba(96, 165, 250, 0.3);

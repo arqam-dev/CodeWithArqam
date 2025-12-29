@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import { FaExpand, FaTimes } from "react-icons/fa";
+import { FaExpand, FaTimes, FaCopy, FaCheck } from "react-icons/fa";
 import AIEnrichment from "./support/AIEnrichment";
 import TextToSpeechSection from "./support/TextToSpeechSection";
 
@@ -17,6 +17,7 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
   const [isTextToSpeechOpen, setIsTextToSpeechOpen] = useState(false);
   const [isAIEnrichmentOpen, setIsAIEnrichmentOpen] = useState(false);
   const [aiEnrichedContent, setAIEnrichedContent] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -89,6 +90,19 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
     }
   }, [isOpen]);
 
+  // Copy content to clipboard
+  const handleCopy = async () => {
+    try {
+      // Copy both title and content
+      const textToCopy = `# ${title}\n\n${content}`;
+      await navigator.clipboard.writeText(textToCopy);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
   return (
     <>
       <div className="expandable-section">
@@ -150,15 +164,27 @@ export default function ExpandableSection({ title, content }: ExpandableSectionP
                 )}
               </div>
             </div>
-            {/* Fullscreen button - sticky */}
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="expandable-fullscreen-btn cursor-pointer"
-              aria-label="Open in fullscreen"
-              title="Open in fullscreen"
-            >
-              <FaExpand size={16} />
-            </button>
+            {/* Action buttons - sticky at bottom right */}
+            <div className="expandable-action-buttons">
+              {/* Copy button - above fullscreen */}
+              <button
+                onClick={handleCopy}
+                className="expandable-copy-btn cursor-pointer"
+                aria-label="Copy content"
+                title={copied ? "Copied!" : "Copy content"}
+              >
+                {copied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+              </button>
+              {/* Fullscreen button */}
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="expandable-fullscreen-btn cursor-pointer"
+                aria-label="Open in fullscreen"
+                title="Open in fullscreen"
+              >
+                <FaExpand size={16} />
+              </button>
+            </div>
           </div>
         )}
       </div>
