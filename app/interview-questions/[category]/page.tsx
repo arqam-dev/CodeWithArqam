@@ -3,13 +3,13 @@ import path from "path";
 import InterviewQuestionsPageContent from "@/app/components/InterviewQuestionsPageContent";
 
 interface InterviewQuestionsPageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
-export default function InterviewQuestionsPage({ params }: InterviewQuestionsPageProps) {
-  const category = params.category;
+export default async function InterviewQuestionsPage({ params }: InterviewQuestionsPageProps) {
+  const { category } = await params;
   const filePath = path.join(process.cwd(), "interview-questions", `${category}.md`);
 
   // Check if file exists
