@@ -178,9 +178,9 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
         {isExpanded && (
           <div className="px-6 py-4 bg-white dark:bg-slate-900">
             {section.question && (
-              <div className="mb-4">
-                <div className="font-semibold text-slate-900 dark:text-white mb-2">Question:</div>
-                <div className="text-slate-700 dark:text-slate-300">
+              <div className="mb-5">
+                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">Question</div>
+                <div className="text-slate-800 dark:text-slate-200 leading-relaxed">
                   <ReactMarkdown>{section.question}</ReactMarkdown>
                 </div>
               </div>
@@ -191,13 +191,13 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                 {!answerVisible ? (
                   <button
                     onClick={(e) => toggleAnswer(section.title, e)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors cursor-pointer"
+                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
                   >
-                    See Answer
+                    Show Answer
                   </button>
                 ) : (
-                  <div className="mt-4">
-                    <div className="font-semibold text-slate-900 dark:text-white mb-2">Answer:</div>
+                  <div className="mt-5">
+                    <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">Answer</div>
                     <div className="interview-answer-container">
                       <div className="interview-answer-content">
                         <ReactMarkdown>{section.answer}</ReactMarkdown>
@@ -232,12 +232,6 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                         </div>
                       )}
                     </div>
-                    <button
-                      onClick={(e) => toggleAnswer(section.title, e)}
-                      className="mt-4 px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors cursor-pointer"
-                    >
-                      Hide Answer
-                    </button>
                   </div>
                 )}
               </>
@@ -318,40 +312,35 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                 </button>
               </div>
               <div className="expandable-modal-body">
-                <div className="expandable-modal-body-inner">
+                <div className="expandable-modal-body-inner interview-modal-content">
                   {section.question && (
-                    <div className="mb-6">
-                      <div className="font-semibold text-slate-900 dark:text-white mb-3 text-lg">Question:</div>
-                      <div className="text-slate-700 dark:text-slate-300">
+                    <div className="interview-modal-question">
+                      <div className="interview-modal-label">Question</div>
+                      <div className="interview-modal-text">
                         <ReactMarkdown>{section.question}</ReactMarkdown>
                       </div>
                     </div>
                   )}
                   
                   {section.answer && (
-                    <div>
-                      <div className="font-semibold text-slate-900 dark:text-white mb-3 text-lg">Answer:</div>
-                      <div className="interview-answer-container">
-                        <div className="interview-answer-content">
-                          <ReactMarkdown>{section.answer}</ReactMarkdown>
-                        </div>
-                        {/* Copy and Fullscreen buttons inside answer container in fullscreen modal */}
-                        {enableCopyFullscreen && (
-                          <div className="interview-answer-action-buttons">
-                            {/* Copy button */}
-                            <button
-                              onClick={() => handleCopy(section)}
-                              className="expandable-copy-btn cursor-pointer"
-                              aria-label="Copy content"
-                              title={isCopied ? "Copied!" : "Copy content"}
-                            >
-                              {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
-                            </button>
-                            {/* Fullscreen close is handled by modal close button */}
-                          </div>
-                        )}
+                    <div className="interview-modal-answer">
+                      <div className="interview-modal-label">Answer</div>
+                      <div className="interview-modal-text">
+                        <ReactMarkdown>{section.answer}</ReactMarkdown>
                       </div>
                     </div>
+                  )}
+                  
+                  {/* Copy button - sticky at bottom right of modal */}
+                  {enableCopyFullscreen && (
+                    <button
+                      onClick={() => handleCopy(section)}
+                      className="expandable-modal-copy-btn cursor-pointer"
+                      aria-label="Copy content"
+                      title={isCopied ? "Copied!" : "Copy content"}
+                    >
+                      {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                    </button>
                   )}
                 </div>
               </div>

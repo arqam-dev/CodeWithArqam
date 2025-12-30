@@ -785,6 +785,91 @@ body {
   padding-bottom: 4rem; /* Space for copy button */
 }
 
+/* Interview Questions Modal Content - Clean Layout */
+.interview-modal-content {
+  max-width: 100%;
+}
+
+.interview-modal-question,
+.interview-modal-answer {
+  margin-bottom: 2rem;
+}
+
+.interview-modal-question:last-child,
+.interview-modal-answer:last-child {
+  margin-bottom: 0;
+}
+
+.interview-modal-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.interview-modal-text {
+  color: var(--foreground);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.interview-modal-text p {
+  margin-bottom: 1rem;
+}
+
+.interview-modal-text ul,
+.interview-modal-text ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.interview-modal-text li {
+  margin-bottom: 0.5rem;
+}
+
+.interview-modal-text code {
+  background: #e2e8f0;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.interview-modal-text pre {
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.interview-modal-text pre code {
+  background: transparent;
+  color: #f1f5f9;
+  padding: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .interview-modal-label {
+    color: #94a3b8;
+    border-bottom-color: #334155;
+  }
+
+  .interview-modal-text code {
+    background: #334155;
+    color: #e2e8f0;
+  }
+
+  .interview-modal-text pre {
+    background: #0f172a;
+  }
+}
+
 /* Copy button in modal */
 .expandable-modal-copy-btn {
   position: sticky;
