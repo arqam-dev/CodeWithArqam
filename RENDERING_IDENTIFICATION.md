@@ -192,4 +192,3 @@ Does the file have "use client"?
 - **ISR Pages**: 0 (not implemented)
 
 **Recommendation:** Most concept pages could benefit from ISR instead of SSG if you update content frequently, or keep SSG if content is mostly static.
-
