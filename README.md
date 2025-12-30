@@ -116,6 +116,35 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Technologies Used
+
+- **Framework:** Next.js 16.1.1
+- **React:** 19.2.3
+- **Styling:** Tailwind CSS 4
+- **Language:** TypeScript 5
+- **Markdown:** react-markdown 10.1.0
+- **Icons:** react-icons 5.5.0
+- **Analytics:** Vercel Analytics
+
+## Project Structure
+
+```
+codewitharqam/
+├── app/
+│   ├── content/          # Main content page with categories
+│   ├── concepts/         # Individual concept pages
+│   ├── interview-questions/  # Interview Q&A pages
+│   ├── portfolio/        # Portfolio page
+│   ├── api/              # API routes
+│   ├── components/       # React components
+│   ├── globals.css       # Global styles
+│   └── page.tsx          # Home page
+├── concepts/             # Markdown files for concepts
+├── quizzes/              # JSON files for quiz questions
+├── interview-questions/  # Markdown files for interview Q&A
+└── public/               # Static assets
+```
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
