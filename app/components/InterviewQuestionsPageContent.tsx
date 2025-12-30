@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
 interface InterviewQuestionsPageContentProps {
@@ -21,6 +21,11 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const router = useRouter();
   const [expandedQuestions, setExpandedQuestions] = useState<Set<string>>(new Set());
   const [showAnswers, setShowAnswers] = useState<Set<string>>(new Set());
+  const [copiedQuestions, setCopiedQuestions] = useState<Set<string>>(new Set());
+  const [fullscreenQuestion, setFullscreenQuestion] = useState<string | null>(null);
+  
+  // Only enable copy/fullscreen for system-design
+  const enableCopyFullscreen = category === "system-design";
 
   // Parse the markdown content to extract expandable sections
   const parseContent = (): { general: QuestionSection[]; scenario: QuestionSection[] } => {
@@ -104,14 +109,59 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
       .join(' ');
   };
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (fullscreenQuestion) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [fullscreenQuestion]);
+
+  // Close modal on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && fullscreenQuestion) {
+        setFullscreenQuestion(null);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [fullscreenQuestion]);
+
+  // Copy question and answer to clipboard
+  const handleCopy = async (section: QuestionSection, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    try {
+      const textToCopy = `${section.title}\n\nQuestion: ${section.question}\n\nAnswer: ${section.answer}`;
+      await navigator.clipboard.writeText(textToCopy);
+      const newCopied = new Set(copiedQuestions);
+      newCopied.add(section.title);
+      setCopiedQuestions(newCopied);
+      setTimeout(() => {
+        const newCopiedAfter = new Set(copiedQuestions);
+        newCopiedAfter.delete(section.title);
+        setCopiedQuestions(newCopiedAfter);
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
   const renderQuestion = (section: QuestionSection) => {
     const isExpanded = expandedQuestions.has(section.title);
     const answerVisible = showAnswers.has(section.title);
+    const isCopied = copiedQuestions.has(section.title);
 
     return (
       <div
         key={section.title}
-        className="mb-6 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800"
+        className="mb-6 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 relative"
       >
         <button
           onClick={() => toggleQuestion(section.title)}
@@ -126,7 +176,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
         </button>
         
         {isExpanded && (
-          <div className="px-6 py-4 bg-white dark:bg-slate-900">
+          <div className="px-6 py-4 bg-white dark:bg-slate-900 pb-20">
             {section.question && (
               <div className="mb-4">
                 <div className="font-semibold text-slate-900 dark:text-white mb-2">Question:</div>
@@ -162,6 +212,33 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                   </div>
                 )}
               </>
+            )}
+            
+            {/* Copy and Fullscreen buttons - only for system-design */}
+            {enableCopyFullscreen && answerVisible && (
+              <div className="expandable-action-buttons">
+                {/* Copy button */}
+                <button
+                  onClick={(e) => handleCopy(section, e)}
+                  className="expandable-copy-btn cursor-pointer"
+                  aria-label="Copy content"
+                  title={isCopied ? "Copied!" : "Copy content"}
+                >
+                  {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                </button>
+                {/* Fullscreen button */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFullscreenQuestion(section.title);
+                  }}
+                  className="expandable-fullscreen-btn cursor-pointer"
+                  aria-label="Open in fullscreen"
+                  title="Open in fullscreen"
+                >
+                  <FaExpand size={16} />
+                </button>
+              </div>
             )}
           </div>
         )}
@@ -212,6 +289,68 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
           )}
         </div>
       </main>
+
+      {/* Fullscreen Modal */}
+      {fullscreenQuestion && enableCopyFullscreen && (() => {
+        const section = [...general, ...scenario].find(s => s.title === fullscreenQuestion);
+        if (!section) return null;
+        const isCopied = copiedQuestions.has(section.title);
+        
+        return (
+          <div 
+            className="expandable-modal-overlay"
+            onClick={() => setFullscreenQuestion(null)}
+          >
+            <div 
+              className="expandable-modal-content"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="expandable-modal-header">
+                <h2 className="expandable-modal-title">{section.title}</h2>
+                <button
+                  onClick={() => setFullscreenQuestion(null)}
+                  className="expandable-modal-close cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <FaTimes size={20} />
+                </button>
+              </div>
+              <div className="expandable-modal-body">
+                <div className="expandable-modal-body-inner">
+                  {section.question && (
+                    <div className="mb-6">
+                      <div className="font-semibold text-slate-900 dark:text-white mb-3 text-lg">Question:</div>
+                      <div className="text-slate-700 dark:text-slate-300">
+                        <ReactMarkdown>{section.question}</ReactMarkdown>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {section.answer && (
+                    <div>
+                      <div className="font-semibold text-slate-900 dark:text-white mb-3 text-lg">Answer:</div>
+                      <div className="interview-answer-container">
+                        <div className="interview-answer-content">
+                          <ReactMarkdown>{section.answer}</ReactMarkdown>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Copy button in fullscreen modal */}
+                <button
+                  onClick={() => handleCopy(section)}
+                  className="expandable-modal-copy-btn cursor-pointer"
+                  aria-label="Copy content"
+                  title={isCopied ? "Copied!" : "Copy content"}
+                >
+                  {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
