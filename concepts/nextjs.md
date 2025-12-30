@@ -464,24 +464,7 @@ router.push('/about');
 <expand title="Data Fetching">
 ## Data Fetching
 
-Data fetching is how you get data into your Next.js application. Next.js provides multiple ways to fetch data, each optimized for different use cases. Understanding data fetching is crucial for building performant applications.
-
-### What is Data Fetching?
-
-**Data Fetching** means:
-- Getting data from APIs
-- Reading from databases
-- Loading files from file system
-- Fetching external resources
-- Getting user-specific data
-
-**Key Considerations:**
-- **When** to fetch (build time, request time, client-side)
-- **Where** to fetch (server vs client)
-- **How** to cache (performance optimization)
-- **What** to fetch (only what you need)
-
----
+Data fetching is how you get data into your Next.js application. Next.js provides multiple ways to fetch data, each optimized for different use cases.
 
 ### App Router: Data Fetching (Next.js 13+)
 
@@ -491,22 +474,13 @@ Data fetching is how you get data into your Next.js application. Next.js provide
 - Simplest way to fetch data in App Router
 - Use `async/await` directly in Server Components
 - No special functions needed
-- Automatic optimization
+- Automatic optimization and caching
 
-**How it works:**
+**Example:**
 ```javascript
-// app/blog/page.js
 export default async function BlogPage() {
-  // Direct async/await - this is a Server Component
   const posts = await fetch('https://api.example.com/posts').then(res => res.json());
-  
-  return (
-    <div>
-      {posts.map(post => (
-        <div key={post.id}>{post.title}</div>
-      ))}
-    </div>
-  );
+  return <div>{posts.map(post => <div key={post.id}>{post.title}</div>)}</div>;
 }
 ```
 
@@ -514,253 +488,64 @@ export default async function BlogPage() {
 - ✅ Simple and intuitive
 - ✅ Automatic caching
 - ✅ Type-safe with TypeScript
-- ✅ No extra configuration
-
-**When to use:**
-- Server Components
-- Static or dynamic data
-- API calls, database queries
-- File system operations
-
-#### Automatic Fetch Caching
-
-**What it is:**
-- Next.js automatically caches `fetch()` requests
-- Improves performance
-- Reduces server load
-- Configurable behavior
-
-**Default Behavior:**
-- `fetch()` requests are cached indefinitely
-- Same request = cached response
-- Fast subsequent requests
-
-**Example:**
-```javascript
-// First request: Fetches from API
-const data = await fetch('https://api.example.com/data');
-
-// Second request: Uses cached data (fast!)
-const data2 = await fetch('https://api.example.com/data');
-```
-
----
 
 ### Fetch Cache Options:
 
 #### 1. Force Cache (Default)
 ```javascript
 const data = await fetch('https://api.example.com/data', {
-  cache: 'force-cache' // Default - cached indefinitely
+  cache: 'force-cache' // Cached indefinitely
 });
 ```
-
-**What it does:**
 - Caches response indefinitely
-- Uses cached data on subsequent requests
-- Never revalidates automatically
-
-**When to use:**
-- Static data that doesn't change
-- Content that updates rarely
-- Performance-critical pages
+- Use for: Static data that doesn't change
 
 #### 2. No Store (Always Fresh)
 ```javascript
 const data = await fetch('https://api.example.com/data', {
-  cache: 'no-store' // Always fetch fresh data
+  cache: 'no-store' // Always fetch fresh
 });
 ```
-
-**What it does:**
 - Never caches response
-- Always fetches fresh data
-- Each request = new API call
+- Use for: Real-time data, user-specific content
 
-**When to use:**
-- Real-time data
-- User-specific content
-- Data that changes frequently
-- Authentication-dependent data
-
-#### 3. Revalidate (ISR - Incremental Static Regeneration)
+#### 3. Revalidate (ISR)
 ```javascript
 const data = await fetch('https://api.example.com/data', {
   next: { revalidate: 60 } // Revalidate every 60 seconds
 });
 ```
+- Caches initially, revalidates after time period
+- Use for: Content that updates periodically
 
-**What it does:**
-- Caches response initially
-- Revalidates after time period (60 seconds)
-- Background regeneration
-- Best of SSG and SSR
-
-**When to use:**
-- Content that updates periodically
-- Blog posts, news articles
-- Product listings
-- Data that changes but not constantly
-
-**How it works:**
-1. First request: Fetches and caches data
-2. Next 60 seconds: Serves cached data (fast!)
-3. After 60 seconds: Next request triggers background revalidation
-4. Subsequent requests: Get fresh data
-
----
+**How ISR works:**
+1. First request: Fetches and caches
+2. Next period: Serves cached (fast!)
+3. After period: Background revalidation
+4. Subsequent: Fresh data
 
 ### Pages Router: Data Fetching (Legacy)
 
 #### getServerSideProps (SSR)
-
-**What it is:**
 - Runs on **every request**
-- Server-side rendering
 - Fresh data on each page load
-
-**How it works:**
-```javascript
-// pages/blog/[id].js
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  const post = await fetch(`https://api.example.com/posts/${id}`).then(res => res.json());
-  
-  return {
-    props: {
-      post
-    }
-  };
-}
-
-export default function BlogPost({ post }) {
-  return <div>{post.title}</div>;
-}
-```
-
-**Characteristics:**
-- ✅ Always fresh data
-- ✅ Can access request context
-- ✅ Good for user-specific content
-- ❌ Slower (runs on every request)
-- ❌ Higher server load
-
-**When to use:**
-- User dashboards
-- Real-time data
-- Authentication-required pages
-- Content that changes frequently
+- Use for: User dashboards, real-time data
 
 #### getStaticProps (SSG)
-
-**What it is:**
 - Runs at **build time**
 - Pre-renders pages
-- Same data for all users
+- Use for: Blog posts, documentation, static content
 
-**How it works:**
-```javascript
-// pages/blog/[id].js
-export async function getStaticProps(context) {
-  const { id } = context.params;
-  const post = await fetch(`https://api.example.com/posts/${id}`).then(res => res.json());
-  
-  return {
-    props: {
-      post
-    }
-  };
-}
-
-export default function BlogPost({ post }) {
-  return <div>{post.title}</div>;
-}
-```
-
-**Characteristics:**
-- ✅ Fastest performance
-- ✅ Best SEO
-- ✅ No server needed
-- ❌ Data is static until rebuild
-- ❌ Must rebuild to update
-
-**When to use:**
-- Blog posts
-- Documentation
-- Marketing pages
-- Static content
-
-#### getStaticPaths (Dynamic Routes for SSG)
-
-**What it is:**
+#### getStaticPaths
 - Defines which dynamic routes to pre-render
 - Works with `getStaticProps`
-- Generates static pages for specified paths
-
-**How it works:**
-```javascript
-// pages/blog/[id].js
-export async function getStaticPaths() {
-  const posts = await fetch('https://api.example.com/posts').then(res => res.json());
-  
-  const paths = posts.map(post => ({
-    params: { id: post.id.toString() }
-  }));
-  
-  return {
-    paths,
-    fallback: false // or 'blocking' or true
-  };
-}
-
-export async function getStaticProps(context) {
-  const { id } = context.params;
-  const post = await fetch(`https://api.example.com/posts/${id}`).then(res => res.json());
-  
-  return {
-    props: { post }
-  };
-}
-```
-
-**Fallback Options:**
-- `fallback: false` - 404 if path not in list
-- `fallback: 'blocking'` - Generate on-demand, wait for generation
-- `fallback: true` - Show loading state, generate in background
-
----
+- Fallback options: `false`, `'blocking'`, `true`
 
 ### Client-Side Data Fetching
-
-**What it is:**
-- Fetching data in the browser
-- Using `useEffect` and `fetch`
-- Or using data fetching libraries
-
-**How it works:**
-```javascript
-'use client';
-import { useState, useEffect } from 'react';
-
-export default function ClientComponent() {
-  const [data, setData] = useState(null);
-  
-  useEffect(() => {
-    fetch('https://api.example.com/data')
-      .then(res => res.json())
-      .then(data => setData(data));
-  }, []);
-  
-  if (!data) return <div>Loading...</div>;
-  
-  return <div>{data.title}</div>;
-}
-```
 
 **When to use:**
 - User interactions trigger fetches
 - Real-time updates
-- Data that changes based on user input
 - Client Components only
 
 **Limitations:**
@@ -768,128 +553,24 @@ export default function ClientComponent() {
 - ❌ Slower initial load
 - ❌ More JavaScript bundle
 
----
+### Best Practices:
 
-### Data Fetching Best Practices:
-
-#### 1. Use Server Components by Default
-```javascript
-// ✅ Good - Server Component
-export default async function Page() {
-  const data = await fetchData();
-  return <div>{data}</div>;
-}
-
-// ❌ Avoid - Client Component when not needed
-'use client';
-export default function Page() {
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    fetchData().then(setData);
-  }, []);
-  return <div>{data}</div>;
-}
-```
-
-#### 2. Choose Right Caching Strategy
-- **Static content:** `cache: 'force-cache'`
-- **Dynamic content:** `cache: 'no-store'`
-- **Periodic updates:** `revalidate: 60`
-
-#### 3. Fetch Only What You Need
-```javascript
-// ✅ Good - Specific endpoint
-const user = await fetch(`/api/users/${id}`);
-
-// ❌ Avoid - Fetching everything
-const allUsers = await fetch('/api/users');
-const user = allUsers.find(u => u.id === id);
-```
-
-#### 4. Handle Errors
-```javascript
-export default async function Page() {
-  try {
-    const data = await fetch('https://api.example.com/data');
-    if (!data.ok) throw new Error('Failed to fetch');
-    return <div>{data}</div>;
-  } catch (error) {
-    return <div>Error loading data</div>;
-  }
-}
-```
-
-#### 5. Use Loading States
-- Show loading UI while fetching
-- Use `loading.js for automatic loading states
-- Better user experience
-
----
-
-### Comparison: App Router vs Pages Router
-
-| Feature | App Router | Pages Router |
-|---------|------------|--------------|
-| **Method** | Direct `async/await` | `getServerSideProps`, `getStaticProps` |
-| **Caching** | Automatic with options | Manual configuration |
-| **Type Safety** | ✅ Better | ⚠️ Good |
-| **Ease of Use** | ✅ Simpler | ⚠️ More complex |
-| **Flexibility** | ✅ More flexible | ⚠️ Limited |
-
----
-
-### Common Patterns:
-
-#### Pattern 1: Static Data (SSG)
-```javascript
-// App Router
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data', {
-    cache: 'force-cache'
-  });
-  return <div>{data}</div>;
-}
-```
-
-#### Pattern 2: Dynamic Data (SSR)
-```javascript
-// App Router
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data', {
-    cache: 'no-store'
-  });
-  return <div>{data}</div>;
-}
-```
-
-#### Pattern 3: Periodic Updates (ISR)
-```javascript
-// App Router
-export default async function Page() {
-  const data = await fetch('https://api.example.com/data', {
-    next: { revalidate: 3600 } // 1 hour
-  });
-  return <div>{data}</div>;
-}
-```
-
----
+1. **Use Server Components by default** - Better performance and SEO
+2. **Choose right caching strategy** - Based on data freshness needs
+3. **Fetch only what you need** - Don't fetch everything
+4. **Handle errors gracefully** - Always use try/catch
+5. **Show loading states** - Better user experience
 
 ### Summary:
 
 **Key Takeaways:**
 - App Router: Use `async/await` directly in Server Components
 - Pages Router: Use `getServerSideProps` or `getStaticProps`
-- Caching: Choose strategy based on data freshness needs
+- Caching: Choose based on data freshness (`force-cache`, `no-store`, `revalidate`)
 - Server Components: Default choice for data fetching
 - Client Components: Only when you need interactivity
 
-**Remember:**
-- Fetch on server when possible (better performance, SEO)
-- Use appropriate caching strategy
-- Handle errors gracefully
-- Show loading states
-- Fetch only what you need
+**Remember:** Fetch on server when possible for better performance and SEO!
 </expand>
 
 <expand title="Rendering Methods">
