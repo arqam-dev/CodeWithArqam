@@ -26,34 +26,44 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const parseContent = (): { general: QuestionSection[]; scenario: QuestionSection[] } => {
     const general: QuestionSection[] = [];
     const scenario: QuestionSection[] = [];
-    const expandRegex = /<expand title="([^"]+)">\s*([\s\S]*?)<\/expand>/g;
-    let match;
     
-    while ((match = expandRegex.exec(content)) !== null) {
-      const title = match[1];
-      const sectionContent = match[2];
+    // Split content by section headers
+    const generalMatch = content.match(/## General Questions & Answers\s*([\s\S]*?)(?=## Scenario-Based Questions & Answers|$)/);
+    const scenarioMatch = content.match(/## Scenario-Based Questions & Answers\s*([\s\S]*?)$/);
+    
+    const parseSection = (sectionContent: string, type: 'general' | 'scenario') => {
+      const expandRegex = /<expand title="([^"]+)">\s*([\s\S]*?)<\/expand>/g;
+      let match;
+      const sections: QuestionSection[] = [];
       
-      // Extract question and answer
-      const questionMatch = sectionContent.match(/\*\*Question:\*\*\s*(.+?)(?=\*\*Answer:\*\*|$)/s);
-      const answerMatch = sectionContent.match(/\*\*Answer:\*\*\s*(.+?)$/s);
-      
-      const question = questionMatch ? questionMatch[1].trim() : '';
-      const answer = answerMatch ? answerMatch[1].trim() : '';
-      
-      const type = sectionContent.includes('Scenario:') ? 'scenario' : 'general';
-      
-      const section: QuestionSection = {
-        title,
-        question,
-        answer,
-        type
-      };
-      
-      if (type === 'scenario') {
-        scenario.push(section);
-      } else {
-        general.push(section);
+      while ((match = expandRegex.exec(sectionContent)) !== null) {
+        const title = match[1];
+        const expandContent = match[2];
+        
+        // Extract question and answer
+        const questionMatch = expandContent.match(/\*\*Question:\*\*\s*(.+?)(?=\*\*Answer:\*\*|$)/s);
+        const answerMatch = expandContent.match(/\*\*Answer:\*\*\s*(.+?)$/s);
+        
+        const question = questionMatch ? questionMatch[1].trim() : '';
+        const answer = answerMatch ? answerMatch[1].trim() : '';
+        
+        sections.push({
+          title,
+          question,
+          answer,
+          type
+        });
       }
+      
+      return sections;
+    };
+    
+    if (generalMatch) {
+      general.push(...parseSection(generalMatch[1], 'general'));
+    }
+    
+    if (scenarioMatch) {
+      scenario.push(...parseSection(scenarioMatch[1], 'scenario'));
     }
     
     return { general, scenario };
@@ -105,7 +115,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
       >
         <button
           onClick={() => toggleQuestion(section.title)}
-          className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center justify-between text-left"
+          className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center justify-between text-left cursor-pointer"
         >
           <span className="font-semibold text-slate-900 dark:text-white pr-4">{section.title}</span>
           {isExpanded ? (
@@ -131,7 +141,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                 {!answerVisible ? (
                   <button
                     onClick={(e) => toggleAnswer(section.title, e)}
-                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors cursor-pointer"
                   >
                     See Answer
                   </button>
@@ -145,7 +155,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                     </div>
                     <button
                       onClick={(e) => toggleAnswer(section.title, e)}
-                      className="mt-4 px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors"
+                      className="mt-4 px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium transition-colors cursor-pointer"
                     >
                       Hide Answer
                     </button>
