@@ -413,6 +413,94 @@ Use asynchronous for most cases, synchronous only for critical data.
 Use canary for production, blue-green for staging/testing.
 </expand>
 
+<expand title="How would you manage deployments and rollbacks to reduce downtime?">
+**Question:** How would you manage deployments and rollbacks to reduce downtime?
+
+**Answer:**
+**Deployment Strategies:**
+
+1. **Blue-Green Deployment:**
+   - Two identical environments (blue and green)
+   - Deploy new version to inactive environment
+   - Switch traffic instantly
+   - **Benefit:** Zero downtime, instant rollback
+   - **Example:** AWS Elastic Beanstalk, Kubernetes
+
+2. **Canary Deployment:**
+   - Deploy to small percentage of traffic first
+   - Gradually increase to 100%
+   - Monitor for issues
+   - **Benefit:** Low risk, catch issues early
+   - **Example:** 5% → 25% → 50% → 100%
+
+3. **Rolling Deployment:**
+   - Update instances one by one
+   - Keep old version running
+   - **Benefit:** No downtime, gradual update
+   - **Example:** Kubernetes rolling update
+
+**Rollback Strategies:**
+
+1. **Instant Rollback:**
+   ```yaml
+   # Blue-Green: Switch traffic back
+   # Canary: Route traffic away from new version
+   ```
+   - Switch traffic to previous version
+   - **Time:** Seconds to minutes
+
+2. **Database Rollback:**
+   - Use database migrations that are reversible
+   - Keep old schema during transition
+   - **Example:** Additive changes first, remove later
+
+3. **Feature Flags:**
+   ```javascript
+   if (featureFlag.isEnabled('new-feature')) {
+     // New code
+   } else {
+     // Old code
+   }
+   ```
+   - Toggle features without deployment
+   - Instant rollback
+   - **Example:** LaunchDarkly, custom flags
+
+**Best Practices:**
+
+1. **Database Migrations:**
+   - Backward compatible changes
+   - Additive changes first
+   - **Example:** Add new column as nullable, populate later
+
+2. **Health Checks:**
+   - Verify new version is healthy before routing traffic
+   - Automatic rollback on health check failure
+   - **Example:** Kubernetes readiness probes
+
+3. **Monitoring:**
+   - Monitor error rates, latency
+   - Set up alerts
+   - Automatic rollback on anomalies
+   - **Example:** Error rate > 1% triggers rollback
+
+4. **Testing:**
+   - Test in staging first
+   - Smoke tests after deployment
+   - **Example:** Run test suite in production-like environment
+
+5. **Documentation:**
+   - Document rollback procedures
+   - Runbooks for common issues
+   - **Example:** Step-by-step rollback guide
+
+**Tools:**
+- Kubernetes (rolling updates, blue-green)
+- AWS CodeDeploy (blue-green, canary)
+- Spinnaker (advanced deployment strategies)
+- Feature flags (LaunchDarkly, Unleash)
+</expand>
+
 <expand title="What is the difference between stateful and stateless services?">
 **Question:** What is the difference between stateful and stateless services?
 
@@ -542,8 +630,8 @@ Use push for real-time, polling for simple cases.
 
 ## Scenario-Based Questions & Answers
 
-<expand title="Scenario: Your system experiences a sudden 50x traffic spike. How do you handle it?">
-**Question:** Your system experiences a sudden 50x traffic spike. How do you handle it?
+<expand title="How would you respond to a sudden spike in traffic causing performance degradation?">
+**Question:** How would you respond to a sudden spike in traffic causing performance degradation?
 
 **Answer:**
 **Immediate Response:**
@@ -1407,4 +1495,238 @@ const session = await redis.get(`session:${sessionId}`);
 - Set appropriate TTL
 - Handle Redis failures
 - Use session clustering
+</expand>
+
+<expand title="How would you set up automation using serverless services?">
+**Question:** How would you set up automation using serverless services?
+
+**Answer:**
+**Serverless Automation Use Cases:**
+
+1. **Scheduled Tasks (Cron Jobs):**
+   ```yaml
+   # AWS Lambda with EventBridge
+   Schedule: rate(1 hour)
+   # Or cron(0 12 * * ? *)
+   ```
+   - Run periodic tasks
+   - **Example:** Daily reports, data cleanup, backups
+   - **Services:** AWS Lambda + EventBridge, Google Cloud Functions + Cloud Scheduler
+
+2. **Event-Driven Automation:**
+   ```javascript
+   // Trigger on S3 upload
+   exports.handler = async (event) => {
+     const file = event.Records[0].s3.object.key;
+     // Process file automatically
+   };
+   ```
+   - React to events automatically
+   - **Example:** Process uploaded files, send notifications
+   - **Services:** AWS Lambda, Azure Functions, Google Cloud Functions
+
+3. **API Automation:**
+   - Serverless API endpoints
+   - Auto-scaling
+   - **Example:** REST APIs, webhooks
+   - **Services:** AWS API Gateway + Lambda, Azure Functions
+
+4. **Data Processing:**
+   ```javascript
+   // Process messages from queue
+   exports.handler = async (event) => {
+     for (const record of event.Records) {
+       await processMessage(record.body);
+     }
+   };
+   ```
+   - Process data from queues/streams
+   - **Example:** Process images, transform data
+   - **Services:** AWS Lambda + SQS/Kinesis, Google Cloud Functions + Pub/Sub
+
+5. **Infrastructure Automation:**
+   - Auto-scaling policies
+   - Resource provisioning
+   - **Example:** Auto-create resources, cleanup unused resources
+   - **Services:** AWS Lambda + CloudFormation, Terraform Cloud
+
+**Architecture Patterns:**
+
+1. **Event-Driven Architecture:**
+   ```
+   Event Source → Serverless Function → Action
+   (S3, SQS, API)    (Lambda)         (Process, Store, Notify)
+   ```
+
+2. **Workflow Automation:**
+   ```
+   Step Functions / Workflows
+   → Orchestrate multiple serverless functions
+   → Handle retries, error handling
+   ```
+
+3. **Serverless Pipeline:**
+   ```
+   Source → Trigger → Process → Store → Notify
+   (S3)    (Lambda)  (Lambda)  (S3/DB) (SNS/SES)
+   ```
+
+**Best Practices:**
+
+1. **Error Handling:**
+   - Retry with exponential backoff
+   - Dead letter queues
+   - **Example:** Failed messages go to DLQ for manual review
+
+2. **Monitoring:**
+   - CloudWatch, Azure Monitor
+   - Log all executions
+   - Set up alerts
+   - **Example:** Alert on function failures
+
+3. **Cost Optimization:**
+   - Right-size memory allocation
+   - Optimize execution time
+   - Use provisioned concurrency for critical functions
+   - **Example:** 128MB vs 512MB memory (cost difference)
+
+4. **Security:**
+   - Least privilege IAM roles
+   - Encrypt environment variables
+   - Use VPC for database access
+   - **Example:** Lambda only has access to required resources
+
+5. **Testing:**
+   - Test locally (SAM, Serverless Framework)
+   - Integration tests
+   - **Example:** Test Lambda functions before deployment
+
+**Tools:**
+- AWS Lambda + EventBridge/SQS/SNS
+- Azure Functions + Event Grid
+- Google Cloud Functions + Cloud Scheduler
+- Serverless Framework (multi-cloud)
+- AWS Step Functions (workflows)
+</expand>
+
+<expand title="How would you plan for future scalability while controlling costs?">
+**Question:** How would you plan for future scalability while controlling costs?
+
+**Answer:**
+**Cost-Effective Scalability Strategies:**
+
+1. **Right-Sizing:**
+   - Start with smaller instances
+   - Monitor and adjust
+   - **Example:** t3.small → t3.medium based on metrics
+   - **Impact:** 30-50% cost savings
+
+2. **Auto-Scaling:**
+   ```yaml
+   # Scale based on demand
+   Min: 2 instances
+   Max: 20 instances
+   Target: 70% CPU
+   ```
+   - Scale up during peak, down during off-peak
+   - **Example:** 2 instances at night, 10 during day
+   - **Impact:** Pay only for what you use
+
+3. **Reserved Instances / Savings Plans:**
+   - Commit to 1-3 years for discount
+   - **Example:** 40-60% discount for reserved instances
+   - **Use Case:** Predictable baseline load
+
+4. **Spot Instances:**
+   - Use for non-critical workloads
+   - **Example:** 70-90% discount
+   - **Use Case:** Batch processing, dev/test
+
+5. **Serverless:**
+   - Pay per execution
+   - No idle costs
+   - **Example:** Lambda, Fargate
+   - **Use Case:** Sporadic workloads
+
+**Architecture Optimizations:**
+
+1. **Caching:**
+   - Reduce database load
+   - Lower compute needs
+   - **Example:** Redis cache → 80% cache hit rate → fewer DB queries
+   - **Impact:** 50-70% cost reduction
+
+2. **CDN:**
+   - Offload static content
+   - Reduce origin server load
+   - **Example:** CloudFront, Cloudflare
+   - **Impact:** 60-80% bandwidth cost reduction
+
+3. **Database Optimization:**
+   - Read replicas for scaling reads
+   - Connection pooling
+   - Query optimization
+   - **Example:** 1 write DB + 3 read replicas vs 4 write DBs
+   - **Impact:** 50% cost reduction
+
+4. **Async Processing:**
+   - Use message queues
+   - Process during off-peak
+   - **Example:** Queue heavy operations, process at night
+   - **Impact:** Lower peak load = smaller instances
+
+5. **Data Archiving:**
+   - Move old data to cold storage
+   - **Example:** S3 Glacier, Azure Archive
+   - **Impact:** 80-90% storage cost reduction
+
+**Cost Monitoring:**
+
+1. **Cost Allocation Tags:**
+   - Tag resources by team/project
+   - Track costs per service
+   - **Example:** Tag: Environment=prod, Team=backend
+
+2. **Cost Alerts:**
+   - Set budget alerts
+   - Monitor spending trends
+   - **Example:** Alert at 80% of monthly budget
+
+3. **Cost Analysis:**
+   - Identify expensive services
+   - Optimize high-cost areas
+   - **Example:** Database = 40% of costs → optimize queries
+
+**Planning for Growth:**
+
+1. **Horizontal Scaling:**
+   - Design for horizontal scaling
+   - Add more instances, not bigger ones
+   - **Example:** 10 small instances vs 2 large instances
+
+2. **Stateless Design:**
+   - Any server can handle any request
+   - Easy to scale
+   - **Example:** No server-side sessions
+
+3. **Microservices:**
+   - Scale services independently
+   - **Example:** Scale payment service during peak, not user service
+   - **Impact:** Scale only what's needed
+
+4. **Load Testing:**
+   - Identify bottlenecks early
+   - Plan capacity
+   - **Example:** Load test to find breaking point
+
+**Best Practices:**
+- Start small, scale as needed
+- Use auto-scaling
+- Monitor costs continuously
+- Optimize before scaling
+- Use reserved instances for baseline
+- Use spot instances for non-critical
+- Cache aggressively
+- Archive old data
+- Right-size continuously
 </expand>
