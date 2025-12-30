@@ -1114,22 +1114,20 @@ import { Inter } from 'next/font/google'
 <expand title="Metadata & SEO">
 ## Metadata & SEO
 
-Next.js provides powerful built-in tools for managing metadata and optimizing your site for search engines. Understanding metadata and SEO is essential for building discoverable, shareable websites.
+Next.js provides powerful built-in tools for managing metadata and optimizing your site for search engines.
 
 ### What is Metadata?
 
 **Metadata** is information about your webpage that:
 - Describes the page content
 - Helps search engines understand your page
-- Controls how your page appears in search results
-- Determines how your page looks when shared on social media
+- Controls how your page appears in search results and social media
 
 **Common Metadata Types:**
-- **Title:** The page title shown in browser tabs and search results
-- **Description:** Brief summary of page content (shown in search results)
-- **Keywords:** Relevant terms (less important now, but still used)
-- **Open Graph:** Controls how page appears on Facebook, LinkedIn, etc.
-- **Twitter Cards:** Controls how page appears on Twitter/X
+- **Title:** Page title in browser tabs and search results
+- **Description:** Brief summary (shown in search results)
+- **Open Graph:** Controls appearance on Facebook, LinkedIn, etc.
+- **Twitter Cards:** Controls appearance on Twitter/X
 - **Canonical URL:** Prevents duplicate content issues
 
 ### What is SEO?
@@ -1138,13 +1136,11 @@ Next.js provides powerful built-in tools for managing metadata and optimizing yo
 - Making your website discoverable by search engines
 - Improving your ranking in search results
 - Getting more organic (free) traffic
-- Making your content accessible to search engines
 
 **Why SEO Matters:**
 - ✅ More visibility = more visitors
 - ✅ Better rankings = more traffic
 - ✅ Organic traffic is free (vs paid ads)
-- ✅ Long-term growth strategy
 
 ### How Next.js Helps with SEO
 
@@ -1156,11 +1152,7 @@ Next.js provides powerful built-in tools for managing metadata and optimizing yo
 5. Social media optimization
 6. Performance optimization (affects SEO)
 
----
-
 ### App Router: Metadata Management
-
-**Modern Approach (Next.js 13+):**
 
 #### Static Metadata
 
@@ -1169,34 +1161,26 @@ Next.js provides powerful built-in tools for managing metadata and optimizing yo
 - Same for all users
 - Defined using `metadata` object
 
-**How to use:**
+**Example:**
 ```javascript
 // app/about/page.js
 export const metadata = {
   title: 'About Us',
   description: 'Learn more about our company',
-  keywords: ['about', 'company', 'team'],
 }
 ```
-
-**Benefits:**
-- ✅ Simple and straightforward
-- ✅ Type-safe (TypeScript support)
-- ✅ Automatic optimization
 
 #### Dynamic Metadata
 
 **What it is:**
 - Metadata that changes based on data
-- Different for each page/request
 - Uses `generateMetadata` function
 
-**How to use:**
+**Example:**
 ```javascript
 // app/blog/[id]/page.js
 export async function generateMetadata({ params }) {
   const post = await getPost(params.id);
-  
   return {
     title: post.title,
     description: post.excerpt,
@@ -1204,33 +1188,17 @@ export async function generateMetadata({ params }) {
 }
 ```
 
-**When to use:**
-- Blog posts (each post has different metadata)
-- Product pages (each product has different info)
-- User profiles (each user has different data)
-- Any page with dynamic content
-
-**Benefits:**
-- ✅ SEO-friendly (unique metadata per page)
-- ✅ Better social sharing
-- ✅ Improved search rankings
-
----
+**When to use:** Blog posts, product pages, user profiles, any dynamic content
 
 ### Pages Router: Metadata Management
 
-**Legacy Approach (Next.js 12 and earlier):**
-
-#### Using Head Component
-
-**What it is:**
-- Client-side metadata management
+**Legacy Approach:**
 - Uses `<Head>` component from `next/head`
-- Renders in browser
+- Client-side metadata management
+- Less ideal for SEO
 
-**How to use:**
+**Example:**
 ```javascript
-// pages/about.js
 import Head from 'next/head';
 
 export default function About() {
@@ -1246,49 +1214,11 @@ export default function About() {
 }
 ```
 
-**Limitations:**
-- ❌ Client-side only (not ideal for SEO)
-- ❌ More manual work
-- ❌ Less type-safe
-
-#### Custom Document
-
-**What it is:**
-- Global metadata for all pages
-- Defined in `pages/_document.js`
-- Applies to entire site
-
-**How to use:**
-```javascript
-// pages/_document.js
-import { Html, Head, Main, NextScript } from 'next/document';
-
-export default function Document() {
-  return (
-    <Html>
-      <Head>
-        <meta name="author" content="Your Name" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
-}
-```
-
----
-
 ### Automatic Sitemap Generation
 
 **What is a Sitemap?**
 - XML file listing all pages on your site
 - Helps search engines discover and index pages
-- Improves crawling efficiency
-
-**How Next.js Generates Sitemaps:**
 
 **App Router:**
 - Create `app/sitemap.js` or `app/sitemap.ts`
@@ -1305,32 +1235,15 @@ export default function sitemap() {
       changeFrequency: 'yearly',
       priority: 1,
     },
-    {
-      url: 'https://yoursite.com/about',
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
   ]
 }
 ```
-
-**Benefits:**
-- ✅ Search engines find all pages
-- ✅ Faster indexing
-- ✅ Better SEO
-- ✅ Automatic updates
-
----
 
 ### Robots.txt
 
 **What is robots.txt?**
 - File that tells search engines which pages to crawl
 - Controls search engine access
-- Prevents indexing of certain pages
-
-**How Next.js Handles It:**
 
 **App Router:**
 - Create `app/robots.js` or `app/robots.ts`
@@ -1351,29 +1264,11 @@ export default function robots() {
 }
 ```
 
-**Common Use Cases:**
-- Block admin pages from indexing
-- Prevent duplicate content
-- Control crawling rate
-- Protect private areas
-
----
-
 ### Open Graph Tags
 
 **What are Open Graph Tags?**
 - Metadata for social media sharing
 - Controls how your page appears on Facebook, LinkedIn, WhatsApp
-- Makes shares look professional
-
-**What They Control:**
-- **og:title:** Title shown in social post
-- **og:description:** Description shown
-- **og:image:** Image shown (important!)
-- **og:url:** Canonical URL
-- **og:type:** Type of content (website, article, etc.)
-
-**How Next.js Handles It:**
 
 **App Router:**
 ```javascript
@@ -1388,34 +1283,16 @@ export const metadata = {
 }
 ```
 
-**Why It Matters:**
-- ✅ Professional appearance when shared
-- ✅ More clicks (attractive preview)
-- ✅ Better engagement
-- ✅ Brand consistency
-
 **Best Practices:**
 - Always include an image (1200x630px recommended)
 - Write compelling titles and descriptions
 - Use high-quality images
-- Test with Facebook Debugger
-
----
 
 ### Twitter Cards
 
 **What are Twitter Cards?**
 - Special metadata for Twitter/X
 - Makes tweets with your links look better
-- Increases engagement
-
-**Card Types:**
-- **Summary:** Basic card with title, description, image
-- **Summary Large Image:** Larger image version
-- **Player:** For video content
-- **App:** For mobile apps
-
-**How Next.js Handles It:**
 
 **App Router:**
 ```javascript
@@ -1429,65 +1306,19 @@ export const metadata = {
 }
 ```
 
-**Benefits:**
-- ✅ Stands out in Twitter feed
-- ✅ More retweets and clicks
-- ✅ Professional appearance
-- ✅ Better engagement
-
----
-
 ### SEO Best Practices
 
-**1. Unique Metadata Per Page:**
-- Each page should have unique title and description
-- Don't duplicate metadata across pages
-- Make it relevant to page content
-
-**2. Descriptive Titles:**
-- Keep under 60 characters
-- Include important keywords
-- Make it compelling
-- Include brand name if space allows
-
-**3. Compelling Descriptions:**
-- Keep under 160 characters
-- Summarize page content
-- Include call-to-action
-- Use relevant keywords naturally
-
-**4. Use Images:**
-- Always include Open Graph image
-- Use high-quality images (1200x630px)
-- Optimize image file size
-- Use descriptive alt text
-
-**5. Structured Data:**
-- Use JSON-LD for rich snippets
-- Helps search engines understand content
-- Can show extra info in search results
-
-**6. Performance:**
-- Fast page load (affects SEO)
-- Mobile-friendly (mobile-first indexing)
-- Accessible content
-- Clean URL structure
-
----
+1. **Unique Metadata Per Page** - Each page should have unique title and description
+2. **Descriptive Titles** - Keep under 60 characters, include keywords
+3. **Compelling Descriptions** - Keep under 160 characters, summarize content
+4. **Use Images** - Always include Open Graph image (1200x630px)
+5. **Structured Data** - Use JSON-LD for rich snippets
+6. **Performance** - Fast page load, mobile-friendly, accessible
 
 ### Common SEO Mistakes to Avoid
 
 ❌ **Don't:** Use same metadata on all pages
-```javascript
-// Bad - same title everywhere
-export const metadata = { title: 'My Website' }
-```
-
 ✅ **Do:** Use unique metadata per page
-```javascript
-// Good - unique per page
-export const metadata = { title: 'About Us - My Website' }
-```
 
 ❌ **Don't:** Forget Open Graph images
 ✅ **Do:** Always include social sharing images
@@ -1498,26 +1329,17 @@ export const metadata = { title: 'About Us - My Website' }
 ❌ **Don't:** Ignore mobile optimization
 ✅ **Do:** Ensure mobile-friendly design
 
-❌ **Don't:** Forget to generate sitemap
-✅ **Do:** Always create sitemap for better indexing
-
----
-
-### App Router vs Pages Router Comparison
+### App Router vs Pages Router
 
 | Feature | App Router | Pages Router |
 |---------|------------|--------------|
 | **Metadata** | `metadata` object | `<Head>` component |
 | **Dynamic** | `generateMetadata()` | Manual in component |
-| **Type Safety** | ✅ Built-in | ❌ Manual |
 | **SEO** | ✅ Better (server-side) | ⚠️ Good (client-side) |
 | **Sitemap** | `sitemap.js` | Manual or plugin |
 | **Robots.txt** | `robots.js` | Manual file |
-| **Ease of Use** | ✅ Easier | ⚠️ More manual |
 
 **Recommendation:** Use App Router for new projects (better SEO, easier to use)
-
----
 
 ### Summary
 
@@ -1529,8 +1351,6 @@ export const metadata = { title: 'About Us - My Website' }
 - Include Open Graph and Twitter Cards for social sharing
 - Generate sitemaps and robots.txt automatically
 - Follow SEO best practices for better rankings
-
-**Remember:** Good SEO is a long-term strategy. Consistent, quality content with proper metadata will improve your search rankings over time.
 </expand>
 
 <expand title="Styling">
