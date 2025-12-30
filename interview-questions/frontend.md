@@ -2,193 +2,221 @@
 
 ## General Questions & Answers
 
-<expand title="What is the difference between HTTP/1.1 and HTTP/2?">
-**Question:** What is the difference between HTTP/1.1 and HTTP/2?
+<expand title="How does HTTP/2 improve performance compared to HTTP/1.1?">
+**Question:** How does HTTP/2 improve performance compared to HTTP/1.1?
 
 **Answer:**
-HTTP/2 is a major revision of HTTP/1.1 that improves performance and efficiency. Key differences include:
+**Key Improvements:**
 
-1. **Multiplexing:** HTTP/2 allows multiple requests and responses to be sent simultaneously over a single connection, while HTTP/1.1 requires separate connections for each request.
+1. **Multiplexing:**
+   - Multiple requests/responses on single connection
+   - HTTP/1.1: 6 connections per domain, sequential requests
+   - HTTP/2: Unlimited concurrent streams on one connection
+   - **Impact:** Eliminates head-of-line blocking
 
-2. **Header Compression:** HTTP/2 uses HPACK compression to reduce header overhead, making requests more efficient.
+2. **Header Compression (HPACK):**
+   - Compresses headers (often 90%+ reduction)
+   - HTTP/1.1: Headers sent in plain text every request
+   - **Impact:** Significant bandwidth savings
 
-3. **Server Push:** HTTP/2 allows servers to proactively send resources to clients before they're requested.
+3. **Server Push:**
+   - Server proactively sends resources
+   - **Example:** Push CSS/JS files before client requests
+   - **Impact:** Reduces round trips
 
-4. **Binary Protocol:** HTTP/2 uses binary framing instead of text-based protocol, making it more efficient to parse.
+4. **Binary Protocol:**
+   - More efficient parsing than text
+   - **Impact:** Faster processing, less CPU
 
-5. **Stream Prioritization:** HTTP/2 allows prioritization of requests, ensuring critical resources load first.
+5. **Stream Prioritization:**
+   - Prioritize critical resources
+   - **Impact:** Important content loads first
 
-These improvements result in faster page loads, especially for sites with many resources.
-</expand>
-
-<expand title="Explain the browser rendering process">
-**Question:** Explain the browser rendering process.
-
-**Answer:**
-The browser rendering process involves several steps:
-
-1. **HTML Parsing:** Browser parses HTML to create the DOM (Document Object Model) tree.
-
-2. **CSS Parsing:** Browser parses CSS to create the CSSOM (CSS Object Model) tree.
-
-3. **Render Tree Construction:** Browser combines DOM and CSSOM to create the render tree, which contains only visible elements.
-
-4. **Layout (Reflow):** Browser calculates the position and size of each element in the render tree.
-
-5. **Paint:** Browser fills in pixels for each element based on styles and layout.
-
-6. **Composite:** Browser layers elements and composites them into the final image.
-
-The browser optimizes this process by:
-- Parsing HTML incrementally
-- Using separate threads for parsing and rendering
-- Caching resources
-- Using GPU acceleration for compositing
-
-Understanding this process helps optimize web performance.
-</expand>
-
-<expand title="What is Critical Rendering Path?">
-**Question:** What is Critical Rendering Path?
-
-**Answer:**
-The Critical Rendering Path (CRP) is the sequence of steps the browser takes to convert HTML, CSS, and JavaScript into pixels on the screen. Optimizing CRP is crucial for fast page loads.
-
-**Key steps:**
-1. **DOM:** Parse HTML → DOM tree
-2. **CSSOM:** Parse CSS → CSSOM tree
-3. **Render Tree:** Combine DOM + CSSOM
-4. **Layout:** Calculate positions and sizes
-5. **Paint:** Fill pixels
-6. **Composite:** Layer and display
-
-**Optimization techniques:**
-- Minimize render-blocking resources
-- Defer non-critical CSS
-- Minimize JavaScript execution time
-- Use async/defer for scripts
-- Optimize images and fonts
-- Reduce DOM complexity
-
-The goal is to minimize the time to First Contentful Paint (FCP) and Largest Contentful Paint (LCP).
-</expand>
-
-<expand title="What is Lighthouse and what metrics does it measure?">
-**Question:** What is Lighthouse and what metrics does it measure?
-
-**Answer:**
-Lighthouse is an open-source tool by Google that audits web pages for performance, accessibility, SEO, and best practices. It provides scores and recommendations.
-
-**Core Web Vitals (Performance Metrics):**
-1. **LCP (Largest Contentful Paint):** Measures loading performance. Should be under 2.5 seconds.
-
-2. **FID (First Input Delay):** Measures interactivity. Should be under 100 milliseconds.
-
-3. **CLS (Cumulative Layout Shift):** Measures visual stability. Should be under 0.1.
-
-**Other Metrics:**
-- **FCP (First Contentful Paint):** Time until first content appears
-- **TTI (Time to Interactive):** Time until page is fully interactive
-- **TBT (Total Blocking Time):** Total time page is blocked from responding
-- **Speed Index:** How quickly content is visually displayed
-
-**Categories:**
-- Performance (0-100 score)
-- Accessibility (0-100 score)
-- Best Practices (0-100 score)
-- SEO (0-100 score)
-
-Lighthouse helps identify performance bottlenecks and provides actionable recommendations.
-</expand>
-
-<expand title="How does browser caching work?">
-**Question:** How does browser caching work?
-
-**Answer:**
-Browser caching stores resources locally to reduce server requests and improve performance.
-
-**Types of Caching:**
-1. **Memory Cache:** Fastest, stores resources in RAM. Cleared when tab closes.
-
-2. **Disk Cache:** Persistent storage on disk. Survives browser restarts.
-
-3. **Service Worker Cache:** Programmatic caching controlled by JavaScript.
-
-**Cache Headers:**
-- **Cache-Control:** Controls caching behavior (max-age, no-cache, no-store, etc.)
-- **ETag:** Entity tag for cache validation
-- **Last-Modified:** Timestamp for validation
-- **Expires:** Absolute expiration date
-
-**Cache Strategies:**
-- **Cache-First:** Serve from cache, fallback to network
-- **Network-First:** Try network, fallback to cache
-- **Stale-While-Revalidate:** Serve cache immediately, update in background
-
-**Benefits:**
-- Faster page loads
+**Real-world Impact:**
+- 15-50% faster page loads
+- Better for sites with many resources
 - Reduced server load
-- Better user experience
-- Lower bandwidth usage
+- Better mobile performance
 
-Proper cache configuration is essential for web performance.
+**When HTTP/2 helps most:**
+- Sites with many small resources
+- High latency connections
+- Mobile networks
+</expand>
+
+<expand title="What causes layout shifts and how do you prevent them?">
+**Question:** What causes layout shifts and how do you prevent them?
+
+**Answer:**
+**Common Causes:**
+
+1. **Images without dimensions:**
+   - Browser doesn't know size until loaded
+   - Causes shift when image loads
+   - **Fix:** Always set width/height or aspect-ratio
+
+2. **Web fonts loading:**
+   - FOIT (Flash of Invisible Text) or FOUT (Flash of Unstyled Text)
+   - Text size changes when font loads
+   - **Fix:** Use `font-display: swap` or preload fonts
+
+3. **Ads/Embeds:**
+   - Third-party content loads asynchronously
+   - No reserved space
+   - **Fix:** Reserve space with aspect-ratio or fixed dimensions
+
+4. **Dynamically injected content:**
+   - Content added after page load
+   - **Fix:** Reserve space or use skeleton loaders
+
+5. **Animations:**
+   - Animating layout properties (width, height, top, left)
+   - **Fix:** Use transform and opacity (GPU-accelerated)
+
+**Prevention:**
+```html
+<!-- Images -->
+<img src="image.jpg" width="800" height="600" alt="Description" />
+<!-- Or -->
+<img src="image.jpg" style="aspect-ratio: 4/3;" alt="Description" />
+
+<!-- Fonts -->
+<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+```css
+@font-face {
+  font-family: 'MyFont';
+  font-display: swap; /* Prevents invisible text */
+}
+```
+
+**Best Practices:**
+- Always set dimensions for media
+- Use CSS aspect-ratio
+- Preload critical fonts
+- Reserve space for dynamic content
+- Use skeleton loaders
+</expand>
+
+<expand title="How do you optimize a website for mobile performance?">
+**Question:** How do you optimize a website for mobile performance?
+
+**Answer:**
+**Key Optimizations:**
+
+1. **Image Optimization:**
+   - Use WebP format with fallbacks
+   - Implement responsive images (srcset)
+   - Lazy load below-the-fold images
+   - Compress images (TinyPNG, ImageOptim)
+   - **Impact:** 50-70% size reduction
+
+2. **JavaScript:**
+   - Code splitting (load only what's needed)
+   - Tree shaking (remove unused code)
+   - Minification and compression
+   - Defer non-critical scripts
+   - **Impact:** Faster initial load
+
+3. **CSS:**
+   - Remove unused CSS
+   - Inline critical CSS
+   - Defer non-critical CSS
+   - Use CSS containment
+   - **Impact:** Faster render
+
+4. **Fonts:**
+   - Use `font-display: swap`
+   - Preload critical fonts
+   - Subset fonts (only needed characters)
+   - Use system fonts when possible
+
+5. **Network:**
+   - Use CDN for static assets
+   - Enable compression (gzip, brotli)
+   - Use HTTP/2 or HTTP/3
+   - Implement service workers for offline
+
+6. **Rendering:**
+   - Minimize render-blocking resources
+   - Use async/defer for scripts
+   - Optimize third-party scripts
+   - Reduce DOM complexity
+
+**Mobile-Specific:**
+- Touch-friendly UI (larger tap targets)
+- Optimize for slower networks (3G throttling)
+- Reduce JavaScript execution time
+- Prioritize above-the-fold content
+
+**Target Metrics:**
+- LCP < 2.5s
+- FID < 100ms
+- CLS < 0.1
+- TTI < 3.5s
 </expand>
 
 ## Scenario-Based Questions & Answers
 
-<expand title="Scenario: A user reports that your website loads slowly on mobile devices. How would you diagnose and fix this?">
-**Question:** A user reports that your website loads slowly on mobile devices. How would you diagnose and fix this?
+<expand title="Scenario: Your website's Lighthouse performance score dropped from 90 to 40. How would you diagnose and fix it?">
+**Question:** Your website's Lighthouse performance score dropped from 90 to 40. How would you diagnose and fix it?
 
 **Answer:**
 **Diagnosis Steps:**
-1. **Use Lighthouse Mobile:** Run Lighthouse with mobile throttling to identify issues.
 
-2. **Check Network Tab:** Analyze resource sizes, load times, and waterfall charts.
+1. **Run Lighthouse Audit:**
+   - Identify specific metrics that degraded
+   - Check LCP, FID, CLS scores
+   - Review opportunities and diagnostics
 
-3. **Measure Core Web Vitals:** Check LCP, FID, and CLS scores.
+2. **Compare Before/After:**
+   - What changed recently? (new features, dependencies, deployments)
+   - Check git history for recent changes
+   - Review new third-party scripts
 
-4. **Test on Real Devices:** Use actual mobile devices or device emulation.
+3. **Network Analysis:**
+   - Check Network tab for large resources
+   - Identify slow-loading resources
+   - Check waterfall chart for blocking resources
 
-5. **Check Resource Prioritization:** Ensure critical resources load first.
+4. **JavaScript Analysis:**
+   - Check Coverage tab for unused JavaScript
+   - Identify large bundles
+   - Check for render-blocking scripts
 
-**Common Fixes:**
-1. **Image Optimization:**
-   - Use WebP format
-   - Implement lazy loading
-   - Serve responsive images
-   - Compress images
+**Common Causes & Fixes:**
 
-2. **JavaScript Optimization:**
-   - Code splitting
-   - Tree shaking
-   - Minification
-   - Defer non-critical scripts
+1. **Large JavaScript Bundle:**
+   - **Cause:** New dependency or code split issue
+   - **Fix:** Code splitting, tree shaking, lazy loading
+   - **Check:** Bundle analyzer to see what's large
 
-3. **CSS Optimization:**
-   - Remove unused CSS
-   - Inline critical CSS
-   - Defer non-critical CSS
+2. **Render-Blocking Resources:**
+   - **Cause:** CSS or JS blocking render
+   - **Fix:** Inline critical CSS, defer non-critical JS
+   - **Check:** Coverage tab, render-blocking resources
 
-4. **Font Optimization:**
-   - Use font-display: swap
-   - Preload critical fonts
-   - Subset fonts
+3. **Large Images:**
+   - **Cause:** Unoptimized images added
+   - **Fix:** Compress, use WebP, lazy load
+   - **Check:** Network tab for image sizes
 
-5. **Caching:**
-   - Set proper cache headers
-   - Use CDN
-   - Implement service workers
+4. **Third-Party Scripts:**
+   - **Cause:** New analytics, ads, or widgets
+   - **Fix:** Defer, async, or lazy load
+   - **Check:** Third-party summary in Lighthouse
 
-6. **Reduce Render-Blocking:**
-   - Minimize render-blocking resources
-   - Use async/defer for scripts
-   - Optimize third-party scripts
+5. **Font Loading:**
+   - **Cause:** Fonts blocking render
+   - **Fix:** Preload, font-display: swap
+   - **Check:** Font display timing
 
-**Monitoring:**
-- Set up Real User Monitoring (RUM)
-- Track Core Web Vitals
-- Monitor error rates
-- Use performance budgets
+**Action Plan:**
+1. Fix largest impact issues first
+2. Set performance budgets
+3. Add to CI/CD pipeline
+4. Monitor in production
 </expand>
 
 <expand title="Scenario: Your website has a high Cumulative Layout Shift (CLS) score. How would you fix it?">
@@ -244,6 +272,76 @@ Proper cache configuration is essential for web performance.
 - Monitor CLS in production
 </expand>
 
+<expand title="Scenario: Your website receives a sudden traffic spike from a viral social media post. How do you ensure it stays online?">
+**Question:** Your website receives a sudden traffic spike from a viral social media post. How do you ensure it stays online?
+
+**Answer:**
+**Immediate Actions:**
+
+1. **CDN:**
+   - Serve all static assets from CDN
+   - Cache HTML pages if possible
+   - **Impact:** Reduces origin server load by 80-90%
+
+2. **Caching:**
+   - Aggressively cache responses
+   - Increase cache TTL temporarily
+   - Cache database queries
+   - **Example:** Cache homepage for 5 minutes
+
+3. **Auto-Scaling:**
+   - Trigger aggressive auto-scaling
+   - Scale from 5 to 50+ servers
+   - Pre-configure scaling policies
+   - **Cloud:** AWS Auto Scaling, GCP Managed Instance Groups
+
+4. **Load Balancing:**
+   - Distribute traffic across all servers
+   - Health checks to remove unhealthy instances
+   - Multiple load balancers for redundancy
+
+5. **Optimize Critical Path:**
+   - Minimize render-blocking resources
+   - Defer non-critical JavaScript
+   - Inline critical CSS
+   - **Impact:** Faster page loads, less server load
+
+6. **Database Protection:**
+   - Use read replicas for database reads
+   - Aggressive query caching
+   - Connection pooling limits
+   - Temporarily disable expensive queries
+
+7. **Rate Limiting:**
+   - Implement rate limiting
+   - Protect backend from overload
+   - Queue requests if needed
+
+**Architecture Patterns:**
+
+1. **Static Site Generation:**
+   - Pre-render pages at build time
+   - Serve from CDN
+   - **Impact:** Minimal server load
+
+2. **Edge Computing:**
+   - Run code at edge (Cloudflare Workers, AWS Lambda@Edge)
+   - Handle requests closer to users
+   - **Impact:** Reduced latency, less origin load
+
+**Monitoring:**
+- Real-time dashboards
+- Alert on thresholds (CPU > 80%, error rate > 1%)
+- Track response times
+- Monitor CDN cache hit rates
+
+**Prevention:**
+- Load testing before launch
+- Capacity planning
+- Auto-scaling policies
+- CDN for all static content
+</expand>
+
 <expand title="Scenario: You need to optimize a website that has 50+ third-party scripts. How would you approach this?">
 **Question:** You need to optimize a website that has 50+ third-party scripts. How would you approach this?
 
@@ -276,6 +374,7 @@ Proper cache configuration is essential for web performance.
    - Load scripts when needed
    - Use Intersection Observer
    - Load on user interaction
+   - **Example:** Load chat widget when user scrolls to bottom
 
 4. **Use Resource Hints:**
    ```html
@@ -302,3 +401,58 @@ Proper cache configuration is essential for web performance.
 Focus on scripts that block rendering first, then optimize others based on impact.
 </expand>
 
+<expand title="Scenario: Your website loads slowly on mobile devices but fast on desktop. How would you diagnose and fix this?">
+**Question:** Your website loads slowly on mobile devices but fast on desktop. How would you diagnose and fix this?
+
+**Answer:**
+**Diagnosis Steps:**
+1. **Use Lighthouse Mobile:** Run Lighthouse with mobile throttling to identify issues.
+
+2. **Check Network Tab:** Analyze resource sizes, load times, and waterfall charts with mobile throttling.
+
+3. **Measure Core Web Vitals:** Check LCP, FID, and CLS scores on mobile.
+
+4. **Test on Real Devices:** Use actual mobile devices or device emulation.
+
+5. **Check Resource Prioritization:** Ensure critical resources load first.
+
+**Common Mobile-Specific Issues:**
+
+1. **Large JavaScript Bundles:**
+   - Mobile has slower CPU
+   - **Fix:** Code splitting, reduce bundle size
+   - **Check:** Coverage tab for unused code
+
+2. **Unoptimized Images:**
+   - Mobile has slower network
+   - **Fix:** Use responsive images, WebP, compress
+   - **Check:** Network tab for image sizes
+
+3. **Render-Blocking Resources:**
+   - Mobile has slower parsing
+   - **Fix:** Inline critical CSS, defer non-critical JS
+   - **Check:** Render-blocking resources in Lighthouse
+
+4. **Font Loading:**
+   - Mobile has slower network
+   - **Fix:** Preload critical fonts, font-display: swap
+   - **Check:** Font display timing
+
+5. **Third-Party Scripts:**
+   - Mobile has slower CPU and network
+   - **Fix:** Defer, async, or lazy load
+   - **Check:** Third-party summary
+
+**Mobile-Specific Optimizations:**
+- Serve smaller images to mobile (responsive images)
+- Reduce JavaScript execution time
+- Minimize main thread work
+- Use passive event listeners
+- Optimize touch interactions
+
+**Monitoring:**
+- Set up Real User Monitoring (RUM) for mobile
+- Track Core Web Vitals on mobile
+- Monitor error rates
+- Use performance budgets
+</expand>
