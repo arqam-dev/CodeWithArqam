@@ -176,7 +176,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
         </button>
         
         {isExpanded && (
-          <div className="px-6 py-4 bg-white dark:bg-slate-900 pb-20">
+          <div className="px-6 py-4 bg-white dark:bg-slate-900">
             {section.question && (
               <div className="mb-4">
                 <div className="font-semibold text-slate-900 dark:text-white mb-2">Question:</div>
@@ -202,6 +202,35 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                       <div className="interview-answer-content">
                         <ReactMarkdown>{section.answer}</ReactMarkdown>
                       </div>
+                      {/* Copy and Fullscreen buttons inside answer container - only for system-design */}
+                      {enableCopyFullscreen && (
+                        <div className="interview-answer-action-buttons">
+                          {/* Copy button */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleCopy(section, e);
+                            }}
+                            className="expandable-copy-btn cursor-pointer"
+                            aria-label="Copy content"
+                            title={isCopied ? "Copied!" : "Copy content"}
+                          >
+                            {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                          </button>
+                          {/* Fullscreen button */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setFullscreenQuestion(section.title);
+                            }}
+                            className="expandable-fullscreen-btn cursor-pointer"
+                            aria-label="Open in fullscreen"
+                            title="Open in fullscreen"
+                          >
+                            <FaExpand size={16} />
+                          </button>
+                        </div>
+                      )}
                     </div>
                     <button
                       onClick={(e) => toggleAnswer(section.title, e)}
@@ -212,33 +241,6 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                   </div>
                 )}
               </>
-            )}
-            
-            {/* Copy and Fullscreen buttons - only for system-design */}
-            {enableCopyFullscreen && answerVisible && (
-              <div className="expandable-action-buttons">
-                {/* Copy button */}
-                <button
-                  onClick={(e) => handleCopy(section, e)}
-                  className="expandable-copy-btn cursor-pointer"
-                  aria-label="Copy content"
-                  title={isCopied ? "Copied!" : "Copy content"}
-                >
-                  {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
-                </button>
-                {/* Fullscreen button */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setFullscreenQuestion(section.title);
-                  }}
-                  className="expandable-fullscreen-btn cursor-pointer"
-                  aria-label="Open in fullscreen"
-                  title="Open in fullscreen"
-                >
-                  <FaExpand size={16} />
-                </button>
-              </div>
             )}
           </div>
         )}
@@ -333,19 +335,25 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                         <div className="interview-answer-content">
                           <ReactMarkdown>{section.answer}</ReactMarkdown>
                         </div>
+                        {/* Copy and Fullscreen buttons inside answer container in fullscreen modal */}
+                        {enableCopyFullscreen && (
+                          <div className="interview-answer-action-buttons">
+                            {/* Copy button */}
+                            <button
+                              onClick={() => handleCopy(section)}
+                              className="expandable-copy-btn cursor-pointer"
+                              aria-label="Copy content"
+                              title={isCopied ? "Copied!" : "Copy content"}
+                            >
+                              {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                            </button>
+                            {/* Fullscreen close is handled by modal close button */}
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
                 </div>
-                {/* Copy button in fullscreen modal */}
-                <button
-                  onClick={() => handleCopy(section)}
-                  className="expandable-modal-copy-btn cursor-pointer"
-                  aria-label="Copy content"
-                  title={isCopied ? "Copied!" : "Copy content"}
-                >
-                  {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
-                </button>
               </div>
             </div>
           </div>

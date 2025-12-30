@@ -162,11 +162,29 @@ body {
   margin: 12px 0;
   max-height: 600px;
   overflow-y: auto;
+  position: relative;
+  padding-bottom: 5rem; /* Space for sticky buttons */
 }
 
 .interview-answer-content {
   color: #1e293b;
   line-height: 1.7;
+}
+
+/* Action buttons inside answer container */
+.interview-answer-action-buttons {
+  position: sticky;
+  bottom: 1rem;
+  float: right;
+  clear: both;
+  margin-top: -4rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 10;
+  width: fit-content;
 }
 
 .interview-answer-content p {
@@ -222,6 +240,19 @@ body {
 
   .interview-answer-content pre {
     background: #0f172a;
+  }
+}
+
+/* Ensure buttons are visible in answer container */
+.interview-answer-container .expandable-copy-btn,
+.interview-answer-container .expandable-fullscreen-btn {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  .interview-answer-container .expandable-copy-btn,
+  .interview-answer-container .expandable-fullscreen-btn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
