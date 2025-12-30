@@ -550,6 +550,7 @@ Use canary for production, blue-green for staging/testing.
 - **Scaling:** Hard to scale (requires sticky sessions)
 - **Session:** Server-side session storage
 - **Load Balancing:** Requires sticky sessions (same client to same server)
+  - **Sticky Sessions:** All requests from the same user are routed to the same server instance during a session. This ensures session data stored on that server remains accessible for subsequent requests from that user.
 
 **When to Use:**
 - **Stateless:** Modern APIs, microservices
@@ -677,6 +678,7 @@ Use push for real-time, polling for simple cases.
    - **Cloud:** AWS Auto Scaling, GCP Managed Instance Groups
 
 2. **Load Shedding:**
+   - **Request Prioritization:** Configure request priorities server-side (no need to send priority in payload). Define priority rules in configuration files (e.g., YAML, JSON) or middleware that classifies requests based on endpoint patterns, user roles, or request types. Higher priority requests get processed first, while lower priority ones are queued or rejected.
    - Prioritize critical requests
    - Reject or queue non-critical requests
    - Return 503 for low-priority endpoints
