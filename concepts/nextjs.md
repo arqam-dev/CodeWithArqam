@@ -209,16 +209,17 @@ Understanding the difference between Server Components and Client Components is 
 
 ### Key Differences:
 
-| Feature | Server Components | Client Components |
-|---------|------------------|-------------------|
-| **Renders where** | Server | Browser |
-| **JavaScript sent** | No | Yes |
-| **Can use hooks** | No | Yes |
-| **Can use browser APIs** | No | Yes |
-| **Can access backend** | Yes | No |
-| **Interactive** | No | Yes |
-| **Bundle size** | Smaller | Larger |
-| **Performance** | Faster | Slower initial load |
+**Server Components:**
+- Renders on server, no JavaScript sent to client
+- Cannot use hooks or browser APIs
+- Can access backend resources
+- Not interactive, smaller bundle, faster performance
+
+**Client Components:**
+- Renders in browser, JavaScript sent to client
+- Can use hooks and browser APIs
+- Cannot access backend directly
+- Interactive, larger bundle, slower initial load
 
 ### When to Use:
 
@@ -827,12 +828,17 @@ return NextResponse.redirect('https://example.com');
 
 ### App Router vs Pages Router:
 
-| Feature | App Router | Pages Router |
-|---------|------------|--------------|
-| **File Structure** | `app/api/route.js` | `pages/api/users.js` |
-| **Handler** | Named exports (`GET`, `POST`) | Default export function |
-| **Request Object** | Web API Request | Node.js req/res |
-| **Response** | `NextResponse` | `res.json()`, `res.status()` |
+**App Router (Next.js 13+):**
+- File structure: `app/api/route.js`
+- Handler: Named exports (`GET`, `POST`)
+- Request object: Web API Request
+- Response: `NextResponse` helper
+
+**Pages Router (Legacy):**
+- File structure: `pages/api/users.js`
+- Handler: Default export function
+- Request object: Node.js req/res
+- Response: `res.json()`, `res.status()` methods
 
 ### Summary:
 
