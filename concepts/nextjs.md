@@ -1497,21 +1497,488 @@ This gives you the best of all worlds: fast performance, good SEO, and rich inte
 <expand title="API Routes">
 ## API Routes
 
-### App Router:
-- `app/api/route.js` → API endpoint
-- Supports GET, POST, PUT, DELETE, etc.
-- Server-side only
+API Routes allow you to build backend functionality directly in your Next.js application. You can create API endpoints without a separate backend server, making it perfect for full-stack applications.
 
-### Pages Router:
-- `pages/api/users.js` → `/api/users`
-- `pages/api/users/[id].js` → `/api/users/:id`
+### What are API Routes?
 
-### Use Cases:
-- Form submissions
-- Database operations
-- Authentication
-- Webhooks
-- Proxy requests
+**API Routes** are:
+- Server-side endpoints in your Next.js app
+- Handle HTTP requests (GET, POST, PUT, DELETE, etc.)
+- Can access databases, file system, external APIs
+- Perfect for building full-stack applications
+
+**Key Benefits:**
+- ✅ No separate backend needed
+- ✅ Same deployment as frontend
+- ✅ Type-safe with TypeScript
+- ✅ Easy to maintain
+- ✅ Server-side only (secure)
+
+### App Router: API Routes (Next.js 13+)
+
+#### Basic API Route
+
+**Structure:**
+```
+app/api/route.js → /api
+```
+
+**How it works:**
+```javascript
+// app/api/route.js
+import { NextResponse } from 'next/server';
+
+export async function GET(request) {
+  return NextResponse.json({ message: 'Hello World' });
+}
+
+export async function POST(request) {
+  const body = await request.json();
+  return NextResponse.json({ received: body });
+}
+```
+
+**HTTP Methods Supported:**
+- `GET` - Retrieve data
+- `POST` - Create data
+- `PUT` - Update data
+- `DELETE` - Delete data
+- `PATCH` - Partial update
+- `HEAD`, `OPTIONS` - Other HTTP methods
+
+#### Dynamic API Routes
+
+**Structure:**
+```
+app/api/users/[id]/route.js → /api/users/123
+```
+
+**Example:**
+```javascript
+// app/api/users/[id]/route.js
+import { NextResponse } from 'next/server';
+
+export async function GET(request, { params }) {
+  const { id } = await params;
+  const user = await getUserById(id);
+  
+  if (!user) {
+    return NextResponse.json({ error: 'User not found' }, { status: 404 });
+  }
+  
+  return NextResponse.json(user);
+}
+
+export async function PUT(request, { params }) {
+  const { id } = await params;
+  const body = await request.json();
+  const updatedUser = await updateUser(id, body);
+  return NextResponse.json(updatedUser);
+}
+
+export async function DELETE(request, { params }) {
+  const { id } = await params;
+  await deleteUser(id);
+  return NextResponse.json({ message: 'User deleted' });
+}
+```
+
+#### Accessing Request Data
+
+**Request Body:**
+```javascript
+export async function POST(request) {
+  const body = await request.json(); // Parse JSON body
+  return NextResponse.json({ received: body });
+}
+```
+
+**Query Parameters:**
+```javascript
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const name = searchParams.get('name');
+  const age = searchParams.get('age');
+  return NextResponse.json({ name, age });
+}
+// Usage: /api/users?name=John&age=30
+```
+
+**Headers:**
+```javascript
+export async function GET(request) {
+  const authHeader = request.headers.get('authorization');
+  return NextResponse.json({ auth: authHeader });
+}
+```
+
+**Cookies:**
+```javascript
+import { cookies } from 'next/headers';
+
+export async function GET(request) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('token');
+  return NextResponse.json({ token: token?.value });
+}
+```
+
+### Pages Router: API Routes (Legacy)
+
+#### Basic API Route
+
+**Structure:**
+```
+pages/api/users.js → /api/users
+```
+
+**Example:**
+```javascript
+// pages/api/users.js
+export default function handler(req, res) {
+  if (req.method === 'GET') {
+    res.status(200).json({ users: [] });
+  } else if (req.method === 'POST') {
+    res.status(201).json({ message: 'User created' });
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
+}
+```
+
+#### Dynamic API Routes
+
+**Structure:**
+```
+pages/api/users/[id].js → /api/users/123
+```
+
+**Example:**
+```javascript
+// pages/api/users/[id].js
+export default function handler(req, res) {
+  const { id } = req.query;
+  
+  if (req.method === 'GET') {
+    res.status(200).json({ id, name: 'User' });
+  } else if (req.method === 'DELETE') {
+    res.status(200).json({ message: 'Deleted' });
+  }
+}
+```
+
+### Common Use Cases:
+
+#### 1. Form Submissions
+
+**Example:**
+```javascript
+// app/api/contact/route.js
+import { NextResponse } from 'next/server';
+
+export async function POST(request) {
+  const { name, email, message } = await request.json();
+  
+  // Validate data
+  if (!name || !email || !message) {
+    return NextResponse.json(
+      { error: 'All fields required' },
+      { status: 400 }
+    );
+  }
+  
+  // Save to database or send email
+  await saveContactForm({ name, email, message });
+  
+  return NextResponse.json({ success: true });
+}
+```
+
+#### 2. Database Operations
+
+**Example:**
+```javascript
+// app/api/posts/route.js
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/database';
+
+export async function GET() {
+  const posts = await db.posts.findMany();
+  return NextResponse.json(posts);
+}
+
+export async function POST(request) {
+  const data = await request.json();
+  const post = await db.posts.create({ data });
+  return NextResponse.json(post, { status: 201 });
+}
+```
+
+#### 3. Authentication
+
+**Example:**
+```javascript
+// app/api/auth/login/route.js
+import { NextResponse } from 'next/server';
+import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
+
+export async function POST(request) {
+  const { email, password } = await request.json();
+  
+  const user = await findUserByEmail(email);
+  if (!user) {
+    return NextResponse.json(
+      { error: 'Invalid credentials' },
+      { status: 401 }
+    );
+  }
+  
+  const isValid = await compare(password, user.password);
+  if (!isValid) {
+    return NextResponse.json(
+      { error: 'Invalid credentials' },
+      { status: 401 }
+    );
+  }
+  
+  const token = sign({ userId: user.id }, process.env.JWT_SECRET);
+  return NextResponse.json({ token });
+}
+```
+
+#### 4. Webhooks
+
+**Example:**
+```javascript
+// app/api/webhooks/stripe/route.js
+import { NextResponse } from 'next/server';
+
+export async function POST(request) {
+  const event = await request.json();
+  
+  // Handle different event types
+  switch (event.type) {
+    case 'payment.succeeded':
+      await handlePaymentSuccess(event.data);
+      break;
+    case 'payment.failed':
+      await handlePaymentFailure(event.data);
+      break;
+  }
+  
+  return NextResponse.json({ received: true });
+}
+```
+
+#### 5. Proxy Requests
+
+**Example:**
+```javascript
+// app/api/proxy/route.js
+import { NextResponse } from 'next/server';
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const url = searchParams.get('url');
+  
+  const response = await fetch(url);
+  const data = await response.json();
+  
+  return NextResponse.json(data);
+}
+```
+
+### Response Helpers:
+
+#### JSON Response
+```javascript
+return NextResponse.json({ message: 'Success' });
+```
+
+#### Error Response
+```javascript
+return NextResponse.json(
+  { error: 'Not found' },
+  { status: 404 }
+);
+```
+
+#### Redirect
+```javascript
+return NextResponse.redirect('https://example.com');
+```
+
+#### Set Headers
+```javascript
+return NextResponse.json(
+  { data: 'value' },
+  {
+    headers: {
+      'Set-Cookie': 'token=abc123',
+      'Cache-Control': 'no-store'
+    }
+  }
+);
+```
+
+### Best Practices:
+
+#### 1. Validate Input
+```javascript
+export async function POST(request) {
+  const body = await request.json();
+  
+  // Always validate
+  if (!body.email || !isValidEmail(body.email)) {
+    return NextResponse.json(
+      { error: 'Invalid email' },
+      { status: 400 }
+    );
+  }
+  
+  // Process request
+}
+```
+
+#### 2. Handle Errors Gracefully
+```javascript
+export async function GET() {
+  try {
+    const data = await fetchData();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+#### 3. Use Environment Variables
+```javascript
+// Never expose secrets in code
+const apiKey = process.env.API_KEY;
+const dbUrl = process.env.DATABASE_URL;
+```
+
+#### 4. Set Appropriate Status Codes
+```javascript
+// 200 - Success
+return NextResponse.json({ data }, { status: 200 });
+
+// 201 - Created
+return NextResponse.json({ data }, { status: 201 });
+
+// 400 - Bad Request
+return NextResponse.json({ error }, { status: 400 });
+
+// 401 - Unauthorized
+return NextResponse.json({ error }, { status: 401 });
+
+// 404 - Not Found
+return NextResponse.json({ error }, { status: 404 });
+
+// 500 - Server Error
+return NextResponse.json({ error }, { status: 500 });
+```
+
+#### 5. Use TypeScript for Type Safety
+```typescript
+// app/api/users/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export async function GET(): Promise<NextResponse<User[]>> {
+  const users: User[] = await getUsers();
+  return NextResponse.json(users);
+}
+```
+
+### Security Considerations:
+
+#### 1. Never Trust Client Input
+```javascript
+// Always validate and sanitize
+const input = await request.json();
+const sanitized = sanitizeInput(input);
+```
+
+#### 2. Use HTTPS in Production
+- Always use HTTPS for API routes
+- Protect sensitive data in transit
+
+#### 3. Implement Rate Limiting
+```javascript
+// Prevent abuse
+const rateLimit = new Map();
+
+export async function POST(request) {
+  const ip = request.headers.get('x-forwarded-for');
+  const count = rateLimit.get(ip) || 0;
+  
+  if (count > 10) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429 }
+    );
+  }
+  
+  rateLimit.set(ip, count + 1);
+  // Process request
+}
+```
+
+#### 4. Validate Authentication
+```javascript
+export async function GET(request) {
+  const token = request.headers.get('authorization');
+  
+  if (!isValidToken(token)) {
+    return NextResponse.json(
+      { error: 'Unauthorized' },
+      { status: 401 }
+    );
+  }
+  
+  // Process authenticated request
+}
+```
+
+### App Router vs Pages Router:
+
+| Feature | App Router | Pages Router |
+|---------|------------|--------------|
+| **File Structure** | `app/api/route.js` | `pages/api/users.js` |
+| **Handler** | Named exports (`GET`, `POST`) | Default export function |
+| **Request Object** | Web API Request | Node.js req/res |
+| **Response** | `NextResponse` | `res.json()`, `res.status()` |
+| **Type Safety** | ✅ Better | ⚠️ Good |
+| **Modern** | ✅ Yes | ⚠️ Legacy |
+
+### Summary:
+
+**Key Takeaways:**
+- API Routes let you build backend in Next.js
+- App Router uses modern Web API (Request/Response)
+- Pages Router uses Node.js style (req/res)
+- Always validate input and handle errors
+- Use appropriate HTTP methods and status codes
+- Secure your API routes
+
+**Remember:**
+- API Routes are server-side only (secure)
+- Perfect for full-stack applications
+- No separate backend needed
+- Type-safe with TypeScript
+- Follow RESTful conventions
 </expand>
 
 <expand title="Middleware">
