@@ -271,12 +271,17 @@ Use consistent hashing for distributed systems to minimize data movement during 
 
 **Comparison:**
 
-| Feature | Message Queue | Event Streaming |
-|---------|---------------|-----------------|
-| Consumers | One per message | Multiple |
-| Persistence | Temporary | Configurable |
-| Replay | No | Yes |
-| Ordering | Per queue | Per partition |
+**Message Queue:**
+- **Consumers:** One per message
+- **Persistence:** Temporary
+- **Replay:** No
+- **Ordering:** Per queue
+
+**Event Streaming:**
+- **Consumers:** Multiple consumers can read
+- **Persistence:** Configurable retention
+- **Replay:** Yes, can replay events
+- **Ordering:** Per partition
 
 **When to Use:**
 - **Message Queue:** Task processing, one consumer per message
@@ -340,11 +345,15 @@ Many systems use both - SQL for transactional data, NoSQL for specific use cases
 
 **Comparison:**
 
-| Feature | Horizontal | Vertical |
-|---------|------------|----------|
-| Split By | Rows | Columns |
-| Schema | Same | Different |
-| Use Case | Scale writes | Optimize reads |
+**Horizontal Partitioning:**
+- **Split By:** Rows
+- **Schema:** Same schema across partitions
+- **Use Case:** Scale writes, large datasets
+
+**Vertical Partitioning:**
+- **Split By:** Columns
+- **Schema:** Different schema per partition
+- **Use Case:** Optimize reads, separate hot/cold data
 
 **When to Use:**
 - **Horizontal:** Large dataset, scale writes
@@ -372,11 +381,15 @@ Use horizontal partitioning for scaling, vertical for optimization.
 
 **Comparison:**
 
-| Feature | Synchronous | Asynchronous |
-|---------|-------------|--------------|
-| Consistency | Strong | Eventual |
-| Latency | High | Low |
-| Risk | Data loss if master fails | Stale reads |
+**Synchronous Replication:**
+- **Consistency:** Strong consistency
+- **Latency:** High latency
+- **Risk:** Data loss if master fails before replication completes
+
+**Asynchronous Replication:**
+- **Consistency:** Eventual consistency
+- **Latency:** Low latency
+- **Risk:** Stale reads possible, but better performance
 
 **When to Use:**
 - **Synchronous:** Critical data, can't lose writes
@@ -404,11 +417,15 @@ Use asynchronous for most cases, synchronous only for critical data.
 
 **Comparison:**
 
-| Feature | Blue-Green | Canary |
-|---------|------------|--------|
-| Rollout | Instant | Gradual |
-| Risk | Low | Very Low |
-| Resources | 2x | 1x + small |
+**Blue-Green Deployment:**
+- **Rollout:** Instant switch
+- **Risk:** Low risk
+- **Resources:** Requires 2x resources (both environments running)
+
+**Canary Deployment:**
+- **Rollout:** Gradual rollout (small percentage first)
+- **Risk:** Very low risk
+- **Resources:** 1x + small (only small portion of new version)
 
 **When to Use:**
 - **Blue-Green:** Fast rollback needed, can afford resources
@@ -558,11 +575,15 @@ Design stateless services for better scalability.
 
 **Comparison:**
 
-| Feature | Strong | Eventual |
-|---------|--------|----------|
-| Consistency | Immediate | Eventually |
-| Performance | Slower | Faster |
-| Availability | Lower | Higher |
+**Strong Consistency:**
+- **Consistency:** Immediate consistency across all nodes
+- **Performance:** Slower (waits for all nodes)
+- **Availability:** Lower availability (may reject requests during partition)
+
+**Eventual Consistency:**
+- **Consistency:** Eventually consistent (nodes converge over time)
+- **Performance:** Faster (doesn't wait for all nodes)
+- **Availability:** Higher availability (remains operational)
 
 **When to Use:**
 - **Strong:** Critical data, can't have inconsistencies
@@ -623,11 +644,15 @@ Use read replicas for read-heavy workloads, keep writes on master.
 
 **Comparison:**
 
-| Feature | Polling | Push |
-|---------|---------|------|
-| Latency | High | Low |
-| Complexity | Low | High |
-| Server Load | High | Low |
+**Polling:**
+- **Latency:** High latency (periodic checks)
+- **Complexity:** Low complexity (simple to implement)
+- **Server Load:** High server load (constant requests)
+
+**Push (WebSockets, SSE):**
+- **Latency:** Low latency (immediate updates)
+- **Complexity:** High complexity (more complex to implement)
+- **Server Load:** Low server load (only when updates occur)
 
 **When to Use:**
 - **Polling:** Simple, infrequent updates
