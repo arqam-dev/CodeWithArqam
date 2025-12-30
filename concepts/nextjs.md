@@ -492,25 +492,375 @@ export default function Layout({ children }) {
 <expand title="Routing">
 ## Routing
 
-### App Router Structure:
-- `app/page.js` → Home page (`/`)
-- `app/about/page.js` → `/about`
-- `app/blog/[id]/page.js` → Dynamic route `/blog/:id`
-- `app/shop/[...slug]/page.js` → Catch-all route
-- `app/docs/[[...slug]]/page.js` → Optional catch-all
+Next.js uses **file-based routing**, meaning the file structure in your `app/` directory automatically creates routes. Understanding routing is fundamental to building Next.js applications.
+
+### What is File-Based Routing?
+
+**File-based routing** means:
+- Files and folders in `app/` directory = Routes
+- No manual route configuration needed
+- Intuitive and organized
+- Automatic route generation
+
+**Key Concept:**
+- `page.js` = Creates a route
+- Folder name = URL path segment
+- Special files have special purposes
+
+### Basic Routes:
+
+#### Home Page:
+```
+app/page.js → /
+```
+- Root route of your application
+- Must be named `page.js`
+- Located in `app/` directory
+
+#### Static Routes:
+```
+app/about/page.js → /about
+app/contact/page.js → /contact
+app/blog/page.js → /blog
+```
+- Each folder with `page.js` creates a route
+- Folder name becomes the URL path
+
+**Example:**
+```javascript
+// app/about/page.js
+export default function AboutPage() {
+  return <h1>About Us</h1>;
+}
+```
+Visiting `/about` shows this page.
+
+### Dynamic Routes:
+
+#### Single Dynamic Segment:
+```
+app/blog/[id]/page.js → /blog/123, /blog/456, etc.
+```
+- `[id]` is a dynamic parameter
+- Can access via `params.id`
+
+**Example:**
+```javascript
+// app/blog/[id]/page.js
+export default function BlogPost({ params }) {
+  return <h1>Post ID: {params.id}</h1>;
+}
+```
+
+#### Multiple Dynamic Segments:
+```
+app/shop/[category]/[product]/page.js → /shop/electronics/laptop
+```
+- Multiple dynamic parameters
+- Access via `params.category` and `params.product`
+
+### Catch-All Routes:
+
+#### Catch-All (Required):
+```
+app/shop/[...slug]/page.js → /shop/a, /shop/a/b, /shop/a/b/c
+```
+- `[...slug]` matches one or more segments
+- `params.slug` is an array
+
+**Example:**
+```javascript
+// app/shop/[...slug]/page.js
+export default function ShopPage({ params }) {
+  // /shop/electronics/laptops → params.slug = ['electronics', 'laptops']
+  return <div>Path: {params.slug.join('/')}</div>;
+}
+```
+
+#### Optional Catch-All:
+```
+app/docs/[[...slug]]/page.js → /docs OR /docs/a OR /docs/a/b
+```
+- `[[...slug]]` matches zero or more segments
+- Works for both `/docs` and `/docs/anything`
+
+**Use Case:**
+- Documentation sites
+- Nested category pages
+- Flexible routing needs
 
 ### Route Groups:
-- `app/(marketing)/about/page.js` → `/about` (group name not in URL)
-- `app/(shop)/products/page.js` → `/products`
+
+**What are Route Groups?**
+- Organize routes without affecting URL
+- Use parentheses: `(group-name)`
+- Group name doesn't appear in URL
+
+**Example:**
+```
+app/(marketing)/about/page.js → /about (not /marketing/about)
+app/(marketing)/contact/page.js → /contact
+app/(shop)/products/page.js → /products
+app/(shop)/cart/page.js → /cart
+```
+
+**Benefits:**
+- Organize related routes together
+- Share layouts within group
+- Keep URL structure clean
+- Better code organization
 
 ### Layouts:
-- `app/layout.js` → Root layout (wraps all pages)
-- `app/dashboard/layout.js` → Layout for dashboard routes
 
-### Loading & Error:
-- `app/loading.js` → Loading UI
-- `app/error.js` → Error UI
-- `app/not-found.js` → 404 page
+**What are Layouts?**
+- Shared UI that wraps multiple pages
+- Persist across route changes
+- Perfect for headers, footers, navigation
+
+#### Root Layout:
+```
+app/layout.js → Wraps ALL pages
+```
+- Required in App Router
+- Defines HTML structure
+- Global styles and fonts
+
+**Example:**
+```javascript
+// app/layout.js
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <header>Navigation</header>
+        {children}
+        <footer>Footer</footer>
+      </body>
+    </html>
+  );
+}
+```
+
+#### Nested Layouts:
+```
+app/dashboard/layout.js → Wraps /dashboard/* routes
+```
+- Layouts are nested
+- Child layouts wrap their routes
+- Useful for section-specific UI
+
+**Example:**
+```javascript
+// app/dashboard/layout.js
+export default function DashboardLayout({ children }) {
+  return (
+    <div>
+      <Sidebar />
+      <main>{children}</main>
+    </div>
+  );
+}
+```
+
+**Layout Hierarchy:**
+```
+app/layout.js (root)
+  └── app/dashboard/layout.js (nested)
+      └── app/dashboard/settings/page.js
+```
+
+### Special Files:
+
+#### Loading States:
+```
+app/loading.js → Shows while page loads
+app/dashboard/loading.js → Shows while dashboard routes load
+```
+- Automatically shows loading UI
+- Uses React Suspense
+- Better user experience
+
+**Example:**
+```javascript
+// app/loading.js
+export default function Loading() {
+  return <div>Loading...</div>;
+}
+```
+
+#### Error Handling:
+```
+app/error.js → Error boundary for route
+app/dashboard/error.js → Error boundary for dashboard routes
+```
+- Catches errors in route
+- Shows error UI
+- Prevents entire app from crashing
+
+**Example:**
+```javascript
+// app/error.js
+'use client';
+
+export default function Error({ error, reset }) {
+  return (
+    <div>
+      <h2>Something went wrong!</h2>
+      <button onClick={reset}>Try again</button>
+    </div>
+  );
+}
+```
+
+#### Not Found Pages:
+```
+app/not-found.js → 404 page
+```
+- Custom 404 page
+- Shown when route doesn't exist
+- Better than default error
+
+**Example:**
+```javascript
+// app/not-found.js
+export default function NotFound() {
+  return (
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <p>The page you're looking for doesn't exist.</p>
+    </div>
+  );
+}
+```
+
+### Route Matching Rules:
+
+**Priority Order:**
+1. Static routes (exact match)
+2. Dynamic routes (`[id]`)
+3. Catch-all routes (`[...slug]`)
+4. Optional catch-all (`[[...slug]]`)
+
+**Example:**
+```
+app/page.js → /
+app/about/page.js → /about
+app/blog/[id]/page.js → /blog/123
+app/shop/[...slug]/page.js → /shop/electronics/laptops
+```
+
+### Accessing Route Parameters:
+
+**In Server Components:**
+```javascript
+// app/blog/[id]/page.js
+export default async function BlogPost({ params }) {
+  const { id } = await params; // params is a Promise in App Router
+  return <div>Post: {id}</div>;
+}
+```
+
+**In Client Components:**
+```javascript
+'use client';
+import { useParams } from 'next/navigation';
+
+export default function ClientComponent() {
+  const params = useParams();
+  return <div>ID: {params.id}</div>;
+}
+```
+
+### Navigation:
+
+#### Server-Side Navigation:
+```javascript
+import Link from 'next/link';
+
+export default function Navigation() {
+  return (
+    <nav>
+      <Link href="/about">About</Link>
+      <Link href="/blog/123">Blog Post</Link>
+    </nav>
+  );
+}
+```
+
+#### Client-Side Navigation:
+```javascript
+'use client';
+import { useRouter } from 'next/navigation';
+
+export default function Button() {
+  const router = useRouter();
+  
+  return (
+    <button onClick={() => router.push('/about')}>
+      Go to About
+    </button>
+  );
+}
+```
+
+### Best Practices:
+
+1. **Use descriptive folder names:**
+   - ✅ `app/products/page.js`
+   - ❌ `app/p/page.js`
+
+2. **Organize with route groups:**
+   - Group related routes together
+   - Keep URL structure clean
+
+3. **Use layouts for shared UI:**
+   - Don't repeat headers/footers
+   - Use nested layouts for sections
+
+4. **Handle loading and errors:**
+   - Always add loading states
+   - Provide error boundaries
+
+5. **Keep routes shallow when possible:**
+   - ✅ `/about`, `/contact`
+   - ⚠️ `/company/about/team/members` (consider if needed)
+
+### Common Patterns:
+
+#### Pattern 1: Blog with Categories
+```
+app/blog/page.js → /blog (list all posts)
+app/blog/[id]/page.js → /blog/123 (single post)
+app/blog/category/[slug]/page.js → /blog/category/tech
+```
+
+#### Pattern 2: E-commerce
+```
+app/shop/page.js → /shop (product listing)
+app/shop/[...slug]/page.js → /shop/electronics/laptops (category pages)
+app/product/[id]/page.js → /product/123 (product detail)
+```
+
+#### Pattern 3: Dashboard
+```
+app/dashboard/layout.js → Shared dashboard layout
+app/dashboard/page.js → /dashboard (overview)
+app/dashboard/settings/page.js → /dashboard/settings
+app/dashboard/analytics/page.js → /dashboard/analytics
+```
+
+### Summary:
+
+**Key Takeaways:**
+- File structure = Route structure
+- `page.js` creates routes
+- Folders create URL segments
+- Layouts wrap routes
+- Special files handle loading, errors, 404s
+- Dynamic routes use brackets `[id]`
+- Route groups organize without affecting URL
+
+**Remember:** Next.js routing is intuitive - if you can organize files, you can create routes!
 </expand>
 
 <expand title="Data Fetching">
