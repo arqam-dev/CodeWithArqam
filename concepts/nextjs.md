@@ -248,93 +248,46 @@ It takes the power of React and adds everything needed to build real-world, prod
 <expand title="Server Components vs Client Components">
 ## Server Components vs Client Components
 
-Understanding the difference between Server Components and Client Components is crucial in Next.js App Router. It's one of the most important concepts for building performant applications.
+Understanding the difference between Server Components and Client Components is crucial in Next.js App Router.
 
-### What Are Server Components?
+### Server Components (Default):
 
-**Server Components** are React components that:
-- Render **only on the server**
-- Never send JavaScript to the browser
-- Execute during server-side rendering
-- Can access server-side resources directly
+**What they are:**
+- Render only on the server
+- No JavaScript sent to browser
+- Can access backend resources (databases, file system, APIs)
+- Cannot use browser APIs or React hooks
 
 **Key Characteristics:**
-- ✅ **No JavaScript bundle:** Zero JavaScript sent to client
-- ✅ **Direct backend access:** Can access databases, file system, APIs
-- ✅ **Better performance:** Smaller bundle size, faster loads
-- ✅ **Better SEO:** Content rendered on server
-- ✅ **Secure:** API keys and secrets stay on server
-- ❌ **No interactivity:** Cannot use event handlers
-- ❌ **No browser APIs:** Cannot use `window`, `document`, `localStorage`
-- ❌ **No React hooks:** Cannot use `useState`, `useEffect`, etc.
+- ✅ Zero JavaScript bundle
+- ✅ Better performance and SEO
+- ✅ Secure (secrets stay on server)
+- ❌ No interactivity (no event handlers)
+- ❌ Cannot use `useState`, `useEffect`, `window`, `document`
 
-**How to Identify:**
+**How to identify:**
 - No `'use client'` directive
 - Default in App Router
 - Can use `async/await` directly
-- Can use `fs`, database connections, etc.
 
-**Example:**
-```javascript
-// app/blog/page.js (Server Component)
-import fs from 'fs';
+### Client Components:
 
-export default async function BlogPage() {
-  // Can use fs directly - this is server-side only!
-  const posts = fs.readdirSync('./posts');
-  
-  return (
-    <div>
-      <h1>Blog Posts</h1>
-      {posts.map(post => <div key={post}>{post}</div>)}
-    </div>
-  );
-}
-```
-
-### What Are Client Components?
-
-**Client Components** are React components that:
-- Render **in the browser**
+**What they are:**
+- Render in the browser
 - Send JavaScript to client
-- Execute in user's browser
-- Can use browser features
+- Can use browser APIs and React hooks
+- Interactive components
 
 **Key Characteristics:**
-- ✅ **Interactive:** Can use event handlers (`onClick`, `onChange`)
-- ✅ **Browser APIs:** Can use `window`, `document`, `localStorage`
-- ✅ **React hooks:** Can use `useState`, `useEffect`, `useRouter`
-- ✅ **Dynamic:** Can update based on user interaction
-- ❌ **Larger bundle:** JavaScript must be sent to client
-- ❌ **Slower initial load:** Must download and execute JavaScript
-- ❌ **No server access:** Cannot access file system, databases directly
+- ✅ Interactive (event handlers, state)
+- ✅ Can use `useState`, `useEffect`, browser APIs
+- ❌ Larger bundle size
+- ❌ Slower initial load
+- ❌ No direct server access
 
-**How to Identify:**
+**How to identify:**
 - Has `'use client'` directive at top
-- Uses React hooks
-- Uses event handlers
-- Uses browser APIs
-
-**Example:**
-```javascript
-// app/components/Counter.js (Client Component)
-'use client';
-
-import { useState } from 'react';
-
-export default function Counter() {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>
-        Increment
-      </button>
-    </div>
-  );
-}
-```
+- Uses React hooks or event handlers
 
 ### Key Differences:
 
@@ -348,143 +301,25 @@ export default function Counter() {
 | **Interactive** | No | Yes |
 | **Bundle size** | Smaller | Larger |
 | **Performance** | Faster | Slower initial load |
-| **SEO** | Excellent | Good |
 
-### When to Use Server Components:
-
-**Use Server Components for:**
-- ✅ Static content (text, images, layouts)
-- ✅ Data fetching (databases, APIs, file system)
-- ✅ SEO-critical pages
-- ✅ Content that doesn't change based on user interaction
-- ✅ Components that don't need interactivity
-- ✅ Reducing JavaScript bundle size
-
-**Examples:**
-- Blog post content
-- Product listings
-- Navigation menus (if not interactive)
-- Footer content
-- Static pages
-
-### When to Use Client Components:
-
-**Use Client Components for:**
-- ✅ Interactive UI (buttons, forms, modals)
-- ✅ State management (`useState`, `useReducer`)
-- ✅ Browser APIs (`localStorage`, `window`, `document`)
-- ✅ Event handlers (`onClick`, `onChange`, `onSubmit`)
-- ✅ Third-party libraries that need browser APIs
-- ✅ Components using React hooks
-
-**Examples:**
-- Search bars with autocomplete
-- Image galleries with lightbox
-- Forms with validation
-- Interactive charts/graphs
-- Modal dialogs
-- Counters and timers
-
-### Mixing Server and Client Components:
-
-**You can mix them!** This is the recommended approach:
-
-```javascript
-// app/page.js (Server Component)
-import { fetchPosts } from './lib/api';
-import InteractiveButton from './components/InteractiveButton';
-
-export default async function Page() {
-  const posts = await fetchPosts(); // Server-side data fetching
-  
-  return (
-    <div>
-      <h1>Posts</h1>
-      {posts.map(post => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-          {/* Client Component for interactivity */}
-          <InteractiveButton postId={post.id} />
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-**Best Practice:**
-- Use Server Components by default
-- Only use Client Components when you need interactivity
-- Keep Client Components small and focused
-- Pass data from Server to Client Components as props
-
-### Common Patterns:
-
-#### Pattern 1: Server Component fetches, Client Component displays
-```javascript
-// Server Component
-export default async function Page() {
-  const data = await fetchData();
-  return <ClientChart data={data} />;
-}
-
-// Client Component
-'use client';
-export function ClientChart({ data }) {
-  // Interactive chart using data from server
-}
-```
-
-#### Pattern 2: Server Component for layout, Client Component for interaction
-```javascript
-// Server Component
-export default function Layout({ children }) {
-  return (
-    <div>
-      <ServerHeader />
-      {children}
-      <ClientFooter />
-    </div>
-  );
-}
-```
-
-### Performance Impact:
+### When to Use:
 
 **Server Components:**
-- Zero JavaScript sent to client
-- Faster page loads
-- Better Core Web Vitals
-- Lower bandwidth usage
+- Static content, data fetching, SEO-critical pages
+- Blog posts, product listings, layouts
+- Any content that doesn't need interactivity
 
 **Client Components:**
-- JavaScript must be downloaded
-- Slower initial load
-- More bandwidth usage
-- But enables interactivity
+- Interactive UI (buttons, forms, modals)
+- State management, browser APIs
+- Search bars, image galleries, charts
 
-**Recommendation:** Use Server Components as much as possible, only add Client Components where interactivity is needed.
+### Best Practice:
 
-### Migration from Pages Router:
-
-**Pages Router:**
-- All components were Client Components
-- Everything sent to browser
-- Larger bundles
-
-**App Router:**
-- Server Components by default
-- Only Client Components when needed
-- Smaller bundles, better performance
-
-### Summary:
-
-**Remember:**
-- **Server Components** = Default, no JavaScript, fast, SEO-friendly
-- **Client Components** = When you need interactivity, use `'use client'`
-- **Best Practice** = Use Server Components by default, add Client Components only when needed
-- **Performance** = More Server Components = Better performance
+- Use Server Components by default
+- Only add `'use client'` when you need interactivity
+- Mix them: Server Component fetches data, Client Component handles interaction
+- Keep Client Components small and focused
 
 **Rule of Thumb:** If it doesn't need to be interactive, make it a Server Component!
 </expand>
