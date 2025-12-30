@@ -276,11 +276,11 @@ Essential boilerplate code for connecting to multiple databases and organizing p
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=arqam-dev&show_icons=true&theme=radical&hide_border=true)
+<img src="https://github-readme-stats.vercel.app/api?username=arqam-dev&show_icons=true&theme=radical&hide_border=true&include_all_commits=true&count_private=true" alt="GitHub Stats" />
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=arqam-dev&layout=compact&theme=radical&hide_border=true)
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=arqam-dev&layout=compact&theme=radical&hide_border=true" alt="Top Languages" />
 
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=arqam-dev&theme=radical&hide_border=true)
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=arqam-dev&theme=radical&hide_border=true" alt="GitHub Streak" />
 
 </div>
 
