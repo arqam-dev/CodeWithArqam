@@ -159,6 +159,7 @@ The website includes AI-powered content enrichment for expandable sections. User
 - Uses Hugging Face Inference API (completely free, no signup needed) by default
 - Optionally supports OpenAI API (free tier available) for better results
 - Provides fallback content if AI services are unavailable
+- Seamlessly integrates with existing expandable concept sections
 
 **Optional: Enhanced AI with OpenAI (Recommended)**
 1. Get a free API key from [OpenAI](https://platform.openai.com/api-keys) (free tier available)
@@ -168,7 +169,7 @@ The website includes AI-powered content enrichment for expandable sections. User
    ```
 3. Restart your development server
 
-**Note:** The feature works without any API key using Hugging Face, but OpenAI provides better quality responses.
+**Note:** The feature works without any API key using Hugging Face, but OpenAI provides better quality responses. The AI enrichment feature enhances learning by providing additional context and explanations for complex topics.
 
 ## Reviews System
 
