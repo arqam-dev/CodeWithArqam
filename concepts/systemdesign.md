@@ -1,4 +1,6 @@
-# Primary Concepts
+# System Design
+
+## Primary Concepts
 
 <expand title="Architectures (how responsibilities are divided, whether in code, servers, or data)">
 ## Architectures (how responsibilities are divided, whether in code, servers, or data)
@@ -1526,7 +1528,9 @@ npm i express graphql express-graphql nanoid
 ### Limitations:
 - As we have a single endpoint, we have a cache issue.
 
-</expand></expand>
+</expand>
+
+## Secondary Concepts
 
 <expand title="HTM vs HTML">
 ## HTM vs HTML
