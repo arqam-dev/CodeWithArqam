@@ -259,28 +259,27 @@ function ContentPageContent() {
                     className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-hidden group ${
                       isSelected
                         ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 text-white font-semibold shadow-lg shadow-purple-500/50 scale-[1.02]"
+                          ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white font-semibold shadow-lg shadow-slate-500/30 scale-[1.02]"
                           : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
                         : isInterviewQuestions
-                          ? "text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gradient-to-r hover:from-purple-50 hover:via-blue-50 hover:to-purple-50 dark:hover:from-purple-900/20 dark:hover:via-blue-900/20 dark:hover:to-purple-900/20 border border-transparent hover:border-purple-200 dark:hover:border-purple-800"
+                          ? "bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 text-white font-semibold shadow-md shadow-slate-500/20 hover:scale-[1.01] hover:shadow-lg"
                           : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
                   >
-                    {isInterviewQuestions && isSelected && (
+                    {isInterviewQuestions && (
                       <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-30 blur-md animate-pulse"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer"></div>
+                        {isSelected && (
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-md animate-pulse"></div>
+                        )}
                       </>
                     )}
-                    {isInterviewQuestions && !isSelected && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-blue-400/0 to-purple-400/0 group-hover:from-purple-400/10 group-hover:via-blue-400/10 group-hover:to-purple-400/10 transition-all duration-500"></div>
-                    )}
-                    <span className="relative flex items-center justify-between">
-                      <span className="flex items-center space-x-2">
-                        <span>{category}</span>
+                    <span className="relative flex items-center justify-between whitespace-nowrap">
+                      <span className="flex items-center space-x-2 truncate">
+                        <span className="truncate">{category}</span>
                       </span>
                       {isInterviewQuestions && isSelected && (
-                        <span className="ml-2 text-xs bg-white/30 backdrop-blur-sm px-2.5 py-1 rounded-full font-semibold border border-white/20 animate-pulse">
+                        <span className="ml-2 flex-shrink-0 text-xs bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full font-semibold border border-white/20">
                           New
                         </span>
                       )}
@@ -325,23 +324,25 @@ function ContentPageContent() {
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-hidden ${
                       isSelected
                         ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 text-white shadow-lg shadow-purple-500/50 scale-105"
+                          ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white shadow-lg shadow-slate-500/30 scale-105"
                           : "bg-blue-600 text-white"
                         : isInterviewQuestions
-                          ? "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-purple-100 hover:via-blue-100 hover:to-purple-100 dark:hover:from-purple-900/30 dark:hover:via-blue-900/30 dark:hover:to-purple-900/30 hover:text-purple-700 dark:hover:text-purple-400"
+                          ? "bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 text-white shadow-md shadow-slate-500/20"
                           : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
                     }`}
                   >
-                    {isInterviewQuestions && isSelected && (
+                    {isInterviewQuestions && (
                       <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
-                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-30 blur-sm animate-pulse"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer"></div>
+                        {isSelected && (
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-sm animate-pulse"></div>
+                        )}
                       </>
                     )}
                     <span className="relative flex items-center space-x-2">
                       <span>{category}</span>
                       {isInterviewQuestions && isSelected && (
-                        <span className="text-xs bg-white/30 backdrop-blur-sm px-2 py-0.5 rounded-full font-semibold border border-white/20">
+                        <span className="text-xs bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full font-semibold border border-white/20">
                           New
                         </span>
                       )}
@@ -356,17 +357,17 @@ function ContentPageContent() {
           {showInterviewQuestions ? (
             <div className="space-y-8 animate-fadeIn">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl"></div>
-                <div className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800">
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-200/20 via-slate-300/20 to-slate-200/20 dark:from-slate-700/20 dark:via-slate-600/20 dark:to-slate-700/20 rounded-2xl blur-2xl"></div>
+                <div className="relative bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-800/50 dark:via-slate-700/50 dark:to-slate-800/50 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-700">
                   <div className="flex items-center space-x-4 mb-6">
                     <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full blur-lg opacity-50 animate-pulse"></div>
-                      <div className="relative p-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full">
+                      <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full blur-lg opacity-30 dark:opacity-20 animate-pulse"></div>
+                      <div className="relative p-4 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 rounded-full">
                         <FaQuestionCircle className="text-white" size={32} />
                       </div>
                     </div>
                     <div>
-                      <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
                         Interview Questions
                       </h2>
                       <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -381,29 +382,29 @@ function ContentPageContent() {
                         <Link
                           key={category.slug}
                           href={`/interview-questions/${category.slug}`}
-                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-700 cursor-pointer overflow-hidden"
+                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer overflow-hidden"
                           style={{
                             animationDelay: `${index * 100}ms`,
                             animation: 'fadeInUp 0.6s ease-out forwards'
                           }}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-blue-500/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
+                          <div className="absolute inset-0 bg-gradient-to-br from-slate-100/0 via-slate-200/0 to-slate-100/0 dark:from-slate-700/0 dark:via-slate-600/0 dark:to-slate-700/0 group-hover:from-slate-100/50 group-hover:via-slate-200/50 group-hover:to-slate-100/50 dark:group-hover:from-slate-700/30 dark:group-hover:via-slate-600/30 dark:group-hover:to-slate-700/30 transition-all duration-500"></div>
                           <div className="relative">
                             <div className="flex items-center space-x-3 mb-3">
                               <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-lg blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                                <div className="relative p-3 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                                  <Icon className="text-purple-600 dark:text-purple-400" size={24} />
+                                <div className="absolute inset-0 bg-gradient-to-r from-slate-300 to-slate-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 dark:group-hover:opacity-20 transition-opacity duration-300"></div>
+                                <div className="relative p-3 bg-slate-100 dark:bg-slate-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                                  <Icon className="text-slate-600 dark:text-slate-300" size={24} />
                                 </div>
                               </div>
-                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                                 {category.name}
                               </h3>
                             </div>
                             <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
                               {category.description}
                             </p>
-                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
                               <span>View Questions</span>
                               <FaChevronRight className="transform group-hover:translate-x-1 transition-transform" size={12} />
                             </div>
