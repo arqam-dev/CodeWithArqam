@@ -496,13 +496,19 @@ localStorage.clear();
 
 **Comparison:**
 
-| Feature | Cookies | localStorage |
-|---------|---------|-------------|
-| Size | 4KB | 5-10MB |
-| Sent to Server | Yes | No |
-| Expiration | Yes | No |
-| Access | Client + Server | Client only |
-| Blocking | Can block requests | Non-blocking |
+**Cookies:**
+- **Size:** 4KB limit
+- **Sent to Server:** Yes, automatically sent with requests
+- **Expiration:** Yes, can set expiration date
+- **Access:** Client + Server (accessible from both)
+- **Blocking:** Can block requests (sent with every request)
+
+**localStorage:**
+- **Size:** 5-10MB limit
+- **Sent to Server:** No, never sent automatically
+- **Expiration:** No, persists until cleared
+- **Access:** Client only (JavaScript only)
+- **Blocking:** Non-blocking (doesn't affect requests)
 
 **When to Use:**
 - **Cookies:** Authentication tokens, server needs data
@@ -605,13 +611,19 @@ import('./module').then(module => {
 
 **Comparison:**
 
-| Feature | SSR | CSR |
-|---------|-----|-----|
-| Initial Load | Fast | Slow |
-| SEO | Good | Poor |
-| Interactivity | Slower | Faster |
-| Server Load | High | Low |
-| Caching | Difficult | Easy |
+**Server-Side Rendering (SSR):**
+- **Initial Load:** Fast (HTML ready immediately)
+- **SEO:** Good (search engines can crawl content)
+- **Interactivity:** Slower (needs hydration)
+- **Server Load:** High (server renders each request)
+- **Caching:** Difficult (dynamic content)
+
+**Client-Side Rendering (CSR):**
+- **Initial Load:** Slow (needs to download JS first)
+- **SEO:** Poor (content loaded via JavaScript)
+- **Interactivity:** Faster (no server round-trip)
+- **Server Load:** Low (static files served)
+- **Caching:** Easy (static assets)
 
 **SSR Flow:**
 ```
