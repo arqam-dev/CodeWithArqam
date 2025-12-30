@@ -403,13 +403,10 @@ function ContentPageContent() {
               ].map((category) => {
                 const Icon = category.icon;
                 return (
-                  <div
+                  <Link
                     key={category.slug}
-                    className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group cursor-pointer"
-                    onClick={() => {
-                      // This will be handled by a component
-                      window.location.href = `/interview-questions/${category.slug}`;
-                    }}
+                    href={`/interview-questions/${category.slug}`}
+                    className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group cursor-pointer block"
                   >
                     <div className="flex items-center space-x-3 mb-3">
                       <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
@@ -425,7 +422,7 @@ function ContentPageContent() {
                     <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200">
                       <span>View Questions</span>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
