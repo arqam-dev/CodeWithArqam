@@ -204,7 +204,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
                       onClick={(e) => toggleAnswer(section.title, e)}
                       className="w-full px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:scale-[1.02] flex items-center justify-center gap-2 group"
                     >
-                      <FaLightbulb className="group-hover:rotate-12 transition-transform duration-300" />
+                      <FaLightbulb className="group-hover:rotate-12 transition-transform duration-300 lightbulb-pulse" />
                       <span>Show Answer</span>
                     </button>
                   </div>

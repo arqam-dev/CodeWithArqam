@@ -855,6 +855,22 @@ body {
   }
 }
 
+/* Lightbulb pulse animation - turning on and off */
+@keyframes lightbulbPulse {
+  0%, 100% {
+    opacity: 0.6;
+    filter: brightness(0.8) drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.5) drop-shadow(0 0 8px rgba(255, 255, 200, 0.8));
+  }
+}
+
+.lightbulb-pulse {
+  animation: lightbulbPulse 2s ease-in-out infinite;
+}
+
 /* Copy button in modal */
 .expandable-modal-copy-btn {
   position: sticky;
