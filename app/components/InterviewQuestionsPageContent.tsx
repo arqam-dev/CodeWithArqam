@@ -24,8 +24,8 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const [copiedQuestions, setCopiedQuestions] = useState<Set<string>>(new Set());
   const [fullscreenQuestion, setFullscreenQuestion] = useState<string | null>(null);
   
-  // Only enable copy/fullscreen for system-design
-  const enableCopyFullscreen = category === "system-design";
+  // Enable copy/fullscreen for all interview questions
+  const enableCopyFullscreen = true;
 
   // Parse the markdown content to extract expandable sections
   const parseContent = (): { general: QuestionSection[]; scenario: QuestionSection[] } => {
