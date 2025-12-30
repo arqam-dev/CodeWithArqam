@@ -196,12 +196,17 @@ Choose based on use case. Most modern systems prioritize AP (availability + part
 
 **Comparison:**
 
-| Feature | Sharding | Replication |
-|---------|----------|-------------|
-| Data | Different | Same |
-| Purpose | Scale writes | Scale reads, HA |
-| Complexity | High | Medium |
-| Use Case | Large datasets | Read-heavy workloads |
+**Sharding:**
+- **Data:** Different data across shards
+- **Purpose:** Scale writes, distribute load
+- **Complexity:** High
+- **Use Case:** Large datasets, need to scale writes
+
+**Replication:**
+- **Data:** Same data across replicas
+- **Purpose:** Scale reads, high availability
+- **Complexity:** Medium
+- **Use Case:** Read-heavy workloads, need redundancy
 
 **When to Use:**
 - **Sharding:** Large dataset, need to scale writes
@@ -519,11 +524,15 @@ Use canary for production, blue-green for staging/testing.
 
 **Comparison:**
 
-| Feature | Stateless | Stateful |
-|---------|-----------|----------|
-| Scaling | Easy | Hard |
-| Session | Client | Server |
-| Load Balancing | Any server | Sticky sessions |
+**Stateless Services:**
+- **Scaling:** Easy horizontal scaling
+- **Session:** Client-side (JWT tokens)
+- **Load Balancing:** Any server can handle any request
+
+**Stateful Services:**
+- **Scaling:** Hard to scale (requires sticky sessions)
+- **Session:** Server-side session storage
+- **Load Balancing:** Requires sticky sessions (same client to same server)
 
 **When to Use:**
 - **Stateless:** Modern APIs, microservices
