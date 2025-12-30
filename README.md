@@ -66,6 +66,47 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 - `npm run start` - Start the production server
 - `npm run lint` - Run ESLint
 
+## Project Features
+
+### 📚 Comprehensive Learning Content
+- **27+ Concepts** across 12+ categories
+- Expandable sections with detailed explanations
+- Real-world examples and best practices
+- Categories include:
+  - Frontend (JavaScript, React, Angular, HTML, CSS)
+  - Backend (Node.js, GraphQL)
+  - Full Stack (Next.js)
+  - Cloud & DevOps (AWS, Cloud Computing)
+  - Database (SQL, NoSQL)
+  - Mobile Development
+  - CS Fundamentals (Data Structures, OOP, OS, Networking, Hardware)
+  - Tools (Git)
+  - Web Development
+  - Quality Assurance
+  - VS Comparisons
+  - Professional Skills
+
+### 🎯 Interactive Quizzes
+- 25-question quizzes for each concept
+- Multiple choice questions with instant feedback
+- Review mode showing correct/incorrect answers
+- Scroll navigation for long quizzes
+
+### 💼 Interview Questions
+- Comprehensive Q&A for technical interviews
+- Categories: Frontend, Backend, Databases, System Design
+- General Questions & Answers
+- Scenario-Based Questions & Answers
+- Practical, real-world focused questions
+
+### 🎨 Modern UI/UX
+- Responsive design for all devices
+- Dark mode support
+- Smooth animations and transitions
+- Interactive expandable sections
+- Copy-to-clipboard functionality
+- Fullscreen mode for content viewing
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
