@@ -229,11 +229,15 @@ ALTER TABLE users RENAME COLUMN email_new TO email;
 
 **Comparison:**
 
-| Feature | ACID | BASE |
-|---------|------|------|
-| Consistency | Strong | Eventual |
-| Availability | Lower | Higher |
-| Performance | Slower | Faster |
+**ACID:**
+- **Consistency:** Strong consistency (all nodes see same data)
+- **Availability:** Lower availability (may reject requests during partition)
+- **Performance:** Slower (waits for all nodes to commit)
+
+**BASE:**
+- **Consistency:** Eventual consistency (nodes converge over time)
+- **Availability:** Higher availability (remains operational)
+- **Performance:** Faster (doesn't wait for all nodes)
 
 **When to Use:**
 - **ACID:** Critical data, can't have inconsistencies
@@ -290,11 +294,15 @@ Normalize for writes, denormalize for reads if needed.
 
 **Comparison:**
 
-| Feature | Clustered | Non-Clustered |
-|---------|-----------|---------------|
-| Physical Order | Yes | No |
-| Number | One | Many |
-| Speed | Faster | Slower |
+**Clustered Index:**
+- **Physical Order:** Yes, data physically ordered by index
+- **Number:** One per table (usually primary key)
+- **Speed:** Faster (data and index together)
+
+**Non-Clustered Index:**
+- **Physical Order:** No, separate index structure
+- **Number:** Many per table (can have multiple)
+- **Speed:** Slower (requires lookup to data)
 
 **When to Use:**
 - **Clustered:** Primary key, frequently queried
