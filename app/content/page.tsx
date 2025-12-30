@@ -256,7 +256,7 @@ function ContentPageContent() {
                       setSelectedCategory(category);
                       setIsSidebarOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-hidden group ${
+                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-visible group ${
                       isSelected
                         ? isInterviewQuestions
                           ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white font-semibold shadow-lg shadow-slate-500/30 scale-[1.02]"
@@ -268,21 +268,19 @@ function ContentPageContent() {
                   >
                     {isInterviewQuestions && (
                       <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer rounded-lg"></div>
                         {isSelected && (
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-md animate-pulse"></div>
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-md animate-pulse rounded-lg"></div>
                         )}
                       </>
                     )}
-                    <span className="relative flex items-center justify-between whitespace-nowrap">
-                      <span className="flex items-center space-x-2 truncate">
-                        <span className="truncate">{category}</span>
+                    {isInterviewQuestions && (
+                      <span className="absolute -top-1 -right-1 z-10 text-[10px] bg-slate-600 dark:bg-slate-500 text-white px-1.5 py-0.5 rounded-full font-bold shadow-md border border-white/20">
+                        New
                       </span>
-                      {isInterviewQuestions && isSelected && (
-                        <span className="ml-2 flex-shrink-0 text-xs bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full font-semibold border border-white/20">
-                          New
-                        </span>
-                      )}
+                    )}
+                    <span className="relative flex items-center whitespace-nowrap pr-8">
+                      <span className="truncate">{category}</span>
                     </span>
                   </button>
                 );
@@ -321,7 +319,7 @@ function ContentPageContent() {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-hidden ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-visible ${
                       isSelected
                         ? isInterviewQuestions
                           ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white shadow-lg shadow-slate-500/30 scale-105"
@@ -333,19 +331,19 @@ function ContentPageContent() {
                   >
                     {isInterviewQuestions && (
                       <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer rounded-full"></div>
                         {isSelected && (
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-sm animate-pulse"></div>
+                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-sm animate-pulse rounded-full"></div>
                         )}
                       </>
                     )}
-                    <span className="relative flex items-center space-x-2">
+                    {isInterviewQuestions && (
+                      <span className="absolute -top-1 -right-1 z-10 text-[10px] bg-slate-600 dark:bg-slate-500 text-white px-1.5 py-0.5 rounded-full font-bold shadow-md border border-white/20">
+                        New
+                      </span>
+                    )}
+                    <span className="relative flex items-center pr-6">
                       <span>{category}</span>
-                      {isInterviewQuestions && isSelected && (
-                        <span className="text-xs bg-white/20 backdrop-blur-sm px-2 py-0.5 rounded-full font-semibold border border-white/20">
-                          New
-                        </span>
-                      )}
                     </span>
                   </button>
                 );
