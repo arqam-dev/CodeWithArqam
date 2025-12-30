@@ -93,7 +93,7 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Interview Questions", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
 
 const interviewQuestionCategories = [
   { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
@@ -248,6 +248,7 @@ function ContentPageContent() {
             <div className="space-y-1">
               {categories.map((category, index) => {
                 const isInterviewQuestions = category === "Interview Questions";
+                const isSelected = selectedCategory === category;
                 return (
                   <button
                     key={category}
@@ -255,29 +256,31 @@ function ContentPageContent() {
                       setSelectedCategory(category);
                       setIsSidebarOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-300 relative overflow-hidden group ${
-                      selectedCategory === category
+                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-hidden group ${
+                      isSelected
                         ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/40 dark:to-blue-900/40 text-purple-700 dark:text-purple-300 font-medium shadow-md"
+                          ? "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 text-white font-semibold shadow-lg shadow-purple-500/50 scale-[1.02]"
                           : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
                         : isInterviewQuestions
-                          ? "text-purple-600 dark:text-purple-400 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:from-purple-900/20 dark:hover:to-blue-900/20"
+                          ? "text-slate-700 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-gradient-to-r hover:from-purple-50 hover:via-blue-50 hover:to-purple-50 dark:hover:from-purple-900/20 dark:hover:via-blue-900/20 dark:hover:to-purple-900/20 border border-transparent hover:border-purple-200 dark:hover:border-purple-800"
                           : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
                     }`}
                   >
-                    {isInterviewQuestions && (
+                    {isInterviewQuestions && isSelected && (
                       <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 via-blue-400/20 to-purple-400/20 dark:from-purple-500/10 dark:via-blue-500/10 dark:to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
-                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-30 blur-md animate-pulse"></div>
                       </>
                     )}
-                    <span className="relative flex items-center space-x-2">
-                      {isInterviewQuestions && (
-                        <FaQuestionCircle className={`${selectedCategory === category ? 'animate-pulse' : 'group-hover:animate-bounce'} transition-transform duration-300`} size={16} />
-                      )}
-                      <span>{category}</span>
-                      {isInterviewQuestions && selectedCategory === category && (
-                        <span className="ml-auto text-xs bg-purple-200 dark:bg-purple-800 px-2 py-0.5 rounded-full animate-pulse">
+                    {isInterviewQuestions && !isSelected && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-blue-400/0 to-purple-400/0 group-hover:from-purple-400/10 group-hover:via-blue-400/10 group-hover:to-purple-400/10 transition-all duration-500"></div>
+                    )}
+                    <span className="relative flex items-center justify-between">
+                      <span className="flex items-center space-x-2">
+                        <span>{category}</span>
+                      </span>
+                      {isInterviewQuestions && isSelected && (
+                        <span className="ml-2 text-xs bg-white/30 backdrop-blur-sm px-2.5 py-1 rounded-full font-semibold border border-white/20 animate-pulse">
                           New
                         </span>
                       )}
@@ -314,26 +317,34 @@ function ContentPageContent() {
             <div className="flex space-x-2 pb-2">
               {categories.map((category) => {
                 const isInterviewQuestions = category === "Interview Questions";
+                const isSelected = selectedCategory === category;
                 return (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-hidden ${
-                      selectedCategory === category
+                      isSelected
                         ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                          ? "bg-gradient-to-r from-purple-500 via-blue-500 to-purple-500 text-white shadow-lg shadow-purple-500/50 scale-105"
                           : "bg-blue-600 text-white"
                         : isInterviewQuestions
-                          ? "bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-700 dark:text-purple-400 border border-purple-300 dark:border-purple-700"
+                          ? "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-purple-100 hover:via-blue-100 hover:to-purple-100 dark:hover:from-purple-900/30 dark:hover:via-blue-900/30 dark:hover:to-purple-900/30 hover:text-purple-700 dark:hover:text-purple-400"
                           : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
                     }`}
                   >
-                    {isInterviewQuestions && selectedCategory === category && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
+                    {isInterviewQuestions && isSelected && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-30 blur-sm animate-pulse"></div>
+                      </>
                     )}
-                    <span className="relative flex items-center space-x-1">
-                      {isInterviewQuestions && <FaQuestionCircle size={12} />}
+                    <span className="relative flex items-center space-x-2">
                       <span>{category}</span>
+                      {isInterviewQuestions && isSelected && (
+                        <span className="text-xs bg-white/30 backdrop-blur-sm px-2 py-0.5 rounded-full font-semibold border border-white/20">
+                          New
+                        </span>
+                      )}
                     </span>
                   </button>
                 );
