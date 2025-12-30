@@ -41,8 +41,8 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
         const expandContent = match[2];
         
         // Extract question and answer
-        const questionMatch = expandContent.match(/\*\*Question:\*\*\s*(.+?)(?=\*\*Answer:\*\*|$)/s);
-        const answerMatch = expandContent.match(/\*\*Answer:\*\*\s*(.+?)$/s);
+        const questionMatch = expandContent.match(/\*\*Question:\*\*\s*([\s\S]+?)(?=\*\*Answer:\*\*|$)/);
+        const answerMatch = expandContent.match(/\*\*Answer:\*\*\s*([\s\S]+?)$/);
         
         const question = questionMatch ? questionMatch[1].trim() : '';
         const answer = answerMatch ? answerMatch[1].trim() : '';
