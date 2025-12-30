@@ -1,0 +1,126 @@
+{
+  "title": "System Design Quiz",
+  "questions": [
+    {
+      "id": 1,
+      "question": "What is Client-Server Architecture?",
+      "options": ["Peer-to-peer system", "Foundational interaction model with client and server", "Blockchain network", "Gossip-based system"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "question": "What is a Monolith Architecture?",
+      "options": ["Multiple separate services", "Entire backend application built, deployed, and scaled as single unit", "Microservices", "Serverless"],
+      "correct": 1
+    },
+    {
+      "id": 3,
+      "question": "What is Microservices Architecture?",
+      "options": ["Single large application", "Backend split into small, independent services", "Monolith", "Client-server only"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "question": "What is SOA?",
+      "options": ["Service-Oriented Architecture", "Server-Only Architecture", "Single-Object Architecture", "System-Only Architecture"],
+      "correct": 0
+    },
+    {
+      "id": 5,
+      "question": "What is Event-Driven Architecture?",
+      "options": ["Services call each other directly", "Services communicate by producing and reacting to events", "Only synchronous communication", "Only REST APIs"],
+      "correct": 1
+    },
+    {
+      "id": 6,
+      "question": "What does CAP Theorem state?",
+      "options": ["Distributed systems can guarantee all 3: Consistency, Availability, Partition tolerance", "Distributed systems can guarantee at most 2 of 3: Consistency, Availability, Partition tolerance", "Only 1 of 3 can be guaranteed", "All systems must have consistency"],
+      "correct": 1
+    },
+    {
+      "id": 7,
+      "question": "What is ACID?",
+      "options": ["Atomicity, Consistency, Isolation, Durability", "Availability, Consistency, Isolation, Durability", "Atomicity, Consistency, Integration, Durability", "Atomicity, Concurrency, Isolation, Durability"],
+      "correct": 0
+    },
+    {
+      "id": 8,
+      "question": "What is BASE?",
+      "options": ["Basically Available, Soft state, Eventual consistency", "Basic Availability, Strong state, Eventual consistency", "Basically Available, Strong state, Eventual consistency", "Basic Availability, Soft state, Eventual consistency"],
+      "correct": 0
+    },
+    {
+      "id": 9,
+      "question": "What is horizontal scaling?",
+      "options": ["Add more resources to existing server", "Add more servers to pool of resources", "Remove servers", "Upgrade CPU"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "question": "What is vertical scaling?",
+      "options": ["Add more servers", "Add more resources (CPU, RAM) to existing server", "Remove resources", "Distribute load"],
+      "correct": 1
+    },
+    {
+      "id": 11,
+      "question": "What is sharding?",
+      "options": ["Divides table within one database", "Splits data across multiple databases/servers", "Copies data to multiple servers", "Creates indexes"],
+      "correct": 1
+    },
+    {
+      "id": 12,
+      "question": "What is replication?",
+      "options": ["Splits data across servers", "Copies data to multiple servers for availability", "Divides table within database", "Creates partitions"],
+      "correct": 1
+    },
+    {
+      "id": 13,
+      "question": "What is an API Gateway?",
+      "options": ["Multiple entry points", "Single entry point for all client requests", "Database gateway", "File storage gateway"],
+      "correct": 1
+    },
+    {
+      "id": 14,
+      "question": "What is load balancing?",
+      "options": ["Distributes incoming traffic evenly across multiple servers", "Stores data", "Processes requests", "Caches data"],
+      "correct": 0
+    },
+    {
+      "id": 15,
+      "question": "What is caching?",
+      "options": ["Permanent storage", "Temporary storage for frequently accessed data", "Database storage", "File storage"],
+      "correct": 1
+    },
+    {
+      "id": 16,
+      "question": "What is stateless architecture?",
+      "options": ["Server keeps state information", "Server keeps no state information", "Always uses sticky sessions", "Requires same server for client"],
+      "correct": 1
+    },
+    {
+      "id": 17,
+      "question": "What is a message queue?",
+      "options": ["Synchronous communication only", "Durable component supporting asynchronous communication", "Direct API calls", "File storage"],
+      "correct": 1
+    },
+    {
+      "id": 18,
+      "question": "What is idempotent?",
+      "options": ["Making same request produces different results", "Making same request multiple times produces same result as making it once", "Always fails", "Never works"],
+      "correct": 1
+    },
+    {
+      "id": 19,
+      "question": "What is Blue-Green deployment?",
+      "options": ["Gradual rollout", "Two identical environments, instant switch", "No deployment strategy", "Single environment"],
+      "correct": 1
+    },
+    {
+      "id": 20,
+      "question": "What is Canary deployment?",
+      "options": ["Instant switch", "Gradual rollout to small percentage, monitor, then expand", "No monitoring", "Full rollout immediately"],
+      "correct": 1
+    }
+  ]
+}
+
