@@ -76,8 +76,8 @@ const concepts: Concept[] = [
   // Tools & Practices
   { name: "Git", slug: "git", category: "Tools", icon: FaTools, description: "Version control, branching, and collaboration" },
   
-  // Web Development
-  { name: "Web Development", slug: "webdevelopment", category: "Web Development", icon: FaCode, description: "Full-stack web development practices" },
+  // System Design & Architecture
+  { name: "System Design", slug: "systemdesign", category: "System Design", icon: FaCode, description: "System architecture, scalability, and design patterns" },
   
   // Quality Assurance
   { name: "Quality Assurance", slug: "qualityassurance", category: "Quality Assurance", icon: FaCheckCircle, description: "Testing, QA processes, and best practices" },
@@ -93,7 +93,7 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
 
 const interviewQuestionCategories = [
   { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },

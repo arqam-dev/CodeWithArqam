@@ -783,6 +783,139 @@ Use push for real-time, polling for simple cases.
 Start with monolith, extract services when you have clear boundaries and need for separation.
 </expand>
 
+<expand title="How do microservices communicate with each other?">
+**Question:** How do microservices communicate with each other?
+
+**Answer:**
+Microservices can communicate through various patterns, each with different use cases and trade-offs.
+
+**Synchronous Communication:**
+
+1. **REST APIs (HTTP/HTTPS):**
+   - **How it works:** Direct HTTP requests between services
+   - **Use Case:** 
+     - Request-response patterns
+     - When immediate response is needed
+     - Simple CRUD operations
+     - External API integration
+   - **Example:** User service calls Payment service to process payment
+   - **Pros:** Simple, widely understood, easy to debug
+   - **Cons:** Tight coupling, cascading failures, network latency
+
+2. **gRPC (Remote Procedure Calls):**
+   - **How it works:** Protocol buffers, binary protocol, faster than REST
+   - **Use Case:**
+     - High-performance internal communication
+     - Real-time streaming
+     - Microservices in same data center
+     - When type safety is critical
+   - **Example:** Real-time analytics service streaming data to dashboard service
+   - **Pros:** Faster, type-safe, supports streaming, efficient binary format
+   - **Cons:** More complex, less human-readable, requires code generation
+
+3. **GraphQL:**
+   - **How it works:** Single endpoint, client specifies needed data
+   - **Use Case:**
+     - Multiple clients need different data shapes
+     - Mobile apps with limited bandwidth
+     - Complex nested data relationships
+   - **Example:** Mobile app fetching only user name and avatar, web app fetching full profile
+   - **Pros:** Flexible queries, reduces over-fetching, single endpoint
+   - **Cons:** Query complexity, caching challenges, potential N+1 problems
+
+**Asynchronous Communication:**
+
+1. **Message Queues (RabbitMQ, Amazon SQS, Azure Service Bus):**
+   - **How it works:** Producer sends message to queue, consumer processes it
+   - **Use Case:**
+     - Order processing workflows
+     - Email notifications
+     - Background job processing
+     - Decoupling services
+     - Handling traffic spikes
+   - **Example:** Order service publishes "OrderCreated" message, Email service consumes and sends confirmation
+   - **Pros:** Decoupling, handles spikes, retry mechanisms, load balancing
+   - **Cons:** Message ordering challenges, potential message loss, complexity
+
+2. **Event Streaming (Apache Kafka, Amazon Kinesis, Azure Event Hubs):**
+   - **How it works:** Events published to topics, multiple consumers can subscribe
+   - **Use Case:**
+     - Real-time analytics
+     - Event sourcing
+     - Audit logs
+     - Multiple services reacting to same event
+     - Data pipeline processing
+   - **Example:** User registration event → Email service, Analytics service, Welcome service all react
+   - **Pros:** Multiple consumers, event replay, high throughput, event history
+   - **Cons:** Eventual consistency, complexity, storage requirements
+
+3. **Pub/Sub (Publish-Subscribe):**
+   - **How it works:** Publishers send messages to topics, subscribers receive based on subscriptions
+   - **Use Case:**
+     - Broadcasting events to multiple services
+     - Real-time notifications
+     - Decoupled event distribution
+   - **Example:** Inventory service publishes "StockLow" event, Alert service and Reorder service both receive it
+   - **Pros:** Loose coupling, scalable, flexible routing
+   - **Cons:** Message delivery guarantees, ordering challenges
+
+**Hybrid Patterns:**
+
+1. **API Gateway Pattern:**
+   - **How it works:** Single entry point routing to multiple microservices
+   - **Use Case:**
+     - External client communication
+     - Aggregating responses from multiple services
+     - Authentication/authorization
+     - Rate limiting
+   - **Example:** Client calls API Gateway → Gateway calls User, Order, and Payment services → Aggregates response
+   - **Pros:** Single point of entry, centralized security, simplified client
+   - **Cons:** Potential bottleneck, single point of failure
+
+2. **Service Mesh (Istio, Linkerd, Consul Connect):**
+   - **How it works:** Infrastructure layer handling service-to-service communication
+   - **Use Case:**
+     - Complex microservices deployments
+     - Need for observability, security, traffic management
+     - Multiple services with different communication needs
+   - **Example:** Automatic load balancing, circuit breaking, retries, and monitoring across all services
+   - **Pros:** Centralized communication logic, observability, security
+   - **Cons:** Additional complexity, resource overhead
+
+**Best Practices:**
+
+1. **Choose Based on Requirements:**
+   - Use synchronous for immediate responses
+   - Use asynchronous for decoupling and scalability
+   - Use event streaming for multiple consumers
+
+2. **Resilience Patterns:**
+   - Circuit breakers for sync calls
+   - Retry with exponential backoff
+   - Timeout configuration
+   - Dead letter queues for failed messages
+
+3. **Monitoring:**
+   - Distributed tracing (Jaeger, Zipkin)
+   - Service health checks
+   - Message queue monitoring
+   - API gateway metrics
+
+4. **Security:**
+   - Service-to-service authentication
+   - Encrypted communication (TLS)
+   - API keys or mTLS for internal services
+   - Rate limiting
+
+**Decision Matrix:**
+- **Need immediate response?** → REST/gRPC
+- **Need decoupling?** → Message Queue/Event Streaming
+- **Multiple consumers?** → Event Streaming/Pub-Sub
+- **High performance?** → gRPC
+- **Simple integration?** → REST
+- **Complex routing?** → Service Mesh
+</expand>
+
 <expand title="Scenario: Design a system that can handle 10 million concurrent users. What are the key considerations?">
 **Question:** Design a system that can handle 10 million concurrent users. What are the key considerations?
 
