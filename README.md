@@ -216,3 +216,15 @@ function doGet(e) {
    GOOGLE_SHEETS_PUBLIC_URL=your-web-app-url
    ```
 7. Restart your dev server
+
+## License
+
+This project is private and proprietary.
+
+## Contributing
+
+This is a personal educational project. For suggestions or feedback, please reach out through our social media channels.
+
+---
+
+**Made with ❤️ by Arqam**
