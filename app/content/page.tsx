@@ -93,7 +93,14 @@ const concepts: Concept[] = [
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
+const categories = ["All", "Interview Questions", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "Web Development", "Quality Assurance", "Comparisons", "Professional"];
+
+const interviewQuestionCategories = [
+  { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
+  { name: "Backend", slug: "backend", icon: FaServer, description: "APIs, microservices, caching, and backend architecture" },
+  { name: "Databases", slug: "databases", icon: FaDatabase, description: "SQL, NoSQL, indexing, transactions, and database design" },
+  { name: "System Design", slug: "system-design", icon: FaNetworkWired, description: "Scalability, load balancing, caching, and distributed systems" },
+];
 
 function ContentPageContent() {
   const searchParams = useSearchParams();
@@ -132,6 +139,8 @@ function ContentPageContent() {
     const matchesCategory = selectedCategory === "All" || concept.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const showInterviewQuestions = selectedCategory === "Interview Questions";
 
   const groupedConcepts = filteredConcepts.reduce((acc, concept) => {
     if (!acc[concept.category]) {
@@ -237,22 +246,45 @@ function ContentPageContent() {
               </button>
             </div>
             <div className="space-y-1">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => {
-                    setSelectedCategory(category);
-                    setIsSidebarOpen(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 rounded-lg transition-colors duration-200 ${
-                    selectedCategory === category
-                      ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
-                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
-                  }`}
-                >
-                  <span>{category}</span>
-                </button>
-              ))}
+              {categories.map((category, index) => {
+                const isInterviewQuestions = category === "Interview Questions";
+                return (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setIsSidebarOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-300 relative overflow-hidden group ${
+                      selectedCategory === category
+                        ? isInterviewQuestions
+                          ? "bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/40 dark:to-blue-900/40 text-purple-700 dark:text-purple-300 font-medium shadow-md"
+                          : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
+                        : isInterviewQuestions
+                          ? "text-purple-600 dark:text-purple-400 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 dark:hover:from-purple-900/20 dark:hover:to-blue-900/20"
+                          : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+                    }`}
+                  >
+                    {isInterviewQuestions && (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 via-blue-400/20 to-purple-400/20 dark:from-purple-500/10 dark:via-blue-500/10 dark:to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-shimmer"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 opacity-0 group-hover:opacity-20 blur-sm transition-opacity duration-500"></div>
+                      </>
+                    )}
+                    <span className="relative flex items-center space-x-2">
+                      {isInterviewQuestions && (
+                        <FaQuestionCircle className={`${selectedCategory === category ? 'animate-pulse' : 'group-hover:animate-bounce'} transition-transform duration-300`} size={16} />
+                      )}
+                      <span>{category}</span>
+                      {isInterviewQuestions && selectedCategory === category && (
+                        <span className="ml-auto text-xs bg-purple-200 dark:bg-purple-800 px-2 py-0.5 rounded-full animate-pulse">
+                          New
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </aside>
@@ -280,153 +312,186 @@ function ContentPageContent() {
           {/* Category Filter Pills (Mobile) */}
           <div className="md:hidden mb-6 overflow-x-auto">
             <div className="flex space-x-2 pb-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
-                    selectedCategory === category
-                      ? "bg-blue-600 text-white"
-                      : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Concepts Grid */}
-          {Object.keys(groupedConcepts).length === 0 ? (
-            <div className="text-center py-12">
-              <FaQuestionCircle className="mx-auto text-slate-400 mb-4" size={48} />
-              <p className="text-lg text-slate-600 dark:text-slate-400">
-                No concepts found matching your search.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-8">
-              {Object.entries(groupedConcepts).map(([category, categoryConcepts]) => (
-                <div key={category}>
-                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
-                    <span className="w-1 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded"></span>
-                    <span>{category}</span>
-                    <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
-                      ({categoryConcepts.length})
-                    </span>
-                  </h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {categoryConcepts.map((concept) => {
-                      const Icon = concept.icon;
-                      const isExpanded = expandedConcepts.has(concept.slug);
-                      
-                      return (
-                        <div
-                          key={concept.slug}
-                          className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
-                        >
-                          <div className="flex items-start justify-between mb-3">
-                            <div className="flex items-center space-x-3">
-                              <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                                <Icon className="text-blue-600 dark:text-blue-400" size={20} />
-                              </div>
-                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                {concept.name}
-                              </h3>
-                            </div>
-                          </div>
-                          
-                          {concept.description && (
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                              {concept.description}
-                            </p>
-                          )}
-
-                          <div className="flex items-center justify-between">
-                            <Link
-                              href={`/concepts/${concept.slug}`}
-                              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200"
-                            >
-                              <FaBook size={14} />
-                              <span>Read More</span>
-                            </Link>
-                            <button
-                              onClick={() => toggleConcept(concept.slug)}
-                              className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                              aria-label="Toggle details"
-                            >
-                              <FaChevronRight
-                                className={`transform transition-transform duration-200 ${
-                                  isExpanded ? "rotate-90" : ""
-                                }`}
-                                size={16}
-                              />
-                            </button>
-                          </div>
-
-                          {isExpanded && (
-                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                              <Link
-                                href={`/concepts/${concept.slug}`}
-                                className="block w-full text-center px-4 py-2 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-sm font-medium"
-                              >
-                                Explore Full Content
-                              </Link>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Interview Questions Section */}
-          <div className="mt-12">
-            <div className="flex items-center space-x-3 mb-6">
-              <FaQuestionCircle className="text-purple-600 dark:text-purple-400" size={24} />
-              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Interview Questions
-              </h2>
-            </div>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">
-              Prepare for your next technical interview with comprehensive questions and answers.
-            </p>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[
-                { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
-                { name: "Backend", slug: "backend", icon: FaServer, description: "APIs, microservices, caching, and backend architecture" },
-                { name: "Databases", slug: "databases", icon: FaDatabase, description: "SQL, NoSQL, indexing, transactions, and database design" },
-                { name: "System Design", slug: "system-design", icon: FaNetworkWired, description: "Scalability, load balancing, caching, and distributed systems" },
-              ].map((category) => {
-                const Icon = category.icon;
+              {categories.map((category) => {
+                const isInterviewQuestions = category === "Interview Questions";
                 return (
-                  <Link
-                    key={category.slug}
-                    href={`/interview-questions/${category.slug}`}
-                    className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group cursor-pointer block"
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-hidden ${
+                      selectedCategory === category
+                        ? isInterviewQuestions
+                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
+                          : "bg-blue-600 text-white"
+                        : isInterviewQuestions
+                          ? "bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-700 dark:text-purple-400 border border-purple-300 dark:border-purple-700"
+                          : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+                    }`}
                   >
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                        <Icon className="text-purple-600 dark:text-purple-400" size={20} />
-                      </div>
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                        {category.name}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                      {category.description}
-                    </p>
-                    <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200">
-                      <span>View Questions</span>
-                    </div>
-                  </Link>
+                    {isInterviewQuestions && selectedCategory === category && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/30 via-blue-400/30 to-purple-400/30 animate-shimmer"></div>
+                    )}
+                    <span className="relative flex items-center space-x-1">
+                      {isInterviewQuestions && <FaQuestionCircle size={12} />}
+                      <span>{category}</span>
+                    </span>
+                  </button>
                 );
               })}
             </div>
           </div>
+
+          {/* Interview Questions Section - Shown when category is selected */}
+          {showInterviewQuestions ? (
+            <div className="space-y-8 animate-fadeIn">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-purple-500/10 rounded-2xl blur-2xl"></div>
+                <div className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border-2 border-purple-200 dark:border-purple-800">
+                  <div className="flex items-center space-x-4 mb-6">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full blur-lg opacity-50 animate-pulse"></div>
+                      <div className="relative p-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full">
+                        <FaQuestionCircle className="text-white" size={32} />
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                        Interview Questions
+                      </h2>
+                      <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        Prepare for your next technical interview with comprehensive Q&A
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {interviewQuestionCategories.map((category, index) => {
+                      const Icon = category.icon;
+                      return (
+                        <Link
+                          key={category.slug}
+                          href={`/interview-questions/${category.slug}`}
+                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-700 cursor-pointer overflow-hidden"
+                          style={{
+                            animationDelay: `${index * 100}ms`,
+                            animation: 'fadeInUp 0.6s ease-out forwards'
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-blue-500/0 to-purple-500/0 group-hover:from-purple-500/10 group-hover:via-blue-500/10 group-hover:to-purple-500/10 transition-all duration-500"></div>
+                          <div className="relative">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-blue-400 rounded-lg blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                <div className="relative p-3 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                                  <Icon className="text-purple-600 dark:text-purple-400" size={24} />
+                                </div>
+                              </div>
+                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                {category.name}
+                              </h3>
+                            </div>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                              {category.description}
+                            </p>
+                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+                              <span>View Questions</span>
+                              <FaChevronRight className="transform group-hover:translate-x-1 transition-transform" size={12} />
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Concepts Grid */
+            Object.keys(groupedConcepts).length === 0 ? (
+              <div className="text-center py-12">
+                <FaQuestionCircle className="mx-auto text-slate-400 mb-4" size={48} />
+                <p className="text-lg text-slate-600 dark:text-slate-400">
+                  No concepts found matching your search.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {Object.entries(groupedConcepts).map(([category, categoryConcepts]) => (
+                  <div key={category}>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
+                      <span className="w-1 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded"></span>
+                      <span>{category}</span>
+                      <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
+                        ({categoryConcepts.length})
+                      </span>
+                    </h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {categoryConcepts.map((concept) => {
+                        const Icon = concept.icon;
+                        const isExpanded = expandedConcepts.has(concept.slug);
+                        
+                        return (
+                          <div
+                            key={concept.slug}
+                            className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
+                          >
+                            <div className="flex items-start justify-between mb-3">
+                              <div className="flex items-center space-x-3">
+                                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                                  <Icon className="text-blue-600 dark:text-blue-400" size={20} />
+                                </div>
+                                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                                  {concept.name}
+                                </h3>
+                              </div>
+                            </div>
+                            
+                            {concept.description && (
+                              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                                {concept.description}
+                              </p>
+                            )}
+
+                            <div className="flex items-center justify-between">
+                              <Link
+                                href={`/concepts/${concept.slug}`}
+                                className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                              >
+                                <FaBook size={14} />
+                                <span>Read More</span>
+                              </Link>
+                              <button
+                                onClick={() => toggleConcept(concept.slug)}
+                                className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                                aria-label="Toggle details"
+                              >
+                                <FaChevronRight
+                                  className={`transform transition-transform duration-200 ${
+                                    isExpanded ? "rotate-90" : ""
+                                  }`}
+                                  size={16}
+                                />
+                              </button>
+                            </div>
+
+                            {isExpanded && (
+                              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                                <Link
+                                  href={`/concepts/${concept.slug}`}
+                                  className="block w-full text-center px-4 py-2 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-sm font-medium"
+                                >
+                                  Explore Full Content
+                                </Link>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          )}
         </main>
       </div>
 
