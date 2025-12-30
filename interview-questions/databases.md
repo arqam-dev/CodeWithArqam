@@ -2,285 +2,188 @@
 
 ## General Questions & Answers
 
-<expand title="What is the difference between SQL and NoSQL databases?">
-**Question:** What is the difference between SQL and NoSQL databases?
+<expand title="When would you choose SQL over NoSQL for a new project?">
+**Question:** When would you choose SQL over NoSQL for a new project?
 
 **Answer:**
-**SQL (Relational) Databases:**
-- **Structure:** Tables with rows and columns, fixed schema
-- **ACID Properties:** Strong consistency, transactions
-- **Relationships:** Foreign keys, joins
-- **Scalability:** Vertical scaling (more powerful hardware)
-- **Examples:** MySQL, PostgreSQL, Oracle, SQL Server
+**Choose SQL When:**
 
-**NoSQL Databases:**
-- **Structure:** Flexible schema, various data models (document, key-value, graph, column)
-- **Consistency:** Eventual consistency (BASE)
-- **Relationships:** No joins, denormalized data
-- **Scalability:** Horizontal scaling (more servers)
-- **Examples:** MongoDB, Redis, Cassandra, DynamoDB
+1. **ACID Compliance Required:**
+   - Financial transactions
+   - Critical data integrity
+   - **Example:** Banking system, payment processing
 
-**When to use SQL:**
-- Complex queries and relationships
-- ACID compliance required
-- Structured data
-- Financial transactions
-- When consistency is critical
+2. **Complex Queries:**
+   - Need joins, aggregations, complex relationships
+   - **Example:** Reporting, analytics, data analysis
 
-**When to use NoSQL:**
-- Large-scale applications
+3. **Structured Data:**
+   - Well-defined schema
+   - Relationships between entities
+   - **Example:** E-commerce (products, orders, users)
+
+4. **Data Consistency:**
+   - Strong consistency required
+   - **Example:** Inventory management, stock levels
+
+5. **Mature Ecosystem:**
+   - Existing tools and expertise
+   - Standard SQL knowledge
+   - **Example:** Enterprise applications
+
+**Choose NoSQL When:**
+- High write throughput needed
 - Flexible schema requirements
-- High write throughput
-- Horizontal scaling needed
-- Real-time analytics
+- Horizontal scaling critical
+- Simple queries, no complex joins
+- Eventual consistency acceptable
 
 **Hybrid Approach:**
-Many applications use both - SQL for transactional data, NoSQL for analytics, caching, or specific use cases.
+Many applications use both - SQL for transactional data, NoSQL for specific use cases (caching, analytics, flexible content).
 </expand>
 
-<expand title="Explain database indexing and how it works">
-**Question:** Explain database indexing and how it works.
+<expand title="How do you decide which columns to index in a database?">
+**Question:** How do you decide which columns to index in a database?
 
 **Answer:**
-Database indexing is a data structure that improves the speed of data retrieval operations on a database table.
+**Index These Columns:**
 
-**How it works:**
-1. **Index Creation:** Database creates a separate data structure (usually B-tree) that stores sorted references to table rows.
-2. **Query Optimization:** When querying, database uses index to quickly locate rows instead of scanning entire table.
-3. **Trade-off:** Faster reads, but slower writes (indexes must be updated).
+1. **Primary Keys:**
+   - Automatically indexed
+   - Used in joins
 
-**Types of Indexes:**
-1. **Primary Index:** Automatically created on primary key.
-2. **Secondary Index:** Created on non-primary key columns.
-3. **Composite Index:** Index on multiple columns.
-4. **Unique Index:** Ensures no duplicate values.
-5. **Full-Text Index:** For text search (MySQL, PostgreSQL).
+2. **Foreign Keys:**
+   - Frequently used in JOINs
+   - **Example:** `user_id` in orders table
 
-**Example:**
+3. **WHERE Clause Columns:**
+   - Frequently filtered
+   - **Example:** `email` in users table, `status` in orders
+
+4. **ORDER BY Columns:**
+   - Used for sorting
+   - **Example:** `created_at` for recent items
+
+5. **Composite Indexes:**
+   - Multiple columns used together
+   - **Example:** `(user_id, created_at)` for user's recent orders
+
+**Don't Index:**
+
+1. **Low Selectivity:**
+   - Columns with few unique values
+   - **Example:** `gender` (only 2-3 values), `status` with 2 values
+
+2. **Rarely Queried:**
+   - Columns not used in queries
+   - **Example:** `notes` field rarely searched
+
+3. **Frequently Updated:**
+   - High write overhead
+   - **Example:** `last_login` updated on every login
+
+4. **Small Tables:**
+   - Table scans are fast
+   - **Example:** Tables with < 1000 rows
+
+**Best Practices:**
+- Monitor slow queries to identify missing indexes
+- Use EXPLAIN to verify index usage
+- Balance between read and write performance
+- Consider composite indexes for multi-column queries
+</expand>
+
+<expand title="How do you handle database migrations in production without downtime?">
+**Question:** How do you handle database migrations in production without downtime?
+
+**Answer:**
+**Zero-Downtime Migration Strategies:**
+
+1. **Additive Changes First:**
+   - Add new columns as nullable
+   - Add new tables
+   - Add new indexes (concurrently if supported)
+   - **Example:** Add `email_verified` column as nullable
+
+2. **Backfill Data:**
+   - Populate new columns with data
+   - Run in background
+   - **Example:** Set `email_verified = false` for existing users
+
+3. **Deploy Application Code:**
+   - Code handles both old and new schema
+   - Write to both old and new columns
+   - **Example:** Write to both `email` and `new_email` columns
+
+4. **Migrate Reads:**
+   - Gradually switch reads to new columns
+   - Monitor for issues
+   - **Example:** Read from `new_email` instead of `email`
+
+4. **Remove Old Schema:**
+   - After all reads migrated
+   - Remove old columns/tables
+   - **Example:** Drop `email` column after migration complete
+
+**Example Migration:**
 ```sql
--- Create index
-CREATE INDEX idx_user_email ON users(email);
+-- Step 1: Add new column
+ALTER TABLE users ADD COLUMN email_new VARCHAR(255);
 
--- Query uses index
-SELECT * FROM users WHERE email = 'user@example.com';
--- Without index: Full table scan (slow)
--- With index: Index lookup (fast)
+-- Step 2: Backfill
+UPDATE users SET email_new = email;
+
+-- Step 3: Deploy code that writes to both
+
+-- Step 4: Switch reads to email_new
+
+-- Step 5: Drop old column
+ALTER TABLE users DROP COLUMN email;
+ALTER TABLE users RENAME COLUMN email_new TO email;
 ```
 
 **Best Practices:**
-- Index frequently queried columns
-- Index foreign keys
-- Don't over-index (slows writes)
-- Use composite indexes for multi-column queries
-- Monitor index usage
-
-**When indexes help:**
-- WHERE clauses
-- JOIN operations
-- ORDER BY clauses
-- GROUP BY clauses
-
-**When indexes don't help:**
-- Small tables
-- Columns with low selectivity
-- Frequent write operations
-- Columns rarely used in queries
+- Test migrations on staging
+- Use feature flags for gradual rollout
+- Monitor performance during migration
+- Have rollback plan
+- Use database migration tools (Flyway, Liquibase)
 </expand>
 
-<expand title="What is ACID in database transactions?">
-**Question:** What is ACID in database transactions?
+<expand title="How do you optimize a database query that's running slow?">
+**Question:** How do you optimize a database query that's running slow?
 
 **Answer:**
-ACID is a set of properties that guarantee reliable database transactions.
+**Optimization Steps:**
 
-**A - Atomicity:**
-- All operations in a transaction succeed or all fail
-- No partial updates
-- Example: Money transfer - both debit and credit must succeed, or both fail
-
-**C - Consistency:**
-- Database remains in a valid state before and after transaction
-- All constraints and rules are maintained
-- Example: Account balance can't go negative if constraint exists
-
-**I - Isolation:**
-- Concurrent transactions don't interfere with each other
-- Each transaction sees a consistent view of data
-- Isolation levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable
-
-**D - Durability:**
-- Once transaction is committed, changes are permanent
-- Survives system crashes, power failures
-- Changes are written to persistent storage
-
-**Example:**
-```sql
-BEGIN TRANSACTION;
-  UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-  UPDATE accounts SET balance = balance + 100 WHERE id = 2;
-COMMIT;
--- If any step fails, entire transaction rolls back
-```
-
-**Benefits:**
-- Data integrity
-- Reliability
-- Predictable behavior
-- Error recovery
-
-**Trade-offs:**
-- Performance overhead
-- Locking can cause contention
-- May limit scalability
-
-**NoSQL and ACID:**
-- Most NoSQL databases sacrifice ACID for performance and scalability
-- Some NoSQL databases offer ACID for specific operations
-- Choose based on use case requirements
-</expand>
-
-<expand title="What is database normalization?">
-**Question:** What is database normalization?
-
-**Answer:**
-Database normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
-
-**Normal Forms:**
-1. **1NF (First Normal Form):**
-   - Each column contains atomic values
-   - No repeating groups
-   - Each row is unique
-
-2. **2NF (Second Normal Form):**
-   - Must be in 1NF
-   - All non-key attributes fully dependent on primary key
-   - No partial dependencies
-
-3. **3NF (Third Normal Form):**
-   - Must be in 2NF
-   - No transitive dependencies
-   - Non-key attributes depend only on primary key
-
-**Benefits:**
-- Reduces data redundancy
-- Improves data integrity
-- Easier to maintain
-- Reduces storage space
-- Prevents update anomalies
-
-**Drawbacks:**
-- More complex queries (requires joins)
-- Can impact performance
-- May require more tables
-
-**Example:**
-```sql
--- Before normalization (redundant data)
-Orders: order_id, customer_name, customer_email, product_name, price
-
--- After normalization
-Orders: order_id, customer_id, product_id
-Customers: customer_id, name, email
-Products: product_id, name, price
-```
-
-**When to denormalize:**
-- Read-heavy workloads
-- Performance critical queries
-- Analytics and reporting
-- When joins are expensive
-
-**Best Practice:**
-- Normalize for write operations
-- Denormalize for read operations (if needed)
-- Balance between normalization and performance
-</expand>
-
-<expand title="In MySQL, what is the difference between InnoDB and MyISAM?">
-**Question:** In MySQL, what is the difference between InnoDB and MyISAM?
-
-**Answer:**
-**InnoDB:**
-- **Storage Engine:** Default since MySQL 5.5
-- **ACID Compliance:** Full ACID support, transactions
-- **Foreign Keys:** Supports foreign key constraints
-- **Row-level Locking:** Locks individual rows
-- **Crash Recovery:** Better crash recovery
-- **Performance:** Better for write-heavy workloads
-- **Use Cases:** Applications requiring transactions, foreign keys, data integrity
-
-**MyISAM:**
-- **Storage Engine:** Older, simpler engine
-- **ACID Compliance:** No transactions, no ACID
-- **Foreign Keys:** No foreign key support
-- **Table-level Locking:** Locks entire table
-- **Crash Recovery:** Limited crash recovery
-- **Performance:** Faster for read-only workloads
-- **Use Cases:** Read-heavy applications, logging, simple applications
-
-**Key Differences:**
-| Feature | InnoDB | MyISAM |
-|---------|--------|--------|
-| Transactions | ✅ Yes | ❌ No |
-| Foreign Keys | ✅ Yes | ❌ No |
-| Locking | Row-level | Table-level |
-| Crash Recovery | ✅ Better | ⚠️ Limited |
-| Full-Text Search | ✅ Yes (5.6+) | ✅ Yes |
-| Compression | ✅ Yes | ✅ Yes |
-
-**Recommendation:**
-Use InnoDB for most applications. MyISAM is deprecated and will be removed in future MySQL versions.
-</expand>
-
-## Scenario-Based Questions & Answers
-
-<expand title="Scenario: Your database queries are slow. How would you identify and fix performance issues?">
-**Question:** Your database queries are slow. How would you identify and fix performance issues?
-
-**Answer:**
-**Identification Steps:**
-1. **Enable Slow Query Log:**
-   ```sql
-   SET GLOBAL slow_query_log = 'ON';
-   SET GLOBAL long_query_time = 1; -- Log queries taking > 1 second
-   ```
-
-2. **Use EXPLAIN:**
+1. **Use EXPLAIN:**
    ```sql
    EXPLAIN SELECT * FROM users WHERE email = 'user@example.com';
    -- Shows execution plan, indexes used, rows scanned
    ```
 
-3. **Monitor Database Metrics:**
-   - CPU usage
-   - Memory usage
-   - Disk I/O
-   - Connection count
-   - Query execution times
+2. **Identify Issues:**
+   - Full table scan (no index)
+   - Missing indexes
+   - Inefficient joins
+   - Large result sets
 
-4. **Use Profiling Tools:**
-   - MySQL: `SHOW PROFILE`, Performance Schema
-   - PostgreSQL: `EXPLAIN ANALYZE`, pg_stat_statements
-
-**Common Issues and Fixes:**
-
-1. **Missing Indexes:**
+3. **Add Indexes:**
    ```sql
-   -- Identify: EXPLAIN shows "Full table scan"
-   -- Fix: Add index
-   CREATE INDEX idx_email ON users(email);
+   -- Add index on frequently queried column
+   CREATE INDEX idx_user_email ON users(email);
    ```
 
-2. **Inefficient Queries:**
+4. **Optimize Query:**
    ```sql
    -- Bad: SELECT *
-   SELECT * FROM users;
+   SELECT * FROM users WHERE email = 'user@example.com';
    
    -- Good: Select only needed columns
-   SELECT id, name, email FROM users;
+   SELECT id, name, email FROM users WHERE email = 'user@example.com';
    ```
 
-3. **N+1 Query Problem:**
+5. **Fix N+1 Queries:**
    ```javascript
    // Bad: N+1 queries
    const users = await db.query('SELECT * FROM users');
@@ -295,29 +198,88 @@ Use InnoDB for most applications. MyISAM is deprecated and will be removed in fu
    `);
    ```
 
-4. **Large Result Sets:**
+6. **Use Query Hints:**
+   - Force index usage if needed
+   - Limit result sets
+   - Use pagination
+
+**Monitoring:**
+- Enable slow query log
+- Track query execution times
+- Monitor index usage
+- Set up alerts for slow queries
+</expand>
+
+## Scenario-Based Questions & Answers
+
+<expand title="Scenario: Your database is experiencing high CPU usage during peak hours. How would you diagnose and fix it?">
+**Question:** Your database is experiencing high CPU usage during peak hours. How would you diagnose and fix it?
+
+**Answer:**
+**Diagnosis Steps:**
+
+1. **Identify Slow Queries:**
    ```sql
-   -- Use pagination
-   SELECT * FROM posts LIMIT 20 OFFSET 0;
+   -- Enable slow query log
+   SET GLOBAL slow_query_log = 'ON';
+   SET GLOBAL long_query_time = 1; -- Log queries > 1 second
    ```
 
-5. **Unoptimized JOINs:**
-   - Ensure JOIN columns are indexed
-   - Use appropriate JOIN types
-   - Avoid cartesian products
+2. **Check Active Queries:**
+   ```sql
+   -- MySQL
+   SHOW PROCESSLIST;
+   
+   -- PostgreSQL
+   SELECT * FROM pg_stat_activity;
+   ```
 
-6. **Table Scans:**
-   - Add indexes on WHERE clause columns
-   - Use covering indexes when possible
+3. **Monitor Resource Usage:**
+   - CPU usage per query
+   - Memory usage
+   - I/O wait times
+   - Connection count
 
-**Optimization Checklist:**
-- ✅ Add indexes on frequently queried columns
-- ✅ Optimize queries (avoid SELECT *)
-- ✅ Use appropriate data types
-- ✅ Normalize/denormalize appropriately
-- ✅ Use connection pooling
-- ✅ Monitor and analyze slow queries
-- ✅ Consider read replicas for read-heavy workloads
+**Common Causes & Fixes:**
+
+1. **Missing Indexes:**
+   - **Symptom:** Full table scans
+   - **Fix:** Add indexes on frequently queried columns
+   - **Impact:** Reduces CPU by 80-90%
+
+2. **Inefficient Queries:**
+   - **Symptom:** Complex joins, subqueries
+   - **Fix:** Optimize queries, use EXPLAIN
+   - **Impact:** Reduces CPU significantly
+
+3. **Too Many Connections:**
+   - **Symptom:** High connection count
+   - **Fix:** Connection pooling, limit connections
+   - **Impact:** Reduces overhead
+
+4. **Large Result Sets:**
+   - **Symptom:** Queries returning too much data
+   - **Fix:** Use pagination, LIMIT clauses
+   - **Impact:** Reduces processing time
+
+5. **Lock Contention:**
+   - **Symptom:** Queries waiting for locks
+   - **Fix:** Optimize transactions, reduce lock time
+   - **Impact:** Improves throughput
+
+**Optimization Strategies:**
+- Add indexes on WHERE, JOIN, ORDER BY columns
+- Optimize queries (avoid SELECT *)
+- Use read replicas for read-heavy workloads
+- Implement connection pooling
+- Cache frequently accessed data
+- Archive old data
+
+**Monitoring:**
+- Track slow queries
+- Monitor CPU usage per query
+- Set up alerts for high CPU
+- Regular performance reviews
 </expand>
 
 <expand title="Scenario: You need to design a database schema for an e-commerce platform. What would you consider?">
@@ -460,6 +422,7 @@ CREATE TABLE payments (
    - Move old data to archive tables
    - Archive to cold storage (S3, Glacier)
    - Keep only recent data in primary DB
+   - **Example:** Archive orders older than 2 years
 
 2. **Data Partitioning:**
    ```sql
@@ -518,3 +481,111 @@ CREATE TABLE payments (
 - Plan for scalability
 </expand>
 
+<expand title="Scenario: How would you handle database replication lag in a read-heavy application?">
+**Question:** How would you handle database replication lag in a read-heavy application?
+
+**Answer:**
+**Problem:** Read replicas may have stale data due to replication lag.
+
+**Solutions:**
+
+1. **Accept Stale Reads:**
+   - For non-critical data, eventual consistency is fine
+   - **Example:** Product catalog, blog posts
+   - **Benefit:** Better performance, less complexity
+
+2. **Read-After-Write Consistency:**
+   ```javascript
+   // After write, read from primary
+   await db.primary.query('INSERT INTO orders ...');
+   const order = await db.primary.query('SELECT * FROM orders WHERE id = ?', [orderId]);
+   
+   // Subsequent reads can use replica
+   ```
+
+3. **Route Critical Reads to Primary:**
+   - User account data, payment info
+   - **Example:** After updating profile, read from primary
+
+4. **Monitor Replication Lag:**
+   ```sql
+   -- MySQL
+   SHOW SLAVE STATUS;
+   -- Check Seconds_Behind_Master
+   
+   -- PostgreSQL
+   SELECT * FROM pg_stat_replication;
+   ```
+
+5. **Optimize Replication:**
+   - Use row-based replication (more efficient)
+   - Optimize network between master and replicas
+   - Reduce write load on master
+   - **Impact:** Reduces lag significantly
+
+6. **Application-Level Handling:**
+   ```javascript
+   // Route based on data freshness needs
+   if (needsFreshData) {
+     return await db.primary.query(...);
+   } else {
+     return await db.replica.query(...);
+   }
+   ```
+
+7. **Use Read Replicas Strategically:**
+   - Use replicas for analytics, reporting
+   - Use primary for transactional reads
+   - **Example:** User dashboard uses primary, reports use replica
+
+**Best Practices:**
+- Monitor replication lag
+- Set up alerts for high lag
+- Route critical reads to primary
+- Accept eventual consistency where possible
+- Optimize replication configuration
+</expand>
+
+<expand title="Scenario: In MySQL, when would you choose InnoDB over MyISAM?">
+**Question:** In MySQL, when would you choose InnoDB over MyISAM?
+
+**Answer:**
+**Choose InnoDB When:**
+
+1. **Transactions Required:**
+   - Need ACID compliance
+   - **Example:** Financial transactions, order processing
+   - **Benefit:** Data integrity, rollback capability
+
+2. **Foreign Keys Needed:**
+   - Referential integrity important
+   - **Example:** E-commerce with orders referencing users
+   - **Benefit:** Database-level constraints
+
+3. **Concurrent Writes:**
+   - Multiple users writing simultaneously
+   - **Example:** High-traffic application
+   - **Benefit:** Row-level locking, better concurrency
+
+4. **Crash Recovery:**
+   - Need reliable crash recovery
+   - **Example:** Production applications
+   - **Benefit:** Better recovery, less data loss risk
+
+5. **Modern MySQL:**
+   - Default since MySQL 5.5
+   - MyISAM is deprecated
+   - **Benefit:** Future-proof, better support
+
+**Choose MyISAM When:**
+- Read-only workloads (rare)
+- Simple applications with no transactions
+- Legacy systems (not recommended for new projects)
+
+**Key Differences:**
+- InnoDB: Transactions, foreign keys, row-level locking, better crash recovery
+- MyISAM: No transactions, no foreign keys, table-level locking, limited crash recovery
+
+**Recommendation:**
+Always use InnoDB for new projects. MyISAM is deprecated and will be removed in future MySQL versions.
+</expand>
