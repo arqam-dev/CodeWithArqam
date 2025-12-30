@@ -909,6 +909,37 @@ Microservices can communicate through various patterns, each with different use 
    - API keys or mTLS for internal services
    - Rate limiting
 
+**Application-Specific Examples:**
+
+**E-Commerce Application (Hybrid Approach):**
+- **Payment Service:** REST/gRPC (synchronous) - Immediate response needed, critical transaction
+- **Checkout Service:** REST (synchronous) - Needs immediate confirmation from Payment and Inventory
+- **Order Processing:** Message Queue (asynchronous) - Can process in background, decouple from checkout
+- **Inventory Service:** REST (synchronous) - Real-time stock checks during checkout
+- **Notification Service:** Event Streaming (asynchronous) - Order confirmation, shipping updates to multiple consumers
+- **Analytics Service:** Event Streaming (asynchronous) - Track user behavior, purchase patterns
+- **Recommendation Service:** REST (synchronous) - Real-time product recommendations
+- **Search Service:** REST (synchronous) - Immediate search results needed
+
+**Social Media Application (Hybrid Approach):**
+- **User Service:** REST (synchronous) - Profile data, authentication
+- **Feed Service:** REST (synchronous) - Real-time feed generation
+- **Post Service:** REST (synchronous) - Create/update posts immediately
+- **Notification Service:** Event Streaming (asynchronous) - Likes, comments, follows broadcast to multiple users
+- **Analytics Service:** Event Streaming (asynchronous) - Track engagement metrics
+- **Media Service:** REST (synchronous) - Upload/download media files
+
+**Banking/Financial Application:**
+- **Transaction Service:** gRPC (synchronous) - High performance, type safety critical
+- **Account Service:** REST (synchronous) - Account balance, transaction history
+- **Fraud Detection:** Event Streaming (asynchronous) - Real-time fraud analysis
+- **Notification Service:** Message Queue (asynchronous) - Transaction alerts, statements
+
+**Most Commonly Used Communication Method:**
+- **REST APIs** are the most commonly used method due to simplicity, wide adoption, and ease of debugging
+- Most organizations start with REST and gradually introduce async patterns (Message Queues, Event Streaming) for specific use cases
+- Hybrid approaches (REST + async) are the most common in production systems
+
 **Decision Matrix:**
 - **Need immediate response?** → REST/gRPC
 - **Need decoupling?** → Message Queue/Event Streaming
@@ -916,6 +947,122 @@ Microservices can communicate through various patterns, each with different use 
 - **High performance?** → gRPC
 - **Simple integration?** → REST
 - **Complex routing?** → Service Mesh
+</expand>
+
+<expand title="How do you convert a monolithic application to microservices and vice versa?">
+**Question:** How do you convert a monolithic application to microservices and vice versa?
+
+**Answer:**
+
+**Converting Monolith to Microservices (Strangler Fig Pattern):**
+
+1. **Identify Service Boundaries:**
+   - Analyze business domains (bounded contexts)
+   - Identify independent modules
+   - **Example:** User management, Order processing, Payment, Inventory
+
+2. **Extract Services Incrementally:**
+   - Start with least coupled, most independent module
+   - Extract one service at a time
+   - Keep monolith running during extraction
+   - **Example:** Extract User service first, then Order service
+
+3. **Communication Strategy:**
+   - **Most Common:** REST APIs (simplest to implement)
+   - Start with synchronous REST for extracted services
+   - Gradually introduce async patterns (Message Queues) for decoupling
+   - **Example:** New User service exposes REST API, monolith calls it
+
+4. **Database Migration:**
+   - Extract service's database tables
+   - Create separate database for service
+   - Use database per service pattern
+   - Handle data synchronization during transition
+
+5. **API Gateway:**
+   - Introduce API Gateway to route requests
+   - Gradually route traffic to new services
+   - Keep backward compatibility with monolith
+
+6. **Deployment:**
+   - Deploy services independently
+   - Use feature flags to toggle between monolith and service
+   - Monitor and compare performance
+
+**Example Migration Path:**
+```
+Monolith (All features)
+  ↓
+Extract User Service (REST API)
+  ↓
+Extract Order Service (REST API + Message Queue for notifications)
+  ↓
+Extract Payment Service (REST API)
+  ↓
+Full Microservices Architecture
+```
+
+**Converting Microservices to Monolith (Rare but Sometimes Needed):**
+
+1. **Identify Consolidation Candidates:**
+   - Services that are tightly coupled
+   - Services with high communication overhead
+   - Services that don't benefit from separation
+   - **Example:** Services that always call each other synchronously
+
+2. **Merge Services:**
+   - Combine service codebases
+   - Merge databases (if appropriate)
+   - Consolidate deployment pipelines
+   - **Example:** Merge User and Profile services into single service
+
+3. **Communication Simplification:**
+   - Remove inter-service communication
+   - Convert to in-process calls
+   - Simplify from REST/gRPC to function calls
+   - Remove message queues where not needed
+
+4. **Database Consolidation:**
+   - Merge databases if services share data
+   - Or keep separate databases but in same monolith
+   - Simplify data access patterns
+
+5. **Deployment Simplification:**
+   - Single deployment unit
+   - Simplified CI/CD pipeline
+   - Reduced operational complexity
+
+**When to Convert:**
+
+**Monolith → Microservices:**
+- Team size growing (10+ developers)
+- Need independent scaling
+- Different services have different tech stack needs
+- Clear bounded contexts identified
+- Operational maturity to handle complexity
+
+**Microservices → Monolith:**
+- Over-engineering (too many small services)
+- High communication overhead
+- Services too tightly coupled
+- Team too small to manage complexity
+- Operational burden too high
+
+**Communication Method During Conversion:**
+- **Most Common:** REST APIs
+  - Easiest to implement during extraction
+  - Widely understood
+  - Good for gradual migration
+- **Alternative:** Start with REST, then optimize to gRPC if performance needed
+- **Async:** Introduce Message Queues gradually for decoupling
+
+**Best Practices:**
+- Don't convert everything at once
+- Use Strangler Fig pattern (gradual replacement)
+- Keep both systems running during transition
+- Monitor performance and costs
+- Have rollback plan
+- Start with least risky services
 </expand>
 
 <expand title="Scenario: Design a system that can handle 10 million concurrent users. What are the key considerations?">
