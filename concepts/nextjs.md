@@ -23,7 +23,7 @@
 <expand title="Introduction & Overview">
 ## Introduction & Overview
 
-Next.js is a powerful React framework created by Vercel that enables developers to build production-ready, full-stack web applications with minimal configuration. It extends React with essential features needed for modern web development.
+Next.js is a React framework created by Vercel that enables developers to build production-ready, full-stack web applications with minimal configuration.
 
 ### What is Next.js?
 
@@ -45,7 +45,6 @@ Next.js is a powerful React framework created by Vercel that enables developers 
 - ❌ Client-side only (poor SEO)
 - ❌ Manual optimization needed
 - ❌ No API routes
-- ❌ More configuration required
 
 **What Next.js Provides:**
 - ✅ Built-in routing (file-based)
@@ -54,104 +53,37 @@ Next.js is a powerful React framework created by Vercel that enables developers 
 - ✅ API routes included
 - ✅ Production-ready defaults
 
-### Key Features Explained:
+### Key Features:
 
-#### 1. Server-Side Rendering (SSR)
-- Pages rendered on server before sending to browser
-- Content visible in HTML source (good for SEO)
-- Faster initial page load
-
-#### 2. Static Site Generation (SSG)
-- Pages pre-rendered at build time
-- Served as static HTML files
-- Fastest performance, best for static content
-
-#### 3. Incremental Static Regeneration (ISR)
-- Combines SSG speed with SSR freshness
-- Regenerates pages in background
-- Best of both worlds
-
-#### 4. Client-Side Rendering (CSR)
-- Renders in browser using JavaScript
-- Rich interactivity
-- Good for dashboards and admin panels
-
-#### 5. API Routes
-- Build backend API endpoints
-- Server-side logic
-- Database connections
-- Authentication handling
-- All in the same project
-
-#### 6. File-Based Routing
-- Create files/folders = automatic routes
-- No manual route configuration
-- Intuitive and organized
-
-#### 7. Automatic Code Splitting
-- Splits JavaScript into smaller chunks
-- Loads only what's needed
-- Faster page loads
-
-#### 8. Image Optimization
-- Automatic image optimization
-- Lazy loading
-- Modern formats (WebP)
-- Responsive images
-
-#### 9. Built-in CSS Support
-- CSS Modules
-- Sass/SCSS
-- Tailwind CSS
-- Global CSS
-- All supported out of the box
-
-#### 10. TypeScript Support
-- Built-in TypeScript support
-- Type checking
-- Better developer experience
-- No additional configuration needed
+- **Server-Side Rendering (SSR)** - Pages rendered on server (great SEO)
+- **Static Site Generation (SSG)** - Pages pre-rendered at build time (fastest)
+- **Incremental Static Regeneration (ISR)** - Combines SSG speed with SSR freshness
+- **Client-Side Rendering (CSR)** - Renders in browser (rich interactivity)
+- **API Routes** - Build backend API endpoints in same project
+- **File-Based Routing** - Create files/folders = automatic routes
+- **Automatic Code Splitting** - Loads only what's needed
+- **Image Optimization** - Automatic optimization, lazy loading
+- **Built-in CSS Support** - CSS Modules, Sass, Tailwind CSS
+- **TypeScript Support** - Built-in, no additional configuration
 
 ### What Next.js Solves:
 
-#### 1. SEO Issues in Client-Side Rendering
-**Problem:** React apps render in browser, so search engines see empty HTML
-**Solution:** Next.js renders on server, content is in HTML source
-**Result:** Better search engine rankings
-
-#### 2. Performance Optimization
-**Problem:** Manual optimization is time-consuming
-**Solution:** Automatic optimizations (code splitting, image optimization, etc.)
-**Result:** Fast, optimized apps without extra work
-
-#### 3. Full-Stack Development
-**Problem:** Need separate backend and frontend
-**Solution:** API routes allow backend in same project
-**Result:** One codebase, easier deployment
-
-#### 4. Production-Ready Configurations
-**Problem:** Complex setup for production
-**Solution:** Optimized defaults and best practices built-in
-**Result:** Production-ready apps from the start
-
-#### 5. Developer Experience
-**Problem:** Complex tooling and configuration
-**Solution:** Simple conventions, great tooling, hot reload
-**Result:** Faster development, less configuration
+1. **SEO Issues** - Server-side rendering makes content visible to search engines
+2. **Performance** - Automatic optimizations without extra work
+3. **Full-Stack Development** - Backend and frontend in one project
+4. **Production-Ready** - Optimized defaults and best practices built-in
+5. **Developer Experience** - Simple conventions, great tooling
 
 ### When to Use Next.js:
 
 **Perfect For:**
-- ✅ E-commerce websites
-- ✅ Blogs and content sites
-- ✅ Marketing/landing pages
-- ✅ Dashboards and admin panels
-- ✅ Full-stack applications
-- ✅ Any app needing SEO
-- ✅ Any app needing performance
+- E-commerce websites, blogs, marketing pages
+- Dashboards and admin panels
+- Full-stack applications
+- Any app needing SEO or performance
 
 **Consider Alternatives If:**
-- Simple static site (might use plain HTML/CSS)
+- Simple static site (plain HTML/CSS might be enough)
 - Very simple React app (React alone might be enough)
 - Mobile app (use React Native instead)
 
@@ -168,23 +100,9 @@ npx create-next-app@latest my-app
 - `app/api/` - API routes
 - `next.config.js` - Configuration
 
-**Next Steps:**
-1. Learn file-based routing
-2. Understand rendering methods
-3. Explore API routes
-4. Master Server Components
-5. Optimize performance
-
 ### Summary:
 
-Next.js is the go-to framework for building modern React applications that need:
-- Great SEO
-- Fast performance
-- Full-stack capabilities
-- Production-ready features
-- Excellent developer experience
-
-It takes the power of React and adds everything needed to build real-world, production applications.
+Next.js is the go-to framework for building modern React applications that need great SEO, fast performance, full-stack capabilities, and production-ready features. It takes the power of React and adds everything needed to build real-world, production applications.
 </expand>
 
 <expand title="App Router vs Pages Router">
