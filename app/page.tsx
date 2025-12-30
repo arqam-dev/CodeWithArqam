@@ -321,14 +321,14 @@ export default function Home() {
               <Link href="/portfolio" className="relative group cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
                 <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl">
-                  <Image
+        <Image
                     src="/arqam-pic.jpg"
                     alt="Muhammad Arqam"
                     width={320}
                     height={320}
                     className="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
-                    priority
-                  />
+          priority
+        />
                 </div>
               </Link>
             </div>
@@ -343,13 +343,13 @@ export default function Home() {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div
-                  key={index}
+              <div
+                key={index}
                   className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
-                >
+              >
                   <div className={`inline-flex p-4 rounded-full bg-gradient-to-r ${stat.color} mb-4`}>
                     <Icon className="text-white" size={32} />
-                  </div>
+                    </div>
                   <div className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
                     {stat.value}
                   </div>
@@ -423,11 +423,11 @@ export default function Home() {
                   <div className="flex items-start justify-between mb-4">
                     <div className={`p-3 rounded-lg bg-gradient-to-r ${colorClasses[category.color as keyof typeof colorClasses]}`}>
                       <Icon className="text-white" size={24} />
-                    </div>
+                </div>
                     <span className="px-3 py-1 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-full text-sm font-semibold">
                       {category.count}
                     </span>
-                  </div>
+              </div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {category.name}
                   </h3>
@@ -442,7 +442,7 @@ export default function Home() {
             <Link
               href="/content"
               className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
-            >
+                >
               <FaMagic size={18} />
               <span>View All Concepts</span>
               <FaArrowRight size={16} />
@@ -470,45 +470,45 @@ export default function Home() {
             </Link>
             <a
               href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
-              target="_blank"
-              rel="noopener noreferrer"
+                    target="_blank"
+                    rel="noopener noreferrer"
               className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-200 flex items-center space-x-2"
-            >
+                  >
               <FaCalendarAlt size={18} />
               <span>Book Free Session</span>
-            </a>
-          </div>
+                  </a>
+                </div>
           <div className="mt-12 pt-8 border-t border-white/20">
             <p className="text-slate-300 mb-4">Follow us on social media for updates and tips</p>
             <div className="flex justify-center space-x-4">
-              <a
-                href="https://www.linkedin.com/in/arqam-dev/"
-                target="_blank"
-                rel="noopener noreferrer"
+                <a
+                  href="https://www.linkedin.com/in/arqam-dev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="LinkedIn"
+                  aria-label="LinkedIn"
                 title="LinkedIn Profile"
-              >
+                >
                 <FaLinkedin size={20} />
-              </a>
-              <a
-                href="https://www.youtube.com/@codewitharqam"
-                target="_blank"
-                rel="noopener noreferrer"
+                </a>
+                <a
+                  href="https://www.youtube.com/@codewitharqam"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="YouTube"
-              >
+                  aria-label="YouTube"
+                >
                 <FaYoutube size={20} />
-              </a>
-              <a
-                href="https://www.instagram.com/codewitharqam"
-                target="_blank"
-                rel="noopener noreferrer"
+                </a>
+                <a
+                  href="https://www.instagram.com/codewitharqam"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-                aria-label="Instagram"
-              >
+                  aria-label="Instagram"
+                >
                 <FaInstagram size={20} />
-              </a>
+                </a>
             </div>
           </div>
         </div>

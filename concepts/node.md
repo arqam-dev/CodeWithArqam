@@ -824,8 +824,8 @@ Node.js is single-threaded, but provides three mechanisms to achieve parallelism
 **Methods:**
 - **exec():** Execute shell command, buffers output (good for short commands)
 - **spawn():** Spawn new process, streams I/O (good for long-running processes)
-- **fork():** Special spawn for Node.js scripts, enables IPC
-- **execFile():** Execute file directly, more secure than exec
+  - **fork():** Special spawn for Node.js scripts, enables IPC
+  - **execFile():** Execute file directly, more secure than exec
 
 **Real-World Use Cases:**
 - Running ImageMagick or FFmpeg to resize/convert images
