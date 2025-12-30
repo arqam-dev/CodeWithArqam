@@ -29,80 +29,24 @@ Passionate about building scalable, secure, and high-performance applications. E
 
 ---
 
-## 💼 Work Experience
+## 💼 Professional Experience
 
-### 🏢 Principal Software Engineer
-**TKXEL PORTUGAL LDA** | Lisbon, Portugal  
-*July 2021 - Present*
+<div align="left">
 
-**Roles:** Principal Software Engineer | Tech Lead | Pre-Sales Engineer | JavaScript Trainer  
-**Locations:** Portugal | London, Poland, Seattle, Boston, U.A.E
+With **9+ years** of professional experience, I've worked across multiple countries (Portugal, London, Poland, Seattle, Boston, U.A.E) in various roles:
 
-**Technologies:** AWS, AWS APIs (Lambdas), Amplify, GraphQL, DynamoDB, Angular 17, Node 18
+- ✅ **Principal Software Engineer** - Managing multiple projects, code reviews, technical leadership
+- ✅ **Tech Lead** - Leading teams up to 9 members, architecture design, project management
+- ✅ **Pre-Sales Engineer** - Technical consulting and solution architecture
+- ✅ **JavaScript Trainer** - Conducting bootcamps and training sessions
 
-**Key Responsibilities:**
-- ✅ Working as PSE, managing multiple projects, and reviewing PR of the respective modules
-- ✅ Manage Bootcamps regarding JavaScript technology
-- ✅ **Backend:** Writing Lambda functions and fixing them
-- ✅ **Frontend:** Creating UI and performing mutations and queries
-- ✅ **Database:** Manage DB and Create tables using amplify
+**Key Achievements:**
+- Managed teams across 5+ countries
+- Designed and implemented scalable system architectures
+- Conducted technical reviews and mentored developers
+- Built and deployed production applications serving thousands of users
 
----
-
-### 🏢 Senior Software Engineer
-**SOFTCIRCLES LLC** | Brooklyn, NY, United States  
-*August 2018 - June 2021*
-
-**Roles:** Senior Software Engineer | Team Lead
-
-**Technologies:** NodeJS (Express JS, Loopback 3, Loopback 4), Angular 8, React JS, React Native, MySQL, MongoDB, PostgreSQL, WordPress, Android
-
-**Key Responsibilities:**
-- ✅ Managed up to 9 members team and managed project timelines
-- ✅ Create & manage the architecture of each project and PR reviews
-- ✅ **Backend:** Creating project architecture, Writing APIs, Scripts, etc.
-- ✅ **Frontend:** Creating UI according to the given design and utilization of APIs
-- ✅ **Database:** Creating Schema, Writing SPs, Creating Views, etc.
-
----
-
-### 🏢 Software Engineer
-**ADNARE LLC** | Redmond, WA, United States  
-*August 2017 - September 2018*
-
-**Technologies:** .Net (C#), Microsoft SQL Server, MS Access DB
-
-**Key Responsibilities:**
-- ✅ Creating and managing the assigned modules
-- ✅ **Backend:** Writing APIs and other backend tasks
-- ✅ **Frontend:** Creating UI and APIs utilization
-- ✅ **Database:** Manage Schema, Write SPs, Creating Views, etc.
-
----
-
-### 🏢 Associate Software Engineer
-**WATEEN TELECOM LLC** | Abu Dhabi Emirates, United Arab Emirates  
-*February 2017 - July 2017*
-
-**Technologies:** .Net (C#), MySQL
-
-**Key Responsibilities:**
-- ✅ Managing the backend tasks only and a few database tasks
-- ✅ **Backend:** Writing APIs and bug fixing in various modules
-- ✅ **Database:** Writing basic data retrieval and creation queries
-
----
-
-### 🏢 Web Developer (Intern)
-**LIVELLO TECHNOLOGIES GMBH** | Düsseldorf, Germany  
-*June 2015 - November 2015*
-
-**Technologies:** .Net (C#), SQL Server
-
-**Key Responsibilities:**
-- ✅ Managing the backend tasks only and a few database tasks
-- ✅ **Backend:** Support for writing APIs
-- ✅ **Database:** Writing queries and optimising them
+</div>
 
 ---
 
@@ -332,11 +276,11 @@ Essential boilerplate code for connecting to multiple databases and organizing p
 
 <div align="center">
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=arqam-dev&show_icons=true&theme=radical&hide_border=true&bg_color=0D1117)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=arqam-dev&show_icons=true&theme=radical&hide_border=true)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=arqam-dev&layout=compact&theme=radical&hide_border=true&bg_color=0D1117)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=arqam-dev&layout=compact&theme=radical&hide_border=true)
 
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=arqam-dev&theme=radical&hide_border=true&background=0D1117)
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=arqam-dev&theme=radical&hide_border=true)
 
 </div>
 
