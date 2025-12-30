@@ -640,17 +640,27 @@ An admin dashboard with complex charts and filters. SEO doesn't matter (it's beh
 
 ---
 
-### Comparison Table
+### Comparison
 
-| Feature | SSG | SSR | ISR | CSR |
-|---------|-----|-----|-----|-----|
-| **When rendered** | Build time | Each request | Build + background | Browser |
-| **Performance** | Fastest | Slower | Fast | Slow initial |
-| **SEO** | Excellent | Good | Excellent | Poor |
-| **Fresh data** | No | Yes | Periodic | Yes |
-| **Server needed** | No | Yes | Yes | No |
-| **Cost** | Lowest | Higher | Medium | Low |
-| **Use case** | Static content | Dynamic per user | Periodic updates | Interactive apps |
+**SSG (Static Site Generation):**
+- Rendered at build time, fastest performance, excellent SEO
+- No fresh data, no server needed, lowest cost
+- Best for: Static content
+
+**SSR (Server-Side Rendering):**
+- Rendered on each request, slower performance, good SEO
+- Always fresh data, server needed, higher cost
+- Best for: Dynamic per-user content
+
+**ISR (Incremental Static Regeneration):**
+- Rendered at build + background updates, fast performance, excellent SEO
+- Periodic fresh data, server needed, medium cost
+- Best for: Content with periodic updates
+
+**CSR (Client-Side Rendering):**
+- Rendered in browser, slow initial load, poor SEO
+- Fresh data, no server needed, low cost
+- Best for: Interactive applications
 
 ---
 
@@ -1337,13 +1347,17 @@ export const metadata = {
 
 ### App Router vs Pages Router
 
-| Feature | App Router | Pages Router |
-|---------|------------|--------------|
-| **Metadata** | `metadata` object | `<Head>` component |
-| **Dynamic** | `generateMetadata()` | Manual in component |
-| **SEO** | ✅ Better (server-side) | ⚠️ Good (client-side) |
-| **Sitemap** | `sitemap.js` | Manual or plugin |
-| **Robots.txt** | `robots.js` | Manual file |
+**App Router (Next.js 13+):**
+- Metadata: `metadata` object, dynamic with `generateMetadata()`
+- SEO: Better (server-side rendering)
+- Sitemap: `sitemap.js` (automatic)
+- Robots.txt: `robots.js` (automatic)
+
+**Pages Router (Legacy):**
+- Metadata: `<Head>` component (manual in component)
+- SEO: Good (client-side rendering)
+- Sitemap: Manual or plugin required
+- Robots.txt: Manual file required
 
 **Recommendation:** Use App Router for new projects (better SEO, easier to use)
 
