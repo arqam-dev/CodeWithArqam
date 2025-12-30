@@ -1,4 +1,21 @@
-#CodeWithArqam - https://codewitharqam.com/
+# CodeWithArqam
+
+**A comprehensive learning platform for software development concepts, tutorials, and interview preparation.**
+
+🌐 **Live Website:** [https://codewitharqam.com/](https://codewitharqam.com/)
+
+## About
+
+CodeWithArqam is an educational platform designed to help students and developers learn software development concepts through comprehensive guides, interactive quizzes, and interview preparation resources. Created by a Principal Software Engineer with 9+ years of industry experience, the platform offers structured learning paths across multiple technology domains.
+
+## Connect with Us
+
+- **LinkedIn:** [https://www.linkedin.com/in/arqam-dev/](https://www.linkedin.com/in/arqam-dev/)
+- **YouTube:** [https://www.youtube.com/@codewitharqam](https://www.youtube.com/@codewitharqam)
+- **Instagram:** [https://www.instagram.com/codewitharqam](https://www.instagram.com/codewitharqam)
+- **TikTok:** [https://www.tiktok.com/@codewitharqam](https://www.tiktok.com/@codewitharqam)
+- **GitHub:** [https://github.com/arqam-dev](https://github.com/arqam-dev)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
