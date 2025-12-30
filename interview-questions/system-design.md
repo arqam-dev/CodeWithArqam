@@ -142,6 +142,404 @@ Design for horizontal scaling from the start. It's easier to scale horizontally 
 - Best of both worlds
 </expand>
 
+<expand title="What is the CAP theorem and how does it apply to distributed systems?">
+**Question:** What is the CAP theorem and how does it apply to distributed systems?
+
+**Answer:**
+**CAP Theorem:** In a distributed system, you can guarantee at most 2 of 3 properties:
+
+1. **Consistency:** All nodes see same data simultaneously
+2. **Availability:** System remains operational
+3. **Partition Tolerance:** System continues despite network failures
+
+**Trade-offs:**
+
+- **CP (Consistency + Partition Tolerance):**
+  - Sacrifice availability
+  - **Example:** Distributed databases (MongoDB, HBase)
+  - System may reject requests during partition
+
+- **AP (Availability + Partition Tolerance):**
+  - Sacrifice consistency
+  - **Example:** DNS, Cassandra
+  - System remains available but may return stale data
+
+- **CA (Consistency + Availability):**
+  - Sacrifice partition tolerance
+  - **Example:** Single-node databases
+  - Not practical for distributed systems
+
+**Real-world:**
+- Most systems choose AP or CP
+- Network partitions are inevitable
+- Eventual consistency is often acceptable
+
+**Best Practice:**
+Choose based on use case. Most modern systems prioritize AP (availability + partition tolerance) with eventual consistency.
+</expand>
+
+<expand title="What is the difference between sharding and replication?">
+**Question:** What is the difference between sharding and replication?
+
+**Answer:**
+**Sharding:**
+- Split data across multiple databases
+- Each shard has different data
+- **Purpose:** Distribute load, scale horizontally
+- **Example:** User data split by user ID
+
+**Replication:**
+- Copy data to multiple databases
+- Each replica has same data
+- **Purpose:** High availability, read scaling
+- **Example:** Master-replica setup
+
+**Comparison:**
+
+| Feature | Sharding | Replication |
+|---------|----------|-------------|
+| Data | Different | Same |
+| Purpose | Scale writes | Scale reads, HA |
+| Complexity | High | Medium |
+| Use Case | Large datasets | Read-heavy workloads |
+
+**When to Use:**
+- **Sharding:** Large dataset, need to scale writes
+- **Replication:** Need high availability, read scaling
+
+**Best Practice:**
+Often use both - shard for distribution, replicate each shard for availability.
+</expand>
+
+<expand title="What is consistent hashing and why is it important?">
+**Question:** What is consistent hashing and why is it important?
+
+**Answer:**
+**Consistent Hashing:** Distributes data across nodes in a way that minimizes rehashing when nodes are added/removed.
+
+**Problem with Regular Hashing:**
+- Adding/removing nodes requires rehashing all data
+- **Example:** 10 nodes → 11 nodes = rehash everything
+
+**Solution:**
+- Hash both nodes and keys to same space
+- Map keys to nearest node
+- Only remap keys from affected nodes
+
+**Benefits:**
+- Minimal data movement when nodes change
+- Better load distribution
+- Handles node failures gracefully
+
+**Use Cases:**
+- Distributed caches (Redis Cluster)
+- Load balancing
+- CDN content distribution
+- Database sharding
+
+**Example:**
+```
+Hash ring: 0 --- 100 --- 200 --- 300 --- 0
+Nodes:     A     B       C       A
+Keys:     50→A, 150→B, 250→C
+```
+
+**Best Practice:**
+Use consistent hashing for distributed systems to minimize data movement during scaling.
+</expand>
+
+<expand title="What is the difference between message queues and event streaming?">
+**Question:** What is the difference between message queues and event streaming?
+
+**Answer:**
+**Message Queues (RabbitMQ, SQS):**
+- Point-to-point messaging
+- Message consumed by one consumer
+- Removed after consumption
+- **Use Case:** Task processing, job queues
+
+**Event Streaming (Kafka, Kinesis):**
+- Publish-subscribe model
+- Multiple consumers can read
+- Events persist (configurable retention)
+- **Use Case:** Event sourcing, analytics, audit logs
+
+**Comparison:**
+
+| Feature | Message Queue | Event Streaming |
+|---------|---------------|-----------------|
+| Consumers | One per message | Multiple |
+| Persistence | Temporary | Configurable |
+| Replay | No | Yes |
+| Ordering | Per queue | Per partition |
+
+**When to Use:**
+- **Message Queue:** Task processing, one consumer per message
+- **Event Streaming:** Multiple consumers, event replay, audit trails
+
+**Best Practice:**
+Use message queues for task processing, event streaming for event-driven architectures.
+</expand>
+
+<expand title="What is the difference between SQL and NoSQL databases?">
+**Question:** What is the difference between SQL and NoSQL databases?
+
+**Answer:**
+**SQL (Relational):**
+- Structured schema
+- ACID transactions
+- Relationships (joins)
+- **Examples:** MySQL, PostgreSQL
+
+**NoSQL:**
+- Flexible schema
+- Eventual consistency
+- No joins
+- **Examples:** MongoDB, Cassandra, Redis
+
+**Types of NoSQL:**
+- **Document:** MongoDB (JSON-like)
+- **Key-Value:** Redis, DynamoDB
+- **Column:** Cassandra
+- **Graph:** Neo4j
+
+**When to Use SQL:**
+- Complex queries
+- ACID required
+- Structured data
+- Relationships important
+
+**When to Use NoSQL:**
+- High write throughput
+- Flexible schema
+- Horizontal scaling
+- Simple queries
+
+**Best Practice:**
+Many systems use both - SQL for transactional data, NoSQL for specific use cases.
+</expand>
+
+<expand title="What is the difference between horizontal and vertical partitioning?">
+**Question:** What is the difference between horizontal and vertical partitioning?
+
+**Answer:**
+**Horizontal Partitioning (Sharding):**
+- Split rows across tables
+- Same schema, different data
+- **Example:** Users 1-1M in shard 1, 1M-2M in shard 2
+
+**Vertical Partitioning:**
+- Split columns across tables
+- Different schema, same rows
+- **Example:** User basic info in one table, profile in another
+
+**Comparison:**
+
+| Feature | Horizontal | Vertical |
+|---------|------------|----------|
+| Split By | Rows | Columns |
+| Schema | Same | Different |
+| Use Case | Scale writes | Optimize reads |
+
+**When to Use:**
+- **Horizontal:** Large dataset, scale writes
+- **Vertical:** Optimize reads, separate hot/cold data
+
+**Best Practice:**
+Use horizontal partitioning for scaling, vertical for optimization.
+</expand>
+
+<expand title="What is the difference between synchronous and asynchronous replication?">
+**Question:** What is the difference between synchronous and asynchronous replication?
+
+**Answer:**
+**Synchronous Replication:**
+- Write waits for all replicas
+- Strong consistency
+- Higher latency
+- **Use Case:** Critical data, financial systems
+
+**Asynchronous Replication:**
+- Write doesn't wait for replicas
+- Eventual consistency
+- Lower latency
+- **Use Case:** Most applications, read scaling
+
+**Comparison:**
+
+| Feature | Synchronous | Asynchronous |
+|---------|-------------|--------------|
+| Consistency | Strong | Eventual |
+| Latency | High | Low |
+| Risk | Data loss if master fails | Stale reads |
+
+**When to Use:**
+- **Synchronous:** Critical data, can't lose writes
+- **Asynchronous:** Performance important, eventual consistency OK
+
+**Best Practice:**
+Use asynchronous for most cases, synchronous only for critical data.
+</expand>
+
+<expand title="What is the difference between blue-green and canary deployments?">
+**Question:** What is the difference between blue-green and canary deployments?
+
+**Answer:**
+**Blue-Green Deployment:**
+- Two identical environments
+- Switch traffic instantly
+- **Benefit:** Fast rollback
+- **Drawback:** Requires double resources
+
+**Canary Deployment:**
+- Gradual rollout
+- Small percentage first
+- **Benefit:** Lower risk
+- **Drawback:** Slower rollout
+
+**Comparison:**
+
+| Feature | Blue-Green | Canary |
+|---------|------------|--------|
+| Rollout | Instant | Gradual |
+| Risk | Low | Very Low |
+| Resources | 2x | 1x + small |
+
+**When to Use:**
+- **Blue-Green:** Fast rollback needed, can afford resources
+- **Canary:** Lower risk, gradual validation
+
+**Best Practice:**
+Use canary for production, blue-green for staging/testing.
+</expand>
+
+<expand title="What is the difference between stateful and stateless services?">
+**Question:** What is the difference between stateful and stateless services?
+
+**Answer:**
+**Stateless:**
+- No server-side state
+- Each request independent
+- Scalable horizontally
+- **Example:** REST APIs with JWT
+
+**Stateful:**
+- Server maintains state
+- Requests depend on previous
+- Requires sticky sessions
+- **Example:** Session-based auth
+
+**Comparison:**
+
+| Feature | Stateless | Stateful |
+|---------|-----------|----------|
+| Scaling | Easy | Hard |
+| Session | Client | Server |
+| Load Balancing | Any server | Sticky sessions |
+
+**When to Use:**
+- **Stateless:** Modern APIs, microservices
+- **Stateful:** Traditional apps, complex sessions
+
+**Best Practice:**
+Design stateless services for better scalability.
+</expand>
+
+<expand title="What is the difference between eventual and strong consistency?">
+**Question:** What is the difference between eventual and strong consistency?
+
+**Answer:**
+**Strong Consistency:**
+- All nodes see same data immediately
+- ACID transactions
+- **Use Case:** Financial data, critical operations
+
+**Eventual Consistency:**
+- Nodes will converge to same state
+- May have temporary inconsistencies
+- **Use Case:** Most distributed systems
+
+**Comparison:**
+
+| Feature | Strong | Eventual |
+|---------|--------|----------|
+| Consistency | Immediate | Eventually |
+| Performance | Slower | Faster |
+| Availability | Lower | Higher |
+
+**When to Use:**
+- **Strong:** Critical data, can't have inconsistencies
+- **Eventual:** Performance important, temporary inconsistency OK
+
+**Best Practice:**
+Use eventual consistency for most cases, strong only when necessary.
+</expand>
+
+<expand title="What is the difference between read and write replicas?">
+**Question:** What is the difference between read and write replicas?
+
+**Answer:**
+**Write Replica (Master/Primary):**
+- Handles all writes
+- Single source of truth
+- **Use Case:** Write operations
+
+**Read Replica (Slave/Secondary):**
+- Handles reads only
+- Syncs from master
+- **Use Case:** Read scaling
+
+**Architecture:**
+```
+Master (Writes) → Replicas (Reads)
+```
+
+**Benefits:**
+- Scale reads independently
+- Reduce load on master
+- Geographic distribution
+
+**Considerations:**
+- Replication lag
+- Eventual consistency
+- Route critical reads to master
+
+**Best Practice:**
+Use read replicas for read-heavy workloads, keep writes on master.
+</expand>
+
+<expand title="What is the difference between polling and push notifications?">
+**Question:** What is the difference between polling and push notifications?
+
+**Answer:**
+**Polling:**
+- Client requests updates periodically
+- Simple to implement
+- Higher latency
+- **Use Case:** Simple updates
+
+**Push (WebSockets, SSE):**
+- Server sends updates immediately
+- Lower latency
+- More complex
+- **Use Case:** Real-time updates
+
+**Comparison:**
+
+| Feature | Polling | Push |
+|---------|---------|------|
+| Latency | High | Low |
+| Complexity | Low | High |
+| Server Load | High | Low |
+
+**When to Use:**
+- **Polling:** Simple, infrequent updates
+- **Push:** Real-time, frequent updates
+
+**Best Practice:**
+Use push for real-time, polling for simple cases.
+</expand>
+
 ## Scenario-Based Questions & Answers
 
 <expand title="Scenario: Your system experiences a sudden 50x traffic spike. How do you handle it?">
@@ -612,4 +1010,401 @@ Cache Cluster
 - Use connection pooling
 - Implement retry logic
 - Monitor node health
+</expand>
+
+<expand title="Scenario: You need to design a system that processes millions of images per day. How would you architect it?">
+**Question:** You need to design a system that processes millions of images per day. How would you architect it?
+
+**Answer:**
+**Architecture:**
+
+1. **Upload Service:**
+   - Accept image uploads
+   - Validate and store
+   - Return job ID
+   - **Storage:** Object storage (S3)
+
+2. **Message Queue:**
+   - Queue processing jobs
+   - Handle spikes
+   - **Example:** Kafka, RabbitMQ
+
+3. **Processing Workers:**
+   - Scale horizontally
+   - Process images (resize, compress, format conversion)
+   - **Example:** Kubernetes workers
+
+4. **Storage:**
+   - Original images: S3
+   - Processed images: S3 with CDN
+   - Metadata: Database
+
+5. **CDN:**
+   - Serve processed images
+   - Reduce origin load
+   - **Example:** CloudFront, Cloudflare
+
+**Flow:**
+```
+Upload → Queue → Workers → Process → Store → CDN
+```
+
+**Optimizations:**
+- Parallel processing
+- Different sizes/formats
+- Lazy processing
+- Caching processed images
+
+**Capacity:**
+- 1M images/day = ~12 images/second
+- Scale workers based on queue depth
+- Use auto-scaling
+</expand>
+
+<expand title="Scenario: You need to design a recommendation system. How would you approach it?">
+**Question:** You need to design a recommendation system. How would you approach it?
+
+**Answer:**
+**Approaches:**
+
+1. **Collaborative Filtering:**
+   - User-based: Similar users like similar items
+   - Item-based: Similar items liked by same users
+   - **Use Case:** E-commerce, content platforms
+
+2. **Content-Based:**
+   - Recommend based on item features
+   - User preferences
+   - **Use Case:** News, articles
+
+3. **Hybrid:**
+   - Combine multiple approaches
+   - Better accuracy
+   - **Use Case:** Most production systems
+
+**Architecture:**
+
+1. **Data Collection:**
+   - User behavior (clicks, views, purchases)
+   - Item features
+   - User preferences
+
+2. **Feature Store:**
+   - Store user/item features
+   - **Example:** Redis, Feature store
+
+3. **ML Models:**
+   - Train recommendation models
+   - **Example:** TensorFlow, PyTorch
+
+4. **Recommendation Service:**
+   - Generate recommendations
+   - Cache popular recommendations
+   - **Example:** Real-time API
+
+5. **A/B Testing:**
+   - Test different algorithms
+   - Measure effectiveness
+
+**Implementation:**
+- Batch processing for training
+- Real-time for serving
+- Cache popular recommendations
+- Update models regularly
+
+**Best Practices:**
+- Use hybrid approach
+- Cache recommendations
+- A/B test algorithms
+- Monitor performance
+</expand>
+
+<expand title="Scenario: You need to design a system that handles time-series data. What would you consider?">
+**Question:** You need to design a system that handles time-series data. What would you consider?
+
+**Answer:**
+**Considerations:**
+
+1. **Database Choice:**
+   - Time-series databases (InfluxDB, TimescaleDB)
+   - Optimized for time-based queries
+   - **Example:** Metrics, IoT data
+
+2. **Data Model:**
+   - Timestamp as primary key
+   - Tags for filtering
+   - Values for metrics
+   - **Example:** (timestamp, device_id, temperature)
+
+3. **Retention:**
+   - Keep recent data hot
+   - Archive old data
+   - **Example:** 30 days hot, 1 year warm, older cold
+
+4. **Compression:**
+   - Compress old data
+   - Reduce storage
+   - **Example:** Downsample hourly → daily
+
+5. **Query Patterns:**
+   - Time-range queries
+   - Aggregations (avg, sum, max)
+   - **Example:** "Temperature last 24 hours"
+
+**Architecture:**
+```
+Data Sources → Ingest → Time-Series DB → Query API
+                              ↓
+                         Archive (old data)
+```
+
+**Best Practices:**
+- Use time-series database
+- Implement retention policies
+- Compress old data
+- Optimize for time-range queries
+- Archive to cold storage
+</expand>
+
+<expand title="Scenario: You need to design a system for handling financial transactions. What are the key requirements?">
+**Question:** You need to design a system for handling financial transactions. What are the key requirements?
+
+**Answer:**
+**Key Requirements:**
+
+1. **ACID Compliance:**
+   - Atomicity: All or nothing
+   - Consistency: Valid state
+   - Isolation: Concurrent transactions
+   - Durability: Committed = permanent
+
+2. **Idempotency:**
+   - Prevent duplicate transactions
+   - Use idempotency keys
+   - **Example:** Same request = same result
+
+3. **Audit Trail:**
+   - Log all transactions
+   - Immutable logs
+   - **Example:** Who, what, when, why
+
+4. **Security:**
+   - Encrypt sensitive data
+   - Strong authentication
+   - Authorization checks
+   - **Example:** PCI DSS compliance
+
+5. **Reliability:**
+   - High availability
+   - Backup and recovery
+   - **Example:** 99.99% uptime
+
+6. **Monitoring:**
+   - Real-time monitoring
+   - Fraud detection
+   - **Example:** Anomaly detection
+
+**Architecture:**
+```
+API → Validation → Transaction Service → Database
+                      ↓
+                 Audit Log
+                      ↓
+                 Fraud Detection
+```
+
+**Best Practices:**
+- Use ACID transactions
+- Implement idempotency
+- Maintain audit trail
+- Encrypt sensitive data
+- Monitor for fraud
+- Test failure scenarios
+</expand>
+
+<expand title="Scenario: You need to design a system that handles geolocation data. How would you approach it?">
+**Question:** You need to design a system that handles geolocation data. How would you approach it?
+
+**Answer:**
+**Considerations:**
+
+1. **Data Storage:**
+   - Geospatial databases (PostGIS, MongoDB)
+   - Support spatial queries
+   - **Example:** "Find restaurants within 5km"
+
+2. **Indexing:**
+   - Spatial indexes (R-tree, Geohash)
+   - Fast location queries
+   - **Example:** Geohash for proximity search
+
+3. **Query Types:**
+   - Proximity search
+   - Within radius
+   - Route calculation
+   - **Example:** "Nearby users", "Distance"
+
+4. **Real-time Updates:**
+   - Track moving objects
+   - Update locations
+   - **Example:** Delivery tracking
+
+5. **Caching:**
+   - Cache popular locations
+   - Reduce database load
+   - **Example:** Redis for hot locations
+
+**Architecture:**
+```
+Location Updates → Geospatial DB → Query API
+                         ↓
+                    Spatial Index
+                         ↓
+                    Cache (hot locations)
+```
+
+**Best Practices:**
+- Use geospatial database
+- Implement spatial indexes
+- Cache popular queries
+- Handle real-time updates
+- Optimize for proximity searches
+</expand>
+
+<expand title="Scenario: You need to design a system for handling video streaming. What are the key components?">
+**Question:** You need to design a system for handling video streaming. What are the key components?
+
+**Answer:**
+**Key Components:**
+
+1. **Video Storage:**
+   - Object storage (S3, GCS)
+   - Multiple quality levels
+   - **Example:** 1080p, 720p, 480p
+
+2. **CDN:**
+   - Distribute video globally
+   - Reduce latency
+   - **Example:** CloudFront, Cloudflare
+
+3. **Transcoding:**
+   - Convert to multiple formats
+   - Different bitrates
+   - **Example:** HLS, DASH
+
+4. **Streaming Protocol:**
+   - Adaptive bitrate streaming
+   - **Example:** HLS, DASH
+
+5. **Player:**
+   - Client-side player
+   - Adaptive quality
+   - **Example:** Video.js, HLS.js
+
+**Architecture:**
+```
+Upload → Transcode → Store → CDN → Player
+```
+
+**Optimizations:**
+- Multiple quality levels
+- Adaptive bitrate
+- CDN distribution
+- Caching popular videos
+
+**Best Practices:**
+- Use CDN for distribution
+- Implement adaptive bitrate
+- Cache popular content
+- Optimize for mobile
+</expand>
+
+<expand title="Scenario: You need to design a system that handles real-time analytics. How would you architect it?">
+**Question:** You need to design a system that handles real-time analytics. How would you architect it?
+
+**Answer:**
+**Architecture:**
+
+1. **Event Collection:**
+   - Collect events from sources
+   - **Example:** User actions, system events
+
+2. **Stream Processing:**
+   - Process events in real-time
+   - **Example:** Kafka Streams, Flink
+
+3. **Aggregation:**
+   - Aggregate metrics
+   - **Example:** Counts, sums, averages
+
+4. **Storage:**
+   - Time-series database
+   - **Example:** InfluxDB, TimescaleDB
+
+5. **Dashboard:**
+   - Real-time visualization
+   - **Example:** Grafana, custom dashboards
+
+**Flow:**
+```
+Events → Kafka → Stream Processor → Time-Series DB → Dashboard
+```
+
+**Technologies:**
+- Kafka for event streaming
+- Flink/Spark for processing
+- InfluxDB for storage
+- Grafana for visualization
+
+**Best Practices:**
+- Use stream processing
+- Store in time-series DB
+- Cache aggregations
+- Update dashboards in real-time
+</expand>
+
+<expand title="Scenario: You need to design a system for handling user sessions across multiple servers. How would you do it?">
+**Question:** You need to design a system for handling user sessions across multiple servers. How would you do it?
+
+**Answer:**
+**Options:**
+
+1. **Shared Session Store:**
+   ```
+   Servers → Redis/Memcached → Sessions
+   ```
+   - Centralized storage
+   - All servers access same store
+   - **Example:** Redis cluster
+
+2. **Database Sessions:**
+   - Store in database
+   - Slower but persistent
+   - **Example:** PostgreSQL, MySQL
+
+3. **Stateless (JWT):**
+   - Token contains session data
+   - No server storage
+   - **Example:** JWT tokens
+
+**Recommended: Redis**
+```javascript
+// Store session
+await redis.setex(`session:${sessionId}`, 3600, JSON.stringify(sessionData));
+
+// Retrieve session
+const session = await redis.get(`session:${sessionId}`);
+```
+
+**Benefits:**
+- Fast access
+- Shared across servers
+- TTL support
+- Scalable
+
+**Best Practices:**
+- Use Redis for sessions
+- Set appropriate TTL
+- Handle Redis failures
+- Use session clustering
 </expand>

@@ -210,6 +210,371 @@ ALTER TABLE users RENAME COLUMN email_new TO email;
 - Set up alerts for slow queries
 </expand>
 
+<expand title="What is the difference between ACID and BASE?">
+**Question:** What is the difference between ACID and BASE?
+
+**Answer:**
+**ACID (SQL Databases):**
+- Atomicity: All or nothing
+- Consistency: Valid state
+- Isolation: Concurrent transactions
+- Durability: Committed = permanent
+- **Use Case:** Financial systems, critical data
+
+**BASE (NoSQL Databases):**
+- Basically Available: System available
+- Soft state: State may change
+- Eventually consistent: Will converge
+- **Use Case:** High availability, performance
+
+**Comparison:**
+
+| Feature | ACID | BASE |
+|---------|------|------|
+| Consistency | Strong | Eventual |
+| Availability | Lower | Higher |
+| Performance | Slower | Faster |
+
+**When to Use:**
+- **ACID:** Critical data, can't have inconsistencies
+- **BASE:** Performance important, eventual consistency OK
+
+**Best Practice:**
+Use ACID for critical data, BASE for scalable systems.
+</expand>
+
+<expand title="What is database normalization and when would you denormalize?">
+**Question:** What is database normalization and when would you denormalize?
+
+**Answer:**
+**Normalization:** Organize data to reduce redundancy.
+
+**Normal Forms:**
+- 1NF: Atomic values
+- 2NF: No partial dependencies
+- 3NF: No transitive dependencies
+
+**Benefits:**
+- Reduces redundancy
+- Prevents anomalies
+- Saves storage
+
+**Denormalization:**
+- Intentionally add redundancy
+- **When:** Read performance critical
+- **Example:** Store computed values
+
+**When to Denormalize:**
+- Read-heavy workloads
+- Performance critical
+- Joins are expensive
+- **Example:** Analytics, reporting
+
+**Best Practice:**
+Normalize for writes, denormalize for reads if needed.
+</expand>
+
+<expand title="What is the difference between a clustered and non-clustered index?">
+**Question:** What is the difference between a clustered and non-clustered index?
+
+**Answer:**
+**Clustered Index:**
+- Determines physical order of data
+- One per table (usually primary key)
+- **Example:** Table sorted by primary key
+
+**Non-Clustered Index:**
+- Separate structure, points to data
+- Multiple per table
+- **Example:** Index on email column
+
+**Comparison:**
+
+| Feature | Clustered | Non-Clustered |
+|---------|-----------|---------------|
+| Physical Order | Yes | No |
+| Number | One | Many |
+| Speed | Faster | Slower |
+
+**When to Use:**
+- **Clustered:** Primary key, frequently queried
+- **Non-Clustered:** Other columns, multiple indexes
+
+**Best Practice:**
+Use clustered for primary key, non-clustered for other columns.
+</expand>
+
+<expand title="What is a database transaction and what are isolation levels?">
+**Question:** What is a database transaction and what are isolation levels?
+
+**Answer:**
+**Transaction:** Group of operations that succeed or fail together.
+
+**Isolation Levels:**
+
+1. **Read Uncommitted:**
+   - Can read uncommitted data
+   - Lowest isolation
+   - **Issue:** Dirty reads
+
+2. **Read Committed:**
+   - Read only committed data
+   - **Issue:** Non-repeatable reads
+
+3. **Repeatable Read:**
+   - Same read returns same result
+   - **Issue:** Phantom reads
+
+4. **Serializable:**
+   - Highest isolation
+   - Transactions serialized
+   - **Issue:** Performance
+
+**When to Use:**
+- **Read Committed:** Most applications
+- **Repeatable Read:** Need consistency
+- **Serializable:** Critical operations
+
+**Best Practice:**
+Use Read Committed for most cases, higher levels only when needed.
+</expand>
+
+<expand title="What is the difference between a primary key and a foreign key?">
+**Question:** What is the difference between a primary key and a foreign key?
+
+**Answer:**
+**Primary Key:**
+- Uniquely identifies row
+- One per table
+- Cannot be NULL
+- **Example:** User ID
+
+**Foreign Key:**
+- References primary key in another table
+- Enforces referential integrity
+- Can be NULL
+- **Example:** Order references User
+
+**Example:**
+```sql
+CREATE TABLE users (
+  id INT PRIMARY KEY,
+  name VARCHAR(255)
+);
+
+CREATE TABLE orders (
+  id INT PRIMARY KEY,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+```
+
+**Benefits:**
+- Data integrity
+- Relationships
+- Cascade operations
+
+**Best Practice:**
+Use primary keys for identification, foreign keys for relationships.
+</expand>
+
+<expand title="What is database connection pooling and why is it important?">
+**Question:** What is database connection pooling and why is it important?
+
+**Answer:**
+**Connection Pooling:** Reuse database connections instead of creating new ones.
+
+**How It Works:**
+- Create pool of connections at startup
+- Reuse connections for requests
+- Return to pool after use
+
+**Benefits:**
+- Faster (reuse vs create)
+- Limits connections
+- Better resource usage
+- **Example:** 10 connections serve 1000 requests
+
+**Configuration:**
+- Min connections: Always available
+- Max connections: Limit
+- Timeout: Wait for connection
+
+**Best Practice:**
+Always use connection pooling. It significantly improves performance.
+</expand>
+
+<expand title="What is database sharding and how does it work?">
+**Question:** What is database sharding and how does it work?
+
+**Answer:**
+**Sharding:** Split database into smaller pieces (shards).
+
+**How It Works:**
+- Partition data across shards
+- Each shard independent
+- **Example:** Users 1-1M in shard 1, 1M-2M in shard 2
+
+**Sharding Strategies:**
+
+1. **Range-Based:**
+   - Split by value range
+   - **Example:** User ID ranges
+
+2. **Hash-Based:**
+   - Hash key to determine shard
+   - **Example:** Hash user ID
+
+3. **Directory-Based:**
+   - Lookup table for shard
+   - **Example:** User ID → Shard mapping
+
+**Challenges:**
+- Cross-shard queries
+- Rebalancing
+- Complexity
+
+**Best Practice:**
+Use sharding when single database can't handle load. Consider alternatives first.
+</expand>
+
+<expand title="What is database replication and what are the types?">
+**Question:** What is database replication and what are the types?
+
+**Answer:**
+**Replication:** Copy data to multiple databases.
+
+**Types:**
+
+1. **Master-Slave (Primary-Replica):**
+   - One master (writes)
+   - Multiple replicas (reads)
+   - **Use Case:** Read scaling
+
+2. **Master-Master:**
+   - Multiple masters
+   - Bidirectional replication
+   - **Use Case:** Geographic distribution
+
+3. **Multi-Master:**
+   - Multiple masters
+   - Conflict resolution
+   - **Use Case:** Distributed systems
+
+**Replication Methods:**
+- Statement-based: Replicate SQL
+- Row-based: Replicate changed rows
+- Mixed: Combination
+
+**Best Practice:**
+Use master-slave for most cases. Master-master only if needed.
+</expand>
+
+<expand title="What is database partitioning and when would you use it?">
+**Question:** What is database partitioning and when would you use it?
+
+**Answer:**
+**Partitioning:** Split table into smaller pieces.
+
+**Types:**
+
+1. **Range Partitioning:**
+   ```sql
+   PARTITION BY RANGE (YEAR(created_at)) (
+     PARTITION p2020 VALUES LESS THAN (2021),
+     PARTITION p2021 VALUES LESS THAN (2022)
+   );
+   ```
+   - Split by value ranges
+   - **Example:** By date
+
+2. **Hash Partitioning:**
+   - Split by hash function
+   - **Example:** By user ID hash
+
+3. **List Partitioning:**
+   - Split by list of values
+   - **Example:** By region
+
+**Benefits:**
+- Faster queries (smaller partitions)
+- Easier maintenance
+- Archive old partitions
+
+**When to Use:**
+- Large tables
+- Time-based data
+- Need to archive
+
+**Best Practice:**
+Use partitioning for large tables, especially time-based data.
+</expand>
+
+<expand title="What is a database view and when would you use it?">
+**Question:** What is a database view and when would you use it?
+
+**Answer:**
+**View:** Virtual table based on query result.
+
+**Example:**
+```sql
+CREATE VIEW active_users AS
+SELECT * FROM users WHERE status = 'active';
+```
+
+**Benefits:**
+- Simplify queries
+- Security (hide columns)
+- Consistency
+
+**Types:**
+- **Simple:** Based on one table
+- **Complex:** Based on joins
+
+**When to Use:**
+- Simplify complex queries
+- Restrict access
+- Abstract schema changes
+
+**Best Practice:**
+Use views to simplify queries and improve security.
+</expand>
+
+<expand title="What is database deadlock and how do you prevent it?">
+**Question:** What is database deadlock and how do you prevent it?
+
+**Answer:**
+**Deadlock:** Two transactions waiting for each other.
+
+**Example:**
+```
+Transaction 1: Locks A, waits for B
+Transaction 2: Locks B, waits for A
+→ Deadlock
+```
+
+**Prevention:**
+
+1. **Lock Ordering:**
+   - Always lock in same order
+   - **Example:** Always lock A before B
+
+2. **Timeout:**
+   - Set lock timeout
+   - Abort if timeout
+
+3. **Deadlock Detection:**
+   - Database detects and aborts one
+   - **Example:** MySQL, PostgreSQL
+
+4. **Minimize Lock Time:**
+   - Hold locks briefly
+   - Process quickly
+
+**Best Practice:**
+Use lock ordering and timeouts. Let database handle detection.
+</expand>
+
 ## Scenario-Based Questions & Answers
 
 <expand title="Scenario: Your database is experiencing high CPU usage during peak hours. How would you diagnose and fix it?">
@@ -588,4 +953,471 @@ CREATE TABLE payments (
 
 **Recommendation:**
 Always use InnoDB for new projects. MyISAM is deprecated and will be removed in future MySQL versions.
+</expand>
+
+<expand title="Scenario: Your database has become too large and queries are slow. How would you optimize it?">
+**Question:** Your database has become too large and queries are slow. How would you optimize it?
+
+**Answer:**
+**Optimization Strategies:**
+
+1. **Partitioning:**
+   - Partition large tables
+   - **Example:** Partition by date
+   - **Impact:** Faster queries on smaller partitions
+
+2. **Archiving:**
+   - Move old data to archive
+   - Keep only active data
+   - **Example:** Archive orders older than 2 years
+
+3. **Indexing:**
+   - Add missing indexes
+   - Optimize existing indexes
+   - **Impact:** Faster lookups
+
+4. **Denormalization:**
+   - Add computed columns
+   - Reduce joins
+   - **Example:** Store order count on user table
+
+5. **Sharding:**
+   - Split database into shards
+   - Distribute load
+   - **Example:** Shard by user ID
+
+6. **Read Replicas:**
+   - Route reads to replicas
+   - Reduce load on primary
+   - **Example:** 5 read replicas
+
+**Best Practices:**
+- Partition large tables
+- Archive old data
+- Add indexes
+- Use read replicas
+- Consider sharding if needed
+</expand>
+
+<expand title="Scenario: You need to migrate data from one database to another without downtime. How would you do it?">
+**Question:** You need to migrate data from one database to another without downtime. How would you do it?
+
+**Answer:**
+**Migration Strategy:**
+
+1. **Dual Write:**
+   - Write to both databases
+   - **Example:** Write to old and new DB
+
+2. **Data Sync:**
+   - Sync existing data
+   - Run in background
+   - **Example:** Copy all records
+
+3. **Verify:**
+   - Compare data
+   - Ensure consistency
+   - **Example:** Row counts, checksums
+
+4. **Switch Reads:**
+   - Gradually switch reads to new DB
+   - Monitor for issues
+   - **Example:** 10% → 50% → 100%
+
+5. **Stop Dual Write:**
+   - Write only to new DB
+   - **Example:** After all reads switched
+
+6. **Cleanup:**
+   - Remove old database
+   - **Example:** After verification period
+
+**Best Practices:**
+- Use dual write
+- Sync in background
+- Verify data
+- Gradual migration
+- Have rollback plan
+</expand>
+
+<expand title="Scenario: Your database is experiencing lock contention. How would you resolve it?">
+**Question:** Your database is experiencing lock contention. How would you resolve it?
+
+**Answer:**
+**Causes:**
+- Long-running transactions
+- Many concurrent updates
+- Poor lock ordering
+
+**Solutions:**
+
+1. **Optimize Transactions:**
+   - Keep transactions short
+   - Process quickly
+   - **Example:** Move heavy work outside transaction
+
+2. **Lock Ordering:**
+   - Always lock in same order
+   - Prevent deadlocks
+   - **Example:** Always lock A before B
+
+3. **Indexes:**
+   - Add indexes to reduce lock scope
+   - **Example:** Index on WHERE clause
+
+4. **Isolation Level:**
+   - Use appropriate level
+   - **Example:** Read Committed vs Serializable
+
+5. **Batch Operations:**
+   - Batch updates
+   - Reduce lock time
+   - **Example:** Update 100 rows at once
+
+6. **Read Replicas:**
+   - Route reads to replicas
+   - Reduce locks on primary
+   - **Example:** All reads to replicas
+
+**Best Practices:**
+- Keep transactions short
+- Use proper lock ordering
+- Add indexes
+- Use read replicas
+- Monitor lock waits
+</expand>
+
+<expand title="Scenario: You need to design a database for a social media platform. What would you consider?">
+**Question:** You need to design a database for a social media platform. What would you consider?
+
+**Answer:**
+**Key Entities:**
+- Users
+- Posts
+- Comments
+- Likes
+- Follows
+- Messages
+
+**Design Considerations:**
+
+1. **Scalability:**
+   - Shard by user ID
+   - **Example:** User 1-1M in shard 1
+
+2. **Read-Heavy:**
+   - Read replicas
+   - Caching
+   - **Example:** Cache popular posts
+
+3. **Timeline:**
+   - Denormalize for feeds
+   - **Example:** Store user's feed
+
+4. **Relationships:**
+   - Follows (many-to-many)
+   - **Example:** Followers table
+
+5. **Media:**
+   - Store in object storage
+   - Reference in database
+   - **Example:** S3 for images
+
+6. **Real-time:**
+   - Use message queue
+   - **Example:** Kafka for notifications
+
+**Best Practices:**
+- Shard for scale
+- Use read replicas
+- Denormalize feeds
+- Cache popular content
+- Store media separately
+</expand>
+
+<expand title="Scenario: Your database queries are timing out. How would you diagnose and fix this?">
+**Question:** Your database queries are timing out. How would you diagnose and fix this?
+
+**Answer:**
+**Diagnosis:**
+
+1. **Check Slow Queries:**
+   ```sql
+   SET GLOBAL slow_query_log = 'ON';
+   SET GLOBAL long_query_time = 1;
+   ```
+
+2. **Identify Blocking:**
+   ```sql
+   SHOW PROCESSLIST;
+   -- Find blocking queries
+   ```
+
+3. **Check Indexes:**
+   ```sql
+   EXPLAIN SELECT ...;
+   -- Check if indexes used
+   ```
+
+**Fixes:**
+
+1. **Add Indexes:**
+   - Missing indexes cause full scans
+   - **Example:** Index on WHERE clause
+
+2. **Optimize Queries:**
+   - Avoid SELECT *
+   - Use LIMIT
+   - **Example:** Select only needed columns
+
+3. **Connection Pooling:**
+   - Limit connections
+   - Reuse connections
+   - **Example:** Max 50 connections
+
+4. **Query Timeout:**
+   - Set query timeout
+   - Cancel long queries
+   - **Example:** 5 second timeout
+
+5. **Read Replicas:**
+   - Route reads to replicas
+   - **Example:** Reduce load on primary
+
+**Best Practices:**
+- Add indexes
+- Optimize queries
+- Use connection pooling
+- Set timeouts
+- Use read replicas
+</expand>
+
+<expand title="Scenario: You need to handle database backups and disaster recovery. How would you design it?">
+**Question:** You need to handle database backups and disaster recovery. How would you design it?
+
+**Answer:**
+**Backup Strategy:**
+
+1. **Full Backups:**
+   - Complete database copy
+   - **Frequency:** Daily
+   - **Storage:** Offsite, encrypted
+
+2. **Incremental Backups:**
+   - Only changed data
+   - **Frequency:** Hourly
+   - **Storage:** Faster, smaller
+
+3. **Point-in-Time Recovery:**
+   - Binary logs
+   - **Example:** Restore to specific time
+
+4. **Testing:**
+   - Test restore regularly
+   - **Example:** Monthly restore tests
+
+5. **Automation:**
+   - Automated backups
+   - **Example:** Cron jobs, cloud tools
+
+**Disaster Recovery:**
+
+1. **RTO (Recovery Time Objective):**
+   - Target recovery time
+   - **Example:** 4 hours
+
+2. **RPO (Recovery Point Objective):**
+   - Acceptable data loss
+   - **Example:** 1 hour
+
+3. **Replication:**
+   - Real-time replication
+   - **Example:** Master-replica setup
+
+4. **Failover:**
+   - Automatic failover
+   - **Example:** Promote replica to master
+
+**Best Practices:**
+- Automated backups
+- Test restores
+- Offsite storage
+- Replication for DR
+- Document procedures
+</expand>
+
+<expand title="Scenario: Your database needs to handle both OLTP and OLAP workloads. How would you design it?">
+**Question:** Your database needs to handle both OLTP and OLAP workloads. How would you design it?
+
+**Answer:**
+**OLTP vs OLAP:**
+
+- **OLTP:** Online Transaction Processing
+  - Many small transactions
+  - Real-time
+  - **Example:** E-commerce orders
+
+- **OLAP:** Online Analytical Processing
+  - Few large queries
+  - Historical data
+  - **Example:** Reports, analytics
+
+**Design:**
+
+1. **Separate Databases:**
+   - OLTP: Transactional database
+   - OLAP: Data warehouse
+   - **Example:** MySQL for OLTP, Redshift for OLAP
+
+2. **ETL Process:**
+   - Extract from OLTP
+   - Transform data
+   - Load to OLAP
+   - **Example:** Nightly ETL job
+
+3. **Read Replicas:**
+   - Use replicas for OLAP
+   - Don't impact OLTP
+   - **Example:** Analytics on replica
+
+4. **Denormalization:**
+   - Denormalize for OLAP
+   - Faster queries
+   - **Example:** Star schema
+
+**Best Practices:**
+- Separate OLTP and OLAP
+- Use ETL for sync
+- Use replicas for analytics
+- Denormalize OLAP database
+</expand>
+
+<expand title="Scenario: You need to implement database-level security. What measures would you take?">
+**Question:** You need to implement database-level security. What measures would you take?
+
+**Answer:**
+**Security Measures:**
+
+1. **Access Control:**
+   - Role-based access
+   - Least privilege
+   - **Example:** Read-only users
+
+2. **Encryption:**
+   - Encrypt data at rest
+   - Encrypt in transit (TLS)
+   - **Example:** AES-256 encryption
+
+3. **Authentication:**
+   - Strong passwords
+   - Multi-factor authentication
+   - **Example:** 2FA for admin
+
+4. **Audit Logging:**
+   - Log all access
+   - Track changes
+   - **Example:** Who accessed what
+
+5. **Network Security:**
+   - Firewall rules
+   - VPN access
+   - **Example:** Only allow from app servers
+
+6. **Backup Security:**
+   - Encrypt backups
+   - Secure storage
+   - **Example:** Encrypted S3
+
+**Best Practices:**
+- Use role-based access
+- Encrypt sensitive data
+- Enable audit logging
+- Restrict network access
+- Regular security audits
+</expand>
+
+<expand title="Scenario: Your database needs to support full-text search. How would you implement it?">
+**Question:** Your database needs to support full-text search. How would you implement it?
+
+**Answer:**
+**Options:**
+
+1. **Database Full-Text Index:**
+   ```sql
+   CREATE FULLTEXT INDEX ON posts(title, content);
+   SELECT * FROM posts WHERE MATCH(title, content) AGAINST('search term');
+   ```
+   - Built-in support
+   - **Example:** MySQL, PostgreSQL
+
+2. **Dedicated Search Engine:**
+   - Elasticsearch
+   - Better features
+   - **Example:** Complex queries, faceting
+
+3. **Hybrid:**
+   - Database for data
+   - Search engine for search
+   - **Example:** Sync to Elasticsearch
+
+**Implementation:**
+
+1. **Indexing:**
+   - Index searchable fields
+   - **Example:** Title, content
+
+2. **Syncing:**
+   - Sync data to search engine
+   - **Example:** Real-time or batch
+
+3. **Querying:**
+   - Query search engine
+   - Return IDs
+   - Fetch from database
+
+**Best Practices:**
+- Use Elasticsearch for complex search
+- Sync data asynchronously
+- Index only searchable fields
+- Cache popular searches
+</expand>
+
+<expand title="Scenario: You need to optimize a database for write-heavy workloads. How would you do it?">
+**Question:** You need to optimize a database for write-heavy workloads. How would you do it?
+
+**Answer:**
+**Optimization Strategies:**
+
+1. **Minimize Indexes:**
+   - Fewer indexes = faster writes
+   - **Example:** Only essential indexes
+
+2. **Batch Writes:**
+   - Batch inserts
+   - **Example:** INSERT multiple rows
+
+3. **Connection Pooling:**
+   - Reuse connections
+   - **Example:** Pool of connections
+
+4. **Asynchronous Writes:**
+   - Queue writes
+   - Process asynchronously
+   - **Example:** Message queue
+
+5. **Partitioning:**
+   - Partition by write pattern
+   - **Example:** Partition by date
+
+6. **Hardware:**
+   - Fast storage (SSD)
+   - More RAM
+   - **Example:** NVMe SSDs
+
+**Best Practices:**
+- Minimize indexes
+- Batch writes
+- Use connection pooling
+- Consider async writes
+- Optimize hardware
 </expand>
