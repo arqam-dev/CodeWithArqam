@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes, FaLightbulb, FaBrain } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
 interface InterviewQuestionsPageContentProps {
@@ -189,12 +189,25 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
             {section.answer && (
               <>
                 {!answerVisible ? (
-                  <button
-                    onClick={(e) => toggleAnswer(section.title, e)}
-                    className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
-                  >
-                    Show Answer
-                  </button>
+                  <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-700 rounded-lg border border-blue-200 dark:border-slate-600">
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="flex-shrink-0 mt-0.5">
+                        <FaBrain className="text-blue-600 dark:text-blue-400 text-lg animate-pulse" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                          <span className="font-semibold text-blue-700 dark:text-blue-400">💡 Think First!</span> Take a moment to formulate your answer before viewing the solution. This will help you learn more effectively.
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={(e) => toggleAnswer(section.title, e)}
+                      className="w-full px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:scale-[1.02] flex items-center justify-center gap-2 group"
+                    >
+                      <FaLightbulb className="group-hover:rotate-12 transition-transform duration-300" />
+                      <span>Show Answer</span>
+                    </button>
+                  </div>
                 ) : (
                   <div className="mt-5 relative">
                     <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">Answer</div>
