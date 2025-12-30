@@ -116,13 +116,28 @@ A content management system where clients always need full article data. REST en
 - Less control but simpler implementation
 </expand>
 
-<expand title="How do you ensure data consistency across microservices?">
-**Question:** How do you ensure data consistency across microservices?
+<expand title="What approaches would you use to ensure data consistency and reliability?">
+**Question:** What approaches would you use to ensure data consistency and reliability?
 
 **Answer:**
-**Challenge:** Each microservice has its own database (no distributed transactions).
+**For Single Database (ACID Transactions):**
 
-**Patterns:**
+1. **Database Transactions:**
+   - ACID properties (Atomicity, Consistency, Isolation, Durability)
+   - Rollback on failure
+   - **Example:** Transfer money between accounts
+
+2. **Optimistic Locking:**
+   - Version numbers or timestamps
+   - Prevent concurrent updates
+   - **Example:** Update only if version matches
+
+3. **Pessimistic Locking:**
+   - Lock rows during transaction
+   - Prevent concurrent access
+   - **Example:** SELECT FOR UPDATE
+
+**For Distributed Systems (Microservices):**
 
 1. **Saga Pattern:**
    - Sequence of local transactions
@@ -147,8 +162,33 @@ A content management system where clients always need full article data. REST en
    - Traditional distributed transactions
    - **Problem:** Locks, poor performance, doesn't scale
 
+**Reliability Measures:**
+
+1. **Replication:**
+   - Master-replica setup
+   - Automatic failover
+   - **Example:** Primary + read replicas
+
+2. **Backups:**
+   - Regular backups
+   - Point-in-time recovery
+   - **Example:** Daily full, hourly incremental
+
+3. **Data Validation:**
+   - Input validation
+   - Constraint checks
+   - **Example:** Foreign keys, check constraints
+
+4. **Idempotency:**
+   - Same operation = same result
+   - Prevent duplicate operations
+   - **Example:** Idempotency keys for API calls
+
 **Best Practice:**
-Accept eventual consistency where possible. Use sagas for critical workflows that need coordination.
+- Use ACID transactions for single database
+- Accept eventual consistency for distributed systems
+- Use sagas for critical distributed workflows
+- Implement proper error handling and rollback mechanisms
 </expand>
 
 <expand title="What is the difference between authentication and authorization?">
@@ -416,8 +456,8 @@ Headers: { Cookie: "sessionId=abc123" }
 Use stateless APIs for modern applications. They're more scalable and work better with microservices.
 </expand>
 
-<expand title="How do you secure an API?">
-**Question:** How do you secure an API?
+<expand title="How do you think about security in production systems, especially for APIs and sensitive data?">
+**Question:** How do you think about security in production systems, especially for APIs and sensitive data?
 
 **Answer:**
 **Security Measures:**
@@ -471,10 +511,41 @@ Use stateless APIs for modern applications. They're more scalable and work bette
    - Monitor for suspicious activity
    - Set up alerts
 
-10. **Dependencies:**
+10. **Data Protection:**
+    - Encrypt sensitive data at rest
+    - Encrypt data in transit (HTTPS)
+    - Use encryption for PII, payment data
+    - **Example:** AES-256 encryption for database fields
+
+11. **Sensitive Data Handling:**
+    - Never log sensitive data (passwords, tokens, credit cards)
+    - Mask sensitive data in logs
+    - Use secure storage (encrypted databases)
+    - **Example:** Hash passwords, never store plain text
+
+12. **API Security:**
+    - Validate all inputs
+    - Sanitize outputs
+    - Use parameterized queries (prevent SQL injection)
+    - **Example:** Prepared statements, input validation
+
+13. **Dependencies:**
     - Keep dependencies updated
     - Scan for vulnerabilities
     - Use dependency management tools
+    - **Example:** npm audit, Snyk
+
+14. **Secrets Management:**
+    - Use secret management services (AWS Secrets Manager, HashiCorp Vault)
+    - Never commit secrets to code
+    - Rotate secrets regularly
+    - **Example:** Environment variables, secret stores
+
+15. **Audit Logging:**
+    - Log all security events
+    - Track access to sensitive data
+    - Immutable audit logs
+    - **Example:** Who accessed what, when, why
 </expand>
 
 <expand title="What is API gateway and when would you use it?">
@@ -528,8 +599,8 @@ Client → API Gateway → Microservice 1
 - Cost (consider managed vs self-hosted)
 </expand>
 
-<expand title="How do you handle long-running operations in an API?">
-**Question:** How do you handle long-running operations in an API?
+<expand title="How do you handle background jobs and long-running processes?">
+**Question:** How do you handle background jobs and long-running processes?
 
 **Answer:**
 **Problem:** Long operations (file processing, data export) can't complete in HTTP request timeout.
@@ -801,8 +872,151 @@ GET /api/jobs/123
 
 ## Scenario-Based Questions & Answers
 
-<expand title="Scenario: Your API suddenly receives 10x normal traffic. How do you handle the spike?">
-**Question:** Your API suddenly receives 10x normal traffic. How do you handle the spike?
+<expand title="How would you handle too many concurrent requests on a Node.js monolithic application?">
+**Question:** How would you handle too many concurrent requests on a Node.js monolithic application?
+
+**Answer:**
+**Immediate Solutions:**
+
+1. **Connection Pooling:**
+   - Limit concurrent connections
+   - Use connection pooling for database
+   - **Example:** Max 50 connections per instance
+   - **Impact:** Prevents resource exhaustion
+
+2. **Request Queuing:**
+   ```javascript
+   // Queue requests when server is busy
+   const queue = new Queue({ concurrency: 100 });
+   app.post('/api/endpoint', async (req, res) => {
+     await queue.add(async () => {
+       // Process request
+     });
+   });
+   ```
+
+3. **Rate Limiting:**
+   - Limit requests per IP/user
+   - Return 429 when limit exceeded
+   - **Example:** 100 requests/minute per user
+
+4. **Load Balancing:**
+   - Distribute requests across multiple instances
+   - Horizontal scaling
+   - **Example:** 5 Node.js instances behind load balancer
+
+5. **Async Processing:**
+   - Offload heavy operations to background workers
+   - Return immediately, process later
+   - **Example:** Use message queue (RabbitMQ, SQS)
+
+**Architecture Improvements:**
+
+1. **Horizontal Scaling:**
+   - Run multiple instances
+   - Use load balancer
+   - **Example:** Scale from 1 to 10 instances
+
+2. **Caching:**
+   - Cache frequently accessed data
+   - Reduce database load
+   - **Example:** Redis for session data, query results
+
+3. **Database Optimization:**
+   - Use read replicas
+   - Connection pooling
+   - Query optimization
+   - **Example:** Route reads to replicas
+
+4. **Resource Limits:**
+   - Set memory limits
+   - CPU throttling
+   - **Example:** PM2 cluster mode with limits
+
+**Best Practices:**
+- Use cluster mode (PM2, Node.js cluster)
+- Implement circuit breakers
+- Monitor resource usage
+- Set up auto-scaling
+- Use message queues for heavy operations
+</expand>
+
+<expand title="How would you improve application performance and speed under high load?">
+**Question:** How would you improve application performance and speed under high load?
+
+**Answer:**
+**Performance Optimization Strategies:**
+
+1. **Caching:**
+   ```javascript
+   // Multi-level caching
+   // 1. Application cache
+   const cached = await redis.get(cacheKey);
+   if (cached) return cached;
+   
+   // 2. Database query cache
+   const result = await db.query(...);
+   await redis.setex(cacheKey, 3600, JSON.stringify(result));
+   ```
+   - Cache frequently accessed data
+   - Use CDN for static content
+   - Cache database queries
+   - **Impact:** Reduces database load by 70-90%
+
+2. **Database Optimization:**
+   - Add indexes on frequently queried columns
+   - Use read replicas for read traffic
+   - Connection pooling
+   - Query optimization (avoid N+1 queries)
+   - **Example:** Index on `user_id`, `created_at` for user queries
+
+3. **Code Optimization:**
+   - Avoid blocking operations
+   - Use async/await properly
+   - Optimize algorithms
+   - **Example:** Use Promise.all for parallel operations
+
+4. **Load Balancing:**
+   - Distribute load across servers
+   - Health checks
+   - **Example:** 10 servers handling requests
+
+5. **Connection Management:**
+   - Reuse connections
+   - Connection pooling
+   - Limit concurrent connections
+   - **Example:** Pool of 50 database connections
+
+6. **Response Compression:**
+   ```javascript
+   app.use(compression());
+   ```
+   - Gzip/Brotli compression
+   - Reduce payload size
+   - **Impact:** 60-80% size reduction
+
+7. **Lazy Loading:**
+   - Load data on demand
+   - Pagination
+   - **Example:** Load 20 items per page
+
+**Monitoring:**
+- Track response times (p50, p95, p99)
+- Monitor CPU, memory usage
+- Database query performance
+- Cache hit rates
+- **Tools:** APM (New Relic, Datadog), custom metrics
+
+**Best Practices:**
+- Profile before optimizing
+- Measure impact of changes
+- Use caching strategically
+- Optimize database queries
+- Monitor continuously
+</expand>
+
+<expand title="How would you respond to a sudden spike in traffic causing performance degradation?">
+**Question:** How would you respond to a sudden spike in traffic causing performance degradation?
 
 **Answer:**
 **Immediate Actions:**
@@ -864,8 +1078,8 @@ GET /api/jobs/123
 - Use message queues for async processing
 </expand>
 
-<expand title="Scenario: You need to choose between monolithic and microservices architecture. What factors would you consider?">
-**Question:** You need to choose between monolithic and microservices architecture. What factors would you consider?
+<expand title="How would you approach scaling a monolith versus moving to microservices?">
+**Question:** How would you approach scaling a monolith versus moving to microservices?
 
 **Answer:**
 **Choose Monolithic When:**
@@ -1537,51 +1751,94 @@ Services → Kafka → Search Service → Elasticsearch
 - Use async processing for heavy operations
 </expand>
 
-<expand title="Scenario: You need to implement API analytics and monitoring. What metrics would you track?">
-**Question:** You need to implement API analytics and monitoring. What metrics would you track?
+<expand title="What monitoring and observability would you put in place for a production system?">
+**Question:** What monitoring and observability would you put in place for a production system?
 
 **Answer:**
-**Key Metrics:**
+**Monitoring (Metrics):**
 
 1. **Performance Metrics:**
    - Response time (p50, p95, p99)
    - Throughput (requests per second)
    - Error rate
    - Availability (uptime %)
+   - **Example:** Track API response times, database query times
 
-2. **Business Metrics:**
+2. **Infrastructure Metrics:**
+   - CPU usage
+   - Memory usage
+   - Disk I/O
+   - Network traffic
+   - **Example:** Server CPU > 80% = scale up
+
+3. **Application Metrics:**
+   - Database query times
+   - Cache hit rates
+   - Queue depths
+   - Active connections
+   - **Example:** Cache hit rate < 70% = optimize caching
+
+4. **Business Metrics:**
    - API usage by endpoint
    - User activity
    - Feature adoption
    - Revenue per API call
+   - **Example:** Track which endpoints are most used
 
-3. **Technical Metrics:**
-   - CPU usage
-   - Memory usage
-   - Database query times
-   - Cache hit rates
-   - Queue depths
-
-4. **Error Metrics:**
+5. **Error Metrics:**
    - Error rate by type
    - 4xx vs 5xx errors
    - Failed requests
    - Timeout rate
+   - **Example:** Alert if error rate > 1%
 
-5. **User Metrics:**
-   - Active users
-   - Requests per user
-   - Geographic distribution
-   - Client types (web, mobile, API)
+**Observability (Logs, Traces, Metrics):**
+
+1. **Structured Logging:**
+   ```javascript
+   logger.info('Request processed', {
+     requestId: req.id,
+     endpoint: req.path,
+     duration: Date.now() - start,
+     userId: req.user?.id
+   });
+   ```
+   - Structured logs (JSON)
+   - Log levels (DEBUG, INFO, WARN, ERROR)
+   - **Example:** Winston, Pino for Node.js
+
+2. **Distributed Tracing:**
+   - Track requests across services
+   - Identify bottlenecks
+   - **Example:** OpenTelemetry, Jaeger, Zipkin
+   - **Use Case:** Find slow service in microservices
+
+3. **APM (Application Performance Monitoring):**
+   - Code-level performance
+   - Database query analysis
+   - **Example:** New Relic, Datadog APM
+   - **Use Case:** Identify slow functions
+
+4. **Real User Monitoring (RUM):**
+   - Track user experience
+   - Browser performance
+   - **Example:** Real User Monitoring tools
+   - **Use Case:** Identify slow pages for users
 
 **Implementation:**
 ```javascript
-// Middleware to track metrics
+// Middleware to track metrics and logs
 app.use((req, res, next) => {
   const start = Date.now();
+  const requestId = generateRequestId();
+  
+  // Add request ID to context
+  req.requestId = requestId;
   
   res.on('finish', () => {
     const duration = Date.now() - start;
+    
+    // Metrics
     metrics.record({
       endpoint: req.path,
       method: req.method,
@@ -1589,24 +1846,48 @@ app.use((req, res, next) => {
       duration,
       userId: req.user?.id
     });
+    
+    // Logs
+    logger.info('Request completed', {
+      requestId,
+      endpoint: req.path,
+      method: req.method,
+      statusCode: res.statusCode,
+      duration
+    });
   });
   
   next();
 });
 ```
 
+**Alerting:**
+- Set up alerts for critical metrics
+- **Example:** Alert if error rate > 1%, CPU > 80%, response time > 1s
+- **Tools:** PagerDuty, Opsgenie, Slack alerts
+
+**Dashboards:**
+- Real-time dashboards
+- Historical trends
+- **Example:** Grafana, Datadog dashboards
+- **Use Case:** Monitor system health at a glance
+
 **Tools:**
-- Prometheus + Grafana
-- Datadog
-- New Relic
-- Custom dashboards
+- **Metrics:** Prometheus + Grafana, Datadog, CloudWatch
+- **Logs:** ELK Stack, Splunk, CloudWatch Logs
+- **Traces:** Jaeger, Zipkin, AWS X-Ray
+- **APM:** New Relic, Datadog APM, AppDynamics
 
 **Best Practices:**
-- Track metrics at multiple levels
+- Track metrics at multiple levels (infrastructure, application, business)
+- Use structured logging
+- Implement distributed tracing
 - Set up alerts for anomalies
 - Monitor trends over time
-- Correlate metrics
-- Use percentiles (p95, p99)
+- Correlate metrics, logs, and traces
+- Use percentiles (p95, p99) not just averages
+- Log request IDs for tracing
+- Don't log sensitive data
 </expand>
 
 <expand title="Scenario: You need to support multiple API clients (web, mobile, third-party) with different requirements. How would you design the API?">
