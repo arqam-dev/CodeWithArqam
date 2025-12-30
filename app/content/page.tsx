@@ -384,18 +384,50 @@ function ContentPageContent() {
           )}
 
           {/* Interview Questions Section */}
-          <div className="mt-12 p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-slate-700 dark:to-slate-900 rounded-2xl border border-purple-200 dark:border-purple-900">
-            <div className="flex items-center space-x-3 mb-4">
+          <div className="mt-12">
+            <div className="flex items-center space-x-3 mb-6">
               <FaQuestionCircle className="text-purple-600 dark:text-purple-400" size={24} />
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 Interview Questions
               </h2>
             </div>
-            <p className="text-slate-600 dark:text-slate-400 mb-4">
+            <p className="text-slate-600 dark:text-slate-400 mb-6">
               Prepare for your next technical interview with comprehensive questions and answers.
             </p>
-            <div className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors cursor-pointer">
-              Coming Soon
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[
+                { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
+                { name: "Backend", slug: "backend", icon: FaServer, description: "APIs, microservices, caching, and backend architecture" },
+                { name: "Databases", slug: "databases", icon: FaDatabase, description: "SQL, NoSQL, indexing, transactions, and database design" },
+                { name: "System Design", slug: "system-design", icon: FaNetworkWired, description: "Scalability, load balancing, caching, and distributed systems" },
+              ].map((category) => {
+                const Icon = category.icon;
+                return (
+                  <div
+                    key={category.slug}
+                    className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group cursor-pointer"
+                    onClick={() => {
+                      // This will be handled by a component
+                      window.location.href = `/interview-questions/${category.slug}`;
+                    }}
+                  >
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
+                        <Icon className="text-purple-600 dark:text-purple-400" size={20} />
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                        {category.name}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                      {category.description}
+                    </p>
+                    <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                      <span>View Questions</span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </main>
