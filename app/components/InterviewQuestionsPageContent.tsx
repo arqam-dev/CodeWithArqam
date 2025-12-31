@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes, FaLightbulb, FaBrain } from "react-icons/fa";
+import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes, FaLightbulb, FaBrain, FaBars } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
 interface InterviewQuestionsPageContentProps {
@@ -23,6 +23,8 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const [showAnswers, setShowAnswers] = useState<Set<string>>(new Set());
   const [copiedQuestions, setCopiedQuestions] = useState<Set<string>>(new Set());
   const [fullscreenQuestion, setFullscreenQuestion] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   
   // Enable copy/fullscreen for all interview questions
   const enableCopyFullscreen = true;
@@ -75,6 +77,22 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   };
 
   const { general, scenario } = parseContent();
+
+  // Sidebar sections - only high-level categories
+  const sidebarSections = [
+    { id: "general-questions", title: "General Questions", count: general.length },
+    { id: "scenario-questions", title: "Scenario Questions", count: scenario.length },
+  ].filter(section => section.count > 0);
+
+  // Scroll to section
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActiveSection(sectionId);
+      setIsSidebarOpen(false);
+    }
+  };
 
   const toggleQuestion = (title: string) => {
     const newExpanded = new Set(expandedQuestions);
@@ -275,11 +293,93 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
         </div>
       </header>
 
+      {/* Sidebar - Integrated side menu, part of the page */}
+      {sidebarSections.length > 0 && (
+        <>
+          <aside
+            className={`fixed top-24 left-6 w-60 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm transition-transform duration-300 z-30 ${
+              isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            }`}
+            style={{ 
+              height: 'fit-content', 
+              minHeight: '160px',
+              maxHeight: 'calc(100vh - 7rem)',
+              overflowY: 'auto'
+            }}
+          >
+            <div className="p-4">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
+                <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Quick Navigation</h2>
+                <button
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="lg:hidden p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
+                  aria-label="Close sidebar"
+                >
+                  <FaTimes size={14} />
+                </button>
+              </div>
+              <div className="space-y-1.5">
+                {sidebarSections.map((section, index) => (
+                  <button
+                    key={section.id}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer group relative overflow-hidden ${
+                      activeSection === section.id
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium shadow-sm border-l-3 border-blue-500"
+                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between relative z-10">
+                      <span className="text-sm font-medium flex items-center gap-2">
+                        <span className={`w-1.5 h-1.5 rounded-full ${
+                          activeSection === section.id
+                            ? "bg-blue-500"
+                            : "bg-slate-300 dark:bg-slate-600 group-hover:bg-blue-400"
+                        } transition-colors`}></span>
+                        {section.title}
+                      </span>
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-md ${
+                        activeSection === section.id
+                          ? "bg-blue-100 dark:bg-blue-800/50 text-blue-700 dark:text-blue-300"
+                          : "bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-800/30 group-hover:text-blue-600 dark:group-hover:text-blue-400"
+                      } transition-colors`}>
+                        {section.count}
+                      </span>
+                    </div>
+                    {activeSection === section.id && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent"></div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          {/* Mobile overlay */}
+          {isSidebarOpen && (
+            <div
+              className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+          )}
+
+          {/* Mobile sidebar toggle */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="fixed lg:hidden bottom-6 left-6 z-40 p-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-200 cursor-pointer"
+            aria-label="Toggle sidebar"
+          >
+            <FaBars size={18} />
+          </button>
+        </>
+      )}
+
+      {/* Main Content - Always centered, never shifted */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 lg:p-12">
           {/* General Questions */}
           {general.length > 0 && (
-            <div className="mb-12">
+            <div id="general-questions" className="mb-12 scroll-mt-20">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">
                 General Questions & Answers
               </h2>
@@ -289,7 +389,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
 
           {/* Scenario-Based Questions */}
           {scenario.length > 0 && (
-            <div>
+            <div id="scenario-questions" className="scroll-mt-20">
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 pb-2 border-b border-slate-200 dark:border-slate-700">
                 Scenario-Based Questions & Answers
               </h2>
