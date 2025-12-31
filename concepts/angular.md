@@ -1,5 +1,7 @@
 # Angular
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -21,8 +23,6 @@
 - Angular 17 - 2023
 - Angular 18 - 2024
 - Angular 19 - 2024
-
-Primary Concepts
 
 </expand>
 
@@ -368,9 +368,9 @@ Primary Concepts
 - Provides global zone that can be forked and extended to encapsulate/isolate asynchronous behaviour
 - Angular does this in NgZone service by creating fork and extending it with its own behaviours
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Service Worker">
 ## Service Worker

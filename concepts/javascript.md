@@ -1,5 +1,7 @@
 # JavaScript
 
+## Primary Concepts
+
 <expand title="Version History (ECMAScript Versions)">
 ## Version History (ECMAScript Versions)
 
@@ -17,8 +19,6 @@
 - ES2022 - 2022
 - ES2023 - 2023
 - ES2024 - 2024
-
-Primary Concepts
 
 </expand>
 
@@ -126,9 +126,9 @@ NOTE: How to get value when use 0 instead of name like courseHolder.name. We can
 - === (strict equality): No type coercion, compares type and value
 - null == undefined // true, null === undefined // false (important distinction)
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="JavaScript RoadMap">
 ## JavaScript RoadMap

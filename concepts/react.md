@@ -1,5 +1,7 @@
 # React
 
+## Primary Concepts
+
 <expand title="Version History">
 ## Version History (Main Versions)
 
@@ -618,7 +620,7 @@ const Settings = React.lazy(() => import('./Settings'));
 - Manage large states efficiently
 </expand>
 
-# Secondary Concepts
+## Secondary Concepts
 
 <expand title="Portals">
 ## Portals

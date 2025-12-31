@@ -1,5 +1,7 @@
 # Next.js
 
+## Primary Concepts
+
 <expand title="Version History">
 ## Version History (Main Versions)
 
@@ -1492,4 +1494,6 @@ export const metadata = {
 - Use middleware for cross-cutting concerns
 - Implement proper caching strategies
 </expand>
+
+## Secondary Concepts
 
