@@ -101,10 +101,10 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const general = filterQuestions(allGeneral);
   const scenario = filterQuestions(allScenario);
 
-  // Sidebar sections - only high-level categories (use filtered counts)
+  // Sidebar sections - only high-level categories (use all counts, not filtered)
   const sidebarSections = [
-    { id: "general-questions", title: "General Questions", count: general.length },
-    { id: "scenario-questions", title: "Scenario Questions", count: scenario.length },
+    { id: "general-questions", title: "General Questions", count: allGeneral.length },
+    { id: "scenario-questions", title: "Scenario Questions", count: allScenario.length },
   ].filter(section => section.count > 0);
 
   // Scroll to section
