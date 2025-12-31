@@ -1857,46 +1857,72 @@ Events → Kafka → Stream Processor → Time-Series DB → Dashboard
 **Question:** You need to design a system for handling user sessions across multiple servers. How would you do it?
 
 **Answer:**
-**Options:**
+**The Problem:**
+When you have multiple servers, a user's session stored on Server 1 won't be available if their next request goes to Server 2. We need a way for all servers to access the same session data.
 
-1. **Shared Session Store:**
+**Solution Options:**
+
+1. **Shared Session Store (Recommended - Most Common):**
+   
+   **How it works:**
+   - All servers store sessions in a shared storage (Redis/Memcached)
+   - When user logs in on Server 1, session is stored in Redis
+   - When user's next request goes to Server 2, Server 2 reads from same Redis
+   - All servers can access any user's session
+   
    ```
-   Servers → Redis/Memcached → Sessions
+   User → Server 1 → Redis (stores session)
+   User → Server 2 → Redis (reads same session)
    ```
-   - Centralized storage
-   - All servers access same store
-   - **Example:** Redis cluster
+   
+   **Example:**
+   ```javascript
+   // Store session (any server can do this)
+   await redis.setex(`session:${sessionId}`, 3600, JSON.stringify(sessionData));
+   
+   // Retrieve session (any server can read this)
+   const session = await redis.get(`session:${sessionId}`);
+   ```
+   
+   **Benefits:**
+   - Fast access (Redis is in-memory)
+   - Shared across all servers
+   - Automatic expiration (TTL)
+   - Highly scalable
+   
+   **When to use:** Most common approach, works for almost all cases
 
 2. **Database Sessions:**
-   - Store in database
-   - Slower but persistent
-   - **Example:** PostgreSQL, MySQL
+   
+   **How it works:**
+   - Store sessions in database (PostgreSQL, MySQL)
+   - All servers read/write from same database
+   - Slower than Redis but more persistent
+   
+   **When to use:** When you need session data to survive Redis restarts, or already have database infrastructure
 
-3. **Stateless (JWT):**
-   - Token contains session data
-   - No server storage
-   - **Example:** JWT tokens
+3. **Stateless (JWT Tokens):**
+   
+   **How it works:**
+   - Session data stored in token itself (JWT)
+   - No server storage needed
+   - Token sent with every request
+   - Any server can verify token
+   
+   **When to use:** Modern APIs, microservices, when you don't need to revoke sessions immediately
 
-**Recommended: Redis**
-```javascript
-// Store session
-await redis.setex(`session:${sessionId}`, 3600, JSON.stringify(sessionData));
-
-// Retrieve session
-const session = await redis.get(`session:${sessionId}`);
-```
-
-**Benefits:**
-- Fast access
-- Shared across servers
-- TTL support
-- Scalable
+**Recommended Approach: Redis**
+- Fastest option
+- Most commonly used
+- Scales well
+- Easy to implement
 
 **Best Practices:**
-- Use Redis for sessions
-- Set appropriate TTL
-- Handle Redis failures
-- Use session clustering
+- Use Redis for sessions (fast, scalable)
+- Set appropriate TTL (e.g., 1 hour for user sessions)
+- Handle Redis failures (fallback to database or error handling)
+- Use Redis cluster for high availability
+- Encrypt sensitive session data
 </expand>
 
 <expand title="How would you set up automation using serverless services?">

@@ -488,10 +488,20 @@ Use stateless APIs for modern applications. They're more scalable and work bette
    - Sanitize data
    - Prevent SQL injection, XSS
 
-6. **CORS:**
-   - Configure allowed origins
+6. **CORS (Cross-Origin Resource Sharing):**
+   - Configure allowed origins (which websites can call your API)
    - Restrict methods and headers
    - Don't use wildcard in production
+   - **Example:** If your API is at `api.codewitharqam.com` and your website is at `codewitharqam.com`, you need to allow `codewitharqam.com` to access the API:
+   ```javascript
+   // Allow only your website to access API
+   app.use(cors({
+     origin: 'https://codewitharqam.com',
+     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+     credentials: true
+   }));
+   ```
+   - **Why needed:** Browsers block requests from different origins (different domain) for security. CORS tells browser which origins are allowed.
 
 7. **Security Headers:**
    ```
@@ -608,6 +618,13 @@ Client → API Gateway → Microservice 1
 **Solutions:**
 
 1. **Async Processing with Job Queue:**
+   
+   **How it works:**
+   - Client calls your API (e.g., `/api/export`) → server immediately returns a job ID
+   - The job is added to a queue (RabbitMQ, SQS, Bull, etc.)
+   - A worker process picks up the job from the queue and does the work in the background
+   - Client can poll for status or get updates via Webhooks/SSE/WebSockets
+   
    ```javascript
    // 1. Submit job
    POST /api/export
@@ -661,10 +678,11 @@ Client → API Gateway → Microservice 1
 
 **Answer:**
 **PUT:**
-- Replaces entire resource
-- Idempotent
-- Must send complete resource
-- **Use Case:** Update entire resource
+- **Main Purpose:** Create or update entire resource (replace the whole thing)
+- Idempotent (same request multiple times = same result)
+- Must send complete resource (all fields)
+- **Use Case:** Create new resource OR completely replace existing resource
+- **Key Point:** PUT is for "create or update" - if resource exists, replace it; if not, create it
 
 **PATCH:**
 - Partial update
@@ -825,29 +843,61 @@ GET /api/jobs/123
 **Caching Strategies:**
 
 1. **Cache-Aside (Lazy Loading):**
+   
+   **What it is:** Application manages cache manually. Cache is "aside" from database.
+   
+   **How it works:**
+   - Read: Check cache first → if found, return it → if not found, read from database → store in cache for next time
+   - Write: Write to database → delete from cache (or update cache)
+   - **Simple explanation:** Cache is like a sticky note - you check it first, if not there, get from database and write it on sticky note
+   
    ```javascript
    // Check cache first
    let data = await cache.get(key);
    if (!data) {
+     // Cache miss - read from database
      data = await db.query(...);
+     // Store in cache for next time
      await cache.set(key, data, TTL);
    }
    return data;
    ```
+   
+   **When to use:** Most common strategy, simple to implement, good for read-heavy workloads
 
 2. **Write-Through:**
+   
+   **What it is:** Write to both cache and database at the same time. Cache is always up-to-date.
+   
+   **How it works:**
+   - Write: Write to cache AND database simultaneously → return success
+   - Read: Always read from cache (it's always fresh)
+   - **Simple explanation:** Every time you write, you update both the sticky note (cache) and the main file (database) at the same time
+   
    ```javascript
    // Write to both cache and DB
    await cache.set(key, data);
    await db.save(data);
    ```
+   
+   **When to use:** When you need cache to always be consistent with database, write-heavy workloads
 
-3. **Write-Back:**
+3. **Write-Back (Write-Behind):**
+   
+   **What it is:** Write to cache immediately, write to database later (asynchronously). Cache is the source of truth temporarily.
+   
+   **How it works:**
+   - Write: Write to cache immediately → return success → write to database in background later
+   - Read: Always read from cache
+   - **Simple explanation:** Write to sticky note first (fast), then update main file later when you have time
+   
    ```javascript
    // Write to cache, DB later
    await cache.set(key, data);
-   // DB write happens asynchronously
+   // DB write happens asynchronously in background
    ```
+   
+   **When to use:** When writes need to be very fast, can accept risk of data loss if cache fails before DB write
 
 **Cache Levels:**
 - **Application Cache:** In-memory (Redis, Memcached)
