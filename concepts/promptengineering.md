@@ -958,3 +958,22 @@ Mastering prompt engineering makes you more productive and helps you leverage AI
 
 ## Secondary Concepts
 
+<expand title="Advanced Prompt Techniques">
+## Advanced Prompt Techniques
+
+### Chain of Thought Prompting
+- Break down complex problems into steps
+- Ask AI to think step by step
+- Useful for debugging and problem-solving
+
+### Few-Shot Learning
+- Provide examples of desired output
+- Show pattern you want AI to follow
+- Effective for consistent formatting
+
+### Role-Playing Prompts
+- Assign AI a specific role (senior engineer, code reviewer, etc.)
+- Gets more contextual and professional responses
+- Useful for code reviews and architecture discussions
+
+</expand>
