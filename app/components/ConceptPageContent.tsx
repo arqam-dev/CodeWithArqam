@@ -61,6 +61,7 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   // Extract Primary/Secondary Concepts sections
   const extractSections = () => {
     const sections: Array<{ title: string; id: string }> = [];
+    const seenIds = new Set<string>();
     const lines = content.split('\n');
     
     // Look for Primary Concepts and Secondary Concepts
@@ -78,7 +79,11 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
         const isHighLevel = highLevelPatterns.some(pattern => pattern.test(title));
         if (isHighLevel) {
           const id = title.toLowerCase().replace(/\s+/g, '-');
-          sections.push({ title, id });
+          // Only add if we haven't seen this ID before
+          if (!seenIds.has(id)) {
+            seenIds.add(id);
+            sections.push({ title, id });
+          }
         }
       }
     }
