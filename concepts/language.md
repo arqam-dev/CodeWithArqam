@@ -1,9 +1,6 @@
 # Portuguese
 
-<expand title="Primary Concepts">
 ## Primary Concepts
-
-</expand>
 
 <expand title="Introduction">
 ## Introduction
@@ -75,4 +72,6 @@ English
     - To make sure we're on the same page, can you tell me more about it
 
 </expand>
+
+## Secondary Concepts
 

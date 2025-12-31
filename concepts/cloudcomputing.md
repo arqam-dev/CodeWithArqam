@@ -1,5 +1,7 @@
 # AWS (Amazon Web Service)
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -12,8 +14,8 @@
 
 </expand>
 
-<expand title="Primary Concepts">
-## Primary Concepts
+<expand title="General Points">
+## General Points
 
 - General Points:
   - AWS (Amazon Web Services): Comprehensive cloud computing platform

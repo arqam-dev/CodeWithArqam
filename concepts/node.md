@@ -1,5 +1,7 @@
 # NodeJS
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -1606,4 +1608,6 @@ describe('User Service', () => {
 - Different configs for each
 
 </expand>
+
+## Secondary Concepts
 

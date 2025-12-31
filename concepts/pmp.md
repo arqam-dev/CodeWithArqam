@@ -1,4 +1,6 @@
-# 🙏	Agile 🙏
+# PMP
+
+## Primary Concepts
 
 <expand title="General Points">
 ## General Points
@@ -141,4 +143,6 @@ Secondary Concepts
   - Automation
 
 </expand>
+
+## Secondary Concepts
 

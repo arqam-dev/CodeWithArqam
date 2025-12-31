@@ -1,4 +1,6 @@
-# Primary Concepts
+# Quality Assurance
+
+## Primary Concepts
 
 <expand title="Category of tasks">
 ## Category of tasks
@@ -210,4 +212,6 @@ Angular Testing
             - Applitools: AI-powered visual testing platform
 
 </expand>
+
+## Secondary Concepts
 

@@ -1,5 +1,7 @@
 # Styling
 
+## Primary Concepts
+
 <expand title="Version History (CSS Versions)">
 ## Version History (CSS Versions)
 
@@ -8,8 +10,6 @@
 - CSS2.1 - 2011
 - CSS3 - 1999 (Ongoing modular development)
 - CSS4 - Not a single version, features added incrementally
-
-Primary Concepts
 
 </expand>
 
@@ -190,11 +190,11 @@ Primary Concepts
 - opacity, visibility, display
 - z-index - Controls stacking order of positioned elements
 
-Secondary Concepts
-
-AJAX
-
 </expand>
+
+## Secondary Concepts
+
+<expand title="AJAX">
 
 <expand title="Notes">
 ## Notes

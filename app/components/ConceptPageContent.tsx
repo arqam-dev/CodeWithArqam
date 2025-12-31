@@ -233,17 +233,22 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
                   />
                 );
               }
-              // Process markdown and add IDs to section headers for scrolling
-              let processedContent = part.content;
-              sections.forEach((section) => {
-                const regex = new RegExp(`^##\\s+${section.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'gm');
-                processedContent = processedContent.replace(regex, (match) => {
-                  return `<h2 id="${section.id}">${section.title}</h2>`;
-                });
-              });
               return (
                 <div key={index} className="markdown-content">
-                  <ReactMarkdown>{processedContent}</ReactMarkdown>
+                  <ReactMarkdown
+                    components={{
+                      h2: ({ node, children, ...props }) => {
+                        const text = String(children);
+                        const section = sections.find(s => s.title === text);
+                        if (section) {
+                          return <h2 id={section.id} className="scroll-mt-20" {...props}>{children}</h2>;
+                        }
+                        return <h2 {...props}>{children}</h2>;
+                      }
+                    }}
+                  >
+                    {part.content}
+                  </ReactMarkdown>
                 </div>
               );
             })}

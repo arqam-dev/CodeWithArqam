@@ -1,5 +1,7 @@
 # Database
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -11,8 +13,6 @@
 - MySQL 8.0 - 2018
 - MySQL 8.1 - 2023
 - MySQL 8.2 - 2024
-
-Primary Concepts
 
 </expand>
 
@@ -255,9 +255,9 @@ Primary Concepts
 - Aggregate functions take long time - optimize with proper indexes
 - Image processing requires great optimization due to excess data
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Storage Engines">
 ## Storage Engines

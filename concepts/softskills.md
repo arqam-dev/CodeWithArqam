@@ -1,4 +1,6 @@
-# Primary Concepts
+# Soft Skills
+
+## Primary Concepts
 
 <expand title="Behavioral Interview">
 ## Behavioral Interview
@@ -248,4 +250,6 @@ Secondary Concepts
     - Reference: https://www.youtube.com/playlist?list=PLNop3ICbZ4AWn-FvKIgREacLZa8tF1EvG
 
 </expand>
+
+## Secondary Concepts
 

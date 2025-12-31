@@ -1,5 +1,7 @@
 # HTML
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -13,8 +15,6 @@
 - HTML5.1 - 2016
 - HTML5.2 - 2017
 - HTML5.3 - Ongoing
-
-Primary Concepts
 
 </expand>
 
@@ -166,9 +166,9 @@ Primary Concepts
 - <template>: Holds client-side content (rendered at runtime via JavaScript)
 - <noscript>: Content displayed when JavaScript is disabled
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Block-level vs Inline Elements">
 ## Block-level vs Inline Elements

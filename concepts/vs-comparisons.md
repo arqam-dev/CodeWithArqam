@@ -1,5 +1,7 @@
 # VS Comparisons - Conflicting & Interchangeable Concepts
 
+## Primary Concepts
+
 <expand title="JavaScript">
 ## JavaScript
 
@@ -812,4 +814,6 @@
   - Examples: SOLID, DRY, KISS
 
 </expand>
+
+## Secondary Concepts
 

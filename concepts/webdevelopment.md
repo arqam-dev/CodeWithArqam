@@ -1,4 +1,6 @@
-# Primary Concepts
+# Web Development
+
+## Primary Concepts
 
 <expand title="Architectures (how responsibilities are divided, whether in code, servers, or data)">
 ## Architectures (how responsibilities are divided, whether in code, servers, or data)
@@ -1736,4 +1738,6 @@ Merkle Tree, Consistent Hashing, Read Repair, Gossip Protocol, Bloom Filter, Hea
 Design: Messenger, Youtube, Newsfeed, Rate Limiter, Twitter, Dropbox/Drive, Web Crawler, URL Shortener, Instagram, Uber
 
 </expand>
+
+## Secondary Concepts
 

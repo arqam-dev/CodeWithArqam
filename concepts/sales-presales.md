@@ -1,5 +1,7 @@
 # Sales & PreSales
 
+## Primary Concepts
+
 <expand title="Terminoligies">
 ## Terminoligies
 
@@ -573,4 +575,6 @@ You need their support to move forward with your proposal or close the deal.
         - -- Contains the same content as I've written above --
 
 </expand>
+
+## Secondary Concepts
 

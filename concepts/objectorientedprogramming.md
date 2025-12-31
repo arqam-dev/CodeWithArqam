@@ -1,5 +1,7 @@
 # Object Oriented Programming
 
+## Primary Concepts
+
 <expand title="Notes">
 ## Notes
 
@@ -210,4 +212,6 @@ OOP with JavaScript
 - Can add methods to prototype: ClassName.prototype.methodName = function() {}
 
 </expand>
+
+## Secondary Concepts
 

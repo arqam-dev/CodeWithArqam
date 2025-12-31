@@ -1,5 +1,7 @@
 # Mobile
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -133,4 +135,6 @@ Secondary Concepts
 - Phone Calls
 
 </expand>
+
+## Secondary Concepts
 

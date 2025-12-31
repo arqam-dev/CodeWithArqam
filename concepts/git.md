@@ -1,4 +1,6 @@
-# Primary Concepts
+# Git
+
+## Primary Concepts
 
 <expand title="Commands">
 ## Commands
@@ -347,9 +349,9 @@ This sequence provides a logical order for introducing Git commands, starting wi
 - Git: Slightly slower => Mercurial: Faster performance
 - Git: Supports unlimited number of parents => Mercurial: Allows only two parents
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Git Tools">
 ## Git Tools

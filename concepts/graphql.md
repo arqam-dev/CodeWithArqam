@@ -1,5 +1,7 @@
 # GraphQL
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -954,4 +956,6 @@ query GetUser($id: ID!) { ... }
 - NOTE: Many organizations use both - REST for simple operations, GraphQL for complex queries
 
 </expand>
+
+## Secondary Concepts
 

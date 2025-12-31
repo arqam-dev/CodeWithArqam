@@ -1,5 +1,7 @@
 # Data Structures
 
+## Primary Concepts
+
 <expand title="Notes">
 ## Notes
 
@@ -331,4 +333,6 @@ Secondary Concepts
 - Amortized Analysis: Average performance over sequence of operations
 
 </expand>
+
+## Secondary Concepts
 

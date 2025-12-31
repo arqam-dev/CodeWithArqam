@@ -1,5 +1,7 @@
 # Operating System
 
+## Primary Concepts
+
 <expand title="Notes">
 ## Notes
 
@@ -212,9 +214,9 @@
 - Unix philosophy: "Everything is a file" (devices, directories, regular files)
 - VFS (Virtual File System): Provides uniform interface for different file system types
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Security (Why Ubuntu/Linux is Safer)">
 ## Security (Why Ubuntu/Linux is Safer)

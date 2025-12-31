@@ -1,5 +1,7 @@
 # Hardware
 
+## Primary Concepts
+
 <expand title="Terminologies">
 ## Terminologies
 
@@ -46,4 +48,6 @@
         - 
 
 </expand>
+
+## Secondary Concepts
 

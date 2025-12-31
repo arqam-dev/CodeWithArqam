@@ -1,5 +1,7 @@
 # DevOps
 
+## Primary Concepts
+
 <expand title="Version History (Main Versions)">
 ## Version History (Main Versions)
 
@@ -96,9 +98,9 @@ Primary Concepts
 - Disadvantages:
   - Resource wastage due to virtual machines (RAM, etc.)
 
-Secondary Concepts
-
 </expand>
+
+## Secondary Concepts
 
 <expand title="Microservices Communication">
 ## Microservices Communication
