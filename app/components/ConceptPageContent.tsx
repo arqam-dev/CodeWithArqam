@@ -3,7 +3,7 @@
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FaArrowLeft, FaBars, FaTimes } from "react-icons/fa";
+import { FaArrowLeft, FaBars, FaTimes, FaSearch } from "react-icons/fa";
 import ExpandableSection from "./ExpandableSection";
 import FloatingStartQuizButton from "./FloatingStartQuizButton";
 import { useEffect, useState } from "react";
@@ -19,6 +19,10 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   const [displayName, setDisplayName] = useState<string>("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  
+  // Check if this is the JavaScript page
+  const isJavaScriptPage = pathname?.includes('/javascript') || displayName?.toLowerCase() === 'javascript';
 
   // Helper function to convert to title case
   const toTitleCase = (str: string): string => {
@@ -95,20 +99,20 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   // Parse expandable sections: <expand title="Title">content</expand>
   // Handle titles with quotes by matching everything between title=" and ">
   const expandableRegex = /<expand\s+title="(.*?)">([\s\S]*?)<\/expand>/g;
-  const parts: Array<{ type: "text" | "expandable"; content: string; title?: string }> = [];
+  const allParts: Array<{ type: "text" | "expandable"; content: string; title?: string }> = [];
   let lastIndex = 0;
   let match;
 
   while ((match = expandableRegex.exec(content)) !== null) {
     // Add text before the expandable section
     if (match.index > lastIndex) {
-      parts.push({
+      allParts.push({
         type: "text",
         content: content.slice(lastIndex, match.index),
       });
     }
     // Add expandable section
-    parts.push({
+    allParts.push({
       type: "expandable",
       title: match[1],
       content: match[2].trim(),
@@ -117,11 +121,33 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   }
   // Add remaining text
   if (lastIndex < content.length) {
-    parts.push({
+    allParts.push({
       type: "text",
       content: content.slice(lastIndex),
     });
   }
+
+  // Filter parts based on search query (only for JavaScript page)
+  const parts = isJavaScriptPage && searchQuery.trim() ? allParts.filter(part => {
+    if (part.type === "expandable") {
+      // Search in title
+      const titleMatch = part.title?.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      // Search in content for subtitles (## headings)
+      const subtitleRegex = /^##\s+(.+)$/gm;
+      const contentMatch = part.content.match(subtitleRegex);
+      const hasMatchingSubtitle = contentMatch?.some(subtitle => 
+        subtitle.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      
+      // Also search in the content text itself
+      const contentTextMatch = part.content.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return titleMatch || hasMatchingSubtitle || contentTextMatch;
+    }
+    // For text parts, search in content
+    return part.content.toLowerCase().includes(searchQuery.toLowerCase());
+  }) : allParts;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
@@ -160,6 +186,36 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
             }}
           >
             <div className="p-4">
+              {/* Search Bar - Only for JavaScript page */}
+              {isJavaScriptPage && (
+                <div className="mb-4">
+                  <div className="relative">
+                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500" size={14} />
+                    <input
+                      type="text"
+                      placeholder="Search concepts..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent transition-all"
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery("")}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+                        aria-label="Clear search"
+                      >
+                        <FaTimes size={12} />
+                      </button>
+                    )}
+                  </div>
+                  {searchQuery && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                      {parts.filter(p => p.type === "expandable").length} result{parts.filter(p => p.type === "expandable").length !== 1 ? 's' : ''}
+                    </p>
+                  )}
+                </div>
+              )}
+              
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Quick Navigation</h2>
                 <button
