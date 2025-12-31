@@ -23,8 +23,12 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
 
   // Helper function to convert to title case
   const toTitleCase = (str: string): string => {
-    return str
-      .replace(/-/g, ' ')
+    // Handle camelCase by inserting space before capital letters
+    let processed = str.replace(/([a-z])([A-Z])/g, '$1 $2');
+    // Replace hyphens with spaces
+    processed = processed.replace(/-/g, ' ');
+    // Split and capitalize each word
+    return processed
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(' ');
