@@ -130,6 +130,39 @@ NOTE: How to get value when use 0 instead of name like courseHolder.name. We can
 
 ## Secondary Concepts
 
+<expand title="Chrome DevTools Features (Chrome 143)">
+## Chrome DevTools Features (Chrome 143)
+
+### DevTools MCP Server Updates
+- **Purpose:** Enhanced Model Context Protocol (MCP) server integration in Chrome DevTools
+- **What it does:** Allows AI applications and agents to interact with Chrome DevTools through the MCP protocol
+- **Use case:** When building AI-powered debugging tools or integrating AI assistants with browser debugging
+- **How it works:** DevTools exposes debugging capabilities through MCP, enabling AI tools to inspect pages, analyze performance, and debug issues
+- **Benefit:** Enables AI-powered development workflows and automated debugging assistance
+
+### Improved Trace Sharing
+- **Purpose:** Better sharing and collaboration features for performance traces
+- **What it does:** Enhanced functionality for exporting, importing, and sharing performance trace data
+- **Use case:** When collaborating on performance optimization or sharing traces with team members
+- **Benefit:** Makes it easier to share debugging information and performance data across teams
+
+### Lighthouse 13
+- **Purpose:** Updated Lighthouse panel with version 13, unifying performance insights
+- **What it does:** Provides comprehensive performance, accessibility, SEO, and best practices audits
+- **Key improvement:** Unification of performance insights across DevTools and Lighthouse
+- **Use case:** When auditing website performance, accessibility, and SEO
+- **How to use:** Open DevTools → Lighthouse panel → Run audit → Review insights
+- **Benefit:** Consistent performance metrics and insights across different DevTools panels
+
+### General DevTools Best Practices
+- Use Chrome Canary, Dev, or Beta for latest features
+- Enable experimental features for cutting-edge web platform APIs
+- Regularly update to access new debugging capabilities
+- Use Performance panel for detailed performance analysis
+- Leverage Network panel for debugging API calls and resource loading
+
+</expand>
+
 <expand title="JavaScript RoadMap">
 ## JavaScript RoadMap
 

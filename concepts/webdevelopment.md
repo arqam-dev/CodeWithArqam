@@ -240,11 +240,31 @@
 
 #### 5. Communication
 
-##### 5.1 REST / GraphQL / gRPC (C):
+##### 5.1 REST / GraphQL / gRPC / MCP Server (C):
 - **REST:** Stateless, resource-based, HTTP methods, multiple endpoints
+  - Best for: Traditional web APIs, human-facing applications, standard CRUD operations
+  - Use when: Building general-purpose web services, need broad compatibility
 - **GraphQL:** Single endpoint, query language, fetch exactly what you need
+  - Best for: Mobile apps, complex data requirements, reducing over-fetching
+  - Use when: Need flexible data querying, working with complex data relationships
 - **gRPC:** Binary protocol, high performance, streaming support
-- **When to use:** REST for simplicity, GraphQL for flexible queries, gRPC for performance
+  - Best for: Microservices, high-performance systems, internal service communication
+  - Use when: Need maximum throughput, working with streaming data, building microservices
+- **MCP Server (Model Context Protocol):** AI-specific protocol for context and tool access
+  - **Purpose:** Enables AI applications to securely access external data sources, tools, and services
+  - **Best for:** AI-powered applications, LLM integrations, context-aware systems
+  - **Use when:** Building AI applications that need context enrichment, providing tools to LLMs, integrating AI with existing systems
+  - **Key Features:**
+    - Standardized interface for AI-to-system communication
+    - Built-in security model for AI contexts
+    - Tool and resource-based structure
+    - Designed specifically for AI model interactions
+  - **Comparison:**
+    - **vs REST:** MCP is AI-specific, while REST is general-purpose. Use MCP for AI apps, REST for traditional web APIs
+    - **vs GraphQL:** MCP focuses on AI context and tools, GraphQL on flexible data querying. Use MCP when AI is involved, GraphQL for standard data APIs
+    - **vs gRPC:** MCP is protocol-specific for AI, gRPC is high-performance RPC. Use MCP for AI integrations, gRPC for high-performance microservices
+  - **When NOT to use MCP:** Traditional web applications without AI, simple data access, high-performance systems without AI components
+- **When to use:** REST for simplicity, GraphQL for flexible queries, gRPC for performance, MCP for AI applications
 
 ##### 5.2 Sync vs Async (C):
 - **Synchronous:** Request waits for response, blocking

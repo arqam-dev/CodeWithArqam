@@ -33,7 +33,11 @@ import {
   FaLaptopCode,
   FaNetworkWired,
   FaCog,
-  FaPaintBrush
+  FaPaintBrush,
+  FaBriefcase,
+  FaNewspaper,
+  FaArrowDown,
+  FaHandPointRight
 } from "react-icons/fa";
 
 export default function Home() {
@@ -300,11 +304,19 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link
                   href="/content"
-                  className="px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="group px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 relative overflow-hidden"
                 >
-                  <FaBook size={16} />
-                  <span>Start Learning</span>
-                  <FaArrowRight size={14} />
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <FaBook size={16} className="relative z-10" />
+                  <span className="relative z-10">Start Learning</span>
+                  <FaArrowRight size={14} className="relative z-10 transform group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/blog"
+                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                >
+                  <FaNewspaper size={16} />
+                  <span>Read Blogs</span>
                 </Link>
                 <a
                   href="https://www.linkedin.com/in/arqam-dev/"
@@ -315,6 +327,10 @@ export default function Home() {
                   <FaLinkedin size={16} />
                   <span>Connect on LinkedIn</span>
                 </a>
+              </div>
+              <div className="pt-4 flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+                <FaArrowDown className="animate-bounce" size={14} />
+                <span>Scroll to explore more</span>
               </div>
             </div>
             <div className="flex justify-center md:justify-end">
@@ -395,6 +411,139 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Jobs Section - Engaging and Prominent */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 relative overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-full mb-4">
+              <FaStar className="text-emerald-600 dark:text-emerald-400" size={16} />
+              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">We're Hiring!</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
+              Join Our Team
+            </h2>
+            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+              Explore exciting career opportunities and be part of a team that's shaping the future of software development education.
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-emerald-200 dark:border-emerald-800 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+                    <div className="relative p-6 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full">
+                      <FaBriefcase className="text-white" size={40} />
+                    </div>
+                  </div>
+                </div>
+                <h3 className="text-3xl font-bold text-center mb-4 text-slate-900 dark:text-white">
+                  Open Positions Available
+                </h3>
+                <p className="text-lg text-center text-slate-600 dark:text-slate-300 mb-8">
+                  We're looking for talented developers, educators, and tech enthusiasts to join our mission of making quality tech education accessible to everyone.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="https://www.linkedin.com/company/106984678/admin/posted-jobs/open/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative px-8 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white rounded-xl font-bold text-lg shadow-2xl hover:shadow-emerald-500/50 transform hover:scale-110 transition-all duration-300 flex items-center justify-center space-x-3 overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    <FaBriefcase className="relative z-10" size={20} />
+                    <span className="relative z-10">View Open Jobs</span>
+                    <FaHandPointRight className="relative z-10 transform group-hover:translate-x-2 transition-transform" size={18} />
+                  </a>
+                </div>
+                <p className="text-sm text-center text-slate-500 dark:text-slate-400 mt-6">
+                  <FaArrowDown className="inline-block mr-2 animate-bounce" size={14} />
+                  Click to explore opportunities on LinkedIn
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Blog Posts Preview Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
+              Latest Insights & Articles
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              Stay updated with the latest trends, tips, and insights from the tech world.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Link
+              href="/blog/ai-revolution"
+              className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
+                  <FaNewspaper className="text-white" size={24} />
+                </div>
+                <div>
+                  <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide">Featured</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                    How AI is Changing the Job Market for Software Engineers
+                  </h3>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400 mb-4">
+                Explore how artificial intelligence is reshaping software engineering careers, from automation to new opportunities.
+              </p>
+              <div className="flex items-center text-purple-600 dark:text-purple-400 font-semibold">
+                <span>Read More</span>
+                <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
+              </div>
+            </Link>
+            <Link
+              href="/blog/what-is-mcp-server"
+              className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
+            >
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
+                  <FaServer className="text-white" size={24} />
+                </div>
+                <div>
+                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">Technical</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    What is MCP Server and When to Use It?
+                  </h3>
+                </div>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400 mb-4">
+                Understand Model Context Protocol servers, their purpose, and how they compare to traditional API approaches.
+              </p>
+              <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold">
+                <span>Read More</span>
+                <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
+              </div>
+            </Link>
+          </div>
+          <div className="text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+            >
+              <FaNewspaper size={16} />
+              <span>View All Blog Posts</span>
+              <FaArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

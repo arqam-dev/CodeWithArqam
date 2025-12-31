@@ -194,6 +194,29 @@
 
 ## Secondary Concepts
 
+<expand title="Chrome DevTools CSS Features (Chrome 143)">
+## Chrome DevTools CSS Features (Chrome 143)
+
+### Support for @starting-style
+- **Purpose:** Debug and inspect CSS @starting-style rules in Chrome DevTools
+- **What it does:** Allows developers to view and edit @starting-style at-rules directly in the Elements panel Styles pane
+- **Use case:** When working with CSS transitions and animations that use @starting-style for initial states
+- **How to use:** Open DevTools → Elements panel → Styles pane → Look for @starting-style rules in the stylesheet
+
+### Editor Widget for display: masonry
+- **Purpose:** Visual editor for CSS Masonry layout, similar to flexbox and grid editors
+- **What it does:** Provides an interactive editor widget to quickly toggle through various alignment options in masonry layouts
+- **Use case:** When experimenting with CSS Masonry layout (display: masonry)
+- **How to use:** Open DevTools → Elements panel → Styles pane → Click on display: masonry property → Use the editor widget to adjust alignment options
+- **Benefit:** Makes it easier to test and adjust masonry layouts without manually editing CSS values
+
+### Improved CSS Property Editing
+- Enhanced autocomplete and suggestions for CSS properties
+- Better support for modern CSS features in the Styles pane
+- Improved visual feedback when editing CSS values
+
+</expand>
+
 <expand title="AJAX">
 
 <expand title="Notes">
