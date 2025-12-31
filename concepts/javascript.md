@@ -128,40 +128,335 @@ NOTE: How to get value when use 0 instead of name like courseHolder.name. We can
 
 </expand>
 
-## Secondary Concepts
+<expand title="Browser Development Tools & Performance Optimization">
+## Browser Development Tools & Performance Optimization
 
-<expand title="Chrome DevTools Features (Chrome 143)">
-## Chrome DevTools Features (Chrome 143)
+### Overview
+Browser development tools (primarily Chrome DevTools) are essential debugging and optimization utilities that help developers build, debug, and optimize web applications. These tools provide real-time insights into application behavior, performance bottlenecks, and user experience metrics.
 
-### DevTools MCP Server Updates
-- **Purpose:** Enhanced Model Context Protocol (MCP) server integration in Chrome DevTools
-- **What it does:** Allows AI applications and agents to interact with Chrome DevTools through the MCP protocol
-- **Use case:** When building AI-powered debugging tools or integrating AI assistants with browser debugging
-- **How it works:** DevTools exposes debugging capabilities through MCP, enabling AI tools to inspect pages, analyze performance, and debug issues
-- **Benefit:** Enables AI-powered development workflows and automated debugging assistance
+### Purpose
+- **Debugging:** Identify and fix bugs in JavaScript, CSS, and HTML
+- **Performance Analysis:** Measure and optimize application speed and efficiency
+- **Network Monitoring:** Track API calls, resource loading, and network performance
+- **Memory Profiling:** Detect memory leaks and optimize memory usage
+- **Accessibility Auditing:** Ensure applications are accessible to all users
+- **SEO Optimization:** Improve search engine visibility and rankings
+- **Mobile Testing:** Simulate different devices and network conditions
 
-### Improved Trace Sharing
-- **Purpose:** Better sharing and collaboration features for performance traces
-- **What it does:** Enhanced functionality for exporting, importing, and sharing performance trace data
-- **Use case:** When collaborating on performance optimization or sharing traces with team members
-- **Benefit:** Makes it easier to share debugging information and performance data across teams
+### When to Use
 
-### Lighthouse 13
-- **Purpose:** Updated Lighthouse panel with version 13, unifying performance insights
-- **What it does:** Provides comprehensive performance, accessibility, SEO, and best practices audits
+**During Development:**
+- Debugging JavaScript errors and logic issues
+- Inspecting DOM structure and CSS styling
+- Testing responsive designs across different screen sizes
+- Monitoring network requests and API responses
+- Verifying console logs and error messages
+
+**Performance Optimization:**
+- Identifying slow-loading resources
+- Analyzing rendering performance
+- Detecting memory leaks
+- Optimizing bundle sizes
+- Measuring Core Web Vitals (FCP, LCP, CLS, etc.)
+
+**Before Production:**
+- Running Lighthouse audits for performance, accessibility, and SEO
+- Testing on different devices and browsers
+- Verifying security headers and best practices
+- Checking for console errors and warnings
+
+**During Production Issues:**
+- Debugging production bugs using source maps
+- Analyzing performance issues reported by users
+- Monitoring network failures and API errors
+- Investigating memory-related crashes
+
+### How to Use
+
+**Opening DevTools:**
+- **Windows/Linux:** `F12` or `Ctrl + Shift + I` or `Ctrl + Shift + J`
+- **Mac:** `Cmd + Option + I` or `Cmd + Option + J`
+- **Right-click → Inspect:** Opens DevTools with Elements panel focused on clicked element
+
+**Key Panels:**
+
+1. **Elements Panel:**
+   - Inspect and modify HTML/CSS in real-time
+   - View computed styles and box model
+   - Edit attributes and classes
+   - Use: `Ctrl/Cmd + Shift + C` to toggle element selector
+
+2. **Console Panel:**
+   - View JavaScript logs, errors, and warnings
+   - Execute JavaScript commands
+   - Debug with breakpoints and step-through
+   - Use: `Ctrl/Cmd + Shift + J` to focus console
+
+3. **Sources Panel:**
+   - View and edit source files
+   - Set breakpoints for debugging
+   - Step through code execution
+   - Use source maps for debugging minified code
+
+4. **Network Panel:**
+   - Monitor all network requests (XHR, Fetch, WebSocket, etc.)
+   - View request/response headers and payloads
+   - Analyze loading times and waterfall charts
+   - Filter by type, status, or domain
+
+5. **Performance Panel:**
+   - Record and analyze runtime performance
+   - Identify bottlenecks and long tasks
+   - View frame rates and rendering performance
+   - Analyze JavaScript execution time
+
+6. **Memory Panel:**
+   - Take heap snapshots to analyze memory usage
+   - Track memory leaks over time
+   - Compare snapshots to find memory growth
+   - Identify objects preventing garbage collection
+
+7. **Application Panel:**
+   - View and manage Local Storage, Session Storage, Cookies
+   - Inspect IndexedDB and Web SQL databases
+   - Manage service workers and cache storage
+   - View application manifest and security
+
+8. **Lighthouse Panel:**
+   - Run automated audits for performance, accessibility, SEO
+   - Get actionable recommendations
+   - View Core Web Vitals metrics
+   - Compare performance over time
+
+### Chrome DevTools Features (Chrome 143+)
+
+**DevTools MCP Server Updates:**
+- **What it is:** Enhanced Model Context Protocol (MCP) server integration
+- **Purpose:** Enables AI applications and agents to interact with Chrome DevTools
+- **Use case:** Building AI-powered debugging tools or integrating AI assistants
+- **How it works:** DevTools exposes debugging capabilities through MCP protocol
+- **Benefit:** Enables AI-powered development workflows and automated debugging
+- **When to use:** When building AI tools that need to inspect pages, analyze performance, or debug issues programmatically
+
+**Improved Trace Sharing:**
+- **What it is:** Enhanced sharing and collaboration for performance traces
+- **Purpose:** Better team collaboration on performance optimization
+- **Use case:** Sharing performance traces with team members or stakeholders
+- **How to use:** Export trace files and share with team for analysis
+- **Benefit:** Easier collaboration on debugging and performance optimization
+- **When to use:** When multiple developers need to analyze the same performance issue
+
+**Lighthouse 13:**
+- **What it is:** Updated Lighthouse panel with unified performance insights
+- **Purpose:** Comprehensive audits for performance, accessibility, SEO, and best practices
 - **Key improvement:** Unification of performance insights across DevTools and Lighthouse
-- **Use case:** When auditing website performance, accessibility, and SEO
-- **How to use:** Open DevTools → Lighthouse panel → Run audit → Review insights
-- **Benefit:** Consistent performance metrics and insights across different DevTools panels
+- **Use case:** Auditing website performance, accessibility, and SEO before production
+- **How to use:** Open DevTools → Lighthouse panel → Select categories → Run audit → Review insights
+- **Benefit:** Consistent performance metrics and actionable recommendations
+- **When to use:** Before production deployment, during performance reviews, or when optimizing existing applications
 
-### General DevTools Best Practices
+**Support for @starting-style:**
+- **What it is:** Debug and inspect CSS @starting-style rules
+- **Purpose:** View and edit @starting-style at-rules for CSS transitions
+- **Use case:** When working with CSS transitions and animations using @starting-style
+- **How to use:** Elements panel → Styles pane → Look for @starting-style rules
+- **Benefit:** Easier debugging of CSS transition initial states
+
+**Editor Widget for display: masonry:**
+- **What it is:** Visual editor for CSS Masonry layout
+- **Purpose:** Quickly toggle through alignment options in masonry layouts
+- **Use case:** When experimenting with CSS Masonry layout (display: masonry)
+- **How to use:** Elements panel → Styles pane → Click on display: masonry → Use editor widget
+- **Benefit:** Faster testing and adjustment of masonry layouts without manual CSS editing
+
+### Website Performance Metrics Explained
+
+**Core Web Vitals and Performance Indicators:**
+
+**1. First Contentful Paint (FCP) – Target: < 1.8s (Good), < 3.0s (Needs Improvement)**
+- **Definition:** Time from page load start until first text or image is rendered
+- **What it measures:** How quickly users see any content on the page
+- **Why it matters:** Users perceive the page as loading when they see content
+- **How to improve:**
+  - Minimize render-blocking resources (CSS, JavaScript)
+  - Optimize critical rendering path
+  - Use server-side rendering (SSR) or static site generation (SSG)
+  - Reduce server response time
+- **When to monitor:** Always, especially for landing pages and critical user flows
+
+**2. Largest Contentful Paint (LCP) – Target: < 2.5s (Good), < 4.0s (Needs Improvement)**
+- **Definition:** Time until the largest visible element (main image, heading, or text block) is rendered
+- **What it measures:** Perceived loading speed of main content
+- **Why it matters:** Users judge page load speed by when main content appears
+- **How to improve:**
+  - Optimize images (compress, use modern formats like WebP, lazy loading)
+  - Preload critical resources
+  - Optimize server response time
+  - Remove render-blocking JavaScript and CSS
+  - Use CDN for static assets
+- **When to monitor:** Critical for user experience, especially on content-heavy pages
+
+**3. Total Blocking Time (TBT) – Target: < 200ms (Good), < 600ms (Needs Improvement)**
+- **Definition:** Sum of all time periods when the main thread was blocked for more than 50ms
+- **What it measures:** How long the page is unresponsive to user input
+- **Why it matters:** Affects interactivity and user experience
+- **How to improve:**
+  - Code splitting and lazy loading
+  - Minimize JavaScript execution time
+  - Break up long tasks into smaller chunks
+  - Use Web Workers for heavy computations
+  - Optimize third-party scripts
+- **When to monitor:** For interactive applications, SPAs, and pages with heavy JavaScript
+
+**4. Cumulative Layout Shift (CLS) – Target: < 0.1 (Good), < 0.25 (Needs Improvement)**
+- **Definition:** Measures unexpected movement of visible elements during page load
+- **What it measures:** Visual stability of the page
+- **Why it matters:** Layout shifts frustrate users and can cause accidental clicks
+- **How to improve:**
+  - Set size attributes on images and videos (width, height)
+  - Reserve space for ads, embeds, and iframes
+  - Avoid inserting content above existing content
+  - Use CSS aspect-ratio for responsive images
+  - Preload fonts or use font-display: swap
+- **When to monitor:** Always, especially for pages with dynamic content, ads, or images
+
+**5. Speed Index – Target: < 3.4s (Good), < 5.8s (Needs Improvement)**
+- **Definition:** Measures how quickly page contents are visually populated
+- **What it measures:** Perceived loading speed (how fast the page looks complete)
+- **Why it matters:** Users judge loading speed by visual completeness
+- **How to improve:**
+  - Optimize above-the-fold content
+  - Minimize render-blocking resources
+  - Use progressive rendering
+  - Optimize critical CSS (inline or preload)
+  - Reduce server response time
+- **When to monitor:** For pages where visual completeness is important (landing pages, product pages)
+
+**6. Time to Interactive (TTI) – Target: < 3.8s (Good), < 7.3s (Needs Improvement)**
+- **Definition:** Time until the page is fully interactive (all resources loaded, main thread idle)
+- **What it measures:** When users can actually interact with the page
+- **Why it matters:** Users expect pages to be interactive quickly
+- **How to improve:**
+  - Minimize JavaScript execution time
+  - Reduce main thread work
+  - Code splitting and lazy loading
+  - Optimize third-party scripts
+  - Use efficient JavaScript frameworks
+
+**7. First Input Delay (FID) / Interaction to Next Paint (INP)**
+- **Definition:** Time from first user interaction (click, tap, keypress) until browser responds
+- **What it measures:** Responsiveness to user input
+- **Why it matters:** Users expect immediate feedback from interactions
+- **How to improve:**
+  - Minimize JavaScript execution time
+  - Break up long tasks
+  - Optimize event handlers
+  - Use passive event listeners
+  - Defer non-critical JavaScript
+
+### Pros of Using Browser DevTools
+
+**Development Benefits:**
+- **Real-time debugging:** See changes immediately without page refresh
+- **Comprehensive inspection:** Access to all aspects of web application
+- **Free and built-in:** No additional tools or subscriptions needed
+- **Source maps support:** Debug minified production code
+- **Network throttling:** Test on slow connections without actual slow network
+- **Device emulation:** Test responsive designs without physical devices
+
+**Performance Benefits:**
+- **Identify bottlenecks:** Pinpoint exactly what's slowing down your app
+- **Memory leak detection:** Find and fix memory issues before production
+- **Bundle analysis:** Understand what's in your JavaScript bundles
+- **Core Web Vitals:** Measure and improve user experience metrics
+- **Actionable recommendations:** Get specific suggestions for improvements
+
+**Collaboration Benefits:**
+- **Shareable traces:** Export and share performance data with team
+- **Screenshot and video:** Capture issues for bug reports
+- **Console logs:** Debug issues reported by users
+- **Network logs:** Reproduce API issues
+
+### Cons and Limitations
+
+**Limitations:**
+- **Browser-specific:** Chrome DevTools may differ from Firefox, Safari, Edge
+- **Development environment:** Some features don't work in production (source maps needed)
+- **Learning curve:** Can be overwhelming for beginners
+- **Performance overhead:** DevTools itself can slow down the page slightly
+- **Not always accurate:** Some metrics may differ from real user experience
+- **Requires manual testing:** Doesn't catch all issues automatically
+
+**Challenges:**
+- **Complex interfaces:** Many panels and options can be confusing
+- **Information overload:** Too much data can make it hard to find issues
+- **False positives:** Some warnings may not be actual problems
+- **Time-consuming:** Deep performance analysis can take significant time
+
+### Best Practices
+
+**General:**
 - Use Chrome Canary, Dev, or Beta for latest features
-- Enable experimental features for cutting-edge web platform APIs
-- Regularly update to access new debugging capabilities
-- Use Performance panel for detailed performance analysis
-- Leverage Network panel for debugging API calls and resource loading
+- Keep DevTools updated to access new capabilities
+- Learn keyboard shortcuts for faster workflow
+- Use Workspaces to edit files directly from DevTools
+- Enable "Preserve log" in Console for debugging navigation issues
+
+**Performance:**
+- Run Lighthouse audits regularly (before major releases)
+- Monitor Core Web Vitals in production (use Real User Monitoring)
+- Use Performance panel for detailed runtime analysis
+- Take heap snapshots to track memory usage over time
+- Use Network panel to identify slow resources
+
+**Debugging:**
+- Use breakpoints instead of console.log for complex debugging
+- Utilize conditional breakpoints for specific scenarios
+- Use "Blackbox" feature to skip third-party library code
+- Enable "Pause on exceptions" for error debugging
+- Use "Logpoints" for non-intrusive logging
+
+**Production:**
+- Use source maps for debugging production code
+- Monitor console errors in production
+- Set up error tracking (Sentry, LogRocket, etc.)
+- Use Real User Monitoring (RUM) tools alongside DevTools
+- Test on real devices, not just emulation
+
+### Common Use Cases in Interviews
+
+**Interview Questions You Might Face:**
+- "How do you debug a performance issue in production?"
+- "What tools do you use to optimize web application performance?"
+- "How do you measure and improve Core Web Vitals?"
+- "Explain how you would identify a memory leak."
+- "How do you debug a network request that's failing?"
+- "What's the difference between FCP and LCP?"
+- "How would you optimize a page with poor CLS score?"
+
+**How to Answer:**
+- Start with DevTools as your primary tool
+- Explain the specific panel you'd use (Performance, Network, Memory, etc.)
+- Walk through the process step-by-step
+- Mention metrics you'd look at (Core Web Vitals, bundle size, etc.)
+- Discuss tools you'd use alongside DevTools (Lighthouse, WebPageTest, etc.)
+- Explain how you'd verify improvements
+
+### Summary
+
+Browser development tools, especially Chrome DevTools, are essential for modern web development. They provide comprehensive debugging, performance analysis, and optimization capabilities that help developers build better applications. Understanding how to use these tools effectively is crucial for:
+
+- **Debugging:** Quickly identify and fix issues
+- **Performance:** Optimize applications for speed and efficiency
+- **User Experience:** Ensure applications meet Core Web Vitals standards
+- **Production Issues:** Debug problems in live applications
+- **Team Collaboration:** Share findings and work together on optimizations
+
+Mastering DevTools is not just about knowing which buttons to click—it's about understanding how web applications work, how browsers render pages, and how to systematically identify and solve problems. This knowledge is invaluable in interviews and daily development work.
 
 </expand>
+
+## Secondary Concepts
 
 <expand title="JavaScript RoadMap">
 ## JavaScript RoadMap

@@ -282,29 +282,35 @@ export default function Home() {
       </nav>
 
       {/* Hero Banner Section - Arqam's Info */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-100 via-slate-50 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-slate-300 dark:bg-slate-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-slate-400 dark:bg-slate-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-slate-300 dark:bg-slate-700 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+        <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="text-center md:text-left space-y-6 animate-fade-in">
               <div className="inline-block">
-                <span className="px-4 py-2 bg-slate-600 text-white rounded-full text-sm font-medium shadow-lg">
+                <span className="px-4 py-2 bg-slate-700 dark:bg-slate-600 text-white rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-shadow">
                   Principal Software Engineer & Tech Educator
                 </span>
               </div>
               <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight">
-                Learn with <span className="bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">Arqam</span>
+                Learn with <span className="bg-gradient-to-r from-slate-700 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text text-transparent">Arqam</span>
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300">
-                Master Full-Stack Development with <span className="font-semibold text-slate-700 dark:text-slate-300">9+ Years</span> of Industry Experience
+              <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-200">
+                Master Full-Stack Development with <span className="font-bold text-slate-900 dark:text-white">9+ Years</span> of Industry Experience
               </p>
-              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
                 Hi, I'm <strong className="text-slate-900 dark:text-white">Muhammad Arqam</strong>, a Principal Software Engineer based in Portugal. 
                 I've taught <strong className="text-slate-900 dark:text-white">500+ students</strong> and created comprehensive learning resources to help you master modern web development.
               </p>
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link
                   href="/content"
-                  className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="group px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
                   <FaBook size={16} />
                   <span>Start Learning</span>
@@ -312,7 +318,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/blog"
-                  className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="px-6 py-3 bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
                   <FaNewspaper size={16} />
                   <span>Read Blogs</span>
@@ -321,21 +327,21 @@ export default function Home() {
                   href="https://www.linkedin.com/in/arqam-dev/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 border-2 border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg font-medium hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200 flex items-center space-x-2"
+                  className="px-6 py-3 border-2 border-slate-700 dark:border-slate-500 text-slate-800 dark:text-slate-200 rounded-lg font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 flex items-center space-x-2"
                 >
                   <FaLinkedin size={16} />
                   <span>Connect on LinkedIn</span>
                 </a>
               </div>
-              <div className="pt-4 flex items-center space-x-2 text-sm text-slate-500 dark:text-slate-400">
+              <div className="pt-4 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400">
                 <FaArrowDown className="animate-bounce" size={14} />
                 <span>Scroll to explore more</span>
               </div>
             </div>
             <div className="flex justify-center md:justify-end">
               <Link href="/portfolio" className="relative group cursor-pointer">
-                <div className="absolute inset-0 bg-slate-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl">
+                <div className="absolute inset-0 bg-slate-500 dark:bg-slate-600 rounded-full blur-3xl opacity-30 dark:opacity-20 animate-pulse"></div>
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-700 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl group-hover:border-slate-300 dark:group-hover:border-slate-600">
         <Image
                     src="/arqam-pic.jpg"
                     alt="Muhammad Arqam"
@@ -352,7 +358,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => {
@@ -360,15 +366,15 @@ export default function Home() {
               return (
               <div
                 key={index}
-                  className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
+                  className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transform hover:scale-105"
               >
-                  <div className={`inline-flex p-4 rounded-full bg-gradient-to-r ${stat.color} mb-4`}>
+                  <div className={`inline-flex p-4 rounded-full bg-gradient-to-r ${stat.color} mb-4 shadow-md`}>
                     <Icon className="text-white" size={32} />
                     </div>
                   <div className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">
+                  <div className="text-sm text-slate-700 dark:text-slate-300 font-semibold">
                     {stat.label}
                   </div>
                 </div>
@@ -379,32 +385,32 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-slate-900 dark:text-white">
             Why Learn with CodeWithArqam?
           </h2>
-          <p className="text-center text-lg text-slate-600 dark:text-slate-400 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-lg text-slate-700 dark:text-slate-300 mb-12 max-w-2xl mx-auto">
             Comprehensive learning resources designed by industry experts to help you succeed in your tech career.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               const colorClasses = {
-                slate: "from-slate-500 to-slate-600"
+                slate: "from-slate-600 to-slate-700"
               };
               return (
                 <div
                   key={index}
-                  className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700"
+                  className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transform hover:scale-105"
                 >
-                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${colorClasses[feature.color as keyof typeof colorClasses]} mb-4`}>
+                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${colorClasses[feature.color as keyof typeof colorClasses]} mb-4 shadow-md`}>
                     <Icon className="text-white" size={24} />
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-400">
+                  <p className="text-slate-700 dark:text-slate-300">
                     {feature.description}
                   </p>
                 </div>

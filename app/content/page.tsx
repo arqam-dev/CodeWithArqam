@@ -91,6 +91,9 @@ const concepts: Concept[] = [
   { name: "Soft Skills", slug: "softskills", category: "Professional", icon: FaUsers, description: "Communication, teamwork, and career development" },
   { name: "Sales & Pre-Sales", slug: "sales-presales", category: "Professional", icon: FaUsers, description: "Technical sales and client engagement" },
   { name: "PMP", slug: "pmp", category: "Professional", icon: FaGraduationCap, description: "Project management and PMP certification" },
+  
+  // Prompt Engineering
+  { name: "Prompt Engineering", slug: "promptengineering", category: "Tools", icon: FaBrain, description: "Master AI prompt engineering for error handling, new features, updates, and code review" },
 ];
 
 const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
