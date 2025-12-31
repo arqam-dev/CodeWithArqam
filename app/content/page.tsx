@@ -141,6 +141,7 @@ function ContentPageContent() {
   });
 
   const showInterviewQuestions = selectedCategory === "Interview Questions";
+  const showInterviewQuestionsInAll = selectedCategory === "All";
 
   const groupedConcepts = filteredConcepts.reduce((acc, concept) => {
     if (!acc[concept.category]) {
@@ -256,7 +257,7 @@ function ContentPageContent() {
                       setSelectedCategory(category);
                       setIsSidebarOpen(false);
                     }}
-                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-visible group ${
+                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-visible group cursor-pointer ${
                       isSelected
                         ? isInterviewQuestions
                           ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white font-semibold shadow-lg shadow-slate-500/30 scale-[1.02]"
@@ -319,7 +320,7 @@ function ContentPageContent() {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-visible ${
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-visible cursor-pointer ${
                       isSelected
                         ? isInterviewQuestions
                           ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white shadow-lg shadow-slate-500/30 scale-105"
@@ -351,71 +352,8 @@ function ContentPageContent() {
             </div>
           </div>
 
-          {/* Interview Questions Section - Shown when category is selected */}
-          {showInterviewQuestions ? (
-            <div className="space-y-8 animate-fadeIn">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-200/20 via-slate-300/20 to-slate-200/20 dark:from-slate-700/20 dark:via-slate-600/20 dark:to-slate-700/20 rounded-2xl blur-2xl"></div>
-                <div className="relative bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-800/50 dark:via-slate-700/50 dark:to-slate-800/50 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-700">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full blur-lg opacity-30 dark:opacity-20 animate-pulse"></div>
-                      <div className="relative p-4 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 rounded-full">
-                        <FaQuestionCircle className="text-white" size={32} />
-                      </div>
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
-                        Interview Questions
-                      </h2>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Prepare for your next technical interview with comprehensive Q&A
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {interviewQuestionCategories.map((category, index) => {
-                      const Icon = category.icon;
-                      return (
-                        <Link
-                          key={category.slug}
-                          href={`/interview-questions/${category.slug}`}
-                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer overflow-hidden"
-                          style={{
-                            animationDelay: `${index * 100}ms`,
-                            animation: 'fadeInUp 0.6s ease-out forwards'
-                          }}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-br from-slate-100/0 via-slate-200/0 to-slate-100/0 dark:from-slate-700/0 dark:via-slate-600/0 dark:to-slate-700/0 group-hover:from-slate-100/50 group-hover:via-slate-200/50 group-hover:to-slate-100/50 dark:group-hover:from-slate-700/30 dark:group-hover:via-slate-600/30 dark:group-hover:to-slate-700/30 transition-all duration-500"></div>
-                          <div className="relative">
-                            <div className="flex items-center space-x-3 mb-3">
-                              <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-slate-300 to-slate-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 dark:group-hover:opacity-20 transition-opacity duration-300"></div>
-                                <div className="relative p-3 bg-slate-100 dark:bg-slate-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                                  <Icon className="text-slate-600 dark:text-slate-300" size={24} />
-                                </div>
-                              </div>
-                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
-                                {category.name}
-                              </h3>
-                            </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
-                              {category.description}
-                            </p>
-                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                              <span>View Questions</span>
-                              <FaChevronRight className="transform group-hover:translate-x-1 transition-transform" size={12} />
-                            </div>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            /* Concepts Grid */
+          {/* Concepts Grid */}
+          {!showInterviewQuestions && (
             Object.keys(groupedConcepts).length === 0 ? (
               <div className="text-center py-12">
                 <FaQuestionCircle className="mx-auto text-slate-400 mb-4" size={48} />
@@ -501,6 +439,71 @@ function ContentPageContent() {
                 ))}
               </div>
             )
+          )}
+
+          {/* Interview Questions Section - Shown when "Interview Questions" category is selected OR when "All" is selected (at the end) */}
+          {(showInterviewQuestions || showInterviewQuestionsInAll) && (
+            <div className={`space-y-8 animate-fadeIn ${showInterviewQuestionsInAll ? 'mt-12' : ''}`}>
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-200/20 via-slate-300/20 to-slate-200/20 dark:from-slate-700/20 dark:via-slate-600/20 dark:to-slate-700/20 rounded-2xl blur-2xl"></div>
+                <div className="relative bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-800/50 dark:via-slate-700/50 dark:to-slate-800/50 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center space-x-4 mb-6">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full blur-lg opacity-30 dark:opacity-20 animate-pulse"></div>
+                      <div className="relative p-4 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 rounded-full">
+                        <FaQuestionCircle className="text-white" size={32} />
+                      </div>
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
+                        Interview Questions
+                      </h2>
+                      <p className="text-slate-600 dark:text-slate-400 mt-1">
+                        Prepare for your next technical interview with comprehensive Q&A
+                      </p>
+                    </div>
+                  </div>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {interviewQuestionCategories.map((category, index) => {
+                      const Icon = category.icon;
+                      return (
+                        <Link
+                          key={category.slug}
+                          href={`/interview-questions/${category.slug}`}
+                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer overflow-hidden"
+                          style={{
+                            animationDelay: `${index * 100}ms`,
+                            animation: 'fadeInUp 0.6s ease-out forwards'
+                          }}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-slate-100/0 via-slate-200/0 to-slate-100/0 dark:from-slate-700/0 dark:via-slate-600/0 dark:to-slate-700/0 group-hover:from-slate-100/50 group-hover:via-slate-200/50 group-hover:to-slate-100/50 dark:group-hover:from-slate-700/30 dark:group-hover:via-slate-600/30 dark:group-hover:to-slate-700/30 transition-all duration-500"></div>
+                          <div className="relative">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className="relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-slate-300 to-slate-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 dark:group-hover:opacity-20 transition-opacity duration-300"></div>
+                                <div className="relative p-3 bg-slate-100 dark:bg-slate-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                                  <Icon className="text-slate-600 dark:text-slate-300" size={24} />
+                                </div>
+                              </div>
+                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
+                                {category.name}
+                              </h3>
+                            </div>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
+                              {category.description}
+                            </p>
+                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+                              <span>View Questions</span>
+                              <FaChevronRight className="transform group-hover:translate-x-1 transition-transform" size={12} />
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
           )}
         </main>
       </div>
