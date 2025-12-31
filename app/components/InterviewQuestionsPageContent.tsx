@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes, FaLightbulb, FaBrain, FaBars } from "react-icons/fa";
+import { FaArrowLeft, FaChevronDown, FaChevronUp, FaCopy, FaCheck, FaExpand, FaTimes, FaLightbulb, FaBrain, FaBars, FaSearch } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 
 interface InterviewQuestionsPageContentProps {
@@ -25,6 +25,7 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
   const [fullscreenQuestion, setFullscreenQuestion] = useState<string | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
   
   // Enable copy/fullscreen for all interview questions
   const enableCopyFullscreen = true;
@@ -76,9 +77,31 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
     return { general, scenario };
   };
 
-  const { general, scenario } = parseContent();
+  const { general: allGeneral, scenario: allScenario } = parseContent();
 
-  // Sidebar sections - only high-level categories
+  // Filter questions based on search query
+  const filterQuestions = (questions: QuestionSection[]) => {
+    if (!searchQuery.trim()) return questions;
+    
+    const query = searchQuery.toLowerCase();
+    return questions.filter(section => {
+      // Search in title
+      const titleMatch = section.title.toLowerCase().includes(query);
+      
+      // Search in question text
+      const questionMatch = section.question.toLowerCase().includes(query);
+      
+      // Search in answer text
+      const answerMatch = section.answer.toLowerCase().includes(query);
+      
+      return titleMatch || questionMatch || answerMatch;
+    });
+  };
+
+  const general = filterQuestions(allGeneral);
+  const scenario = filterQuestions(allScenario);
+
+  // Sidebar sections - only high-level categories (use filtered counts)
   const sidebarSections = [
     { id: "general-questions", title: "General Questions", count: general.length },
     { id: "scenario-questions", title: "Scenario Questions", count: scenario.length },
@@ -308,6 +331,34 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
             }}
           >
             <div className="p-4">
+              {/* Search Bar - Available on all interview question pages */}
+              <div className="mb-4">
+                <div className="relative">
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500" size={14} />
+                  <input
+                    type="text"
+                    placeholder="Search questions..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent transition-all"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+                      aria-label="Clear search"
+                    >
+                      <FaTimes size={12} />
+                    </button>
+                  )}
+                </div>
+                {searchQuery && (
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    {general.length + scenario.length} result{(general.length + scenario.length) !== 1 ? 's' : ''}
+                  </p>
+                )}
+              </div>
+              
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Quick Navigation</h2>
                 <button
