@@ -20,9 +20,6 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  
-  // Check if this is the JavaScript page
-  const isJavaScriptPage = pathname?.includes('/javascript') || displayName?.toLowerCase() === 'javascript';
 
   // Helper function to convert to title case
   const toTitleCase = (str: string): string => {
@@ -127,8 +124,8 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
     });
   }
 
-  // Filter parts based on search query (only for JavaScript page)
-  const parts = isJavaScriptPage && searchQuery.trim() ? allParts.filter(part => {
+  // Filter parts based on search query
+  const parts = searchQuery.trim() ? allParts.filter(part => {
     if (part.type === "expandable") {
       // Search in title
       const titleMatch = part.title?.toLowerCase().includes(searchQuery.toLowerCase());
@@ -186,35 +183,33 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
             }}
           >
             <div className="p-4">
-              {/* Search Bar - Only for JavaScript page */}
-              {isJavaScriptPage && (
-                <div className="mb-4">
-                  <div className="relative">
-                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500" size={14} />
-                    <input
-                      type="text"
-                      placeholder="Search concepts..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent transition-all"
-                    />
-                    {searchQuery && (
-                      <button
-                        onClick={() => setSearchQuery("")}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
-                        aria-label="Clear search"
-                      >
-                        <FaTimes size={12} />
-                      </button>
-                    )}
-                  </div>
+              {/* Search Bar - Available on all concept pages */}
+              <div className="mb-4">
+                <div className="relative">
+                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500" size={14} />
+                  <input
+                    type="text"
+                    placeholder="Search concepts..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent transition-all"
+                  />
                   {searchQuery && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                      {parts.filter(p => p.type === "expandable").length} result{parts.filter(p => p.type === "expandable").length !== 1 ? 's' : ''}
-                    </p>
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+                      aria-label="Clear search"
+                    >
+                      <FaTimes size={12} />
+                    </button>
                   )}
                 </div>
-              )}
+                {searchQuery && (
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                    {parts.filter(p => p.type === "expandable").length} result{parts.filter(p => p.type === "expandable").length !== 1 ? 's' : ''}
+                  </p>
+                )}
+              </div>
               
               <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
                 <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Quick Navigation</h2>
