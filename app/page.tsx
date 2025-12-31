@@ -136,14 +136,14 @@ export default function Home() {
                 href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <FaCalendarAlt size={14} />
                 <span>Book Free Mentoring</span>
               </a>
               <Link
                 href="/content"
-                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
@@ -156,7 +156,7 @@ export default function Home() {
                 onMouseLeave={() => setShowSocialDropdown(false)}
               >
                 <button
-                  className="px-3 py-2 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 dark:from-slate-800 dark:to-slate-700 border border-blue-200 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-200 cursor-pointer relative group"
+                  className="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-200 cursor-pointer relative group"
                   aria-label="Social Media"
                 >
                   <div className="flex items-center space-x-2">
@@ -263,7 +263,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-slate-600 hover:bg-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <FaCalendarAlt size={14} />
                 <span>Book Free Mentoring</span>
@@ -271,7 +271,7 @@ export default function Home() {
               <Link
                 href="/content"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-slate-600 hover:bg-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
@@ -282,12 +282,12 @@ export default function Home() {
       </nav>
 
       {/* Hero Banner Section - Arqam's Info */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="text-center md:text-left space-y-6 animate-fade-in">
               <div className="inline-block">
-                <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-medium shadow-lg">
+                <span className="px-4 py-2 bg-slate-600 text-white rounded-full text-sm font-medium shadow-lg">
                   Principal Software Engineer & Tech Educator
                 </span>
               </div>
@@ -295,7 +295,7 @@ export default function Home() {
                 Learn with <span className="bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">Arqam</span>
               </h1>
               <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300">
-                Master Full-Stack Development with <span className="font-semibold text-blue-600 dark:text-blue-400">9+ Years</span> of Industry Experience
+                Master Full-Stack Development with <span className="font-semibold text-slate-700 dark:text-slate-300">9+ Years</span> of Industry Experience
               </p>
               <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
                 Hi, I'm <strong className="text-slate-900 dark:text-white">Muhammad Arqam</strong>, a Principal Software Engineer based in Portugal. 
@@ -304,16 +304,15 @@ export default function Home() {
               <div className="flex flex-wrap gap-4 pt-4">
                 <Link
                   href="/content"
-                  className="group px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 relative overflow-hidden"
+                  className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <FaBook size={16} className="relative z-10" />
-                  <span className="relative z-10">Start Learning</span>
-                  <FaArrowRight size={14} className="relative z-10 transform group-hover:translate-x-1 transition-transform" />
+                  <FaBook size={16} />
+                  <span>Start Learning</span>
+                  <FaArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="/blog"
-                  className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="px-6 py-3 bg-slate-600 hover:bg-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
                   <FaNewspaper size={16} />
                   <span>Read Blogs</span>
@@ -335,7 +334,7 @@ export default function Home() {
             </div>
             <div className="flex justify-center md:justify-end">
               <Link href="/portfolio" className="relative group cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                <div className="absolute inset-0 bg-slate-400 rounded-full blur-3xl opacity-20 animate-pulse"></div>
                 <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl">
         <Image
                     src="/arqam-pic.jpg"
@@ -415,69 +414,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Jobs Section - Engaging and Prominent */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 dark:from-slate-800 dark:via-slate-900 dark:to-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-100 dark:bg-emerald-900/30 rounded-full mb-4">
-              <FaStar className="text-emerald-600 dark:text-emerald-400" size={16} />
-              <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">We're Hiring!</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
-              Join Our Team
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-              Explore exciting career opportunities and be part of a team that's shaping the future of software development education.
-            </p>
-          </div>
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 md:p-12 shadow-2xl border-2 border-emerald-200 dark:border-emerald-800 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="flex items-center justify-center mb-6">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-                    <div className="relative p-6 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full">
-                      <FaBriefcase className="text-white" size={40} />
-                    </div>
-                  </div>
-                </div>
-                <h3 className="text-3xl font-bold text-center mb-4 text-slate-900 dark:text-white">
-                  Open Positions Available
-                </h3>
-                <p className="text-lg text-center text-slate-600 dark:text-slate-300 mb-8">
-                  We're looking for talented developers, educators, and tech enthusiasts to join our mission of making quality tech education accessible to everyone.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="https://www.linkedin.com/company/106984678/admin/posted-jobs/open/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative px-8 py-4 bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white rounded-xl font-bold text-lg shadow-2xl hover:shadow-emerald-500/50 transform hover:scale-110 transition-all duration-300 flex items-center justify-center space-x-3 overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                    <FaBriefcase className="relative z-10" size={20} />
-                    <span className="relative z-10">View Open Jobs</span>
-                    <FaHandPointRight className="relative z-10 transform group-hover:translate-x-2 transition-transform" size={18} />
-                  </a>
-                </div>
-                <p className="text-sm text-center text-slate-500 dark:text-slate-400 mt-6">
-                  <FaArrowDown className="inline-block mr-2 animate-bounce" size={14} />
-                  Click to explore opportunities on LinkedIn
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Latest Blog Posts Preview Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-900 dark:text-white">
@@ -493,12 +431,12 @@ export default function Home() {
               className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
-                  <FaNewspaper className="text-white" size={24} />
+                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                  <FaNewspaper className="text-slate-600 dark:text-slate-300" size={24} />
                 </div>
                 <div>
-                  <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide">Featured</span>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Featured</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     How AI is Changing the Job Market for Software Engineers
                   </h3>
                 </div>
@@ -506,7 +444,7 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-400 mb-4">
                 Explore how artificial intelligence is reshaping software engineering careers, from automation to new opportunities.
               </p>
-              <div className="flex items-center text-purple-600 dark:text-purple-400 font-semibold">
+              <div className="flex items-center text-slate-700 dark:text-slate-300 font-semibold">
                 <span>Read More</span>
                 <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
               </div>
@@ -516,12 +454,12 @@ export default function Home() {
               className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
-                  <FaServer className="text-white" size={24} />
+                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                  <FaServer className="text-slate-600 dark:text-slate-300" size={24} />
                 </div>
                 <div>
-                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">Technical</span>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Technical</span>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     What is MCP Server and When to Use It?
                   </h3>
                 </div>
@@ -529,7 +467,7 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-400 mb-4">
                 Understand Model Context Protocol servers, their purpose, and how they compare to traditional API approaches.
               </p>
-              <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold">
+              <div className="flex items-center text-slate-700 dark:text-slate-300 font-semibold">
                 <span>Read More</span>
                 <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
               </div>
@@ -538,7 +476,7 @@ export default function Home() {
           <div className="text-center">
             <Link
               href="/blog"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200"
             >
               <FaNewspaper size={16} />
               <span>View All Blog Posts</span>
@@ -577,7 +515,7 @@ export default function Home() {
                       {category.count}
                     </span>
               </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     {category.name}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -660,6 +598,22 @@ export default function Home() {
                 </a>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Jobs Section - Simple Button at the End */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
+        <div className="max-w-4xl mx-auto text-center">
+          <a
+            href="https://www.linkedin.com/company/106984678/admin/posted-jobs/open/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
+          >
+            <FaBriefcase size={16} />
+            <span>View Open Positions</span>
+            <FaArrowRight size={14} />
+          </a>
         </div>
       </section>
 
