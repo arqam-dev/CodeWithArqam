@@ -1199,62 +1199,148 @@ Service A → Event Bus (Kafka) → Service B
 **Question:** How would you design a system to handle both read-heavy and write-heavy workloads?
 
 **Answer:**
-**CQRS (Command Query Responsibility Segregation) Pattern:**
+The key is to separate and optimize reads and writes independently. Here are multiple approaches, from simple to advanced:
 
-**Separate Read and Write Models:**
+**Approach 1: Read Replicas (Simplest - Most Common):**
 
-1. **Write Model (Command Side):**
-   - Optimized for writes
-   - Normalized database
-   - Handles business logic
-   - **Example:** User registration, order creation
-
-2. **Read Model (Query Side):**
-   - Optimized for reads
-   - Denormalized database
-   - Materialized views
-   - **Example:** User dashboard, reports
+**How it works:**
+- One master database handles all writes
+- Multiple replica databases handle all reads
+- Master automatically copies data to replicas
 
 **Architecture:**
 ```
-Write API → Write Database (Normalized)
-              ↓ (Events)
-          Event Bus
-              ↓
-          Read Database (Denormalized) ← Read API
+Write Requests → Master Database (Writes only)
+                      ↓ (Replication)
+Read Requests → Read Replica 1, 2, 3... (Reads only)
 ```
 
-**Implementation:**
+**Example:**
+- User creates order → Write to master
+- User views order history → Read from replica
+- **Benefit:** Reads don't slow down writes, can scale reads independently
 
-1. **Write Path:**
-   - Write to normalized database
-   - Publish events
-   - Return success
+**When to use:**
+- Simple setup needed
+- Can tolerate slight delay (few seconds) for read consistency
+- Most common first approach
 
-2. **Read Path:**
-   - Read from denormalized database
-   - Fast queries (no joins needed)
-   - Optimized indexes
+**Approach 2: Caching Layer (Very Common):**
 
-3. **Sync:**
-   - Event handlers update read model
-   - Async process
-   - Eventual consistency acceptable
+**How it works:**
+- Writes go to database
+- Frequently read data stored in fast cache (Redis)
+- Reads check cache first, then database
 
-**Benefits:**
-- Optimize each model independently
-- Scale reads and writes separately
-- Better performance for both operations
+**Architecture:**
+```
+Write → Database
+Read → Check Cache (Redis) → If miss, read Database → Store in Cache
+```
 
-**Use Cases:**
-- E-commerce (writes: orders, reads: product catalog)
-- Social media (writes: posts, reads: feeds)
-- Analytics (writes: events, reads: dashboards)
+**Example:**
+- User updates profile → Write to database, invalidate cache
+- User views profile → Check Redis cache first, if found return immediately, if not read from database
+- **Benefit:** Reads are super fast, writes unaffected
 
-**Trade-offs:**
-- Eventual consistency
-- More complexity
-- Need to handle sync failures
+**When to use:**
+- Same data read many times
+- Can accept slightly stale data
+- Need very fast reads
+
+**Approach 3: Separate Read/Write Databases (CQRS Pattern):**
+
+**How it works:**
+- Write database: Optimized for writes (normalized, fast inserts)
+- Read database: Optimized for reads (denormalized, pre-computed data)
+- Events sync data from write to read database
+
+**Architecture:**
+```
+Write API → Write Database (Normalized, fast writes)
+                ↓ (Events/Async)
+            Event Bus
+                ↓
+            Read Database (Denormalized, fast reads) ← Read API
+```
+
+**Simple Explanation:**
+- **Write side:** When user creates order, write to write database (simple, fast)
+- **Read side:** Read database has pre-computed order summaries (no joins needed, super fast)
+- **Sync:** Background process copies/transforms data from write DB to read DB
+
+**Example:**
+- User creates order → Write to write database → Event published
+- Background job processes event → Updates read database with order summary
+- User views orders → Read from read database (already formatted, no joins)
+
+**When to use:**
+- Very different read and write patterns
+- Need to optimize both heavily
+- Can accept eventual consistency (few seconds delay)
+
+**Approach 4: Database Sharding/Partitioning:**
+
+**How it works:**
+- Split database into multiple smaller databases (shards)
+- Route writes to different shards based on key (e.g., user ID)
+- Route reads to same shard
+
+**Architecture:**
+```
+Write → Shard 1 (Users 1-1000)
+Write → Shard 2 (Users 1001-2000)
+Read → Route to correct shard based on user ID
+```
+
+**Example:**
+- User 500 creates order → Write to Shard 1
+- User 500 views orders → Read from Shard 1
+- **Benefit:** Each shard handles less load, both reads and writes faster
+
+**When to use:**
+- Very large dataset
+- Can partition by user/region
+- Need to scale beyond single database limits
+
+**Approach 5: Hybrid Approach (Most Production Systems Use This):**
+
+**Combine multiple techniques:**
+
+1. **Read Replicas** for scaling reads
+2. **Caching** for frequently accessed data
+3. **Write optimization** (batch writes, async processing)
+4. **CDN** for static content
+
+**Example E-Commerce System:**
+```
+Writes:
+- Order creation → Master database
+- Inventory update → Master database
+
+Reads:
+- Product catalog → CDN (static) + Cache (dynamic)
+- User orders → Read replica + Cache
+- Product search → Read replica (optimized indexes)
+```
+
+**Real-World Example:**
+- **Write:** User places order → Write to master DB → Update cache
+- **Read:** User views product → Check CDN → Check cache → Check read replica → Return
+
+**Which Approach to Choose:**
+
+1. **Start Simple:** Read Replicas + Caching (covers 80% of cases)
+2. **If still slow:** Add CQRS for complex read patterns
+3. **If very large:** Add Sharding
+4. **Most systems:** Use Hybrid (combine 2-3 approaches)
+
+**Best Practices:**
+- Always use read replicas for read-heavy workloads
+- Always use caching for hot data
+- Use CQRS only if read/write patterns are very different
+- Monitor and measure before optimizing
+- Start simple, add complexity only when needed
 </expand>
 
 <expand title="Scenario: Design a URL shortener like bit.ly. How would you architect it?">
