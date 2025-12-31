@@ -560,6 +560,91 @@ Use canary for production, blue-green for staging/testing.
 Design stateless services for better scalability.
 </expand>
 
+<expand title="If you are using AWS API Gateway or any API Gateway, do you still need a Load Balancer?">
+**Question:** If you are using AWS API Gateway or any API Gateway, do you still need a Load Balancer?
+
+**Answer:**
+**Short Answer:** Usually NO, but it depends on your architecture.
+
+**API Gateway vs Load Balancer:**
+
+**API Gateway:**
+- **What it does:** Single entry point for external clients, routes to microservices
+- **Features:** Authentication, rate limiting, request routing, API versioning, request/response transformation
+- **Load Balancing:** API Gateway CAN do load balancing to backend services
+- **Use Case:** External-facing APIs, microservices architecture
+
+**Load Balancer:**
+- **What it does:** Distributes traffic across multiple servers/instances
+- **Features:** Health checks, session persistence, SSL termination
+- **Use Case:** Internal server load distribution
+
+**Do You Need Both?**
+
+**Scenario 1: API Gateway → Microservices (Most Common)**
+```
+Client → API Gateway → [Service 1, Service 2, Service 3]
+                      (API Gateway handles load balancing internally)
+```
+- **Answer:** NO, you don't need a separate load balancer
+- API Gateway already distributes requests across multiple instances of your services
+- API Gateway acts as both API gateway AND load balancer
+
+**Scenario 2: API Gateway → Load Balancer → Servers**
+```
+Client → API Gateway → Load Balancer → [Server 1, Server 2, Server 3]
+```
+- **Answer:** YES, if you need advanced load balancing features
+- **When needed:**
+  - API Gateway doesn't support your specific load balancing algorithm
+  - You need sticky sessions at load balancer level
+  - You have legacy infrastructure that requires load balancer
+  - You need more control over traffic distribution
+
+**Scenario 3: Direct Access (No API Gateway)**
+```
+Client → Load Balancer → [Server 1, Server 2, Server 3]
+```
+- **Answer:** YES, you need load balancer
+- No API Gateway, so load balancer is required for distributing traffic
+
+**Most Common Architecture (Recommended):**
+```
+Internet → API Gateway → Microservices (auto-scaled)
+                        (API Gateway handles load balancing)
+```
+- **No separate load balancer needed**
+- API Gateway provides:
+  - Load balancing across service instances
+  - Authentication/authorization
+  - Rate limiting
+  - Request routing
+  - Monitoring
+
+**When You Might Need Both:**
+1. **Hybrid Architecture:**
+   - API Gateway for external APIs
+   - Load Balancer for internal services not exposed through API Gateway
+
+2. **Advanced Requirements:**
+   - Need specific load balancing algorithms not supported by API Gateway
+   - Need layer 4 (TCP) load balancing (API Gateway is usually layer 7/HTTP)
+
+3. **Legacy Systems:**
+   - Existing infrastructure already uses load balancers
+   - Gradual migration to API Gateway
+
+**Best Practice:**
+- **For new projects:** Use API Gateway only (it includes load balancing)
+- **For existing projects:** Evaluate if you can remove load balancer when adding API Gateway
+- **Cost consideration:** API Gateway + Load Balancer = extra cost, usually unnecessary
+
+**Summary:**
+- API Gateway CAN do load balancing, so usually you DON'T need a separate load balancer
+- Load balancer is NOT useless - it's useful when you don't have API Gateway or need advanced features
+- Most modern architectures use API Gateway which handles both API management and load balancing
+</expand>
+
 <expand title="What is the difference between eventual and strong consistency?">
 **Question:** What is the difference between eventual and strong consistency?
 
@@ -661,6 +746,90 @@ Use read replicas for read-heavy workloads, keep writes on master.
 
 **Best Practice:**
 Use push for real-time, polling for simple cases.
+</expand>
+
+<expand title="If something goes wrong in production, what is your first approach to troubleshoot?">
+**Question:** If something goes wrong in production, what is your first approach to troubleshoot?
+
+**Answer:**
+**Systematic Troubleshooting Approach:**
+
+**1. Check Logs (First Step - Most Important):**
+   - **Application logs:** Check error logs, exception logs, stack traces
+   - **Server logs:** Check server error logs, access logs
+   - **Database logs:** Check slow queries, connection errors, deadlocks
+   - **Infrastructure logs:** Check load balancer logs, API gateway logs
+   - **Where to look:** CloudWatch, ELK stack, Splunk, application log files
+   - **What to look for:** Error messages, timestamps, request IDs, user IDs
+
+**2. Check Monitoring & Metrics:**
+   - **System metrics:** CPU, memory, disk usage, network traffic
+   - **Application metrics:** Response times, error rates, request counts
+   - **Database metrics:** Connection pool usage, query performance, replication lag
+   - **Service health:** Health check endpoints, service status
+   - **Tools:** Grafana, Datadog, New Relic, CloudWatch dashboards
+
+**3. Check Recent Changes:**
+   - **Deployment history:** What was deployed recently? (last hour, last day)
+   - **Configuration changes:** Any config changes? Environment variables?
+   - **Code changes:** Recent commits, hotfixes
+   - **Infrastructure changes:** Scaling events, infrastructure updates
+
+**4. Check Service Dependencies:**
+   - **External APIs:** Are third-party services down? (payment gateways, email services)
+   - **Database:** Is database accessible? Connection pool exhausted?
+   - **Cache:** Is Redis/Memcached available?
+   - **Message queues:** Are queues processing? Any backlog?
+   - **CDN:** Is CDN serving content?
+
+**5. Check Traffic Patterns:**
+   - **Traffic spike:** Sudden increase in requests? (DDoS, viral content)
+   - **Geographic issues:** Issues in specific regions?
+   - **User-specific:** Affecting all users or specific users?
+   - **Time-based:** Started at specific time? (deployment time, peak hours)
+
+**6. Check Error Patterns:**
+   - **Error types:** What errors are occurring? (500, 503, timeout, database errors)
+   - **Affected endpoints:** Which APIs/endpoints are failing?
+   - **User impact:** How many users affected? Percentage of requests failing?
+
+**7. Immediate Actions (While Investigating):**
+   - **Rollback:** If recent deployment, consider rolling back
+   - **Scale up:** Temporarily increase resources (servers, database connections)
+   - **Circuit breakers:** Enable circuit breakers if services are failing
+   - **Rate limiting:** Implement rate limiting if traffic spike
+   - **Communication:** Notify team, update status page
+
+**8. Root Cause Analysis:**
+   - **Correlate:** Match error logs with metrics, deployment times, traffic patterns
+   - **Reproduce:** Try to reproduce issue in staging environment
+   - **Test fixes:** Test potential fixes before applying to production
+   - **Document:** Document the issue, root cause, and fix for future reference
+
+**Example Troubleshooting Flow:**
+```
+1. User reports: "Website is slow"
+   ↓
+2. Check logs → See database timeout errors
+   ↓
+3. Check metrics → Database CPU at 100%, connection pool exhausted
+   ↓
+4. Check recent changes → New feature deployed 30 minutes ago
+   ↓
+5. Check code → New feature has N+1 query problem
+   ↓
+6. Immediate fix → Rollback deployment
+   ↓
+7. Long-term fix → Fix N+1 query, add database indexes
+```
+
+**Best Practices:**
+- Set up comprehensive logging and monitoring BEFORE issues occur
+- Use distributed tracing to track requests across services
+- Set up alerts for critical metrics (error rates, response times)
+- Have runbooks for common issues
+- Practice incident response regularly
+- Document all incidents and learnings
 </expand>
 
 ## Scenario-Based Questions & Answers
