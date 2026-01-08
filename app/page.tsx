@@ -88,12 +88,12 @@ export default function Home() {
   ];
 
   const categories = [
-    { name: "Frontend", icon: FaCode, count: 5, color: "slate", description: "JavaScript, React, Angular, HTML, CSS" },
-    { name: "Backend", icon: FaServer, count: 2, color: "slate", description: "Node.js, GraphQL, APIs" },
-    { name: "Full Stack", icon: FaLaptopCode, count: 1, color: "slate", description: "Next.js, Full-stack frameworks" },
-    { name: "Cloud", icon: FaCloud, count: 3, color: "slate", description: "AWS, DevOps, Cloud Computing" },
-    { name: "Database", icon: FaDatabase, count: 1, color: "slate", description: "SQL, NoSQL, Database Design" },
-    { name: "CS Fundamentals", icon: FaBrain, count: 5, color: "slate", description: "Data Structures, OOP, OS, Networking" }
+    { name: "Frontend", icon: FaCode, count: 5, gradient: "from-blue-500 to-cyan-500", description: "JavaScript, React, Angular, HTML, CSS" },
+    { name: "Backend", icon: FaServer, count: 2, gradient: "from-purple-500 to-indigo-500", description: "Node.js, GraphQL, APIs" },
+    { name: "Full Stack", icon: FaLaptopCode, count: 1, gradient: "from-emerald-500 to-teal-500", description: "Next.js, Full-stack frameworks" },
+    { name: "Cloud", icon: FaCloud, count: 3, gradient: "from-sky-500 to-blue-500", description: "AWS, DevOps, Cloud Computing" },
+    { name: "Database", icon: FaDatabase, count: 1, gradient: "from-orange-400 to-amber-500", description: "SQL, NoSQL, Database Design" },
+    { name: "CS Fundamentals", icon: FaBrain, count: 5, gradient: "from-pink-400 to-rose-500", description: "Data Structures, OOP, OS, Networking" }
   ];
 
   return (
@@ -127,7 +127,7 @@ export default function Home() {
             <div className="hidden md:flex items-center space-x-4">
               <Link
                 href="/portfolio"
-                className="px-4 py-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <FaUsers size={14} />
                 <span>My Portfolio</span>
@@ -136,14 +136,14 @@ export default function Home() {
                 href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <FaCalendarAlt size={14} />
                 <span>Book Free Mentoring</span>
               </a>
               <Link
                 href="/content"
-                className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
@@ -253,7 +253,7 @@ export default function Home() {
               <Link
                 href="/portfolio"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <FaUsers size={14} />
                 <span>My Portfolio</span>
@@ -263,7 +263,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-slate-600 hover:bg-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <FaCalendarAlt size={14} />
                 <span>Book Free Mentoring</span>
@@ -271,7 +271,7 @@ export default function Home() {
               <Link
                 href="/content"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-slate-600 hover:bg-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
@@ -293,15 +293,23 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="text-center md:text-left space-y-6 animate-fade-in">
               <div className="inline-block">
-                <span className="px-4 py-2 bg-gradient-to-r from-indigo-500 to-blue-500 dark:from-indigo-600 dark:to-blue-600 text-white rounded-full text-sm font-medium shadow-md">
+                <span className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 dark:from-emerald-600 dark:to-teal-600 text-white rounded-full text-sm font-medium shadow-md">
                   Principal Software Engineer & Tech Educator
                 </span>
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight">
-                Learn with <span className="bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-400 dark:to-blue-400 bg-clip-text text-transparent">Arqam</span>
+              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
+                Learn with <span 
+                  className="bg-gradient-to-r from-emerald-500 via-teal-500 to-transparent dark:from-emerald-400 dark:via-teal-400 bg-clip-text text-transparent inline-block"
+                  style={{
+                    backgroundImage: 'linear-gradient(to right, rgb(16, 185, 129), rgb(20, 184, 166), rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.2), transparent)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text'
+                  }}
+                >Arqam</span>
               </h1>
               <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-200">
-                Master Full-Stack Development with <span className="font-bold text-indigo-600 dark:text-indigo-400">9+ Years</span> of Industry Experience
+                Master Full-Stack Development with <span className="font-bold text-emerald-600 dark:text-emerald-400">9+ Years</span> of Industry Experience
               </p>
               <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
                 Hi, I'm <strong className="text-slate-900 dark:text-white">Muhammad Arqam</strong>, a Principal Software Engineer based in Portugal. 
@@ -310,22 +318,51 @@ export default function Home() {
               <div className="pt-6">
                 <Link
                   href="/content"
-                  className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                  className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 text-white rounded-xl font-bold text-base shadow-xl hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transform hover:scale-105 active:scale-100 transition-all duration-300 overflow-hidden animate-pulse-glow"
+                  style={{
+                    boxShadow: '0 8px 30px rgba(16, 185, 129, 0.3), 0 0 15px rgba(20, 184, 166, 0.2), 0 0 8px rgba(6, 182, 212, 0.15)'
+                  }}
                 >
-                  <FaBook size={18} />
-                  <span>Start Learning</span>
-                  <FaArrowRight size={14} className="transform group-hover:translate-x-1 transition-transform" />
+                  {/* Continuous shimmer effect */}
+                  <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent bg-[length:200%_100%]"></div>
+                  
+                  {/* Hover shimmer effect */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                  
+                  {/* Glow effect on hover */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-70 blur-2xl transition-opacity duration-500 -z-10"></div>
+                  
+                  {/* Animated border pulse */}
+                  <div className="absolute inset-0 rounded-xl border-2 border-white/40 group-hover:border-white/80 transition-all duration-300" style={{
+                    boxShadow: 'inset 0 0 15px rgba(255, 255, 255, 0.1)'
+                  }}></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 flex items-center gap-2">
+                    <div className="relative">
+                      <FaBook size={16} className="transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
+                      <FaStar size={8} className="absolute -top-0.5 -right-0.5 text-yellow-300 animate-pulse" />
+                      <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
+                    </div>
+                    <span className="relative font-extrabold tracking-wide">Start Learning</span>
+                    <FaArrowRight size={14} className="transform group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
+                  </div>
+                  
+                  {/* Sparkle effects on hover */}
+                  <div className="absolute top-1.5 left-4 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0s' }}></div>
+                  <div className="absolute bottom-1.5 right-8 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0.3s' }}></div>
+                  <div className="absolute top-1/2 left-1/4 w-0.5 h-0.5 bg-cyan-300 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0.6s' }}></div>
                 </Link>
               </div>
               <div className="pt-4 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400">
-                <FaArrowDown className="animate-bounce" size={14} />
+                <FaArrowDown className="animate-bounce text-blue-500 dark:text-blue-400" size={14} />
                 <span>Scroll to explore more</span>
               </div>
             </div>
             <div className="flex justify-center md:justify-end">
               <Link href="/portfolio" className="relative group cursor-pointer">
-                <div className="absolute inset-0 bg-slate-500 dark:bg-slate-600 rounded-full blur-3xl opacity-30 dark:opacity-20 animate-pulse"></div>
-                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-slate-200 dark:border-slate-700 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl group-hover:border-slate-300 dark:group-hover:border-slate-600">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600 rounded-full blur-3xl opacity-30 dark:opacity-20 animate-pulse"></div>
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-200 dark:border-blue-700 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl group-hover:border-blue-300 dark:group-hover:border-blue-600">
         <Image
                     src="/arqam-pic.jpg"
                     alt="Muhammad Arqam"
@@ -430,11 +467,11 @@ export default function Home() {
               className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
-                  <FaNewspaper className="text-slate-600 dark:text-slate-300" size={24} />
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg shadow-md">
+                  <FaNewspaper className="text-white" size={24} />
                 </div>
                 <div>
-                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Featured</span>
+                  <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">Featured</span>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     How AI is Changing the Job Market for Software Engineers
                   </h3>
@@ -443,7 +480,7 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-400 mb-4">
                 Explore how artificial intelligence is reshaping software engineering careers, from automation to new opportunities.
               </p>
-              <div className="flex items-center text-slate-700 dark:text-slate-300 font-semibold">
+              <div className="flex items-center text-blue-600 dark:text-blue-400 font-semibold">
                 <span>Read More</span>
                 <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
               </div>
@@ -453,11 +490,11 @@ export default function Home() {
               className="group bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700 transform hover:scale-105"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-lg">
-                  <FaServer className="text-slate-600 dark:text-slate-300" size={24} />
+                <div className="p-3 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg shadow-md">
+                  <FaServer className="text-white" size={24} />
                 </div>
                 <div>
-                  <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Technical</span>
+                  <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wide">Technical</span>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     What is MCP Server and When to Use It?
                   </h3>
@@ -466,7 +503,7 @@ export default function Home() {
               <p className="text-slate-600 dark:text-slate-400 mb-4">
                 Understand Model Context Protocol servers, their purpose, and how they compare to traditional API approaches.
               </p>
-              <div className="flex items-center text-slate-700 dark:text-slate-300 font-semibold">
+              <div className="flex items-center text-purple-600 dark:text-purple-400 font-semibold">
                 <span>Read More</span>
                 <FaArrowRight className="ml-2 transform group-hover:translate-x-2 transition-transform" size={14} />
               </div>
@@ -475,7 +512,7 @@ export default function Home() {
           <div className="text-center">
             <Link
               href="/blog"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200"
+              className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200"
             >
               <FaNewspaper size={16} />
               <span>View All Blog Posts</span>
@@ -497,17 +534,14 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => {
               const Icon = category.icon;
-              const colorClasses = {
-                slate: "from-slate-500 to-slate-600"
-              };
               return (
                 <Link
                   key={index}
                   href={`/content?category=${category.name}`}
-                  className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
+                  className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group hover:border-opacity-50"
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`p-3 rounded-lg bg-gradient-to-r ${colorClasses[category.color as keyof typeof colorClasses]}`}>
+                    <div className={`p-3 rounded-lg bg-gradient-to-r ${category.gradient} shadow-md`}>
                       <Icon className="text-white" size={24} />
                 </div>
                     <span className="px-3 py-1 bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-300 rounded-full text-sm font-semibold">
@@ -527,7 +561,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/content"
-              className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
                 >
               <FaMagic size={18} />
               <span>View All Concepts</span>
@@ -549,16 +583,16 @@ export default function Home() {
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/content"
-              className="px-8 py-4 bg-white text-slate-800 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+              className="px-8 py-4 bg-gradient-to-r from-white to-blue-50 hover:from-blue-50 hover:to-blue-100 text-slate-800 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 border-2 border-blue-200"
             >
-              <FaBook size={18} />
+              <FaBook size={18} className="text-blue-600" />
               <span>Explore Concepts</span>
             </Link>
             <a
               href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
                     target="_blank"
                     rel="noopener noreferrer"
-              className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-200 flex items-center space-x-2"
+              className="px-8 py-4 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 border-2 border-purple-300/50 hover:border-purple-300 hover:from-purple-500/30 hover:to-indigo-500/30 text-white rounded-lg font-semibold transition-all duration-200 flex items-center space-x-2"
                   >
               <FaCalendarAlt size={18} />
               <span>Book Free Session</span>
@@ -607,7 +641,7 @@ export default function Home() {
             href="https://www.linkedin.com/company/106984678/admin/posted-jobs/open/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-slate-600 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
           >
             <FaBriefcase size={16} />
             <span>View Open Positions</span>
