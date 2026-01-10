@@ -2154,3 +2154,217 @@ app.use((req, res, next) => {
 - Handle Redis failures gracefully
 - Monitor rate limit effectiveness
 </expand>
+
+<expand title="What is Test-Driven Development (TDD) and how do you implement it in backend development?">
+**Question:** What is Test-Driven Development (TDD) and how do you implement it in backend development?
+
+**Answer:**
+**TDD (Test-Driven Development):** Development approach where you write tests before writing the actual code.
+
+**TDD Cycle (Red-Green-Refactor):**
+
+1. **Red:** Write a failing test
+   - Write test for functionality that doesn't exist yet
+   - Test should fail (Red)
+   - **Example:** Test for user creation endpoint that doesn't exist
+
+2. **Green:** Write minimal code to pass the test
+   - Write just enough code to make the test pass
+   - Don't worry about perfect code yet
+   - **Example:** Implement basic user creation endpoint
+
+3. **Refactor:** Improve code while keeping tests passing
+   - Clean up code, improve structure
+   - Remove duplication
+   - Ensure all tests still pass
+   - **Example:** Extract validation logic, improve error handling
+
+**TDD in Backend Development:**
+
+**Example: Node.js/Express API:**
+```javascript
+// 1. RED: Write failing test
+describe('POST /api/users', () => {
+  it('should create a new user', async () => {
+    const userData = { name: 'John', email: 'john@example.com' };
+    const response = await request(app)
+      .post('/api/users')
+      .send(userData)
+      .expect(201);
+    
+    expect(response.body).toHaveProperty('id');
+    expect(response.body.name).toBe('John');
+  });
+});
+
+// 2. GREEN: Write minimal code
+app.post('/api/users', async (req, res) => {
+  const user = await User.create(req.body);
+  res.status(201).json(user);
+});
+
+// 3. REFACTOR: Improve code
+app.post('/api/users', async (req, res) => {
+  try {
+    const validated = validateUserInput(req.body);
+    const user = await User.create(validated);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+```
+
+**Benefits:**
+- **Better Design:** Forces you to think about API design before implementation
+- **Fewer Bugs:** Tests catch issues early
+- **Confidence:** Refactoring is safe when tests pass
+- **Documentation:** Tests serve as living documentation
+- **Faster Debugging:** Tests pinpoint where issues occur
+
+**TDD Best Practices:**
+- Write small, focused tests
+- Test one thing at a time
+- Use descriptive test names
+- Keep tests independent
+- Test edge cases and error scenarios
+- Maintain test code quality
+
+**When to Use TDD:**
+- Complex business logic
+- Critical functionality (payments, authentication)
+- APIs with multiple consumers
+- When requirements are clear
+
+**When NOT to Use TDD:**
+- Exploratory coding
+- Prototyping
+- Simple CRUD operations (sometimes)
+- When requirements are unclear
+
+**TDD Tools for Node.js:**
+- **Jest:** Popular testing framework
+- **Mocha + Chai:** Flexible testing setup
+- **Supertest:** HTTP assertion library for API testing
+- **Sinon:** Mocking and spying library
+</expand>
+
+<expand title="How do you implement event-driven architecture in a Node.js backend?">
+**Question:** How do you implement event-driven architecture in a Node.js backend?
+
+**Answer:**
+**Event-Driven Architecture:** System where components communicate by producing and consuming events.
+
+**Key Concepts:**
+- **Events:** Something that happened (e.g., "OrderCreated", "UserRegistered")
+- **Event Producers:** Services that emit events
+- **Event Consumers:** Services that react to events
+- **Event Bus/Broker:** Middleware that routes events
+
+**Implementation Patterns:**
+
+1. **In-Process Event Emitter (Simple):**
+   ```javascript
+   const EventEmitter = require('events');
+   const eventBus = new EventEmitter();
+   
+   // Producer
+   async function createOrder(orderData) {
+     const order = await Order.create(orderData);
+     eventBus.emit('OrderCreated', { orderId: order.id, userId: order.userId });
+     return order;
+   }
+   
+   // Consumer
+   eventBus.on('OrderCreated', async (data) => {
+     await sendConfirmationEmail(data.userId);
+     await updateInventory(data.orderId);
+   });
+   ```
+   - **Use Case:** Single application, simple workflows
+   - **Limitation:** Only works within same process
+
+2. **Message Queue (RabbitMQ, AWS SQS):**
+   ```javascript
+   const amqp = require('amqplib');
+   
+   // Producer
+   async function publishEvent(eventName, data) {
+     const connection = await amqp.connect('amqp://localhost');
+     const channel = await connection.createChannel();
+     await channel.assertQueue('events');
+     channel.sendToQueue('events', Buffer.from(JSON.stringify({ eventName, data })));
+   }
+   
+   // Consumer
+   async function consumeEvents() {
+     const connection = await amqp.connect('amqp://localhost');
+     const channel = await connection.createChannel();
+     await channel.assertQueue('events');
+     
+     channel.consume('events', (msg) => {
+       const { eventName, data } = JSON.parse(msg.content.toString());
+       if (eventName === 'OrderCreated') {
+         handleOrderCreated(data);
+       }
+       channel.ack(msg);
+     });
+   }
+   ```
+   - **Use Case:** Microservices, distributed systems
+   - **Benefits:** Decoupling, reliability, scalability
+
+3. **Event Streaming (Kafka, AWS Kinesis):**
+   ```javascript
+   const kafka = require('kafkajs');
+   
+   // Producer
+   async function publishEvent(topic, event) {
+     const producer = kafka.producer();
+     await producer.connect();
+     await producer.send({
+       topic,
+       messages: [{ value: JSON.stringify(event) }]
+     });
+   }
+   
+   // Consumer
+   async function consumeEvents() {
+     const consumer = kafka.consumer({ groupId: 'order-service' });
+     await consumer.connect();
+     await consumer.subscribe({ topic: 'orders' });
+     
+     await consumer.run({
+       eachMessage: async ({ message }) => {
+         const event = JSON.parse(message.value.toString());
+         await handleEvent(event);
+       }
+     });
+   }
+   ```
+   - **Use Case:** High-throughput, multiple consumers, event replay
+   - **Benefits:** Event history, multiple consumers, replay capability
+
+**Event-Driven Architecture Benefits:**
+- **Loose Coupling:** Services don't know about each other
+- **Scalability:** Services can scale independently
+- **Resilience:** Failure in one service doesn't cascade
+- **Flexibility:** Easy to add new consumers
+- **Async Processing:** Non-blocking operations
+
+**Common Use Cases:**
+- Order processing workflows
+- User registration → Email, Analytics, Welcome service
+- Inventory updates
+- Payment processing
+- Real-time notifications
+- Audit logging
+
+**Best Practices:**
+- Use idempotent event handlers
+- Implement retry logic for failed events
+- Use dead letter queues for failed messages
+- Version your events
+- Monitor event processing
+- Use event sourcing for audit trails
+</expand>

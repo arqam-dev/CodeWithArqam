@@ -123,6 +123,102 @@ Answer:
 
 - Learned: Better to under-promise and over-deliver
 
+    - Question 3: How do you handle conflicts between team members?
+
+Answer:
+
+- Approach: Listen to both sides, understand root cause, facilitate discussion
+
+- Solution: Mediate conflict, find common ground, set clear expectations
+
+- Result: Resolved conflict, improved team collaboration
+
+- Learned: Address conflicts early, don't let them escalate
+
+    - Question 4: How do you motivate your team during challenging projects?
+
+Answer:
+
+- Approach: Recognize achievements, provide clear goals, offer support
+
+- Solution: Regular check-ins, celebrate milestones, provide learning opportunities
+
+- Result: Maintained team morale, delivered project successfully
+
+- Learned: Communication and recognition are key motivators
+
+    - Question 5: How do you delegate tasks effectively as a team lead?
+
+Answer:
+
+- Approach: Assess team members' skills and workload, match tasks to strengths
+
+- Solution: Provide clear instructions, set expectations, offer support when needed
+
+- Result: Efficient task distribution, team members grow their skills
+
+- Learned: Trust your team, but verify progress regularly
+
+    - Question 6: How do you handle underperforming team members?
+
+Answer:
+
+- Approach: Identify root cause (skill gap, motivation, external factors)
+
+- Solution: Provide training, set clear goals, regular feedback, improvement plan
+
+- Result: Improved performance or made informed decision about team member
+
+- Learned: Address performance issues early with constructive feedback
+
+    - Question 7: How do you ensure code quality across your team?
+
+Answer:
+
+- Approach: Code reviews, coding standards, automated testing, pair programming
+
+- Solution: Establish guidelines, use tools (linters, formatters), regular reviews
+
+- Result: Consistent code quality, knowledge sharing, fewer bugs
+
+- Learned: Code quality is a team responsibility, not just individual
+
+    - Question 8: How do you manage technical debt in your projects?
+
+Answer:
+
+- Approach: Assess impact, prioritize, allocate time for refactoring
+
+- Solution: Regular code reviews, technical debt backlog, allocate sprint time
+
+- Result: Controlled technical debt, maintainable codebase
+
+- Learned: Balance feature delivery with code quality
+
+    - Question 9: How do you handle scope creep in projects?
+
+Answer:
+
+- Approach: Document original scope, assess impact of changes, communicate with stakeholders
+
+- Solution: Change request process, impact analysis, timeline/cost adjustments
+
+- Result: Managed expectations, delivered on committed scope
+
+- Learned: Clear communication prevents scope creep issues
+
+    - Question 10: How do you onboard new team members effectively?
+
+Answer:
+
+- Approach: Prepare documentation, assign mentor, gradual task assignment
+
+- Solution: Onboarding checklist, codebase walkthrough, pair programming sessions
+
+- Result: New members productive quickly, smooth integration
+
+- Learned: Good onboarding reduces ramp-up time significantly
+
 </expand>
 
 <expand title="Client Management">

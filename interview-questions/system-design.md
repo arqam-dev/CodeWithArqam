@@ -2206,6 +2206,107 @@ When you have multiple servers, a user's session stored on Server 1 won't be ava
 - AWS Step Functions (workflows)
 </expand>
 
+<expand title="What is AWS CDK (Cloud Development Kit) and how does it differ from CloudFormation?">
+**Question:** What is AWS CDK (Cloud Development Kit) and how does it differ from CloudFormation?
+
+**Answer:**
+**AWS CDK (Cloud Development Kit):**
+- Infrastructure as Code (IaC) framework that lets you define cloud infrastructure using familiar programming languages
+- **Languages Supported:** TypeScript, JavaScript, Python, Java, C#, Go
+- **How it works:** Write code → CDK synthesizes → Generates CloudFormation templates → Deploys to AWS
+
+**CloudFormation:**
+- AWS native IaC service using YAML or JSON templates
+- Declarative template-based approach
+- Directly defines AWS resources in template format
+
+**Key Differences:**
+
+| Aspect | AWS CDK | CloudFormation |
+|--------|---------|----------------|
+| **Language** | Programming languages (TypeScript, Python, etc.) | YAML/JSON templates |
+| **Abstraction** | High-level constructs (reusable components) | Low-level resource definitions |
+| **Code Reusability** | High (functions, classes, modules) | Low (template snippets) |
+| **Learning Curve** | Easier for developers (familiar languages) | Steeper (template syntax) |
+| **Compilation** | Code compiles to CloudFormation | Direct template execution |
+| **Type Safety** | Yes (TypeScript, Java, C#) | No (YAML/JSON) |
+| **Testing** | Unit test infrastructure code | Limited testing options |
+| **Underlying Tech** | Generates CloudFormation templates | Native AWS service |
+
+**CDK Example (TypeScript):**
+```typescript
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
+
+export class MyStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // Define Lambda function
+    const myFunction = new lambda.Function(this, 'MyFunction', {
+      runtime: lambda.Runtime.NODEJS_18_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset('lambda'),
+    });
+
+    // Define API Gateway
+    new apigateway.LambdaRestApi(this, 'MyApi', {
+      handler: myFunction,
+    });
+  }
+}
+```
+
+**CloudFormation Example (YAML):**
+```yaml
+Resources:
+  MyFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Runtime: nodejs18.x
+      Handler: index.handler
+      Code:
+        ZipFile: |
+          exports.handler = async (event) => {
+            return { statusCode: 200, body: 'Hello' };
+          };
+  
+  MyApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: MyApi
+```
+
+**When to Use CDK:**
+- Team familiar with programming languages
+- Need reusable infrastructure components
+- Want type safety and IDE support
+- Complex infrastructure with logic/conditions
+- Need to test infrastructure code
+
+**When to Use CloudFormation:**
+- Simple infrastructure
+- Team prefers YAML/JSON
+- Need direct template control
+- Compliance requires template visibility
+- Using AWS-native tools only
+
+**CDK Benefits:**
+- **Developer-Friendly:** Use familiar languages
+- **Reusability:** Create reusable constructs
+- **Type Safety:** Catch errors at compile time
+- **Testing:** Unit test infrastructure code
+- **Abstraction:** High-level constructs simplify common patterns
+
+**Best Practices:**
+- Use CDK for complex, reusable infrastructure
+- Use CloudFormation for simple, one-off resources
+- Version control both CDK code and generated templates
+- Use CDK constructs for common patterns (API + Lambda, etc.)
+- Test CDK code before deployment
+</expand>
+
 <expand title="How would you plan for future scalability while controlling costs?">
 **Question:** How would you plan for future scalability while controlling costs?
 
