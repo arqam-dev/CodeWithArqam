@@ -1064,14 +1064,78 @@ Node.js is single-threaded, but provides three mechanisms to achieve parallelism
   - Room support
   - Broadcasting
   - Fallback to polling if WebSocket unavailable
-- **Example:**
-  ```javascript
-  const io = require('socket.io')(server);
-  io.on('connection', (socket) => {
-    socket.emit('message', 'Hello');
-    socket.on('chat', (data) => {});
-  });
-  ```
+
+### Socket.io Core Concepts:
+- **`io`:** Represents the server (all connected clients)
+- **`socket`:** Represents a single connected client
+
+### Socket.io Methods:
+
+- **`io.on('connection', callback)`**
+  - **Purpose:** Listen for new client connections
+  - **Use Case:** User connects to server
+  - **Example:** `io.on('connection', (socket) => { ... })`
+
+- **`socket.on(event, callback)`**
+  - **Purpose:** Listen for incoming messages from client
+  - **Use Case:** Receive message from client
+  - **Example:** `socket.on('chat-message', (data) => { ... })`
+
+- **`socket.emit(event, data)`**
+  - **Purpose:** Send message to the current client only
+  - **Use Case:** Send to self (reply/acknowledgment)
+  - **Example:** `socket.emit('welcome', { message: 'Hello' })`
+
+- **`io.to(socketId).emit(event, data)`**
+  - **Purpose:** Send message to a specific client by socket ID
+  - **Use Case:** Private message to specific user
+  - **Example:** `io.to(socket.id).emit('private-message', data)`
+
+- **`socket.join(room)`**
+  - **Purpose:** Add client to a specific room (group)
+  - **Use Case:** Join group/room
+  - **Example:** `socket.join('room-123')`
+
+- **`socket.leave(room)`**
+  - **Purpose:** Remove client from a specific room
+  - **Use Case:** Leave group/room
+  - **Example:** `socket.leave('room-123')`
+
+- **`socket.to(room).emit(event, data)`**
+  - **Purpose:** Send message to all clients in room EXCEPT the sender
+  - **Use Case:** Group chat messages (sender doesn't receive their own message)
+  - **Example:** `socket.to('room-123').emit('group-message', data)`
+
+- **`socket.disconnect()`**
+  - **Purpose:** Disconnect the current client
+  - **Use Case:** User leaves/disconnects
+  - **Example:** `socket.disconnect()`
+
+### Important Difference: `socket.to()` vs `io.to()`
+
+- **`io.to(room).emit()`**
+  - **Includes sender:** Yes (sender receives the message)
+  - **Use Case:** System messages, announcements to entire room
+  - **Example:** Server sends "User joined" message to all including the joiner
+
+- **`socket.to(room).emit()`**
+  - **Includes sender:** No (sender does NOT receive the message)
+  - **Use Case:** Group chat messages (you don't want to see your own message echoed back)
+  - **Example:** User sends message, others in room receive it, but sender doesn't
+
+- **`io.emit()`**
+  - **Includes sender:** Everyone (all connected clients)
+  - **Use Case:** Global broadcast to all clients
+  - **Example:** Server announcement to everyone
+
+- **`socket.broadcast.emit()`**
+  - **Includes sender:** No (everyone except sender)
+  - **Use Case:** Broadcast to all other clients
+  - **Example:** User action notification to all others
+
+### Rule of Thumb:
+- Use `io` when sending from server to anyone (global/server context)
+- Use `socket` when sender context matters (exclude sender, client-specific actions)
 
 </expand>
 
