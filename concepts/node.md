@@ -1503,29 +1503,221 @@ describe('User Service', () => {
 <expand title="RESTful API Design">
 ## RESTful API Design
 
-### Principles:
-- **Stateless:** Each request contains all needed information
-- **Resource-based URLs:** `/users`, `/users/:id`
-- **HTTP Methods:**
-  - GET: Retrieve resource
-  - POST: Create resource
-  - PUT: Update entire resource
-  - PATCH: Partial update
-  - DELETE: Delete resource
-- **Status Codes:**
-  - 200: Success
-  - 201: Created
-  - 400: Bad Request
-  - 401: Unauthorized
-  - 404: Not Found
-  - 500: Server Error
+### Core Principles:
+- **Stateless:** Each request contains all needed information, no server-side session state
+- **Resource-based URLs:** Use nouns, not verbs (`/users`, `/users/:id`, not `/getUsers`)
+- **Uniform Interface:** Consistent HTTP methods and status codes across all resources
+- **Client-Server:** Separation of concerns, client and server evolve independently
+- **Cacheable:** Responses should indicate if they're cacheable
+- **Layered System:** Client doesn't know if connected to end server or intermediary
 
-### Best Practices:
-- Use nouns, not verbs in URLs
-- Version APIs (`/api/v1/users`)
-- Pagination for large datasets
-- Filtering, sorting, searching
-- Proper error responses
+### HTTP Methods:
+- **GET:** Retrieve resource (idempotent, safe, cacheable)
+- **POST:** Create resource (not idempotent, not safe)
+- **PUT:** Update/replace entire resource (idempotent, not safe)
+- **PATCH:** Partial update (idempotent recommended, not safe)
+- **DELETE:** Delete resource (idempotent, not safe)
+- **HEAD:** Get headers only (idempotent, safe, cacheable)
+- **OPTIONS:** Get allowed methods (idempotent, safe)
+
+### HTTP Status Codes:
+- **2xx Success:**
+  - 200: OK (successful GET, PUT, PATCH)
+  - 201: Created (successful POST)
+  - 202: Accepted (async processing)
+  - 204: No Content (successful DELETE, no body)
+- **3xx Redirection:**
+  - 301: Moved Permanently
+  - 304: Not Modified (cached version valid)
+- **4xx Client Error:**
+  - 400: Bad Request (invalid input)
+  - 401: Unauthorized (authentication required)
+  - 403: Forbidden (authenticated but not authorized)
+  - 404: Not Found (resource doesn't exist)
+  - 409: Conflict (resource conflict, e.g., duplicate)
+  - 422: Unprocessable Entity (validation error)
+  - 429: Too Many Requests (rate limit exceeded)
+- **5xx Server Error:**
+  - 500: Internal Server Error
+  - 502: Bad Gateway
+  - 503: Service Unavailable
+  - 504: Gateway Timeout
+
+### URL Design Best Practices:
+- Use nouns, not verbs (`/users` not `/getUsers`)
+- Use plural nouns for collections (`/users` not `/user`)
+- Use lowercase with hyphens (`/user-profiles` not `/userProfiles`)
+- Avoid deep nesting (max 2-3 levels: `/users/:id/posts/:postId`)
+- Use query parameters for filtering, not path parameters
+- Keep URLs short and meaningful
+- Use forward slashes for hierarchy (`/users/:id/posts`)
+
+### Request Design:
+- **Headers:**
+  - `Content-Type`: Specify request body format (application/json)
+  - `Accept`: Specify expected response format
+  - `Authorization`: Bearer token or API key
+  - `X-Request-ID`: Request tracking
+- **Query Parameters:**
+  - Pagination: `?page=1&limit=20` or `?offset=0&limit=20`
+  - Filtering: `?status=active&role=admin`
+  - Sorting: `?sort=created_at&order=desc`
+  - Searching: `?search=keyword`
+  - Field selection: `?fields=id,name,email`
+- **Request Body:**
+  - Use JSON for complex data
+  - Validate all input
+  - Include only necessary fields
+  - Use consistent naming (camelCase or snake_case)
+
+### Response Design:
+- **Consistent Structure:**
+  - Success: `{ data: {...}, message: "..." }`
+  - Error: `{ error: {...}, message: "..." }`
+  - List: `{ data: [...], pagination: {...} }`
+- **Include Metadata:**
+  - Pagination info (total, page, limit, hasMore)
+  - Timestamps (created_at, updated_at)
+  - Links (self, next, prev for pagination)
+- **Field Selection:**
+  - Support `?fields=id,name,email` to reduce payload
+  - Default to all fields if not specified
+- **Content Negotiation:**
+  - Support JSON (default)
+  - Support XML if needed
+  - Use Accept header
+
+### Error Handling:
+- **Error Response Format:**
+  - Consistent structure: `{ error: { code, message, details }, timestamp }`
+  - Include error code for programmatic handling
+  - Include human-readable message
+  - Include validation errors in details array
+- **Error Codes:**
+  - Use specific error codes (e.g., `VALIDATION_ERROR`, `RESOURCE_NOT_FOUND`)
+  - Map to appropriate HTTP status codes
+- **Validation Errors:**
+  - Return 422 for validation failures
+  - Include field-level errors: `{ field: "email", message: "Invalid format" }`
+- **Error Messages:**
+  - Don't expose internal errors to clients
+  - Log detailed errors server-side
+  - Provide actionable error messages
+
+### Security Best Practices:
+- **Authentication:**
+  - Use JWT tokens or OAuth 2.0
+  - Store tokens securely (httpOnly cookies or secure storage)
+  - Implement token expiration and refresh
+  - Use HTTPS only in production
+- **Authorization:**
+  - Implement RBAC (Role-Based Access Control)
+  - Check permissions on every request
+  - Use middleware for route protection
+  - Principle of least privilege
+- **Input Validation:**
+  - Validate all input (query params, body, headers)
+  - Sanitize user input to prevent injection attacks
+  - Use validation libraries (Joi, express-validator)
+  - Whitelist allowed values, don't blacklist
+- **Rate Limiting:**
+  - Implement rate limiting per IP/user
+  - Return 429 with Retry-After header
+  - Different limits for different endpoints
+  - Use Redis for distributed rate limiting
+- **CORS:**
+  - Configure CORS properly (allow specific origins)
+  - Don't use wildcard (*) in production
+  - Set appropriate headers (Access-Control-Allow-*)
+- **Data Protection:**
+  - Never expose sensitive data (passwords, tokens, keys)
+  - Use environment variables for secrets
+  - Encrypt sensitive data at rest and in transit
+  - Implement data masking for logs
+- **Headers Security:**
+  - Use Helmet.js for security headers
+  - Set X-Content-Type-Options: nosniff
+  - Set X-Frame-Options: DENY
+  - Set X-XSS-Protection: 1; mode=block
+  - Set Strict-Transport-Security for HTTPS
+
+### API Versioning:
+- **URL Versioning:** `/api/v1/users`, `/api/v2/users` (most common)
+- **Header Versioning:** `Accept: application/vnd.api+json;version=1`
+- **Query Parameter:** `/api/users?version=1` (not recommended)
+- **Best Practice:** URL versioning is clearest and most widely used
+- **Version Strategy:**
+  - Maintain backward compatibility when possible
+  - Deprecate old versions with warning headers
+  - Provide migration guides
+  - Set sunset dates for deprecated versions
+
+### Pagination:
+- **Offset-based:** `?page=1&limit=20` (simple, allows jumping)
+- **Cursor-based:** `?cursor=abc123&limit=20` (better for large datasets, consistent)
+- **Response Format:**
+  - Include: total count, current page, page size, hasMore
+  - Include links: self, next, prev, first, last
+- **Default Limits:** Set reasonable defaults (e.g., 20-50 items)
+- **Max Limits:** Enforce maximum limit to prevent abuse
+
+### Filtering, Sorting, Searching:
+- **Filtering:** `?status=active&role=admin&created_after=2024-01-01`
+- **Sorting:** `?sort=created_at&order=desc` or `?sort=-created_at`
+- **Searching:** `?q=keyword` or `?search=keyword`
+- **Range Queries:** `?price_min=10&price_max=100`
+- **Multiple Filters:** Support AND logic, document OR logic if supported
+
+### Caching:
+- **Cache-Control Headers:**
+  - `Cache-Control: public, max-age=3600` (cacheable, 1 hour)
+  - `Cache-Control: private` (user-specific, don't cache)
+  - `Cache-Control: no-cache` (revalidate before use)
+  - `ETag` for conditional requests (304 Not Modified)
+- **Cacheable Methods:** GET and HEAD are cacheable by default
+- **Cache Invalidation:** Clear cache on POST/PUT/PATCH/DELETE
+- **Vary Header:** `Vary: Accept, Accept-Language` (different cache per header)
+
+### Documentation:
+- **OpenAPI/Swagger:** Use for API documentation
+- **Include:**
+  - Endpoints with methods
+  - Request/response schemas
+  - Authentication requirements
+  - Error responses
+  - Examples
+  - Rate limits
+- **Keep Updated:** Documentation should match implementation
+- **Interactive:** Provide try-it-out functionality
+
+### Performance Optimization:
+- **Compression:** Use gzip/brotli for responses
+- **Field Selection:** Allow clients to request only needed fields
+- **Pagination:** Always paginate large datasets
+- **Database Optimization:** Use indexes, avoid N+1 queries
+- **Caching:** Cache frequently accessed data
+- **Connection Pooling:** Reuse database connections
+- **Response Time:** Aim for <200ms for simple queries, <1s for complex
+
+### Testing:
+- **Unit Tests:** Test individual endpoints and functions
+- **Integration Tests:** Test full request-response cycle
+- **E2E Tests:** Test complete user flows
+- **Test Cases:**
+  - Success scenarios (200, 201)
+  - Error scenarios (400, 401, 404, 500)
+  - Validation errors (422)
+  - Authentication/authorization (401, 403)
+  - Edge cases (empty results, large datasets)
+
+### Common Interview Points:
+- **Idempotency:** PUT, PATCH, DELETE should be idempotent
+- **Safe Methods:** GET, HEAD, OPTIONS don't modify resources
+- **HATEOAS:** Hypermedia as the Engine of Application State (optional, advanced)
+- **REST vs RPC:** REST is resource-oriented, RPC is action-oriented
+- **REST vs GraphQL:** REST has multiple endpoints, GraphQL has single endpoint
+- **When to use REST:** Standard CRUD operations, simple APIs, caching important
+- **When not to use REST:** Real-time updates (use WebSockets), complex queries (consider GraphQL)
 
 </expand>
 
