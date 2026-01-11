@@ -1442,9 +1442,148 @@ Internally, the DB schedules work across CPU cores and uses below techniques to 
 <expand title="Testing">
 ## Testing
 
-1. **Unit Testing**
-2. **Functional Testing**
-3. **Integration Testing**
+### Testing Types:
+1. **Unit Testing** - Test individual functions/components in isolation
+2. **Functional Testing** - Test complete features/functionality
+3. **Integration Testing** - Test component interactions and API integrations
+
+### Popular Testing Libraries by Framework:
+
+#### Angular Testing:
+
+- **Jasmine:**
+  - **Purpose:** Testing framework for writing test cases
+  - **Use Case:** Main testing library for Angular, provides syntax (describe, it, expect)
+  - **Example:**
+    ```typescript
+    describe('UserService', () => {
+      it('should create user', () => {
+        expect(service.createUser({name: 'John'})).toBeTruthy();
+      });
+    });
+    ```
+
+- **Karma:**
+  - **Purpose:** Test runner that executes tests in browsers
+  - **Use Case:** Runs Jasmine tests, provides test execution environment
+  - **Example:** Configured in `karma.conf.js`, runs tests automatically
+
+- **TestBed:**
+  - **Purpose:** Angular's testing utility for configuring testing modules
+  - **Use Case:** Set up Angular testing environment, create component instances
+  - **Example:**
+    ```typescript
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        declarations: [MyComponent],
+        providers: [MyService]
+      });
+    });
+    ```
+
+#### React Testing:
+
+- **Jest:**
+  - **Purpose:** JavaScript testing framework with built-in test runner
+  - **Use Case:** Unit testing, mocking, snapshot testing
+  - **Example:**
+    ```javascript
+    test('renders button', () => {
+      render(<Button>Click</Button>);
+      expect(screen.getByText('Click')).toBeInTheDocument();
+    });
+    ```
+
+- **React Testing Library:**
+  - **Purpose:** Testing utility for testing React components from user perspective
+  - **Use Case:** Component testing, user interaction testing
+  - **Example:**
+    ```javascript
+    import { render, screen } from '@testing-library/react';
+    test('user can click button', () => {
+      render(<MyComponent />);
+      fireEvent.click(screen.getByRole('button'));
+      expect(screen.getByText('Clicked')).toBeInTheDocument();
+    });
+    ```
+
+#### Next.js Testing:
+
+- **Jest:**
+  - **Purpose:** Default testing framework for Next.js
+  - **Use Case:** Unit and integration testing
+  - **Example:** Same as React, works with Next.js components
+
+- **React Testing Library:**
+  - **Purpose:** Test Next.js pages and components
+  - **Use Case:** Component testing, page rendering tests
+  - **Example:** Works same as React, tests Next.js pages/components
+
+- **Playwright / Cypress:**
+  - **Purpose:** E2E testing for Next.js applications
+  - **Use Case:** Full application flow testing, SSR/SSG testing
+  - **Example:** Test complete user journeys across pages
+
+#### Node.js Testing:
+
+- **Jest:**
+  - **Purpose:** Popular testing framework for Node.js
+  - **Use Case:** Unit testing, API testing, mocking
+  - **Example:**
+    ```javascript
+    describe('User API', () => {
+      test('should create user', async () => {
+        const user = await createUser({name: 'John'});
+        expect(user.name).toBe('John');
+      });
+    });
+    ```
+
+- **Mocha:**
+  - **Purpose:** Flexible test framework, requires assertion library
+  - **Use Case:** Unit and integration testing
+  - **Example:**
+    ```javascript
+    describe('User Service', () => {
+      it('should return user', () => {
+        const user = getUser(1);
+        assert.equal(user.id, 1);
+      });
+    });
+    ```
+
+- **Chai:**
+  - **Purpose:** Assertion library (used with Mocha)
+  - **Use Case:** Provides readable assertions
+  - **Example:**
+    ```javascript
+    expect(user).to.have.property('name');
+    assert.equal(user.age, 30);
+    ```
+
+- **Jasmine:**
+  - **Purpose:** Behavior-driven testing framework
+  - **Use Case:** Node.js unit testing with BDD syntax
+  - **Example:**
+    ```javascript
+    describe('User Service', () => {
+      it('should create user', () => {
+        const user = createUser({name: 'John'});
+        expect(user).toBeDefined();
+      });
+    });
+    ```
+
+- **Supertest:**
+  - **Purpose:** HTTP assertion library for API testing
+  - **Use Case:** Testing Express/Node.js API endpoints
+  - **Example:**
+    ```javascript
+    request(app)
+      .get('/api/users')
+      .expect(200)
+      .expect('Content-Type', /json/);
+    ```
 
 </expand>
 
