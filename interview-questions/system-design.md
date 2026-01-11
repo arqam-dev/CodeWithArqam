@@ -537,6 +537,45 @@ Use canary for production, blue-green for staging/testing.
 - AWS CodeDeploy (blue-green, canary)
 - Spinnaker (advanced deployment strategies)
 - Feature flags (LaunchDarkly, Unleash)
+
+**Purpose of Second Instance in Blue-Green/Canary vs Other Server Types:**
+- **Main Purpose:** Safe deployment and testing of new version before full traffic switch
+- **Not for backup:** Both instances run same application version (old vs new)
+- **Not for disaster recovery:** Both instances in same environment/region
+- **Purpose:** Zero-downtime deployment with instant rollback capability
+
+**Key Differences:**
+
+**Backup Servers:**
+- **Purpose:** Recover data after loss
+- **When Active:** Only during disaster/data loss
+- **Data:** Copy of production data
+- **Traffic:** No traffic during normal operation
+
+**Disaster Recovery Servers:**
+- **Purpose:** Handle region/datacenter failure
+- **When Active:** Only during major outages
+- **Location:** Different region/datacenter
+- **Traffic:** Standby, activated on failure
+
+**Load Balancing Servers:**
+- **Purpose:** Share traffic across multiple servers
+- **When Active:** Always active, serving traffic
+- **Version:** All servers run same version
+- **Traffic:** All servers receive traffic simultaneously
+
+**Blue-Green/Canary Deployment Servers:**
+- **Purpose:** Safe deployment and testing
+- **When Active:** During deployment, both versions run simultaneously
+- **Version:** Different versions (old vs new)
+- **Traffic:** Controlled routing (all to new or split between old/new)
+- **Rollback:** Instant switch back to old version if issues detected
+
+**Summary:**
+- **Backup:** Data recovery after loss
+- **Disaster Recovery:** Region/datacenter failure handling
+- **Load Balancing:** Traffic distribution across same-version servers
+- **Blue-Green/Canary:** Deployment safety with version testing and instant rollback
 </expand>
 
 <expand title="What is the difference between stateful and stateless services?">
