@@ -287,6 +287,22 @@ Use consistent hashing for distributed systems to minimize data movement during 
 - **Message Queue:** Task processing, one consumer per message
 - **Event Streaming:** Multiple consumers, event replay, audit trails
 
+**Real-Time Examples:**
+
+**Food Delivery System (Message Queue Example):**
+- **Scenario:** Order placed → needs to be processed by one delivery service
+- **Message Queue:** Order service publishes "OrderCreated" message to queue
+- **Consumer:** Delivery service consumes message, assigns driver, processes order
+- **Why Queue:** Each order processed by one delivery service only, removed after processing
+- **Example:** RabbitMQ/SQS - Order → Delivery Service (one consumer per order)
+
+**Video Streaming Platform (Event Streaming Example):**
+- **Scenario:** User watches video → multiple services need to react
+- **Event Streaming:** Video service publishes "VideoWatched" event to stream
+- **Consumers:** Analytics service (track views), Recommendation service (update suggestions), Billing service (usage tracking) all read same event
+- **Why Streaming:** Multiple consumers need same event, events persist for replay/analytics
+- **Example:** Kafka/Kinesis - Video event → Analytics + Recommendations + Billing (multiple consumers)
+
 **Best Practice:**
 Use message queues for task processing, event streaming for event-driven architectures.
 </expand>
