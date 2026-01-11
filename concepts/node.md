@@ -1522,26 +1522,113 @@ describe('User Service', () => {
 
 ### HTTP Status Codes:
 - **2xx Success:**
-  - 200: OK (successful GET, PUT, PATCH)
-  - 201: Created (successful POST)
-  - 202: Accepted (async processing)
-  - 204: No Content (successful DELETE, no body)
+  - **200 OK:**
+    - Successful GET request returning data
+    - Successful PUT/PATCH request (resource updated)
+    - Standard success response for most operations
+    - Include response body with data
+  - **201 Created:**
+    - Successful POST request creating new resource
+    - Include Location header with URL of created resource
+    - Return created resource in response body
+    - Example: User registration, order creation
+  - **202 Accepted:**
+    - Request accepted for async processing
+    - Use when operation takes time (image processing, email sending)
+    - Include job ID or status endpoint in response
+    - Client should poll status endpoint
+  - **204 No Content:**
+    - Successful DELETE request (resource deleted)
+    - Successful PUT/PATCH with no response body needed
+    - No response body, only status code
+    - Example: Delete user, update settings
 - **3xx Redirection:**
-  - 301: Moved Permanently
-  - 304: Not Modified (cached version valid)
+  - **301 Moved Permanently:**
+    - Resource permanently moved to new URL
+    - Include Location header with new URL
+    - Search engines update their index
+    - Example: API version moved, domain change
+  - **304 Not Modified:**
+    - Resource not modified since last request (caching)
+    - Client sent If-None-Match or If-Modified-Since headers
+    - No response body, saves bandwidth
+    - Example: Cached API response still valid
 - **4xx Client Error:**
-  - 400: Bad Request (invalid input)
-  - 401: Unauthorized (authentication required)
-  - 403: Forbidden (authenticated but not authorized)
-  - 404: Not Found (resource doesn't exist)
-  - 409: Conflict (resource conflict, e.g., duplicate)
-  - 422: Unprocessable Entity (validation error)
-  - 429: Too Many Requests (rate limit exceeded)
+  - **400 Bad Request:**
+    - Malformed request syntax (invalid JSON, missing required fields)
+    - Invalid query parameters format
+    - Request body parsing errors
+    - Example: Invalid date format, malformed JSON, missing Content-Type
+  - **401 Unauthorized:**
+    - Missing or invalid authentication credentials
+    - Token expired or invalid
+    - No authentication token provided
+    - Include WWW-Authenticate header
+    - Example: Missing JWT token, expired session, invalid API key
+  - **403 Forbidden:**
+    - Authenticated but not authorized (permission denied)
+    - User lacks required permissions/role
+    - Resource exists but access denied
+    - Example: User trying to access admin-only endpoint, insufficient permissions
+  - **404 Not Found:**
+    - Resource doesn't exist at specified URL
+    - Invalid endpoint path
+    - Resource was deleted
+    - Example: User ID doesn't exist, invalid API endpoint
+  - **409 Conflict:**
+    - Resource conflict (duplicate, concurrent modification)
+    - Email already registered, username taken
+    - Optimistic locking conflict (ETag mismatch)
+    - Example: Duplicate email registration, concurrent update conflict
+  - **422 Unprocessable Entity:**
+    - Valid request syntax but semantic validation failed
+    - Business rule violations
+    - Field validation errors (email format, required fields)
+    - Include detailed validation errors in response
+    - Example: Email format invalid, age must be 18+, password too weak
+  - **429 Too Many Requests (Rate Limiting/Throttling):**
+    - Rate limit exceeded (too many requests in time window)
+    - Include Retry-After header (seconds to wait)
+    - Include X-RateLimit-* headers (limit, remaining, reset)
+    - Different limits: per IP, per user, per endpoint
+    - Example: API rate limit exceeded, DDoS protection triggered, request throttling
+  - **408 Request Timeout:**
+    - Client didn't send complete request in time
+    - Server waited too long for request
+    - Example: Slow network, client timeout
+  - **413 Payload Too Large:**
+    - Request body exceeds size limit
+    - File upload too large
+    - Example: Image upload exceeds 10MB limit, request body too big
+  - **415 Unsupported Media Type:**
+    - Content-Type not supported
+    - Example: Sending XML when API expects JSON, unsupported file format
+  - **423 Locked:**
+    - Resource is locked (cannot be modified)
+    - Example: Resource locked by another process, maintenance mode
 - **5xx Server Error:**
-  - 500: Internal Server Error
-  - 502: Bad Gateway
-  - 503: Service Unavailable
-  - 504: Gateway Timeout
+  - **500 Internal Server Error:**
+    - Generic server error (unexpected condition)
+    - Database connection failed, unhandled exception
+    - Don't expose internal error details to client
+    - Log detailed error server-side
+    - Example: Database query failed, null pointer exception, server crash
+  - **502 Bad Gateway:**
+    - Server acting as gateway received invalid response from upstream
+    - Upstream server returned invalid response
+    - Example: API Gateway received error from microservice, proxy error
+  - **503 Service Unavailable:**
+    - Service temporarily unavailable (maintenance, overloaded)
+    - Server cannot handle request (too busy)
+    - Include Retry-After header if known downtime
+    - Example: Server maintenance, high traffic overload, database unavailable
+  - **504 Gateway Timeout:**
+    - Gateway didn't receive timely response from upstream
+    - Upstream server took too long to respond
+    - Example: Microservice timeout, database query timeout, external API timeout
+  - **507 Insufficient Storage:**
+    - Server cannot store representation (disk full)
+    - Example: File storage quota exceeded, database storage full
 
 ### URL Design Best Practices:
 - Use nouns, not verbs (`/users` not `/getUsers`)
