@@ -1512,13 +1512,13 @@ describe('User Service', () => {
 - **Layered System:** Client doesn't know if connected to end server or intermediary
 
 ### HTTP Methods:
-- **GET:** Retrieve resource (idempotent, safe, cacheable)
-- **POST:** Create resource (not idempotent, not safe)
-- **PUT:** Update/replace entire resource (idempotent, not safe)
-- **PATCH:** Partial update (idempotent recommended, not safe)
-- **DELETE:** Delete resource (idempotent, not safe)
-- **HEAD:** Get headers only (idempotent, safe, cacheable)
-- **OPTIONS:** Get allowed methods (idempotent, safe)
+- **GET:** Retrieve resource (idempotent, cacheable)
+- **POST:** Create resource (not idempotent)
+- **PUT:** Update/replace entire resource (idempotent)
+- **PATCH:** Partial update (not idempotent recommended)
+- **DELETE:** Delete resource (idempotent)
+- **HEAD:** Get headers only (idempotent, cacheable)
+- **OPTIONS:** Get allowed methods (idempotent)
 
 ### HTTP Status Codes:
 - **2xx Success:**
