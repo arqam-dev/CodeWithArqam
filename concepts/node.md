@@ -1952,5 +1952,394 @@ describe('User Service', () => {
 
 </expand>
 
+<expand title="CI/CD - Continuous Integration & Continuous Deployment (Detailed)">
+## CI/CD - Continuous Integration & Continuous Deployment
+
+### What is CI/CD?
+- **CI (Continuous Integration):** Automatically test and merge code changes
+- **CD (Continuous Deployment/Delivery):** Automatically deploy code to production/staging
+- **Purpose:** Automate software development workflow (test, build, deploy)
+- **Benefits:** Faster releases, fewer bugs, consistent deployments, automated testing
+
+### CI/CD Concepts:
+
+**Continuous Integration (CI):**
+- Developers push code to repository
+- Automated tests run on every commit/PR
+- Code is merged if tests pass
+- Early bug detection
+- Prevents integration issues
+
+**Continuous Delivery:**
+- Code is always deployable
+- Manual approval before production deployment
+- Automated deployment to staging
+- Example: Auto-deploy to staging, manual production approval
+
+**Continuous Deployment:**
+- Fully automated deployment
+- Every passing commit goes to production
+- No manual intervention
+- Example: Auto-deploy to production after tests pass
+
+### CI/CD Pipeline Stages:
+
+1. **Source/Trigger:**
+   - Code pushed to repository
+   - Pull request created
+   - Scheduled (cron jobs)
+   - Manual trigger
+
+2. **Build:**
+   - Install dependencies (`npm install`)
+   - Compile code (TypeScript, build tools)
+   - Create artifacts (Docker images, packages)
+
+3. **Test:**
+   - Unit tests
+   - Integration tests
+   - E2E tests
+   - Code quality checks (linting, formatting)
+
+4. **Deploy:**
+   - Deploy to staging
+   - Deploy to production
+   - Run database migrations
+   - Health checks
+
+### CI/CD Tools:
+
+**GitHub Actions (Recommended for Beginners):**
+- Built into GitHub (no separate setup)
+- YAML-based configuration
+- Free for public repos, free tier for private
+- Easy to learn and implement
+- Large marketplace of actions
+
+**Jenkins:**
+- Self-hosted, requires server setup
+- Very flexible and powerful
+- Plugin ecosystem
+- More complex setup
+
+**GitLab CI:**
+- Built into GitLab
+- Similar to GitHub Actions
+- YAML-based configuration
+
+**CircleCI, Travis CI:**
+- Cloud-based CI/CD services
+- Similar functionality to GitHub Actions
+
+### GitHub Actions (Detailed - Easy to Implement):
+
+**What is GitHub Actions:**
+- Built-in CI/CD platform in GitHub
+- Workflows defined in YAML files (`.github/workflows/`)
+- Runs on GitHub-hosted runners or self-hosted
+- Free for public repos, 2000 minutes/month for private repos
+
+**Key Concepts:**
+
+**Workflow:**
+- Automated process defined in YAML file
+- Lives in `.github/workflows/` directory
+- Example: `ci.yml`, `deploy.yml`
+
+**Event/Trigger:**
+- When workflow runs (push, PR, schedule, manual)
+- Examples: `on: push`, `on: pull_request`, `on: schedule`
+
+**Job:**
+- Set of steps that run on same runner
+- Can run in parallel or sequence
+- Example: test job, build job, deploy job
+
+**Step:**
+- Individual task in a job
+- Can run commands or use actions
+- Example: install dependencies, run tests
+
+**Action:**
+- Reusable unit of code
+- Can be from marketplace or custom
+- Example: `actions/checkout`, `actions/setup-node`
+
+**Runner:**
+- Machine that runs workflows
+- GitHub-hosted (Ubuntu, Windows, macOS) or self-hosted
+- Automatically provisioned
+
+### GitHub Actions Workflow Example (Node.js):
+
+**Basic CI Workflow:**
+```yaml
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linter
+      run: npm run lint
+    
+    - name: Run tests
+      run: npm test
+    
+    - name: Build
+      run: npm run build
+```
+
+**Deployment Workflow:**
+```yaml
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test  # Run after test job
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Deploy to server
+      run: |
+        # Deployment commands
+        # SSH to server, copy files, restart service
+```
+
+### Common GitHub Actions Workflows:
+
+**1. CI Workflow (Test on Every Push/PR):**
+- Trigger: Push to any branch, PR
+- Steps: Checkout → Setup Node → Install → Lint → Test → Build
+- Purpose: Ensure code quality before merge
+
+**2. Deployment Workflow:**
+- Trigger: Push to main branch (after merge)
+- Steps: Checkout → Setup → Install → Build → Deploy
+- Purpose: Automatically deploy to production/staging
+
+**3. Scheduled Workflow:**
+- Trigger: Cron schedule (daily, weekly)
+- Steps: Run maintenance tasks, cleanup, reports
+- Purpose: Automated maintenance
+
+**4. Manual Workflow:**
+- Trigger: Manual (workflow_dispatch)
+- Steps: Custom deployment, database migrations
+- Purpose: On-demand operations
+
+### GitHub Actions Best Practices:
+
+**Workflow Organization:**
+- Separate workflows for CI and CD
+- Use workflow files: `ci.yml`, `deploy-staging.yml`, `deploy-prod.yml`
+- Keep workflows focused (one purpose per workflow)
+
+**Secrets Management:**
+- Store sensitive data in GitHub Secrets
+- Access via `${{ secrets.SECRET_NAME }}`
+- Never hardcode passwords, API keys, tokens
+- Example: `${{ secrets.DEPLOY_KEY }}`, `${{ secrets.AWS_ACCESS_KEY }}`
+
+**Caching:**
+- Cache dependencies to speed up builds
+- Use `actions/cache` for node_modules, build artifacts
+- Reduces build time significantly
+
+**Matrix Strategy:**
+- Test on multiple Node.js versions
+- Test on multiple operating systems
+- Example: Node 16, 18, 20 on Ubuntu, Windows
+
+**Conditional Steps:**
+- Run steps only on specific branches
+- Skip steps based on conditions
+- Example: Deploy only on main branch
+
+**Environment Protection:**
+- Require approvals for production
+- Use environment secrets
+- Restrict deployments to specific branches
+
+### Common GitHub Actions for Node.js:
+
+**Setup Actions:**
+- `actions/checkout@v3` - Checkout repository code
+- `actions/setup-node@v3` - Setup Node.js environment
+- `actions/cache@v3` - Cache dependencies
+
+**Testing Actions:**
+- `actions/setup-node@v3` - Node.js setup
+- Custom test commands (Jest, Mocha)
+
+**Deployment Actions:**
+- `aws-actions/configure-aws-credentials` - AWS deployment
+- `azure/webapps-deploy` - Azure deployment
+- `google-github-actions/deploy-cloudrun` - Google Cloud
+- Custom SSH deployment scripts
+
+**Code Quality:**
+- `sonarsource/sonarcloud-github-action` - Code analysis
+- `codecov/codecov-action` - Coverage reports
+
+### Interview Answers (What to Say):
+
+**"Have you implemented CI/CD?"**
+- Yes, I've implemented CI/CD using GitHub Actions
+- Set up automated testing on every pull request
+- Automated deployment to staging environment
+- Used GitHub Actions workflows for Node.js projects
+
+**"What CI/CD have you used?"**
+- GitHub Actions (primary choice - easy, built-in, free)
+- Familiar with Jenkins and GitLab CI concepts
+- Prefer GitHub Actions for simplicity and integration
+
+**"How does your CI/CD pipeline work?"**
+- On every push/PR, workflow triggers automatically
+- Runs linting, unit tests, integration tests
+- Builds the application
+- If tests pass, deploys to staging
+- Production deployment requires manual approval or merge to main
+
+**"What stages are in your pipeline?"**
+- Source: Code push triggers workflow
+- Build: Install dependencies, compile code
+- Test: Run unit and integration tests
+- Deploy: Deploy to staging/production
+
+**"How do you handle secrets in CI/CD?"**
+- Use GitHub Secrets for sensitive data
+- Store API keys, database credentials, deployment keys
+- Access via `${{ secrets.SECRET_NAME }}`
+- Never commit secrets to repository
+
+**"How do you handle different environments?"**
+- Separate workflows for staging and production
+- Use environment variables for configuration
+- Different secrets for each environment
+- Deploy to staging on develop branch, production on main
+
+### Implementation Steps (Quick Start):
+
+1. **Create Workflow File:**
+   - Create `.github/workflows/ci.yml` in repository
+   - Define workflow YAML
+
+2. **Define Trigger:**
+   - Set when workflow runs (push, PR, etc.)
+
+3. **Define Jobs:**
+   - Create test job
+   - Create build job
+   - Create deploy job (optional)
+
+4. **Add Steps:**
+   - Checkout code
+   - Setup Node.js
+   - Install dependencies
+   - Run tests
+   - Build application
+
+5. **Add Secrets (if needed):**
+   - Go to repository Settings → Secrets
+   - Add required secrets
+   - Use in workflow
+
+6. **Test Workflow:**
+   - Push code to trigger workflow
+   - Check Actions tab for results
+   - Fix any issues
+
+### Common Workflow Patterns:
+
+**Multi-Job Workflow:**
+- Test job runs in parallel
+- Build job runs after tests
+- Deploy job runs after build
+- Use `needs:` to define dependencies
+
+**Matrix Testing:**
+- Test on multiple Node versions
+- Test on multiple OS
+- Ensures compatibility
+
+**Conditional Deployment:**
+- Deploy to staging on develop branch
+- Deploy to production on main branch
+- Use `if:` conditions
+
+**Manual Approval:**
+- Use environment protection rules
+- Require approval for production
+- Prevents accidental deployments
+
+### Troubleshooting Common Issues:
+
+**Workflow Not Triggering:**
+- Check YAML syntax
+- Verify trigger conditions
+- Check branch names match
+
+**Tests Failing:**
+- Check test output in Actions tab
+- Verify environment setup
+- Check dependencies installation
+
+**Deployment Failing:**
+- Verify secrets are set correctly
+- Check deployment permissions
+- Verify server connectivity
+
+**Slow Workflows:**
+- Use caching for dependencies
+- Run jobs in parallel
+- Optimize test execution
+
+### Summary:
+
+- **CI/CD:** Automates testing and deployment
+- **GitHub Actions:** Easiest to implement, built into GitHub
+- **Workflow:** YAML file defining automation steps
+- **Common Use:** Test on PR, deploy on merge
+- **Best Practice:** Separate CI and CD workflows, use secrets for sensitive data
+- **Interview:** Can confidently say "Yes, I've implemented CI/CD using GitHub Actions"
+
+</expand>
+
 ## Secondary Concepts
 
