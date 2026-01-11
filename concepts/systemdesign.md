@@ -1385,9 +1385,245 @@ Internally, the DB schedules work across CPU cores and uses below techniques to 
 <expand title="API Gateway">
 ## API Gateway
 
-- Single entry point for all client requests to backend
-- Core Functions: Routing, Authentication/Authorization, Rate Limiting, Load Balancing, Caching, Logging, Transformation
-- Popular Solutions: AWS API Gateway, Nginx, Kong, Zuul
+### What is API Gateway?
+- Single entry point for all client requests to backend services
+- Acts as reverse proxy that sits between clients and backend services
+- Handles cross-cutting concerns (auth, rate limiting, routing) in one place
+- Clients only know about API Gateway, not individual services
+
+### Core Functions:
+- **Routing:** Route requests to correct backend service based on URL/path
+- **Authentication/Authorization:** Verify tokens, check permissions before forwarding
+- **Rate Limiting:** Control how many requests per client/time
+- **Load Balancing:** Distribute requests across multiple service instances
+- **Caching:** Cache responses to reduce backend load
+- **Request/Response Transformation:** Modify requests/responses (format conversion, data mapping)
+- **Logging & Monitoring:** Track all API requests, errors, performance
+- **API Versioning:** Support multiple API versions simultaneously
+- **SSL Termination:** Handle HTTPS, forward HTTP to backend
+
+### API Gateway Types:
+
+**1. Cloud API Gateway (Managed Service):**
+- Provided by cloud providers (AWS, Azure, Google Cloud)
+- Fully managed, no server setup needed
+- Auto-scaling, pay-per-use
+- Example: AWS API Gateway, Azure API Management, Google Cloud Endpoints
+
+**2. On-Premise/Normal API Gateway:**
+- Self-hosted, you manage the server
+- More control, can customize
+- Need to setup, maintain, scale yourself
+- Example: Nginx, Kong, Zuul, Traefik
+
+### AWS API Gateway (Cloud):
+
+**What it is:**
+- Fully managed API Gateway service by AWS
+- No servers to manage, auto-scales
+- Pay only for API calls made
+- Integrates with other AWS services (Lambda, EC2, etc.)
+
+**Key Features:**
+- **REST APIs:** Create RESTful APIs
+- **HTTP APIs:** Faster, cheaper, simpler (newer option)
+- **WebSocket APIs:** Real-time bidirectional communication
+- **Lambda Integration:** Directly call Lambda functions
+- **Service Integration:** Connect to EC2, ECS, other AWS services
+- **Custom Domain:** Use your own domain name
+- **API Keys:** Generate and manage API keys
+- **Usage Plans:** Set rate limits and quotas
+- **Stages:** Deploy to dev, staging, prod environments
+- **Request/Response Transformation:** Modify data using Velocity templates or mapping
+
+**How it works:**
+1. Client sends request to API Gateway URL
+2. API Gateway authenticates (if configured)
+3. Applies rate limiting
+4. Routes to backend service (Lambda, EC2, etc.)
+5. Transforms response (if needed)
+6. Returns response to client
+
+**Example Flow:**
+```
+Client → API Gateway → Lambda Function → DynamoDB
+         (auth, rate limit)  (business logic)  (data)
+```
+
+**Pricing:**
+- Pay per API call
+- First 1 million requests/month free
+- HTTP APIs cheaper than REST APIs
+
+### Normal API Gateway (On-Premise):
+
+**Nginx (Popular Choice):**
+- Open-source web server and reverse proxy
+- Can act as API Gateway with configuration
+- Lightweight, high performance
+- Free, self-hosted
+
+**Kong:**
+- Open-source API Gateway built on Nginx
+- Plugin ecosystem (auth, rate limiting, logging)
+- Can be self-hosted or cloud-managed (Kong Cloud)
+- More features than basic Nginx
+
+**Zuul (Netflix):**
+- API Gateway for microservices
+- Java-based, integrates with Spring Cloud
+- Good for Java/Spring Boot applications
+
+**Traefik:**
+- Modern reverse proxy and load balancer
+- Automatic service discovery
+- Good for containerized applications (Docker, Kubernetes)
+
+### API Gateway in Monolithic Architecture:
+
+**Do you need API Gateway with Monolith?**
+- **Not required** but can be useful
+- Monolith has single entry point already
+
+**When to use with Monolith:**
+- **Multiple clients:** Web, mobile, partner APIs need different interfaces
+- **External API:** Expose API to external clients, hide internal structure
+- **Security:** Centralized authentication, rate limiting
+- **Caching:** Cache responses to reduce monolith load
+- **SSL/TLS:** Handle HTTPS termination
+- **Monitoring:** Centralized logging and monitoring
+
+**Architecture:**
+```
+Clients → API Gateway → Monolithic Application → Database
+         (auth, rate limit, cache)  (all business logic)
+```
+
+**Benefits:**
+- Single point of entry for external clients
+- Security layer (auth, rate limiting)
+- Can add features without changing monolith
+- Caching reduces load on monolith
+
+**Example Use Case:**
+- E-commerce monolith
+- API Gateway handles: authentication, rate limiting, caching product catalog
+- Monolith handles: all business logic, database operations
+
+### API Gateway in Microservices Architecture:
+
+**Essential for Microservices:**
+- **Required** for proper microservices architecture
+- Multiple services need single entry point
+
+**Why needed:**
+- **Single Entry Point:** Clients don't know about individual services
+- **Service Discovery:** Route to correct service (services can move/scale)
+- **Aggregation:** Combine responses from multiple services
+- **Protocol Translation:** Convert between protocols (HTTP to gRPC)
+- **Centralized Security:** Auth, rate limiting in one place
+- **Load Balancing:** Distribute load across service instances
+
+**Architecture:**
+```
+Clients → API Gateway → [Service 1, Service 2, Service 3, ...]
+         (single entry)    (independent services)
+```
+
+**Example Flow:**
+1. Client requests: `GET /api/users/123/orders`
+2. API Gateway authenticates request
+3. API Gateway routes to User Service (get user)
+4. API Gateway routes to Order Service (get orders)
+5. API Gateway aggregates responses
+6. Returns combined response to client
+
+**Benefits:**
+- Clients see single API, not multiple services
+- Services can change without affecting clients
+- Centralized cross-cutting concerns
+- Easier to add new services
+- Better security (one place to secure)
+
+**Example Use Case:**
+- E-commerce microservices
+- API Gateway routes:
+  - `/api/users/*` → User Service
+  - `/api/products/*` → Product Service
+  - `/api/orders/*` → Order Service
+  - `/api/payments/*` → Payment Service
+
+### API Gateway vs Load Balancer:
+
+**API Gateway:**
+- Layer 7 (application layer)
+- Understands HTTP, can route based on URL path
+- Handles auth, rate limiting, transformation
+- Single entry point for multiple services
+- Used for: API routing, microservices
+
+**Load Balancer:**
+- Layer 4 (transport layer) or Layer 7
+- Distributes traffic across servers
+- Doesn't understand application logic
+- Used for: Load distribution, high availability
+
+**Can use both:**
+- API Gateway → Load Balancer → Service Instances
+- API Gateway handles routing, Load Balancer handles distribution
+
+### When to Use API Gateway:
+
+**Use API Gateway when:**
+- Microservices architecture (multiple services)
+- Multiple clients (web, mobile, partners)
+- Need centralized authentication/authorization
+- Need rate limiting and throttling
+- Need request/response transformation
+- Need API versioning
+- Exposing APIs to external clients
+
+**Don't need API Gateway when:**
+- Simple monolithic application
+- Single client application
+- Internal services only (use service mesh instead)
+- Very simple use case (overhead not worth it)
+
+### Best Practices:
+
+**Security:**
+- Always use HTTPS
+- Implement authentication (JWT, OAuth)
+- Rate limiting to prevent abuse
+- Input validation
+- CORS configuration
+
+**Performance:**
+- Enable caching for read-heavy endpoints
+- Use connection pooling
+- Monitor and optimize slow endpoints
+- Set appropriate timeouts
+
+**Monitoring:**
+- Log all requests
+- Track error rates
+- Monitor latency
+- Set up alerts for failures
+
+**Versioning:**
+- Support multiple API versions
+- Use URL versioning (`/api/v1/users`)
+- Deprecate old versions gracefully
+
+### Summary:
+
+- **API Gateway:** Single entry point for client requests
+- **Cloud (AWS):** Managed service, auto-scales, pay-per-use
+- **On-Premise (Nginx/Kong):** Self-hosted, more control
+- **Monolith:** Optional, useful for multiple clients, security
+- **Microservices:** Essential, required for proper architecture
+- **Key Functions:** Routing, auth, rate limiting, caching, transformation
+- **Use when:** Multiple services, multiple clients, need centralized concerns
 
 </expand>
 
