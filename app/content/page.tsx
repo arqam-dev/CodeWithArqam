@@ -97,9 +97,12 @@ const concepts: Concept[] = [
   
   // Prompt Engineering
   { name: "Prompt Engineering", slug: "promptengineering", category: "Tools", icon: FaBrain, description: "Master AI prompt engineering for error handling, new features, updates, and code review" },
+  
+  // AI/ML
+  { name: "AI/ML", slug: "ai-ml", category: "AI/ML", icon: FaBrain, description: "Artificial Intelligence, Machine Learning, and Data Science concepts" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "DevOps", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "DevOps", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "AI/ML", "Interview Questions"];
 
 const interviewQuestionCategories = [
   { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
