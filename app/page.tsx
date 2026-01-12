@@ -91,7 +91,8 @@ export default function Home() {
     { name: "Frontend", icon: FaCode, count: 5, gradient: "from-blue-500 to-cyan-500", description: "JavaScript, React, Angular, HTML, CSS" },
     { name: "Backend", icon: FaServer, count: 2, gradient: "from-purple-500 to-indigo-500", description: "Node.js, GraphQL, APIs" },
     { name: "Full Stack", icon: FaLaptopCode, count: 1, gradient: "from-emerald-500 to-teal-500", description: "Next.js, Full-stack frameworks" },
-    { name: "Cloud", icon: FaCloud, count: 3, gradient: "from-sky-500 to-blue-500", description: "AWS, DevOps, Cloud Computing" },
+    { name: "Cloud", icon: FaCloud, count: 3, gradient: "from-sky-500 to-blue-500", description: "AWS, Azure, GCP" },
+    { name: "DevOps", icon: FaTools, count: 1, gradient: "from-indigo-500 to-purple-500", description: "CI/CD, containers, infrastructure as code" },
     { name: "Database", icon: FaDatabase, count: 1, gradient: "from-orange-400 to-amber-500", description: "SQL, NoSQL, Database Design" },
     { name: "CS Fundamentals", icon: FaBrain, count: 5, gradient: "from-pink-400 to-rose-500", description: "Data Structures, OOP, OS, Networking" }
   ];

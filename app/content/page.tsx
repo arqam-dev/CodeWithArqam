@@ -55,10 +55,13 @@ const concepts: Concept[] = [
   // Full Stack
   { name: "Next.js", slug: "nextjs", category: "Full Stack", icon: FaCode, description: "Next.js framework, App Router, Server Components, and full-stack React" },
   
-  // Cloud & DevOps
-  { name: "AWS Certification", slug: "aws-certification", category: "Cloud", icon: FaCloud, description: "AWS services, architecture, and certification prep" },
-  { name: "Cloud Computing", slug: "cloudcomputing", category: "Cloud", icon: FaCloud, description: "Cloud platforms, services, and deployment" },
-  { name: "DevOps", slug: "devops", category: "Cloud", icon: FaTools, description: "CI/CD, containers, and infrastructure as code" },
+  // Cloud
+  { name: "AWS", slug: "aws", category: "Cloud", icon: FaCloud, description: "Amazon Web Services - comprehensive cloud computing platform" },
+  { name: "Azure", slug: "azure", category: "Cloud", icon: FaCloud, description: "Microsoft Azure - cloud platform with Microsoft ecosystem integration" },
+  { name: "GCP", slug: "gcp", category: "Cloud", icon: FaCloud, description: "Google Cloud Platform - cloud services with strong ML and analytics" },
+  
+  // DevOps
+  { name: "DevOps", slug: "devops", category: "DevOps", icon: FaTools, description: "CI/CD, containers, and infrastructure as code" },
   
   // Database
   { name: "Database", slug: "database", category: "Database", icon: FaDatabase, description: "SQL, NoSQL, and database design principles" },
@@ -96,7 +99,7 @@ const concepts: Concept[] = [
   { name: "Prompt Engineering", slug: "promptengineering", category: "Tools", icon: FaBrain, description: "Master AI prompt engineering for error handling, new features, updates, and code review" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "DevOps", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "Interview Questions"];
 
 const interviewQuestionCategories = [
   { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
