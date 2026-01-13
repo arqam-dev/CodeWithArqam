@@ -202,6 +202,75 @@ Structure prompts as graphs to represent complex relationships and reasoning pat
 
 </expand>
 
+<expand title="Best Practices">
+## Best Practices
+
+### Core Principles
+
+**1. Provide Context**
+- Include background information about your situation, project, or current state
+- Share relevant technical details, environment, and constraints
+- Helps avoid hallucinations and ensures accurate responses
+
+**2. Be Explicit**
+- Directly ask the AI to think step by step or debate pros and cons
+- Use clear, specific instructions rather than vague requests
+- Specify exactly what you need and how you want it
+
+**3. Leverage Examples**
+- Provide examples of the output format or structure you desire
+- Show patterns, styles, or approaches you want to follow
+- Demonstrates expectations more effectively than descriptions
+
+**4. Set Constraints**
+- Limit response length or force focus on specific aspects
+- Define technical limitations, requirements, or restrictions
+- Include only important constraints to avoid over-limiting
+
+**5. Experiment with Prompt Types**
+- Try different formats: questions, statements, or combinations
+- Use structured formats (Context, Objective, Instruction)
+- Test various prompting techniques for your use case
+
+**6. Iterate, Iterate, Iterate**
+- Prompt engineering is an ongoing process
+- Refine prompts based on feedback and model performance
+- Start broad, then narrow down based on results
+
+### Additional Best Practices
+
+**7. Be Specific and Measurable**
+- Define clear objectives with measurable outcomes
+- Use concrete examples and avoid vague language
+- Specify acceptance criteria when applicable
+
+**8. Break Down Complex Tasks**
+- Divide complex problems into smaller, manageable steps
+- Use numbered instructions for multi-step processes
+- Build complexity incrementally
+
+**9. Specify Output Format**
+- Define how you want responses structured
+- Request specific formats for code, documentation, or data
+- Ensures consistency across multiple requests
+
+**10. Verify and Test**
+- Always review AI-generated code before using
+- Test outputs to ensure they meet requirements
+- Validate accuracy and completeness
+
+**11. Use Appropriate Techniques**
+- Match prompting techniques to task complexity
+- Combine techniques for better results on complex tasks
+- Choose zero-shot for simple tasks, few-shot for pattern matching
+
+**12. Focus on "What to Do"**
+- Emphasize desired actions and outcomes
+- Avoid negative phrasing when possible
+- Use positive, actionable language
+
+</expand>
+
 <expand title="Prompt Engineering for Error Handling">
 ## Prompt Engineering for Error Handling
 
