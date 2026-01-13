@@ -3,14 +3,15 @@ import path from "path";
 import ConceptPageContent from "@/app/components/ConceptPageContent";
 
 interface ConceptPageProps {
-  params: {
+  params: Promise<{
     concept: string;
-  };
+  }>;
 }
 
-export default function ConceptDynamicPage({ params }: ConceptPageProps) {
+export default async function ConceptDynamicPage({ params }: ConceptPageProps) {
   // Convert URL parameter to filename (e.g., "git" -> "git.md", "sales-presales" -> "sales-presales.md")
-  const conceptName = params.concept;
+  const { concept } = await params;
+  const conceptName = concept;
   const filePath = path.join(process.cwd(), "concepts", `${conceptName}.md`);
 
   // Check if file exists
