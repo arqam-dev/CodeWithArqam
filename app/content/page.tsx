@@ -29,7 +29,15 @@ import {
   FaCheckCircle,
   FaArrowUp,
   FaStar,
-  FaComments
+  FaComments,
+  FaRobot,
+  FaShieldAlt,
+  FaBuilding,
+  FaWifi,
+  FaLeaf,
+  FaAtom,
+  FaCoins,
+  FaVrCardboard
 } from "react-icons/fa";
 
 interface Concept {
@@ -100,9 +108,25 @@ const concepts: Concept[] = [
   
   // AI/ML
   { name: "AI/ML", slug: "ai-ml", category: "AI/ML", icon: FaBrain, description: "Artificial Intelligence, Machine Learning, and Data Science concepts" },
+  
+  // Interesting Topics
+  { name: "Agentic AI", slug: "agentic-ai", category: "Interesting Topics", icon: FaRobot, description: "Autonomous AI agents that can make decisions and take actions independently" },
+  { name: "Generative AI", slug: "generative-ai", category: "Interesting Topics", icon: FaBrain, description: "AI systems that generate new content, including text, images, code, and more" },
+  { name: "Security", slug: "security", category: "Interesting Topics", icon: FaShieldAlt, description: "Cybersecurity, information security, and secure development practices" },
+  { name: "Artificial Intelligence", slug: "artificial-intelligence", category: "Interesting Topics", icon: FaBrain, description: "Fundamental concepts and applications of artificial intelligence" },
+  { name: "Data", slug: "data", category: "Interesting Topics", icon: FaDatabase, description: "Data management, analytics, big data, and data-driven decision making" },
+  { name: "Cloud", slug: "cloud", category: "Interesting Topics", icon: FaCloud, description: "Cloud computing platforms, services, and architectures" },
+  { name: "Enterprise Platforms", slug: "enterprise-platforms", category: "Interesting Topics", icon: FaBuilding, description: "Enterprise software platforms, solutions, and architectures" },
+  { name: "5G and Edge Computing", slug: "5g-edge-computing", category: "Interesting Topics", icon: FaWifi, description: "5G networks, edge computing, and distributed computing at the edge" },
+  { name: "Sustainability and Technology", slug: "sustainability-technology", category: "Interesting Topics", icon: FaLeaf, description: "Green technology, sustainable computing, and environmental impact of technology" },
+  { name: "Automation", slug: "automation", category: "Interesting Topics", icon: FaCog, description: "Process automation, robotic process automation, and automated systems" },
+  { name: "Agile and DevOps", slug: "agile-devops", category: "Interesting Topics", icon: FaTools, description: "Agile methodologies, DevOps practices, and modern software development workflows" },
+  { name: "Quantum Computing", slug: "quantum-computing", category: "Interesting Topics", icon: FaAtom, description: "Quantum computing principles, algorithms, and quantum information science" },
+  { name: "Blockchain", slug: "blockchain", category: "Interesting Topics", icon: FaCoins, description: "Blockchain technology, cryptocurrencies, smart contracts, and decentralized systems" },
+  { name: "XR and the Metaverse", slug: "xr-metaverse", category: "Interesting Topics", icon: FaVrCardboard, description: "Extended Reality (VR/AR/MR), metaverse platforms, and immersive technologies" },
 ];
 
-const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "DevOps", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "AI/ML", "Interview Questions"];
+const categories = ["All", "Frontend", "Backend", "Full Stack", "Cloud", "DevOps", "Database", "Mobile", "CS Fundamentals", "Tools", "System Design", "Quality Assurance", "Comparisons", "Professional", "AI/ML", "Interesting Topics", "Interview Questions"];
 
 const interviewQuestionCategories = [
   { name: "Frontend", slug: "frontend", icon: FaCode, description: "Browser, optimization, Lighthouse, and frontend fundamentals" },
