@@ -26,6 +26,232 @@ Prompt engineering is the practice of designing and optimizing inputs (prompts) 
 
 </expand>
 
+<expand title="Prompt Elements">
+## Prompt Elements
+
+### Overview
+A well-structured prompt consists of several key elements that work together to guide AI models effectively. Understanding and using these elements helps create more accurate, reliable, and useful AI responses.
+
+### Core Prompt Elements
+
+**1. #CONTEXT#**
+- Provides background information and situational awareness
+- Sets the stage for what the AI needs to understand
+- Includes relevant details about the current state, environment, or situation
+- Helps AI understand the "why" behind the request
+
+**Example:**
+```
+#CONTEXT#
+I'm working on a React application using Next.js 14 with TypeScript. 
+The application handles user authentication and I'm currently in the 
+login component. The backend API is already set up and working.
+```
+
+**2. #OBJECTIVE# or #GOAL#**
+- Clearly states what you want to achieve
+- Defines the desired outcome or end result
+- Should be specific and measurable when possible
+- Answers the question: "What do I want to accomplish?"
+
+**Example:**
+```
+#OBJECTIVE#
+Create a secure login form component that validates user credentials, 
+handles errors gracefully, and redirects authenticated users to the dashboard.
+```
+
+**3. #INSTRUCTION#**
+- Provides specific steps or actions to take
+- Tells the AI exactly what to do
+- Can include multiple instructions in a logical sequence
+- Should be clear, actionable, and unambiguous
+
+**Example:**
+```
+#INSTRUCTION#
+1. Create a login form with email and password fields
+2. Add client-side validation for email format and password strength
+3. Implement error handling for API failures
+4. Show loading state during authentication
+5. Redirect to /dashboard on successful login
+6. Display user-friendly error messages
+```
+
+**4. #CONSTRAINTS# (Optional)**
+- Specifies limitations, requirements, or restrictions
+- Defines what must or must not be done
+- Includes technical constraints, business rules, or preferences
+- Helps ensure the solution fits your specific needs
+
+**Example:**
+```
+#CONSTRAINTS#
+- Must use TypeScript with strict mode
+- Cannot use external UI libraries (use only React and Tailwind CSS)
+- Must follow existing code patterns in the project
+- Password must be hashed before sending to API
+- Must be accessible (WCAG 2.1 AA compliant)
+- Must work with existing authentication service
+```
+
+**5. #EXAMPLE#**
+- Provides concrete examples of desired output or behavior
+- Shows the pattern or format you want
+- Demonstrates expected structure, style, or approach
+- Helps AI understand your preferences through demonstration
+
+**Example:**
+```
+#EXAMPLE#
+Here's an example of the error handling pattern I want:
+
+```typescript
+try {
+  const response = await loginUser(credentials);
+  if (response.success) {
+    router.push('/dashboard');
+  }
+} catch (error) {
+  setError(error.message || 'Login failed. Please try again.');
+}
+```
+```
+
+**6. #OUTPUT FORMAT# (Optional)**
+- Specifies how you want the response structured
+- Defines the format, style, or organization of the output
+- Can include code formatting, documentation style, or response structure
+- Ensures consistency in AI-generated content
+
+**Example:**
+```
+#OUTPUT FORMAT#
+Please provide:
+1. Complete TypeScript component code
+2. Brief explanation of key features
+3. Usage example
+4. List of dependencies needed
+Format code with proper indentation and comments.
+```
+
+### Complete Prompt Template
+
+```
+#CONTEXT#
+[Provide background information about your situation, project, or current state]
+
+#OBJECTIVE#
+[State clearly what you want to achieve or the goal you're working toward]
+
+#INSTRUCTION#
+[Provide specific, actionable steps or instructions]
+
+#CONSTRAINTS#
+[Optional: List any limitations, requirements, or restrictions]
+
+#EXAMPLE#
+[Optional: Show examples of desired output or patterns]
+
+#OUTPUT FORMAT#
+[Optional: Specify how you want the response structured]
+```
+
+### Best Practices
+
+**1. Always Include Context:**
+- Context helps AI understand your situation
+- More context = better, more relevant responses
+- Include relevant technical details, project state, and constraints
+
+**2. Be Specific with Objectives:**
+- Vague goals lead to vague results
+- Clearly define what success looks like
+- Make objectives measurable when possible
+
+**3. Break Down Instructions:**
+- Complex tasks should be broken into clear steps
+- Number or bullet-point instructions for clarity
+- Ensure instructions are actionable
+
+**4. Use Constraints Wisely:**
+- Don't over-constrain (can limit creativity)
+- Include important technical or business constraints
+- Mention style preferences or coding standards
+
+**5. Provide Examples When Helpful:**
+- Examples are powerful for showing desired patterns
+- Use examples for style, format, or approach
+- Can be code snippets, patterns, or templates
+
+**6. Specify Output Format When Needed:**
+- Useful for documentation, code structure, or reports
+- Ensures consistency across multiple requests
+- Helps when you need specific formatting
+
+### When to Use Each Element
+
+**Use All Elements When:**
+- Working on complex, multi-step tasks
+- Need precise control over output
+- Working with critical production code
+- Need consistent formatting across requests
+
+**Minimal Elements (Context + Objective + Instruction):**
+- Simple, straightforward tasks
+- Quick questions or clarifications
+- Iterative refinement of previous responses
+
+**Add Constraints When:**
+- Working within specific technical limitations
+- Need to follow project standards
+- Have business rules or requirements
+
+**Add Examples When:**
+- Want to match existing code style
+- Need specific patterns or structures
+- Teaching AI your preferences
+
+**Add Output Format When:**
+- Generating documentation
+- Need structured responses
+- Creating templates or standardized content
+
+### Common Mistakes
+
+**1. Missing Context:**
+❌ "Create a login form"
+✅ "#CONTEXT# I'm building a React app with Next.js 14..."
+
+**2. Vague Objectives:**
+❌ "#OBJECTIVE# Make it better"
+✅ "#OBJECTIVE# Improve performance by reducing re-renders and optimizing API calls"
+
+**3. Unclear Instructions:**
+❌ "#INSTRUCTION# Add validation"
+✅ "#INSTRUCTION# 1. Validate email format using regex. 2. Check password is 8+ characters..."
+
+**4. Over-constraining:**
+❌ Listing 20+ constraints for a simple task
+✅ Include only relevant, important constraints
+
+**5. Missing Examples for Style:**
+❌ Not showing desired code style
+✅ Provide examples of existing code patterns you want to match
+
+### Summary
+
+Prompt elements provide a structured approach to communicating with AI models. By organizing your prompts using these elements, you can:
+- Get more accurate and relevant responses
+- Reduce back-and-forth iterations
+- Maintain consistency in AI-generated content
+- Better control the output format and style
+- Create reusable prompt templates
+
+Remember: Not every prompt needs all elements. Use them based on the complexity and requirements of your task. Start with Context, Objective, and Instruction for most tasks, and add other elements as needed.
+
+</expand>
+
 <expand title="Prompt Engineering for Error Handling">
 ## Prompt Engineering for Error Handling
 
