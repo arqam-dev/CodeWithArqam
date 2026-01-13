@@ -29,226 +29,176 @@ Prompt engineering is the practice of designing and optimizing inputs (prompts) 
 <expand title="Prompt Elements">
 ## Prompt Elements
 
-### Overview
-A well-structured prompt consists of several key elements that work together to guide AI models effectively. Understanding and using these elements helps create more accurate, reliable, and useful AI responses.
+A well-structured prompt uses these key elements to guide AI models effectively:
 
-### Core Prompt Elements
+**#CONTEXT#** - Background information about your situation, project, or current state
+**#OBJECTIVE#** or **#GOAL#** - What you want to achieve
+**#INSTRUCTION#** - Specific steps or actions to take
+**#CONSTRAINTS#** (Optional) - Limitations, requirements, or restrictions
+**#EXAMPLE#** (Optional) - Concrete examples of desired output or behavior
+**#OUTPUT FORMAT#** (Optional) - How you want the response structured
 
-**1. #CONTEXT#**
-- Provides background information and situational awareness
-- Sets the stage for what the AI needs to understand
-- Includes relevant details about the current state, environment, or situation
-- Helps AI understand the "why" behind the request
-
-**Example:**
-```
-#CONTEXT#
-I'm working on a React application using Next.js 14 with TypeScript. 
-The application handles user authentication and I'm currently in the 
-login component. The backend API is already set up and working.
-```
-
-**2. #OBJECTIVE# or #GOAL#**
-- Clearly states what you want to achieve
-- Defines the desired outcome or end result
-- Should be specific and measurable when possible
-- Answers the question: "What do I want to accomplish?"
-
-**Example:**
-```
-#OBJECTIVE#
-Create a secure login form component that validates user credentials, 
-handles errors gracefully, and redirects authenticated users to the dashboard.
-```
-
-**3. #INSTRUCTION#**
-- Provides specific steps or actions to take
-- Tells the AI exactly what to do
-- Can include multiple instructions in a logical sequence
-- Should be clear, actionable, and unambiguous
-
-**Example:**
-```
-#INSTRUCTION#
-1. Create a login form with email and password fields
-2. Add client-side validation for email format and password strength
-3. Implement error handling for API failures
-4. Show loading state during authentication
-5. Redirect to /dashboard on successful login
-6. Display user-friendly error messages
-```
-
-**4. #CONSTRAINTS# (Optional)**
-- Specifies limitations, requirements, or restrictions
-- Defines what must or must not be done
-- Includes technical constraints, business rules, or preferences
-- Helps ensure the solution fits your specific needs
-
-**Example:**
-```
-#CONSTRAINTS#
-- Must use TypeScript with strict mode
-- Cannot use external UI libraries (use only React and Tailwind CSS)
-- Must follow existing code patterns in the project
-- Password must be hashed before sending to API
-- Must be accessible (WCAG 2.1 AA compliant)
-- Must work with existing authentication service
-```
-
-**5. #EXAMPLE#**
-- Provides concrete examples of desired output or behavior
-- Shows the pattern or format you want
-- Demonstrates expected structure, style, or approach
-- Helps AI understand your preferences through demonstration
-
-**Example:**
-```
-#EXAMPLE#
-Here's an example of the error handling pattern I want:
-
-```typescript
-try {
-  const response = await loginUser(credentials);
-  if (response.success) {
-    router.push('/dashboard');
-  }
-} catch (error) {
-  setError(error.message || 'Login failed. Please try again.');
-}
-```
-```
-
-**6. #OUTPUT FORMAT# (Optional)**
-- Specifies how you want the response structured
-- Defines the format, style, or organization of the output
-- Can include code formatting, documentation style, or response structure
-- Ensures consistency in AI-generated content
-
-**Example:**
-```
-#OUTPUT FORMAT#
-Please provide:
-1. Complete TypeScript component code
-2. Brief explanation of key features
-3. Usage example
-4. List of dependencies needed
-Format code with proper indentation and comments.
-```
-
-### Complete Prompt Template
+### Template
 
 ```
 #CONTEXT#
-[Provide background information about your situation, project, or current state]
+[Background information about your situation, project, or current state]
 
 #OBJECTIVE#
-[State clearly what you want to achieve or the goal you're working toward]
+[What you want to achieve]
 
 #INSTRUCTION#
-[Provide specific, actionable steps or instructions]
+[Specific, actionable steps]
 
 #CONSTRAINTS#
-[Optional: List any limitations, requirements, or restrictions]
+[Optional: Limitations, requirements, or restrictions]
 
 #EXAMPLE#
-[Optional: Show examples of desired output or patterns]
+[Optional: Examples of desired output or patterns]
 
 #OUTPUT FORMAT#
-[Optional: Specify how you want the response structured]
+[Optional: Response structure specification]
 ```
 
 ### Best Practices
 
-**1. Always Include Context:**
-- Context helps AI understand your situation
-- More context = better, more relevant responses
-- Include relevant technical details, project state, and constraints
+- **Include Context:** Provide relevant technical details and project state
+- **Be Specific:** Clearly define objectives and make them measurable
+- **Break Down Instructions:** Use numbered steps for complex tasks
+- **Use Constraints Wisely:** Include only important technical or business constraints
+- **Provide Examples:** Show desired patterns, style, or format
+- **Specify Output Format:** Use when generating documentation or structured responses
 
-**2. Be Specific with Objectives:**
-- Vague goals lead to vague results
-- Clearly define what success looks like
-- Make objectives measurable when possible
+### Usage
 
-**3. Break Down Instructions:**
-- Complex tasks should be broken into clear steps
-- Number or bullet-point instructions for clarity
-- Ensure instructions are actionable
+- **Simple tasks:** Use Context + Objective + Instruction
+- **Complex tasks:** Include all elements for precise control
+- **Style matching:** Add Examples to match existing code patterns
+- **Documentation:** Specify Output Format for consistency
 
-**4. Use Constraints Wisely:**
-- Don't over-constrain (can limit creativity)
-- Include important technical or business constraints
-- Mention style preferences or coding standards
+</expand>
 
-**5. Provide Examples When Helpful:**
-- Examples are powerful for showing desired patterns
-- Use examples for style, format, or approach
-- Can be code snippets, patterns, or templates
+<expand title="Prompting Techniques">
+## Prompting Techniques
 
-**6. Specify Output Format When Needed:**
-- Useful for documentation, code structure, or reports
-- Ensures consistency across multiple requests
-- Helps when you need specific formatting
+### Zero-shot Prompting
+Directly instruct the model to perform a task without providing examples or demonstrations.
 
-### When to Use Each Element
+**When to use:** Simple, straightforward tasks where the model has sufficient knowledge
 
-**Use All Elements When:**
-- Working on complex, multi-step tasks
-- Need precise control over output
-- Working with critical production code
-- Need consistent formatting across requests
+**Example:**
+```
+Write a function to validate email addresses in JavaScript.
+```
 
-**Minimal Elements (Context + Objective + Instruction):**
-- Simple, straightforward tasks
-- Quick questions or clarifications
-- Iterative refinement of previous responses
+### Few-shot Prompting
+Provide demonstrations in the prompt to enable in-context learning and improve model performance.
 
-**Add Constraints When:**
-- Working within specific technical limitations
-- Need to follow project standards
-- Have business rules or requirements
+**When to use:** Need to show specific patterns, styles, or formats you want the model to follow
 
-**Add Examples When:**
-- Want to match existing code style
-- Need specific patterns or structures
-- Teaching AI your preferences
+**Example:**
+```
+Example 1: "Hello" → "H-e-l-l-o"
+Example 2: "World" → "W-o-r-l-d"
+Now convert "Prompt" using the same pattern.
+```
 
-**Add Output Format When:**
-- Generating documentation
-- Need structured responses
-- Creating templates or standardized content
+### Chain-of-Thought Prompting
+Break down complex problems into step-by-step reasoning to guide the model through logical thinking.
 
-### Common Mistakes
+**When to use:** Complex problems requiring multi-step reasoning or calculations
 
-**1. Missing Context:**
-❌ "Create a login form"
-✅ "#CONTEXT# I'm building a React app with Next.js 14..."
+**Example:**
+```
+Solve this step by step:
+1. First, identify what's being asked
+2. Then, break down the problem
+3. Finally, solve each part
 
-**2. Vague Objectives:**
-❌ "#OBJECTIVE# Make it better"
-✅ "#OBJECTIVE# Improve performance by reducing re-renders and optimizing API calls"
+Problem: [PROBLEM]
+```
 
-**3. Unclear Instructions:**
-❌ "#INSTRUCTION# Add validation"
-✅ "#INSTRUCTION# 1. Validate email format using regex. 2. Check password is 8+ characters..."
+### Meta Prompting
+Use prompts to generate or improve other prompts, creating a meta-level of prompt engineering.
 
-**4. Over-constraining:**
-❌ Listing 20+ constraints for a simple task
-✅ Include only relevant, important constraints
+**When to use:** Need to create optimized prompts for specific tasks or domains
 
-**5. Missing Examples for Style:**
-❌ Not showing desired code style
-✅ Provide examples of existing code patterns you want to match
+### Self-Consistency
+Generate multiple responses and select the most consistent answer by comparing different reasoning paths.
 
-### Summary
+**When to use:** Critical tasks where accuracy is paramount
 
-Prompt elements provide a structured approach to communicating with AI models. By organizing your prompts using these elements, you can:
-- Get more accurate and relevant responses
-- Reduce back-and-forth iterations
-- Maintain consistency in AI-generated content
-- Better control the output format and style
-- Create reusable prompt templates
+### Generate Knowledge Prompting
+Generate relevant knowledge or facts before answering, improving the quality of responses.
 
-Remember: Not every prompt needs all elements. Use them based on the complexity and requirements of your task. Start with Context, Objective, and Instruction for most tasks, and add other elements as needed.
+**When to use:** Complex questions requiring background knowledge
+
+### Prompt Chaining
+Break complex tasks into a sequence of connected prompts where each prompt builds on previous outputs.
+
+**When to use:** Multi-step workflows or complex processes
+
+### Tree of Thoughts
+Explore multiple reasoning paths simultaneously, evaluating and selecting the best approach.
+
+**When to use:** Problems with multiple valid solutions or approaches
+
+### RAG - Retrieval Augmented Generation
+Combine retrieval of relevant information with generation, using external knowledge sources.
+
+**When to use:** Need up-to-date information or domain-specific knowledge
+
+### Automatic Reasoning and Tool-use
+Enable models to use external tools, APIs, or functions to gather information or perform actions.
+
+**When to use:** Tasks requiring real-time data, calculations, or external services
+
+### Automatic Prompt Engineering
+Use AI to automatically generate, optimize, or refine prompts for better performance.
+
+**When to use:** Need to optimize prompts for specific models or tasks
+
+### Active-Prompt
+Dynamically select or adapt prompts based on the input or context.
+
+**When to use:** Variable inputs requiring different approaches
+
+### Directional Stimulus Prompting
+Provide hints or cues that guide the model toward the desired solution direction.
+
+**When to use:** Need subtle guidance without being too prescriptive
+
+### Program-Aided Language Models
+Combine language models with code execution capabilities for tasks requiring computation.
+
+**When to use:** Mathematical problems, data processing, or tasks needing code execution
+
+### ReAct (Reasoning + Acting)
+Combine reasoning with actions, allowing the model to think and act iteratively.
+
+**When to use:** Interactive tasks requiring both planning and execution
+
+### Reflexion
+Enable models to reflect on their outputs, identify errors, and improve responses iteratively.
+
+**When to use:** Tasks where self-correction and improvement are valuable
+
+### Multimodal CoT
+Extend chain-of-thought reasoning to multimodal inputs (text, images, audio, etc.).
+
+**When to use:** Tasks involving multiple types of input data
+
+### Graph Prompting
+Structure prompts as graphs to represent complex relationships and reasoning paths.
+
+**When to use:** Complex problems with interconnected components or relationships
+
+### Guidelines
+
+- **Focus on "What to do"** rather than "What not to do"
+- Use Q/A format for questions and answers when appropriate
+- Match technique to task complexity and requirements
+- Combine techniques for better results on complex tasks
 
 </expand>
 
