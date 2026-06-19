@@ -16,38 +16,38 @@ interface AIEnrichmentProps {
 }
 
 const mdComponents: Record<string, React.ComponentType<any>> = {
-  h1: ({ children }) => <h1 className="text-lg font-black text-slate-900 dark:text-white mt-4 mb-2 pb-1.5 border-b-2 border-purple-100 dark:border-purple-900/40 flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-purple-500 flex-shrink-0" />{children}</h1>,
-  h2: ({ children }) => <h2 className="text-sm font-extrabold text-slate-800 dark:text-slate-100 mt-4 mb-2 flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-indigo-500 flex-shrink-0" />{children}</h2>,
-  h3: ({ children }) => <h3 className="text-xs font-bold text-violet-700 dark:text-violet-300 mt-3 mb-1 uppercase tracking-widest">{children}</h3>,
-  p: ({ children }) => <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-2.5">{children}</p>,
+  h1: ({ children }) => <h1 className="text-lg font-black text-white mt-4 mb-2 pb-1.5 border-b-2 border-purple-800/50 flex items-center gap-2"><span className="w-3 h-3 rounded-sm bg-purple-500 flex-shrink-0" />{children}</h1>,
+  h2: ({ children }) => <h2 className="text-sm font-extrabold text-slate-100 mt-4 mb-2 flex items-center gap-1.5"><span className="w-2 h-2 rounded-sm bg-indigo-500 flex-shrink-0" />{children}</h2>,
+  h3: ({ children }) => <h3 className="text-xs font-bold text-violet-400 mt-3 mb-1 uppercase tracking-widest">{children}</h3>,
+  p: ({ children }) => <p className="text-sm text-slate-300 leading-relaxed mb-2.5">{children}</p>,
   ul: ({ children }) => <ul className="space-y-1 pl-0 list-none mb-2.5">{children}</ul>,
   ol: ({ children }) => <ol className="space-y-1 pl-0 list-none mb-2.5">{children}</ol>,
   li: ({ children }) => (
-    <li className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
-      <span className="flex-shrink-0 mt-0.5 w-4 h-4 rounded bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-[10px] font-bold">›</span>
+    <li className="flex items-start gap-2 text-sm text-slate-300">
+      <span className="flex-shrink-0 mt-0.5 w-4 h-4 rounded bg-purple-900/60 text-purple-400 flex items-center justify-center text-[10px] font-bold">›</span>
       <span className="leading-relaxed">{children}</span>
     </li>
   ),
-  strong: ({ children }) => <strong className="font-bold bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1 rounded-sm not-italic">{children}</strong>,
-  em: ({ children }) => <em className="text-indigo-600 dark:text-indigo-400 not-italic font-medium">{children}</em>,
+  strong: ({ children }) => <strong className="font-bold bg-amber-900/30 text-amber-300 px-1 rounded-sm not-italic">{children}</strong>,
+  em: ({ children }) => <em className="text-indigo-400 not-italic font-medium">{children}</em>,
   code: ({ inline, children }: any) =>
     inline
-      ? <code className="bg-slate-100 dark:bg-slate-800 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded text-xs font-mono border border-slate-200 dark:border-slate-700">{children}</code>
+      ? <code className="bg-slate-700/80 text-rose-400 px-1.5 py-0.5 rounded text-xs font-mono border border-slate-600">{children}</code>
       : <pre className="bg-[#0d1117] rounded-xl p-3.5 overflow-x-auto mb-2.5 mt-1.5 border border-slate-700/50"><code className="text-green-400 text-xs font-mono leading-relaxed">{children}</code></pre>,
   blockquote: ({ children }) => (
-    <blockquote className="border-l-4 border-purple-400 bg-purple-50 dark:bg-purple-900/20 pl-3.5 py-2.5 pr-3 rounded-r-xl mb-2.5">
-      <div className="text-[10px] font-bold text-purple-600 dark:text-purple-400 mb-1 uppercase tracking-wide">💡 Note</div>
-      <div className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">{children}</div>
+    <blockquote className="border-l-4 border-purple-500 bg-purple-900/20 pl-3.5 py-2.5 pr-3 rounded-r-xl mb-2.5">
+      <div className="text-[10px] font-bold text-purple-400 mb-1 uppercase tracking-wide">💡 Note</div>
+      <div className="text-sm text-slate-300 leading-relaxed">{children}</div>
     </blockquote>
   ),
-  table: ({ children }) => <div className="overflow-x-auto mb-2.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm"><table className="w-full text-xs">{children}</table></div>,
-  thead: ({ children }) => <thead className="bg-gradient-to-r from-purple-50 to-slate-50 dark:from-purple-900/30 dark:to-slate-800 text-slate-700 dark:text-slate-200 font-semibold">{children}</thead>,
-  tbody: ({ children }) => <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">{children}</tbody>,
-  tr: ({ children }) => <tr className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">{children}</tr>,
+  table: ({ children }) => <div className="overflow-x-auto mb-2.5 rounded-xl border border-slate-600/50 shadow-sm"><table className="w-full text-xs">{children}</table></div>,
+  thead: ({ children }) => <thead className="bg-slate-700/60 text-slate-200 font-semibold">{children}</thead>,
+  tbody: ({ children }) => <tbody className="divide-y divide-slate-700/50">{children}</tbody>,
+  tr: ({ children }) => <tr className="hover:bg-slate-700/30 transition-colors">{children}</tr>,
   th: ({ children }) => <th className="px-3 py-2 text-left font-bold tracking-wide">{children}</th>,
-  td: ({ children }) => <td className="px-3 py-2 text-slate-600 dark:text-slate-400">{children}</td>,
-  hr: () => <hr className="my-4 border-0 h-px bg-gradient-to-r from-transparent via-purple-200 dark:via-purple-800 to-transparent" />,
-  a: ({ href, children }: any) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-purple-600 dark:text-purple-400 underline decoration-dotted underline-offset-2 hover:decoration-solid">{children}</a>,
+  td: ({ children }) => <td className="px-3 py-2 text-slate-400">{children}</td>,
+  hr: () => <hr className="my-4 border-0 h-px bg-gradient-to-r from-transparent via-purple-700/50 to-transparent" />,
+  a: ({ href, children }: any) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-purple-400 underline decoration-dotted underline-offset-2 hover:decoration-solid">{children}</a>,
 };
 
 // Smart local enrichment fallback (mirrors server-side logic)
@@ -188,21 +188,21 @@ export default function AIEnrichment({ title, originalContent, hideBorder = fals
   if (showContentOnly && enrichedContent) {
     return (
       <div className="mt-3">
-        <div className="rounded-xl border border-purple-200/60 dark:border-purple-800/40 overflow-hidden" style={{ background: 'linear-gradient(135deg, #faf5ff 0%, #f0f4ff 100%)' }}>
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-purple-100 dark:border-purple-800/40" style={{ background: 'linear-gradient(90deg, #7c3aed15, #4f46e515)' }}>
+        <div className="rounded-xl border border-purple-500/20 overflow-hidden bg-slate-800/60 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-purple-500/15 bg-purple-500/8">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-sm">
                 <FaRobot size={10} className="text-white" />
               </div>
-              <span className="text-xs font-bold text-purple-700 dark:text-purple-300">AI Enriched</span>
-              <span className="text-[10px] px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 rounded-full font-medium">Enhanced</span>
+              <span className="text-xs font-bold text-purple-300">AI Enriched</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-purple-500/20 text-purple-300 rounded-full font-medium border border-purple-500/20">Enhanced</span>
             </div>
             <button onClick={() => setEnrichedContent(null)}
-              className="w-5 h-5 rounded-full bg-white/60 hover:bg-purple-100 dark:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center text-slate-400 hover:text-purple-600 transition-colors cursor-pointer">
+              className="w-5 h-5 rounded-full bg-white/8 hover:bg-purple-500/20 flex items-center justify-center text-slate-400 hover:text-purple-300 transition-colors cursor-pointer">
               <FaTimes size={8} />
             </button>
           </div>
-          <div className="px-4 py-3 dark:bg-slate-800/40">
+          <div className="px-4 py-3">
             <ReactMarkdown components={mdComponents}>{enrichedContent}</ReactMarkdown>
           </div>
         </div>
@@ -234,21 +234,21 @@ export default function AIEnrichment({ title, originalContent, hideBorder = fals
       )}
 
       {enrichedContent && (
-        <div className="mt-3 rounded-xl border border-purple-200/60 dark:border-purple-800/40 overflow-hidden" style={{ background: 'linear-gradient(135deg, #faf5ff 0%, #f0f4ff 100%)' }}>
-          <div className="flex items-center justify-between px-4 py-2.5 border-b border-purple-100 dark:border-purple-800/40" style={{ background: 'linear-gradient(90deg, #7c3aed15, #4f46e515)' }}>
+        <div className="mt-3 rounded-xl border border-purple-500/20 overflow-hidden bg-slate-800/60 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-4 py-2.5 border-b border-purple-500/15 bg-purple-500/8">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center shadow-sm">
                 <FaRobot size={10} className="text-white" />
               </div>
-              <span className="text-xs font-bold text-purple-700 dark:text-purple-300">AI Enriched</span>
-              <span className="text-[10px] px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 rounded-full font-medium">Enhanced</span>
+              <span className="text-xs font-bold text-purple-300">AI Enriched</span>
+              <span className="text-[10px] px-1.5 py-0.5 bg-purple-500/20 text-purple-300 rounded-full font-medium border border-purple-500/20">Enhanced</span>
             </div>
             <button onClick={() => setEnrichedContent(null)}
-              className="w-5 h-5 rounded-full bg-white/60 hover:bg-purple-100 dark:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center text-slate-400 hover:text-purple-600 transition-colors cursor-pointer">
+              className="w-5 h-5 rounded-full bg-white/8 hover:bg-purple-500/20 flex items-center justify-center text-slate-400 hover:text-purple-300 transition-colors cursor-pointer">
               <FaTimes size={8} />
             </button>
           </div>
-          <div className="px-4 py-3 dark:bg-slate-800/40">
+          <div className="px-4 py-3">
             <ReactMarkdown components={mdComponents}>{enrichedContent}</ReactMarkdown>
           </div>
         </div>
