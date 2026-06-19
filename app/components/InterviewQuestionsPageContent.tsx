@@ -221,6 +221,56 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
     }
   };
 
+  // Rich markdown components for answer content
+  const mdComponents: Record<string, React.ComponentType<any>> = {
+    h1: ({children}) => (
+      <h1 className="text-base font-black text-blue-700 dark:text-blue-300 mt-5 mb-2.5 pb-1.5 border-b-2 border-blue-200 dark:border-blue-800 flex items-center gap-2">
+        <span className="w-3 h-3 bg-blue-500 rounded-sm inline-block flex-shrink-0" />{children}
+      </h1>
+    ),
+    h2: ({children}) => (
+      <h2 className="text-sm font-extrabold text-indigo-700 dark:text-indigo-300 mt-4 mb-2 flex items-center gap-2">
+        <span className="w-2.5 h-2.5 bg-indigo-400 rounded-sm inline-block flex-shrink-0" />{children}
+      </h2>
+    ),
+    h3: ({children}) => (
+      <h3 className="text-sm font-bold text-violet-700 dark:text-violet-400 mt-3 mb-1.5">{children}</h3>
+    ),
+    p: ({children}) => (
+      <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-2.5">{children}</p>
+    ),
+    ul: ({children}) => <ul className="my-2.5 space-y-1.5 pl-0 list-none">{children}</ul>,
+    ol: ({children}) => <ol className="my-2.5 space-y-1.5 pl-0 list-none">{children}</ol>,
+    li: ({children}) => (
+      <li className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
+        <span className="w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">›</span>
+        <span className="flex-1 leading-relaxed">{children}</span>
+      </li>
+    ),
+    strong: ({children}) => (
+      <strong className="font-bold text-slate-900 dark:text-slate-100 bg-amber-50 dark:bg-amber-900/20 px-1 rounded-sm">{children}</strong>
+    ),
+    em: ({children}) => (
+      <em className="text-indigo-700 dark:text-indigo-300 not-italic font-medium">{children}</em>
+    ),
+    code: ({className, children}: any) => {
+      const isMultiLine = String(children).includes('\n');
+      if (isMultiLine || className?.startsWith('language-')) {
+        return (
+          <pre className="bg-[#0d1117] rounded-xl p-4 my-3 overflow-x-auto border border-slate-700/60">
+            <code className="text-green-400 text-xs font-mono leading-relaxed">{children}</code>
+          </pre>
+        );
+      }
+      return <code className="bg-slate-100 dark:bg-slate-800 text-rose-600 dark:text-rose-400 px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>;
+    },
+    blockquote: ({children}) => (
+      <blockquote className="my-3 pl-4 border-l-4 border-blue-400 bg-blue-50 dark:bg-blue-950/30 py-3 pr-4 rounded-r-xl text-sm text-slate-700 dark:text-slate-300">
+        {children}
+      </blockquote>
+    ),
+  };
+
   const renderQuestion = (section: QuestionSection, displayIndex: number) => {
     const isExpanded = expandedQuestions.has(section.title);
     const answerVisible = showAnswers.has(section.title);
@@ -230,108 +280,111 @@ export default function InterviewQuestionsPageContent({ content, category }: Int
     const dc = difficultyConfig[diff];
     const num = String(displayIndex + 1).padStart(2, '0');
 
+    const cardAccent = { easy: 'border-t-emerald-400', medium: 'border-t-amber-400', hard: 'border-t-rose-500' }[diff];
+    const numBg = { easy: 'bg-emerald-500 shadow-emerald-900/30', medium: 'bg-amber-500 shadow-amber-900/30', hard: 'bg-rose-500 shadow-rose-900/30' }[diff];
+
     return (
       <div
         key={section.title}
-        className={`mb-5 rounded-xl overflow-hidden border-l-4 ${dc.border} shadow-sm hover:shadow-md transition-all duration-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700`}
+        className={`mb-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 border-t-4 ${cardAccent} bg-white dark:bg-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200`}
       >
-        {/* Question Header */}
+        {/* ── Card Header ── */}
         <button
           onClick={() => toggleQuestion(section.title)}
-          className="w-full px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors flex items-start justify-between text-left cursor-pointer gap-3"
+          className="w-full px-5 py-5 text-left flex items-start gap-4 hover:bg-slate-50/70 dark:hover:bg-slate-700/40 transition-colors cursor-pointer"
         >
-          {/* Number badge */}
-          <span className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${dc.bg} ${dc.color} mt-0.5`}>
+          <div className={`flex-shrink-0 w-10 h-10 rounded-xl ${numBg} text-white text-sm font-black flex items-center justify-center shadow-lg`}>
             {num}
-          </span>
-          <div className="flex-1 min-w-0">
-            <span className="font-semibold text-slate-900 dark:text-white leading-snug block">{section.title}</span>
-            <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-              <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full ${dc.bg} ${dc.color}`}>
-                <span className={`w-1.5 h-1.5 rounded-full ${dc.dot}`}></span>
+          </div>
+          <div className="flex-1 min-w-0 pt-0.5">
+            <p className="font-semibold text-slate-900 dark:text-white leading-snug text-[0.95rem]">{section.title}</p>
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <span className={`inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full ${dc.bg} ${dc.color} border ${dc.border}`}>
+                <span className={`w-1.5 h-1.5 rounded-full ${dc.dot}`} />
                 {dc.label}
               </span>
               {isViewed && (
-                <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400">
-                  <FaCheckCircle size={10} /> Reviewed
+                <span className="inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                  <FaCheckCircle size={9} /> Reviewed
                 </span>
               )}
             </div>
           </div>
-          <div className="flex-shrink-0 mt-1 text-slate-400">
-            {isExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+          <div className="flex-shrink-0 mt-2 text-slate-400">
+            {isExpanded ? <FaChevronUp size={13} /> : <FaChevronDown size={13} />}
           </div>
         </button>
-        
+
+        {/* ── Expanded Content ── */}
         {isExpanded && (
-          <div className="px-5 pb-5 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-slate-700">
-            {section.question && (
-              <div className="mt-4 mb-4">
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">
-                  <FaBook size={10} /> Question
-                </div>
-                <div className="text-slate-800 dark:text-slate-200 leading-relaxed bg-white dark:bg-slate-800 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-                  <ReactMarkdown>{section.question}</ReactMarkdown>
-                </div>
-              </div>
-            )}
-            
-            {section.answer && (
-              <>
-                {!answerVisible ? (
-                  <div className="mt-3 p-4 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 rounded-xl border border-indigo-200 dark:border-slate-600">
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="flex-shrink-0 mt-0.5">
-                        <FaBrain className="text-indigo-600 dark:text-indigo-400 text-lg animate-pulse" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                          <span className="font-semibold text-indigo-700 dark:text-indigo-400">💡 Think First!</span> Formulate your answer before revealing the solution. This reinforces retention.
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={(e) => toggleAnswer(section.title, e)}
-                      className="w-full px-5 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded-xl font-semibold transition-all duration-300 cursor-pointer shadow-md hover:shadow-lg transform hover:scale-[1.01] flex items-center justify-center gap-2 group"
-                    >
-                      <FaLightbulb className="group-hover:rotate-12 transition-transform duration-300" />
-                      <span>Reveal Answer</span>
-                    </button>
+          <div className="border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-900/40">
+            <div className="px-5 py-5">
+              {/* Question text */}
+              {section.question && (
+                <div className="mb-5">
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                      <FaBook size={10} className="text-blue-400" /> Question
+                    </span>
                   </div>
-                ) : (
-                  <div className="mt-3 relative">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">
-                      <FaLightbulb size={10} className="text-amber-500" /> Answer
+                  <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-600/60 shadow-sm">
+                    <div className="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+                      <ReactMarkdown components={mdComponents}>{section.question}</ReactMarkdown>
                     </div>
-                    <div className="interview-answer-container">
-                      <div className="interview-answer-content">
-                        <ReactMarkdown>{section.answer}</ReactMarkdown>
-                      </div>
-                    </div>
-                    {enableCopyFullscreen && (
-                      <div className="expandable-action-buttons">
-                        <button
-                          onClick={(e) => { e.stopPropagation(); handleCopy(section, e); }}
-                          className="expandable-copy-btn cursor-pointer"
-                          aria-label="Copy content"
-                          title={isCopied ? "Copied!" : "Copy content"}
-                        >
-                          {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
-                        </button>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setFullscreenQuestion(section.title); }}
-                          className="expandable-fullscreen-btn cursor-pointer"
-                          aria-label="Open in fullscreen"
-                          title="Open in fullscreen"
-                        >
-                          <FaExpand size={16} />
-                        </button>
-                      </div>
-                    )}
                   </div>
-                )}
-              </>
-            )}
+                </div>
+              )}
+
+              {/* Answer reveal */}
+              {section.answer && (
+                <>
+                  {!answerVisible ? (
+                    <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-slate-800 dark:to-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40">
+                      <div className="flex items-start gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 flex items-center justify-center flex-shrink-0">
+                          <FaBrain className="text-indigo-600 dark:text-indigo-400" size={18} />
+                        </div>
+                        <div>
+                          <p className="font-bold text-indigo-900 dark:text-indigo-200 text-sm mb-0.5">Think before you reveal</p>
+                          <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Formulate your answer first — this dramatically improves long-term retention.</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={(e) => toggleAnswer(section.title, e)}
+                        className="w-full py-3 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-indigo-900/30 hover:shadow-indigo-500/30 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer hover:-translate-y-0.5"
+                      >
+                        <FaLightbulb size={14} />
+                        Reveal Expert Answer
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="relative">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                          <FaLightbulb size={10} className="text-amber-500" /> Expert Answer
+                        </span>
+                        <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+                      </div>
+                      <div className="bg-white dark:bg-slate-800/80 rounded-2xl p-5 border border-slate-200 dark:border-slate-600/50 shadow-sm">
+                        <ReactMarkdown components={mdComponents}>{section.answer}</ReactMarkdown>
+                      </div>
+                      {enableCopyFullscreen && (
+                        <div className="expandable-action-buttons">
+                          <button onClick={(e) => { e.stopPropagation(); handleCopy(section, e); }}
+                            className="expandable-copy-btn cursor-pointer" aria-label="Copy" title={isCopied ? "Copied!" : "Copy"}>
+                            {isCopied ? <FaCheck size={16} /> : <FaCopy size={16} />}
+                          </button>
+                          <button onClick={(e) => { e.stopPropagation(); setFullscreenQuestion(section.title); }}
+                            className="expandable-fullscreen-btn cursor-pointer" aria-label="Fullscreen" title="Fullscreen">
+                            <FaExpand size={16} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>

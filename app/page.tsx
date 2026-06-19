@@ -102,7 +102,7 @@ export default function Home() {
       {/* Navigation Bar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg" 
+          ? "bg-[#060b18]/95 backdrop-blur-md shadow-xl shadow-black/30 border-b border-white/5" 
           : "bg-transparent"
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -297,129 +297,97 @@ export default function Home() {
         )}
       </nav>
 
-      {/* Hero Banner Section - Arqam's Info */}
-      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-200/40 dark:bg-blue-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-          <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-indigo-200/40 dark:bg-indigo-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-purple-200/40 dark:bg-purple-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
-        </div>
+      {/* ── Hero Section ── */}
+      <section className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden" style={{background: 'linear-gradient(135deg, #060b18 0%, #0b1428 55%, #080d1c 100%)'}}>
+        {/* Grid overlay */}
+        <div className="absolute inset-0 pointer-events-none" style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px)', backgroundSize: '64px 64px'}} />
+        {/* Glowing orbs */}
+        <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] bg-blue-700/15 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-1/3 right-0 w-[450px] h-[450px] bg-indigo-700/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute bottom-0 left-1/3 w-[350px] h-[350px] bg-cyan-700/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
         <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="text-center md:text-left space-y-6 animate-fade-in">
-              <div className="inline-block">
-                <span className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 dark:from-emerald-600 dark:to-teal-600 text-white rounded-full text-sm font-medium shadow-md">
-                  🎯 Interview Prep · Concept Guides · Quizzes
-                </span>
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* ── Left: Content ── */}
+            <div className="text-center lg:text-left space-y-7 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/15 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-medium">
+                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                Available for Mentoring &middot; Open to Collaborations
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
-                Learn with <span 
-                  className="bg-gradient-to-r from-emerald-500 via-teal-500 to-transparent dark:from-emerald-400 dark:via-teal-400 bg-clip-text text-transparent inline-block"
-                  style={{
-                    backgroundImage: 'linear-gradient(to right, rgb(16, 185, 129), rgb(20, 184, 166), rgba(16, 185, 129, 0.6), rgba(16, 185, 129, 0.2), transparent)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
-                >Arqam</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-200">
-                Master Full-Stack Development with <span className="font-bold text-emerald-600 dark:text-emerald-400">9+ Years</span> of Industry Experience
+              <div>
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] tracking-tighter">
+                  Master<br />
+                  <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">Full-Stack</span><br />
+                  Dev
+                </h1>
+              </div>
+              <p className="text-lg text-white/55 max-w-lg leading-relaxed">
+                Built by <span className="text-white font-semibold">Muhammad Arqam</span>, Principal Software Engineer from &#127477;&#127481; Portugal.<br />
+                Interview prep, concept guides &amp; free mentoring &mdash; everything you need to level up.
               </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300 max-w-2xl">
-                Hi, I'm <strong className="text-slate-900 dark:text-white">Muhammad Arqam</strong>, a Principal Software Engineer based in Portugal. 
-                I've taught <strong className="text-slate-900 dark:text-white">500+ students</strong> and created comprehensive learning resources to help you master modern web development.
-              </p>
-              <div className="pt-6">
-                <Link
-                  href="/content"
-                  className="group relative inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:via-teal-400 hover:to-cyan-400 text-white rounded-xl font-bold text-base shadow-xl hover:shadow-[0_0_30px_rgba(16,185,129,0.6)] transform hover:scale-105 active:scale-100 transition-all duration-300 overflow-hidden animate-pulse-glow"
-                  style={{
-                    boxShadow: '0 8px 30px rgba(16, 185, 129, 0.3), 0 0 15px rgba(20, 184, 166, 0.2), 0 0 8px rgba(6, 182, 212, 0.15)'
-                  }}
-                >
-                  {/* Continuous shimmer effect */}
-                  <div className="absolute inset-0 animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent bg-[length:200%_100%]"></div>
-                  
-                  {/* Hover shimmer effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
-                  
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 opacity-0 group-hover:opacity-70 blur-2xl transition-opacity duration-500 -z-10"></div>
-                  
-                  {/* Animated border pulse */}
-                  <div className="absolute inset-0 rounded-xl border-2 border-white/40 group-hover:border-white/80 transition-all duration-300" style={{
-                    boxShadow: 'inset 0 0 15px rgba(255, 255, 255, 0.1)'
-                  }}></div>
-                  
-                  {/* Content */}
-                  <div className="relative z-10 flex items-center gap-2">
-                    <div className="relative">
-                      <FaBook size={16} className="transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-300" />
-                      <FaStar size={8} className="absolute -top-0.5 -right-0.5 text-yellow-300 animate-pulse" />
-                      <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping opacity-75"></div>
-                    </div>
-                    <span className="relative font-extrabold tracking-wide">Start Learning</span>
-                    <FaArrowRight size={14} className="transform group-hover:translate-x-2 group-hover:scale-110 transition-all duration-300" />
-                  </div>
-                  
-                  {/* Sparkle effects on hover */}
-                  <div className="absolute top-1.5 left-4 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0s' }}></div>
-                  <div className="absolute bottom-1.5 right-8 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0.3s' }}></div>
-                  <div className="absolute top-1/2 left-1/4 w-0.5 h-0.5 bg-cyan-300 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style={{ animationDelay: '0.6s' }}></div>
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <Link href="/interview-questions/frontend"
+                  className="group inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-xl font-bold text-base shadow-xl shadow-blue-900/50 hover:shadow-blue-500/30 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer">
+                  <FaQuestionCircle size={15} />
+                  Interview Prep
+                  <FaArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
+                <Link href="/content"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/15 border border-white/15 text-white rounded-xl font-bold text-base backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 cursor-pointer">
+                  <FaBook size={14} />
+                  Concept Guides
+                </Link>
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu"
+                  target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600/15 hover:bg-emerald-600/25 border border-emerald-500/25 text-emerald-300 rounded-xl font-bold text-sm backdrop-blur-sm transition-all duration-200 cursor-pointer">
+                  <FaCalendarAlt size={13} />
+                  Free Mentoring
+                </a>
               </div>
-              <div className="pt-4 flex items-center space-x-2 text-sm text-slate-600 dark:text-slate-400">
-                <FaArrowDown className="animate-bounce text-blue-500 dark:text-blue-400" size={14} />
+              <div className="hidden lg:flex flex-wrap gap-2">
+                {["React", "Next.js", "TypeScript", "Node.js", "AWS", "System Design", "GraphQL"].map(t => (
+                  <span key={t} className="px-3 py-1 bg-white/5 border border-white/8 rounded-full text-white/35 text-xs font-medium">{t}</span>
+                ))}
+              </div>
+              <div className="flex items-center gap-2 text-white/25 text-sm justify-center lg:justify-start">
+                <FaArrowDown className="animate-bounce" size={12} />
                 <span>Scroll to explore more</span>
               </div>
             </div>
-            <div className="flex justify-center md:justify-end">
-              <Link href="/portfolio" className="relative group cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 dark:from-blue-600 dark:via-purple-600 dark:to-pink-600 rounded-full blur-3xl opacity-30 dark:opacity-20 animate-pulse"></div>
-                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-200 dark:border-blue-700 shadow-2xl transform transition-all duration-300 group-hover:scale-105 group-hover:shadow-3xl group-hover:border-blue-300 dark:group-hover:border-blue-600">
-        <Image
-                    src="/arqam-pic.jpg"
-                    alt="Muhammad Arqam"
-                    width={320}
-                    height={320}
-                    className="object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-90"
-          priority
-        />
+            {/* ── Right: Photo ── */}
+            <div className="flex justify-center lg:justify-end">
+              <Link href="/portfolio" className="relative group cursor-pointer block">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600/30 to-cyan-600/20 blur-3xl scale-125 group-hover:scale-130 transition-transform duration-500" />
+                <div className="relative">
+                  <div className="absolute -inset-4 rounded-full border border-white/5 animate-pulse" />
+                  <div className="absolute -inset-9 rounded-full border border-white/[0.03]" />
+                  <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl group-hover:border-blue-400/30 transition-colors duration-300">
+                    <Image src="/arqam-pic.jpg" alt="Muhammad Arqam" width={320} height={320} className="object-cover w-full h-full" priority />
+                  </div>
+                  <div className="absolute -top-3 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-black px-3 py-2 rounded-2xl shadow-lg shadow-emerald-900/50 whitespace-nowrap">
+                    9+ Years
+                  </div>
+                  <div className="absolute -bottom-3 -left-4 bg-white/10 backdrop-blur-md border border-white/15 text-white text-xs font-semibold px-3 py-2 rounded-2xl whitespace-nowrap">
+                    &#127477;&#127481; Portugal
+                  </div>
+                  <div className="absolute top-1/2 -right-10 bg-blue-500/15 backdrop-blur-md border border-blue-400/20 text-blue-300 text-xs font-semibold px-2.5 py-2 rounded-2xl whitespace-nowrap">
+                    500+ Students
+                  </div>
                 </div>
               </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => {
+          {/* ── Stats Bar ── */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 pt-10 border-t border-white/5">
+            {stats.map((stat, i) => {
               const Icon = stat.icon;
-              const colors = [
-                "from-indigo-500 to-blue-500",
-                "from-blue-500 to-cyan-500",
-                "from-purple-500 to-indigo-500",
-                "from-cyan-500 to-blue-500"
-              ];
               return (
-              <div
-                key={index}
-                  className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-700 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center border border-slate-200 dark:border-slate-600 hover:border-indigo-300 dark:hover:border-indigo-600 transform hover:scale-105"
-              >
-                  <div className={`inline-flex p-4 rounded-full bg-gradient-to-r ${colors[index]} mb-4 shadow-sm`}>
-                    <Icon className="text-white" size={32} />
-                    </div>
-                  <div className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
-                    {stat.value}
+                <div key={i} className="text-center group">
+                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${stat.color} mb-3 shadow-lg group-hover:scale-110 transition-transform duration-200`}>
+                    <Icon className="text-white" size={22} />
                   </div>
-                  <div className="text-sm text-slate-600 dark:text-slate-300 font-medium">
-                    {stat.label}
-                  </div>
+                  <div className="text-3xl md:text-4xl font-black text-white">{stat.value}</div>
+                  <div className="text-sm text-white/40 mt-1 font-medium">{stat.label}</div>
                 </div>
               );
             })}
@@ -526,37 +494,35 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-slate-900 dark:text-white">
-            Why Prep with CodeWithArqam?
-          </h2>
-          <p className="text-center text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl mx-auto">
-            Interview-focused learning resources by a Principal Engineer with 9+ years of hiring and tech experience.
-          </p>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
+              Why Prep with CodeWithArqam?
+            </h2>
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+              Interview-focused learning resources by a Principal Engineer with 9+ years of hiring and tech experience.
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => {
               const Icon = feature.icon;
-              const iconColors = [
-                "from-indigo-500 to-blue-500",
-                "from-blue-500 to-cyan-500",
-                "from-purple-500 to-indigo-500",
-                "from-cyan-500 to-blue-500"
-              ];
+              const featureStyles = [
+                { top: "bg-gradient-to-r from-indigo-500 to-blue-600", icon: "bg-indigo-100 dark:bg-indigo-900/40", iconText: "text-indigo-600 dark:text-indigo-400", border: "border-t-indigo-500" },
+                { top: "bg-gradient-to-r from-orange-500 to-amber-600", icon: "bg-orange-100 dark:bg-orange-900/40", iconText: "text-orange-600 dark:text-orange-400", border: "border-t-orange-500" },
+                { top: "bg-gradient-to-r from-emerald-500 to-teal-600", icon: "bg-emerald-100 dark:bg-emerald-900/40", iconText: "text-emerald-600 dark:text-emerald-400", border: "border-t-emerald-500" },
+                { top: "bg-gradient-to-r from-violet-500 to-purple-600", icon: "bg-violet-100 dark:bg-violet-900/40", iconText: "text-violet-600 dark:text-violet-400", border: "border-t-violet-500" },
+              ][index] || { top: "bg-gradient-to-r from-slate-500 to-slate-600", icon: "bg-slate-100 dark:bg-slate-800", iconText: "text-slate-600 dark:text-slate-400", border: "border-t-slate-500" };
               return (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-700 transform hover:scale-105"
-                >
-                  <div className={`inline-flex p-3 rounded-lg bg-gradient-to-r ${iconColors[index]} mb-4 shadow-sm`}>
-                    <Icon className="text-white" size={24} />
+                <div key={index}
+                  className={`bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 border-t-4 ${featureStyles.border} shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group`}>
+                  <div className="p-6">
+                    <div className={`w-12 h-12 rounded-xl ${featureStyles.icon} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-200`}>
+                      <Icon className={featureStyles.iconText} size={22} />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{feature.description}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {feature.description}
-                  </p>
                 </div>
               );
             })}
