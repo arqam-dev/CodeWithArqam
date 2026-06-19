@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from "react";
-import { FaPlay, FaPause, FaVolumeUp, FaDownload, FaSpinner } from "react-icons/fa";
+import { FaPlay, FaPause, FaDownload, FaSpinner } from "react-icons/fa";
 
 interface TextToSpeechProps {
   text: string;
@@ -460,137 +460,144 @@ const TextToSpeech = forwardRef<TextToSpeechRef, TextToSpeechProps>(
       return null;
     }
 
+    // Helper: compute % fill for slider track background
+    const sliderFill = (val: number, min: number, max: number) =>
+      `${((val - min) / (max - min)) * 100}%`;
+
     return (
-      <div className="text-to-speech-container mt-4 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-600">
-        <div className="flex items-center gap-2 mb-3">
-          <FaVolumeUp className="text-blue-600 dark:text-blue-400" size={18} />
-          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-            Text to Speech
-          </h3>
-        </div>
+      <div className="rounded-xl overflow-hidden border border-white/8 shadow-lg" style={{ background: 'linear-gradient(135deg, #1a1f2e 0%, #141824 100%)' }}>
 
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          {!isPlaying && !isPaused && (
-            <button
-              onClick={speak}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-medium cursor-pointer"
-              aria-label="Play"
-            >
-              <FaPlay size={14} />
-              Play
-            </button>
-          )}
-          
-          {isPlaying && !isPaused && (
-            <button
-              onClick={pause}
-              className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-medium cursor-pointer"
-              aria-label="Pause"
-            >
-              <FaPause size={14} />
-              Pause
-            </button>
-          )}
-          
-          {isPaused && (
-            <button
-              onClick={resume}
-              className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-medium cursor-pointer"
-              aria-label="Resume"
-            >
-              <FaPlay size={14} />
-              Resume
-            </button>
-          )}
-          
-          <button
-            onClick={handleDownload}
-            disabled={isDownloading || !text || text.trim().length === 0}
-            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors duration-200 flex items-center gap-2 text-sm font-medium cursor-pointer"
-            aria-label="Download Audio"
-          >
-            {isDownloading ? (
-              <>
-                <FaSpinner className="animate-spin" size={14} />
-                Generating...
-              </>
-            ) : (
-              <>
-                <FaDownload size={14} />
-                Download
-              </>
+        {/* ── Header row: waveform + title + controls ── */}
+        <div className="flex items-center gap-2.5 px-3.5 pt-3 pb-2.5 pr-20">
+          {/* Mini waveform */}
+          <div className="flex items-end gap-[2px] h-6 w-5 flex-shrink-0">
+            {[3,5,4,2,5,3].map((h, i) => (
+              <span key={i}
+                className={`w-[2px] rounded-full transition-all duration-300 ${isPlaying && !isPaused ? 'bg-blue-400' : 'bg-slate-600'}`}
+                style={{
+                  height: isPlaying && !isPaused ? `${h * 16}%` : '30%',
+                  animation: isPlaying && !isPaused ? `tts-bar ${0.4 + i * 0.07}s ease-in-out infinite alternate` : 'none',
+                }} />
+            ))}
+          </div>
+
+          {/* Title + status */}
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-white/85 truncate leading-tight">{title || 'Audio'}</p>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${isPlaying && !isPaused ? 'bg-green-400 animate-pulse' : isPaused ? 'bg-amber-400' : 'bg-slate-500'}`} />
+              <p className="text-[10px] text-white/35 font-medium">
+                {isPlaying && !isPaused ? 'Playing' : isPaused ? 'Paused' : 'Ready'}
+              </p>
+            </div>
+          </div>
+
+          {/* Compact controls */}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            {!isPlaying && !isPaused && (
+              <button onClick={speak} aria-label="Play"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white transition-all cursor-pointer shadow-md hover:scale-110 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #3b82f6, #6366f1)' }}>
+                <FaPlay size={9} className="ml-0.5" />
+              </button>
             )}
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-          <div>
-            <label className="block text-xs text-slate-600 dark:text-slate-400 mb-1">
-              Speed: {rate.toFixed(1)}x
-            </label>
-            <input
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={rate}
-              onChange={(e) => handleRateChange(parseFloat(e.target.value))}
-              className="w-full cursor-pointer"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-slate-600 dark:text-slate-400 mb-1">
-              Pitch: {pitch.toFixed(1)}
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="2"
-              step="0.1"
-              value={pitch}
-              onChange={(e) => handlePitchChange(parseFloat(e.target.value))}
-              className="w-full cursor-pointer"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-slate-600 dark:text-slate-400 mb-1">
-              Volume: {Math.round(volume * 100)}%
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={volume}
-              onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-              className="w-full cursor-pointer"
-            />
+            {isPlaying && !isPaused && (
+              <button onClick={pause} aria-label="Pause"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white transition-all cursor-pointer shadow-md hover:scale-110 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #f59e0b, #ef4444)' }}>
+                <FaPause size={9} />
+              </button>
+            )}
+            {isPaused && (
+              <button onClick={resume} aria-label="Resume"
+                className="w-7 h-7 rounded-full flex items-center justify-center text-white transition-all cursor-pointer shadow-md hover:scale-110 active:scale-95"
+                style={{ background: 'linear-gradient(135deg, #10b981, #3b82f6)' }}>
+                <FaPlay size={9} className="ml-0.5" />
+              </button>
+            )}
+            <button onClick={handleDownload} disabled={isDownloading || !text}
+              aria-label="Download"
+              className="w-7 h-7 rounded-full bg-white/8 hover:bg-white/15 border border-white/10 disabled:opacity-40 text-white/60 hover:text-white flex items-center justify-center transition-all cursor-pointer disabled:cursor-not-allowed hover:scale-110 active:scale-95">
+              {isDownloading ? <FaSpinner size={9} className="animate-spin" /> : <FaDownload size={9} />}
+            </button>
           </div>
         </div>
 
+        {/* ── Sliders ── 3 compact columns */}
+        <div className="grid grid-cols-3 gap-2 px-3.5 pb-3 pr-20">
+          {/* Speed */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Speed</span>
+              <span className="text-[9px] font-mono text-blue-300 font-semibold">{rate.toFixed(1)}x</span>
+            </div>
+            <div className="relative h-1.5 rounded-full bg-white/10">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all"
+                style={{ width: sliderFill(rate, 0.5, 2) }} />
+              <input type="range" min="0.5" max="2" step="0.1" value={rate}
+                onChange={e => handleRateChange(parseFloat(e.target.value))}
+                className="absolute inset-0 w-full opacity-0 h-full cursor-pointer" />
+            </div>
+          </div>
+
+          {/* Pitch */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Pitch</span>
+              <span className="text-[9px] font-mono text-violet-300 font-semibold">{pitch.toFixed(1)}</span>
+            </div>
+            <div className="relative h-1.5 rounded-full bg-white/10">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-violet-500 to-purple-400 transition-all"
+                style={{ width: sliderFill(pitch, 0, 2) }} />
+              <input type="range" min="0" max="2" step="0.1" value={pitch}
+                onChange={e => handlePitchChange(parseFloat(e.target.value))}
+                className="absolute inset-0 w-full opacity-0 h-full cursor-pointer" />
+            </div>
+          </div>
+
+          {/* Volume */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] font-bold text-white/40 uppercase tracking-widest">Vol</span>
+              <span className="text-[9px] font-mono text-emerald-300 font-semibold">{Math.round(volume * 100)}%</span>
+            </div>
+            <div className="relative h-1.5 rounded-full bg-white/10">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all"
+                style={{ width: sliderFill(volume, 0, 1) }} />
+              <input type="range" min="0" max="1" step="0.05" value={volume}
+                onChange={e => handleVolumeChange(parseFloat(e.target.value))}
+                className="absolute inset-0 w-full opacity-0 h-full cursor-pointer" />
+            </div>
+          </div>
+        </div>
+
+        {/* ── Voice selector ── */}
         {voices.length > 0 && (
-          <div className="mt-3">
-            <label className="block text-xs text-slate-600 dark:text-slate-400 mb-1">
-              Voice
-            </label>
+          <div className="px-3.5 pb-3 pr-20 border-t border-white/5 pt-2.5">
             <select
               value={voice?.name || ""}
-              onChange={(e) => {
-                const selectedVoice = voices.find((v) => v.name === e.target.value);
+              onChange={e => {
+                const selectedVoice = voices.find(v => v.name === e.target.value);
                 handleVoiceChange(selectedVoice || null);
               }}
-              className="w-full px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-sm text-slate-900 dark:text-slate-100 cursor-pointer"
+              className="w-full px-2.5 py-1.5 rounded-lg text-[10px] text-white/60 outline-none cursor-pointer transition-colors"
+              style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
             >
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>
+              {voices.map(v => (
+                <option key={v.name} value={v.name} className="bg-slate-800 text-white text-xs">
                   {v.name} ({v.lang})
                 </option>
               ))}
             </select>
           </div>
         )}
+
+        <style>{`
+          @keyframes tts-bar {
+            from { transform: scaleY(0.4); }
+            to   { transform: scaleY(1); }
+          }
+        `}</style>
       </div>
     );
   }

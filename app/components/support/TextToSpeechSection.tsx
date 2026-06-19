@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { FaVolumeUp, FaCheckCircle } from "react-icons/fa";
+import { FaVolumeUp } from "react-icons/fa";
 import TextToSpeech, { TextToSpeechRef } from "./TextToSpeech";
 
 interface TextToSpeechSectionProps {
@@ -56,9 +56,9 @@ export default function TextToSpeechSection({ text, title, hideBorder = false, o
     return (
       <button
         onClick={handleOpen}
-        className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/25 hover:border-blue-400/40 text-blue-400 hover:text-blue-300 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer"
       >
-        <FaVolumeUp size={16} />
+        <FaVolumeUp size={11} />
         <span>Text to Speech</span>
       </button>
     );
@@ -67,20 +67,14 @@ export default function TextToSpeechSection({ text, title, hideBorder = false, o
   // If showContentOnly, only render the content
   if (showContentOnly && isOpen) {
     return (
-      <div className={hideBorder ? "" : "mt-4 pt-4 border-t border-slate-200 dark:border-slate-700"}>
-        <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-900 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="flex items-center space-x-2 mb-3">
-            <FaCheckCircle className="text-blue-600 dark:text-blue-400" size={16} />
-            <h4 className="font-semibold text-slate-900 dark:text-white">Text to Speech</h4>
-          </div>
-          <TextToSpeech ref={textToSpeechRef} text={text} title={title} />
-          <button
-            onClick={handleClose}
-            className="mt-3 text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
-          >
-            Hide text to speech
-          </button>
-        </div>
+      <div className="mt-3">
+        <TextToSpeech ref={textToSpeechRef} text={text} title={title} />
+        <button
+          onClick={handleClose}
+          className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer"
+        >
+          Hide player
+        </button>
       </div>
     );
   }
@@ -91,25 +85,21 @@ export default function TextToSpeechSection({ text, title, hideBorder = false, o
       {!isOpen && (
         <button
           onClick={handleOpen}
-          className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/25 hover:border-blue-400/40 text-blue-400 hover:text-blue-300 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer"
         >
-          <FaVolumeUp size={16} />
+          <FaVolumeUp size={11} />
           <span>Text to Speech</span>
         </button>
       )}
 
       {isOpen && (
-        <div className="mt-4 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-900 rounded-lg border border-blue-200 dark:border-blue-800">
-          <div className="flex items-center space-x-2 mb-3">
-            <FaCheckCircle className="text-blue-600 dark:text-blue-400" size={16} />
-            <h4 className="font-semibold text-slate-900 dark:text-white">Text to Speech</h4>
-          </div>
+        <div className="mt-3">
           <TextToSpeech ref={textToSpeechRef} text={text} title={title} />
           <button
             onClick={handleClose}
-            className="mt-3 text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+            className="mt-2 text-[11px] text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer"
           >
-            Hide text to speech
+            Hide player
           </button>
         </div>
       )}

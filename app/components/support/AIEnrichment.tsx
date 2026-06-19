@@ -96,16 +96,16 @@ export default function AIEnrichment({ title, originalContent, hideBorder = fals
       <button
         onClick={handleEnrich}
         disabled={isEnriching}
-        className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/25 hover:border-purple-400/40 text-purple-400 hover:text-purple-300 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isEnriching ? (
           <>
-            <FaSpinner className="animate-spin" size={16} />
-            <span>Enriching with AI...</span>
+            <FaSpinner className="animate-spin" size={11} />
+            <span>Enriching…</span>
           </>
         ) : (
           <>
-            <FaRobot size={16} />
+            <FaRobot size={11} />
             <span>Enrich with AI</span>
           </>
         )}
