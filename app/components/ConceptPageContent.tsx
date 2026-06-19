@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { FaArrowLeft, FaBars, FaTimes, FaSearch } from "react-icons/fa";
 import ExpandableSection from "./ExpandableSection";
 import FloatingStartQuizButton from "./FloatingStartQuizButton";
+import QuizInlineSection from "./QuizInlineSection";
 import { useEffect, useState } from "react";
 
 interface ConceptPageContentProps {
@@ -20,6 +21,7 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [quizData, setQuizData] = useState<any>(null);
 
   // Helper function to convert to title case
   const toTitleCase = (str: string): string => {
@@ -47,6 +49,15 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
       }
     }
   }, [conceptName, pathname]);
+
+  // Load quiz data when displayName is ready
+  useEffect(() => {
+    if (!displayName) return;
+    fetch(`/api/quiz/${displayName.toLowerCase()}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setQuizData(data); })
+      .catch(() => {});
+  }, [displayName]);
 
   // Stop all speech when navigating to a different page
   useEffect(() => {
@@ -332,6 +343,11 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
               );
             })}
           </div>
+
+          {/* Inline quiz section */}
+          {quizData && !searchQuery && (
+            <QuizInlineSection quizData={quizData} />
+          )}
         </main>
       </div>
 
