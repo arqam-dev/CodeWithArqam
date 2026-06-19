@@ -155,155 +155,174 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
     return part.content.toLowerCase().includes(searchQuery.toLowerCase());
   }) : allParts;
 
+  const totalSections = allParts.filter(p => p.type === "expandable").length;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg border-b border-slate-200 dark:border-slate-700">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      {/* ── Sticky Nav Bar ── */}
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700/60 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16 relative">
+          <div className="flex items-center h-14 gap-3">
             <button
               onClick={() => router.back()}
-              className="flex items-center space-x-2 px-4 py-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-200 cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer"
             >
-              <FaArrowLeft size={18} />
-              <span className="hidden sm:inline">Back</span>
+              <FaArrowLeft size={13} />
+              <span className="hidden sm:inline font-medium">Back</span>
             </button>
+            <div className="h-5 w-px bg-slate-200 dark:bg-slate-700" />
             {displayName && (
-              <h1 className="absolute left-1/2 transform -translate-x-1/2 text-lg md:text-xl font-semibold text-slate-900 dark:text-white">
+              <span className="text-sm font-semibold text-slate-800 dark:text-white truncate">
                 {toTitleCase(displayName)}
-              </h1>
+              </span>
             )}
+            <div className="ml-auto flex items-center gap-2">
+              {totalSections > 0 && (
+                <span className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                  {totalSections} topics
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Sidebar - Integrated side menu, part of the page */}
-      {sections.length > 0 && (
-        <>
-          <aside
-            className={`fixed top-24 left-6 w-60 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 rounded-xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 backdrop-blur-sm transition-transform duration-300 z-30 ${
-              isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-            }`}
-            style={{ 
-              height: 'fit-content', 
-              minHeight: '160px',
-              maxHeight: 'calc(100vh - 7rem)',
-              overflowY: 'auto'
-            }}
-          >
-            <div className="p-4">
-              {/* Search Bar - Available on all concept pages */}
-              <div className="mb-4">
+      {/* ── Hero Banner ── */}
+      {displayName && (
+        <div className="relative overflow-hidden bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-900 dark:from-slate-950 dark:via-blue-950 dark:to-indigo-950">
+          {/* Decorative orbs */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+          <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0)', backgroundSize: '32px 32px'}} />
+
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                    📚 Concept Guide
+                  </span>
+                  {totalSections > 0 && (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-white/70 border border-white/20">
+                      {totalSections} sections
+                    </span>
+                  )}
+                </div>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                  {toTitleCase(displayName)}
+                </h1>
+                <p className="mt-3 text-blue-200/80 text-sm sm:text-base max-w-xl">
+                  Deep-dive reference guide — expand any section to study, get AI enrichment, or listen via text-to-speech.
+                </p>
+              </div>
+              {/* Search in hero */}
+              <div className="sm:w-72 flex-shrink-0">
                 <div className="relative">
-                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500" size={14} />
+                  <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" size={14} />
                   <input
                     type="text"
-                    placeholder="Search concepts..."
+                    placeholder="Search topics…"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent transition-all"
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="w-full pl-10 pr-9 py-3 bg-white/10 backdrop-blur border border-white/20 rounded-xl text-sm text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:bg-white/15 transition-all"
                   />
                   {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
-                      aria-label="Clear search"
-                    >
+                    <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/70 transition-colors">
                       <FaTimes size={12} />
                     </button>
                   )}
                 </div>
                 {searchQuery && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    {parts.filter(p => p.type === "expandable").length} result{parts.filter(p => p.type === "expandable").length !== 1 ? 's' : ''}
+                  <p className="text-xs text-blue-300/70 mt-2 text-center">
+                    {parts.filter(p => p.type === "expandable").length} match{parts.filter(p => p.type === "expandable").length !== 1 ? 'es' : ''}
                   </p>
                 )}
               </div>
-              
-              <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-700">
-                <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Quick Navigation</h2>
-                <button
-                  onClick={() => setIsSidebarOpen(false)}
-                  className="lg:hidden p-1.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-md transition-colors cursor-pointer"
-                  aria-label="Close sidebar"
-                >
-                  <FaTimes size={14} />
-                </button>
-              </div>
-              <div className="space-y-1.5">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => scrollToSection(section.id)}
-                    className={`w-full text-left px-3.5 py-2.5 rounded-lg transition-all duration-200 cursor-pointer group relative overflow-hidden ${
-                      activeSection === section.id
-                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium shadow-sm border-l-3 border-blue-500"
-                        : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between relative z-10">
-                      <span className="text-sm font-medium flex items-center gap-2">
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          activeSection === section.id
-                            ? "bg-blue-500"
-                            : "bg-slate-300 dark:bg-slate-600 group-hover:bg-blue-400"
-                        } transition-colors`}></span>
-                        {section.title}
-                      </span>
-                    </div>
-                    {activeSection === section.id && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent"></div>
-                    )}
-                  </button>
-                ))}
-              </div>
             </div>
-          </aside>
-
-          {/* Mobile overlay */}
-          {isSidebarOpen && (
-            <div
-              className="fixed inset-0 bg-black/50 z-20 lg:hidden"
-              onClick={() => setIsSidebarOpen(false)}
-            />
-          )}
-
-          {/* Mobile sidebar toggle */}
-          <button
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="fixed lg:hidden bottom-6 left-6 z-40 p-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-2xl shadow-2xl hover:shadow-blue-500/50 transition-all duration-200 cursor-pointer"
-            aria-label="Toggle sidebar"
-          >
-            <FaBars size={18} />
-          </button>
-        </>
+          </div>
+        </div>
       )}
 
-      {/* Main Content - Always centered, never shifted */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 md:p-8 lg:p-12">
-          <div className="text-slate-900 dark:text-slate-100 leading-relaxed">
+
+      {/* ── Two-column layout ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8">
+
+        {/* ── Sidebar ── */}
+        {sections.length > 0 && (
+          <>
+            <aside
+              className={`fixed top-20 left-4 w-56 z-30 transition-transform duration-300 ${
+                isSidebarOpen ? "translate-x-0" : "-translate-x-[calc(100%+1rem)] lg:translate-x-0"
+              }`}
+              style={{ maxHeight: 'calc(100vh - 5.5rem)', overflowY: 'auto' }}
+            >
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-md border border-slate-200 dark:border-slate-700 p-4">
+                <div className="flex items-center justify-between mb-3 pb-3 border-b border-slate-100 dark:border-slate-700">
+                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Contents</span>
+                  <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden text-slate-400 hover:text-slate-600 cursor-pointer">
+                    <FaTimes size={13} />
+                  </button>
+                </div>
+                <nav className="space-y-0.5">
+                  {sections.map(section => (
+                    <button
+                      key={section.id}
+                      onClick={() => scrollToSection(section.id)}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer flex items-center gap-2 ${
+                        activeSection === section.id
+                          ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                          : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white"
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${activeSection === section.id ? 'bg-blue-500' : 'bg-slate-300 dark:bg-slate-600'}`} />
+                      {section.title}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+            {isSidebarOpen && <div className="fixed inset-0 bg-black/40 z-20 lg:hidden" onClick={() => setIsSidebarOpen(false)} />}
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="fixed lg:hidden bottom-20 left-4 z-40 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-xl cursor-pointer">
+              <FaBars size={16} />
+            </button>
+          </>
+        )}
+
+        {/* ── Main content ── */}
+        <main className={`flex-1 min-w-0 ${sections.length > 0 ? 'lg:ml-64' : ''}`}>
+          {/* section header count */}
+          {searchQuery && (
+            <div className="mb-4 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+              <FaSearch size={12} />
+              <span>Showing <strong className="text-slate-700 dark:text-slate-200">{parts.filter(p => p.type === "expandable").length}</strong> results for "<em>{searchQuery}</em>"</span>
+              <button onClick={() => setSearchQuery("")} className="text-blue-600 hover:underline cursor-pointer text-xs">Clear</button>
+            </div>
+          )}
+          <div className="space-y-1">
             {parts.map((part, index) => {
               if (part.type === "expandable") {
                 return (
-                  <ExpandableSection
-                    key={index}
-                    title={part.title || "Section"}
-                    content={part.content}
-                  />
+                  <ExpandableSection key={index} title={part.title || "Section"} content={part.content} />
                 );
               }
               return (
-                <div key={index} className="markdown-content">
+                <div key={index} className="prose prose-slate dark:prose-invert max-w-none mb-4 px-1">
                   <ReactMarkdown
                     components={{
                       h2: ({ node, children, ...props }) => {
                         const text = String(children);
                         const section = sections.find(s => s.title === text);
                         if (section) {
-                          return <h2 id={section.id} className="scroll-mt-20" {...props}>{children}</h2>;
+                          return (
+                            <h2 id={section.id} className="scroll-mt-20 flex items-center gap-3 text-xl font-bold text-slate-800 dark:text-slate-100 mt-8 mb-4 pb-2 border-b border-slate-200 dark:border-slate-700" {...props}>
+                              <span className="w-1 h-6 rounded-full bg-gradient-to-b from-blue-500 to-indigo-500 inline-block" />
+                              {children}
+                            </h2>
+                          );
                         }
-                        return <h2 {...props}>{children}</h2>;
+                        return <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mt-8 mb-4" {...props}>{children}</h2>;
                       }
                     }}
                   >
@@ -313,10 +332,10 @@ export default function ConceptPageContent({ content, conceptName }: ConceptPage
               );
             })}
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
 
-      {/* Floating Start Quiz Button */}
+      {/* Floating Quiz Button */}
       {displayName && (
         <div className="fixed bottom-6 right-6 z-30">
           <FloatingStartQuizButton conceptName={displayName.toLowerCase()} />

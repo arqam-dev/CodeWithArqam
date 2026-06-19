@@ -54,35 +54,35 @@ export default function Home() {
   }, []);
 
   const stats = [
-    { label: "Total Concepts", value: "27+", icon: FaBook, color: "from-slate-500 to-slate-600" },
-    { label: "Categories", value: "12", icon: FaGraduationCap, color: "from-slate-600 to-slate-700" },
-    { label: "Students Taught", value: "500+", icon: FaUsers, color: "from-slate-500 to-slate-600" },
-    { label: "Years Experience", value: "9+", icon: FaChartLine, color: "from-slate-600 to-slate-700" }
+    { label: "Interview Topics", value: "4+", icon: FaQuestionCircle, color: "from-indigo-500 to-blue-500" },
+    { label: "Concept Guides", value: "27+", icon: FaBook, color: "from-blue-500 to-cyan-500" },
+    { label: "Quiz Questions", value: "650+", icon: FaFire, color: "from-purple-500 to-indigo-500" },
+    { label: "Years Experience", value: "9+", icon: FaChartLine, color: "from-cyan-500 to-blue-500" }
   ];
 
   const features = [
     {
-      icon: FaBook,
-      title: "Comprehensive Guides",
-      description: "In-depth explanations of programming concepts with real-world examples and best practices.",
+      icon: FaQuestionCircle,
+      title: "Real Interview Q&A",
+      description: "Curated questions from top tech companies — General knowledge and scenario-based questions with expert answers.",
       color: "slate"
     },
     {
-      icon: FaQuestionCircle,
+      icon: FaFire,
       title: "Interactive Quizzes",
-      description: "Test your knowledge with 25-question quizzes for each concept to reinforce learning.",
+      description: "650+ quiz questions across 27 topics. Test retention under timed, exam-like conditions.",
       color: "slate"
     },
     {
       icon: FaRocket,
       title: "Career Ready",
-      description: "Learn skills that employers are looking for, from fundamentals to advanced topics.",
+      description: "Cover the exact skills FAANG and top tech companies test — from fundamentals to system design.",
       color: "slate"
     },
     {
-      icon: FaMagic,
-      title: "Expert Teaching",
-      description: "Learn from a Principal Software Engineer with 9+ years of industry experience.",
+      icon: FaBrain,
+      title: "Expert Insights",
+      description: "Content created by a Principal Engineer who has conducted 100s of technical interviews.",
       color: "slate"
     }
   ];
@@ -148,6 +148,13 @@ export default function Home() {
               >
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
+              </Link>
+              <Link
+                href="/interview-questions/frontend"
+                className="px-4 py-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+              >
+                <FaQuestionCircle size={14} />
+                <span>Interview Prep</span>
               </Link>
 
               {/* Interactive Social Media Menu */}
@@ -277,6 +284,14 @@ export default function Home() {
                 <FaMagic size={14} />
                 <span>Learning Guides</span>
               </Link>
+              <Link
+                href="/interview-questions/frontend"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
+              >
+                <FaQuestionCircle size={14} />
+                <span>Interview Prep</span>
+              </Link>
             </div>
           </div>
         )}
@@ -295,7 +310,7 @@ export default function Home() {
             <div className="text-center md:text-left space-y-6 animate-fade-in">
               <div className="inline-block">
                 <span className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 dark:from-emerald-600 dark:to-teal-600 text-white rounded-full text-sm font-medium shadow-md">
-                  Principal Software Engineer & Tech Educator
+                  🎯 Interview Prep · Concept Guides · Quizzes
                 </span>
               </div>
               <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
@@ -412,14 +427,112 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ====== INTERVIEW PREP HUB SECTION ====== */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
+          <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 -right-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Section Header */}
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-semibold mb-5">
+              <FaFire className="text-orange-400" size={14} />
+              Interview Preparation Hub
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+              Ace Your Next Interview
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Real questions from top tech companies, structured by category and difficulty. 
+              Prepare smarter — not longer.
+            </p>
+          </div>
+
+          {/* Interview Journey Flow Diagram */}
+          <div className="mb-14 bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8">
+            <p className="text-slate-400 text-xs font-semibold uppercase tracking-widest mb-6 text-center">Your Interview Preparation Journey</p>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3">
+              {[
+                { step: "01", title: "Pick a Category", desc: "Frontend, Backend, DB, System Design", icon: "📂", color: "bg-blue-500/20 border-blue-500/40 text-blue-300" },
+                { step: "02", title: "Study Concepts", desc: "Read in-depth guides & explanations", icon: "📖", color: "bg-cyan-500/20 border-cyan-500/40 text-cyan-300" },
+                { step: "03", title: "Practice Q&A", desc: "General & scenario-based questions", icon: "🧠", color: "bg-indigo-500/20 border-indigo-500/40 text-indigo-300" },
+                { step: "04", title: "Take a Quiz", desc: "25-question quizzes to test retention", icon: "🎯", color: "bg-purple-500/20 border-purple-500/40 text-purple-300" },
+                { step: "05", title: "Interview Ready", desc: "Walk in with confidence", icon: "🚀", color: "bg-emerald-500/20 border-emerald-500/40 text-emerald-300" },
+              ].map((item, i, arr) => (
+                <div key={i} className="flex md:flex-col items-center gap-2 md:gap-0">
+                  <div className={`flex flex-col items-center px-4 py-4 rounded-xl border ${item.color} min-w-[130px] text-center`}>
+                    <span className="text-2xl mb-2">{item.icon}</span>
+                    <div className={`text-xs font-black mb-1 ${item.color.split(' ').pop()}`}>STEP {item.step}</div>
+                    <div className="text-white text-sm font-bold">{item.title}</div>
+                    <div className="text-slate-400 text-xs mt-1">{item.desc}</div>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <FaArrowRight className="text-slate-600 flex-shrink-0 md:hidden" size={14} />
+                  )}
+                  {i < arr.length - 1 && (
+                    <div className="hidden md:flex items-center mt-[-1rem] mb-[-1rem]">
+                      <FaArrowRight className="text-slate-600" size={14} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Interview Category Cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+            {[
+              { label: "Frontend", href: "/interview-questions/frontend", count: "20+ Q", icon: "⚛️", grad: "from-cyan-500 to-blue-500", badge: "JavaScript · CSS · Perf" },
+              { label: "Backend", href: "/interview-questions/backend", count: "20+ Q", icon: "🖥️", grad: "from-violet-500 to-purple-500", badge: "Node · APIs · Architecture" },
+              { label: "Databases", href: "/interview-questions/databases", count: "20+ Q", icon: "🗄️", grad: "from-orange-500 to-amber-500", badge: "SQL · NoSQL · Indexing" },
+              { label: "System Design", href: "/interview-questions/system-design", count: "20+ Q", icon: "🏗️", grad: "from-indigo-500 to-blue-600", badge: "Scalability · Trade-offs" },
+            ].map((cat, i) => (
+              <Link
+                key={i}
+                href={cat.href}
+                className="group relative bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl p-5 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer overflow-hidden"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${cat.grad} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-2xl">{cat.icon}</span>
+                    <span className="text-xs font-semibold text-slate-400 bg-white/10 px-2 py-0.5 rounded-lg">{cat.count}</span>
+                  </div>
+                  <h3 className="text-white font-bold text-lg mb-1">{cat.label}</h3>
+                  <p className="text-slate-500 text-xs">{cat.badge}</p>
+                  <div className="flex items-center gap-1 text-blue-400 text-xs font-semibold mt-3 group-hover:gap-2 transition-all">
+                    Practice now <FaArrowRight size={10} />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Interview Tip Banner */}
+          <div className="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center gap-4">
+            <div className="flex-shrink-0 text-3xl">💡</div>
+            <div className="flex-1">
+              <p className="text-amber-300 font-bold text-sm mb-1">Pro Interview Tip</p>
+              <p className="text-slate-300 text-sm">
+                Use the <strong className="text-white">STAR method</strong> for scenario questions: <strong className="text-amber-300">S</strong>ituation → <strong className="text-amber-300">T</strong>ask → <strong className="text-amber-300">A</strong>ction → <strong className="text-amber-300">R</strong>esult. Structure your answers for maximum impact.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-slate-900 dark:text-white">
-            Why Learn with CodeWithArqam?
+            Why Prep with CodeWithArqam?
           </h2>
           <p className="text-center text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-2xl mx-auto">
-            Comprehensive learning resources designed by industry experts to help you succeed in your tech career.
+            Interview-focused learning resources by a Principal Engineer with 9+ years of hiring and tech experience.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => {
@@ -576,10 +689,10 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Start Your Learning Journey?
+            Ready to Crack Your Next Interview?
           </h2>
           <p className="text-xl mb-8 text-slate-300">
-            Join 500+ students learning modern web development with comprehensive guides, interactive quizzes, and expert mentorship.
+            Real questions, expert answers, 650+ quiz questions, and free 1:1 mentoring sessions. Start preparing today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link

@@ -1231,3 +1231,29 @@ body {
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+/* ── Interview Page: Difficulty border widths ── */
+.border-l-4 {
+  border-left-width: 4px;
+}
+
+/* Interview question card hover enhancement */
+.interview-answer-container {
+  padding-bottom: 4.5rem;
+}
+
+/* Dark mode answer container */
+@media (prefers-color-scheme: dark) {
+  .interview-answer-container {
+    background: #0f172a;
+    border-color: #1e293b;
+  }
+}
+
+/* Portfolio hero grid decoration */
+.portfolio-hero-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

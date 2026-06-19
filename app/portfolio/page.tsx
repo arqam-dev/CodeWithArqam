@@ -1,424 +1,334 @@
-"use client";
+﻿"use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  FaLinkedin, 
-  FaYoutube, 
-  FaInstagram, 
-  FaTiktok,
-  FaGithub,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhone,
-  FaCalendarAlt,
-  FaCode,
-  FaCloud,
-  FaDatabase,
-  FaMobile,
-  FaGraduationCap,
-  FaBook,
-  FaGlobe,
-  FaBars,
-  FaTimes,
-  FaArrowRight,
-  FaServer,
-  FaTools,
-  FaBrain,
-  FaQuestionCircle,
-  FaRocket,
-  FaFire,
-  FaStar,
-  FaGem,
-  FaMagic,
-  FaExclamationTriangle,
-  FaArrowLeft
+import {
+  FaLinkedin, FaYoutube, FaInstagram, FaTiktok, FaGithub,
+  FaEnvelope, FaMapMarkerAlt, FaCalendarAlt, FaCode,
+  FaCloud, FaDatabase, FaMobile, FaGraduationCap,
+  FaBars, FaTimes, FaArrowRight, FaServer, FaRocket,
+  FaArrowLeft, FaCheckCircle, FaUsers, FaBolt,
+  FaLayerGroup, FaChartLine, FaNpm, FaExternalLinkAlt
 } from "react-icons/fa";
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showSocialDropdown, setShowSocialDropdown] = useState(false);
+  const [countersStarted, setCountersStarted] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
       const sections = ["home", "experience", "skills", "education", "publications", "contact"];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section);
-            break;
-          }
+      const sp = window.scrollY + 100;
+      for (const s of sections) {
+        const el = document.getElementById(s);
+        if (el && sp >= el.offsetTop && sp < el.offsetTop + el.offsetHeight) {
+          setActiveSection(s); break;
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-      setIsMobileMenuOpen(false);
-    }
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) setCountersStarted(true); },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) obs.observe(statsRef.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setIsMobileMenuOpen(false);
   };
+
+  const navItems = [
+    { id: "experience", label: "Experience" },
+    { id: "skills", label: "Skills" },
+    { id: "education", label: "Education" },
+    { id: "publications", label: "Projects" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  const statsData = [
+    { value: "9+", label: "Years Experience", icon: FaChartLine, color: "from-blue-500 to-blue-600" },
+    { value: "5", label: "Companies", icon: FaUsers, color: "from-purple-500 to-purple-600" },
+    { value: "12+", label: "Tech Stacks", icon: FaLayerGroup, color: "from-emerald-500 to-emerald-600" },
+    { value: "2", label: "NPM Packages", icon: FaNpm, color: "from-rose-500 to-rose-600" },
+  ];
 
   const workExperience = [
     {
-      company: "TKXEL PORTUGAL LDA",
-      location: "Lisbon, Portugal",
-      role: "PRINCIPAL SOFTWARE ENGINEER",
-      period: "07/06/2021 - CURRENT",
-      roles: "Principal Software Engineer | Tech Lead | Pre-Sales Engineer | Javascript Trainer",
-      locations: "Portugal | London, Poland, Seattle, Boston, U.A.E",
-      technologies: "AWS, AWS APIs (Lambdas), Amplify, GraphQL, DynamoDB, Angular 17, Node 18",
-      responsibilities: [
-        "Working as PSE, managing multiple projects, and reviewing PR of the respective modules.",
-        "Manage Bootcamps regarding JavaScript technology.",
-        "Backend Responsibilities: Writing Lambda functions and fixing them.",
-        "Frontend Responsibilities: Creating UI and performing mutations and queries.",
-        "Database Responsibilities: Manage DB and Create tables using amplify."
-      ]
+      company: "TKXEL PORTUGAL LDA", location: "Lisbon, Portugal",
+      role: "Principal Software Engineer", period: "Jun 2021 – Present",
+      subtitle: "PSE · Tech Lead · Pre-Sales · JS Trainer",
+      techs: ["AWS", "Lambda", "Amplify", "GraphQL", "DynamoDB", "Angular 17", "Node 18"],
+      highlights: ["Led multi-project teams & code reviews", "Ran JavaScript Bootcamps", "Built serverless backends with AWS Lambda", "Full-stack with Angular + GraphQL"],
+      color: "from-blue-600 to-indigo-600", dot: "bg-blue-600",
     },
     {
-      company: "SOFTCIRCLES LLC",
-      location: "Brooklyn, NY, United States",
-      role: "SENIOR SOFTWARE ENGINEER",
-      period: "01/08/2018 - 01/06/2021",
-      roles: "Senior Software Engineer | Team Lead",
-      technologies: "NodeJS (Express JS, Loopback 3, Loopback 4), Angular 8, React JS, React Native, MySQL, MongoDB, PostgreSQL, WordPress, Android",
-      responsibilities: [
-        "Managed up to 9 members team and managed project timelines.",
-        "Create & manage the architecture of each project and PR reviews.",
-        "Backend Responsibilities: Creating project architecture, Writing APIs, Scripts, etc.",
-        "Frontend Responsibilities: Creating UI according to the given design and utilization of APIs.",
-        "Database Responsibilities: Creating Schema, Writing SPs, Creating Views, etc."
-      ]
+      company: "SOFTCIRCLES LLC", location: "Brooklyn, NY, USA",
+      role: "Senior Software Engineer", period: "Aug 2018 – Jun 2021",
+      subtitle: "Senior Engineer · Team Lead",
+      techs: ["Node.js", "Express", "LoopBack 4", "Angular 8", "React", "React Native", "MongoDB", "PostgreSQL"],
+      highlights: ["Managed 9-person engineering team", "Architected full-stack projects end-to-end", "Built cross-platform mobile apps", "Multi-DB management (SQL + NoSQL)"],
+      color: "from-purple-600 to-violet-600", dot: "bg-purple-600",
     },
     {
-      company: "ADNARE LLC",
-      location: "Washington, United States",
-      role: "SOFTWARE ENGINEER",
-      period: "01/08/2017 - 01/09/2018",
-      roles: "Software Engineer",
-      office: "Redmond, WA, United States",
-      technologies: ".Net (C#), Microsoft SQL Server, MS Access DB",
-      responsibilities: [
-        "Creating and managing the assigned modules.",
-        "Backend Responsibilities: Writing APIs and other backend tasks.",
-        "Frontend Responsibilities: Creating UI and APIs utilization.",
-        "Database Responsibilities: Manage Schema, Write SPs, Creating Views, etc."
-      ]
+      company: "ADNARE LLC", location: "Washington, USA",
+      role: "Software Engineer", period: "Aug 2017 – Sep 2018",
+      subtitle: "Software Engineer",
+      techs: [".NET (C#)", "SQL Server", "MS Access"],
+      highlights: ["Developed and managed project modules", "REST API development", "Database schema & stored procedures"],
+      color: "from-emerald-600 to-teal-600", dot: "bg-emerald-600",
     },
     {
-      company: "WATEEN TELECOM LLC",
-      location: "Abu Dhabi Emirates, United Arab Emirates",
-      role: "ASSOCIATE SOFTWARE ENGINEER",
-      period: "01/02/2017 - 01/07/2017",
-      roles: "Associate Software Engineer",
-      technologies: ".Net (C#), MySQL",
-      responsibilities: [
-        "Managing the backend tasks only and a few database tasks.",
-        "Backend Responsibilities: Writing APIs and bug fixing in various modules.",
-        "Database Responsibilities: Writing basic data retrieval and creation queries."
-      ]
+      company: "WATEEN TELECOM", location: "Abu Dhabi, UAE",
+      role: "Associate Software Engineer", period: "Feb 2017 – Jul 2017",
+      subtitle: "Associate Software Engineer",
+      techs: [".NET (C#)", "MySQL"],
+      highlights: ["Backend API development", "Bug fixing across modules", "Database query optimisation"],
+      color: "from-amber-500 to-orange-500", dot: "bg-amber-500",
     },
     {
-      company: "LIVELLO TECHNOLOGIES GMBH",
-      location: "Düsseldorf, Germany",
-      role: "WEB DEVELOPER",
-      period: "01/06/2015 - 01/11/2015",
-      roles: "Internee",
-      technologies: ".Net (C#), SQL Server",
-      responsibilities: [
-        "Managing the backend tasks only and a few database tasks.",
-        "Backend Responsibilities: Support for writing APIs.",
-        "Database Responsibilities: Writing queries and optimising them."
-      ]
-    }
+      company: "LIVELLO TECHNOLOGIES", location: "Düsseldorf, Germany",
+      role: "Web Developer Intern", period: "Jun 2015 – Nov 2015",
+      subtitle: "Internee",
+      techs: [".NET (C#)", "SQL Server"],
+      highlights: ["Supported API development", "Query writing and optimisation"],
+      color: "from-slate-500 to-slate-600", dot: "bg-slate-500",
+    },
   ];
 
-  const skills = [
-    { name: "JavaScript", percentage: 95, icon: FaCode },
-    { name: "Node.js", percentage: 92, icon: FaCode },
-    { name: "AWS", percentage: 88, icon: FaCloud },
-    { name: "Angular", percentage: 90, icon: FaCode },
-    { name: "React", percentage: 85, icon: FaCode },
-    { name: "GraphQL", percentage: 87, icon: FaCode },
-    { name: "MongoDB", percentage: 85, icon: FaDatabase },
-    { name: "PostgreSQL", percentage: 88, icon: FaDatabase },
-    { name: "MySQL", percentage: 90, icon: FaDatabase },
-    { name: "DynamoDB", percentage: 82, icon: FaDatabase },
-    { name: "Express.js", percentage: 93, icon: FaCode },
-    { name: "React Native", percentage: 80, icon: FaMobile }
+  const techGroups = [
+    { name: "Frontend", badge: "text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/40", card: "border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20", icon: FaCode, techs: ["JavaScript", "TypeScript", "Angular 17", "React", "Next.js", "HTML5", "Tailwind CSS"] },
+    { name: "Backend", badge: "text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900/40", card: "border-purple-200 dark:border-purple-800 bg-purple-50/50 dark:bg-purple-950/20", icon: FaServer, techs: ["Node.js", "Express.js", "LoopBack 4", "GraphQL", "REST APIs"] },
+    { name: "Cloud & AWS", badge: "text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900/40", card: "border-sky-200 dark:border-sky-800 bg-sky-50/50 dark:bg-sky-950/20", icon: FaCloud, techs: ["AWS Lambda", "AWS Amplify", "DynamoDB", "S3", "EC2", "API Gateway"] },
+    { name: "Databases", badge: "text-emerald-700 dark:text-emerald-300 bg-emerald-100 dark:bg-emerald-900/40", card: "border-emerald-200 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20", icon: FaDatabase, techs: ["MongoDB", "PostgreSQL", "MySQL", "DynamoDB", "SQL Server"] },
+    { name: "Mobile", badge: "text-orange-700 dark:text-orange-300 bg-orange-100 dark:bg-orange-900/40", card: "border-orange-200 dark:border-orange-800 bg-orange-50/50 dark:bg-orange-950/20", icon: FaMobile, techs: ["React Native", "Android"] },
   ];
 
-  const publications = [
-    {
-      year: "2021",
-      title: "Javascript Library - JS Bunch",
-      type: "NPM",
-      link: "https://www.npmjs.com/package/js-bunch",
-      description: "A variety of utilities and helper functions for various tasks, providing streamlined solutions across different contexts."
-    },
-    {
-      year: "2021",
-      title: "Javascript Library - Expressjs-mvc-Generator",
-      type: "NPM",
-      link: "https://www.npmjs.com/package/express-generator1",
-      description: "Essential boilerplate code for connecting to multiple databases and organizing projects into specific folders."
-    }
+  const pubs = [
+    { year: "2021", title: "js-bunch", type: "NPM Package", link: "https://www.npmjs.com/package/js-bunch", desc: "Utility library with helper functions for common JS tasks — streamlined solutions across different contexts.", icon: "📦" },
+    { year: "2021", title: "expressjs-mvc-generator", type: "NPM Package", link: "https://www.npmjs.com/package/express-generator1", desc: "Boilerplate generator for Express.js MVC projects with multi-DB connection setup and opinionated folder structure.", icon: "⚡" },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Navigation Bar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg" 
-          : "bg-transparent"
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
-            >
-              <Image
-                src="/codewitharqam-logo.svg"
-                alt="CodeWithArqam Logo"
-                width={32}
-                height={32}
-                className="w-8 h-8 md:w-10 md:h-10"
-              />
-              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                CodeWithArqam
-              </span>
-            </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link
-                href="/"
-                className="px-4 py-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
-              >
-                <FaArrowLeft size={14} />
-                <span>Back to Home</span>
-              </Link>
-              <Link
-                href="/content"
-                className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
-              >
-                <FaMagic size={14} />
-                <span>Learning Guides</span>
-              </Link>
-            </div>
+    <div className="min-h-screen bg-white dark:bg-slate-950">
 
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-slate-600 dark:text-slate-300 cursor-pointer"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
+      {/* ── NAV ── */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/95 dark:bg-slate-950/95 backdrop-blur-md shadow-lg border-b border-slate-200 dark:border-slate-800" : "bg-transparent"}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <Link href="/" className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+              <Image src="/codewitharqam-logo.svg" alt="CodeWithArqam" width={28} height={28} />
+              <span className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent hidden sm:block">CodeWithArqam</span>
+            </Link>
+            <div className="hidden md:flex items-center gap-1">
+              {navItems.map(item => (
+                <button key={item.id} onClick={() => scrollTo(item.id)}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${activeSection === item.id ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"}`}>
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <Link href="/" className="hidden md:flex items-center gap-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-sm font-semibold hover:opacity-90 transition-all cursor-pointer">
+                <FaArrowLeft size={11} /> Back to Home
+              </Link>
+              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden p-2 text-slate-600 dark:text-slate-300 cursor-pointer" aria-label="Menu">
+                {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
-            <div className="px-4 py-4 space-y-2">
-              <Link
-                href="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-slate-600 to-slate-700 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
-              >
-                <FaArrowLeft size={14} />
-                <span>Back to Home</span>
-              </Link>
-              <Link
-                href="/content"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block w-full px-4 py-3 rounded-lg transition-all duration-200 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 flex items-center justify-center space-x-2 cursor-pointer"
-              >
-                <FaMagic size={14} />
-                <span>Learning Guides</span>
-              </Link>
-            </div>
+          <div className="md:hidden bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 px-4 py-3 space-y-1">
+            {navItems.map(item => (
+              <button key={item.id} onClick={() => scrollTo(item.id)} className="block w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all cursor-pointer">{item.label}</button>
+            ))}
+            <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2.5 rounded-lg text-sm font-semibold bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-center mt-2 cursor-pointer">← Back to Home</Link>
           </div>
         )}
       </nav>
 
-      {/* Interactive Hero Section - Different from Home */}
-      <section id="home" className="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
+      {/* ── HERO ── */}
+      <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-16">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950" />
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.3) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.3) 1px,transparent 1px)", backgroundSize: "50px 50px" }} />
+        <div className="absolute top-20 left-10 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="text-center md:text-left space-y-6 animate-fade-in">
-              <div className="inline-block">
-                <span className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-sm font-medium shadow-lg">
-                  Principal Software Engineer
-                </span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Text */}
+            <div className="text-center lg:text-left space-y-6 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500/20 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-semibold">
+                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                Available for New Opportunities
               </div>
-              <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white leading-tight bg-gradient-to-r from-slate-600 to-slate-800 bg-clip-text text-transparent">
-                Muhammad Arqam
+              <h1 className="text-5xl md:text-7xl font-black text-white leading-none">
+                Muhammad<br />
+                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Arqam</span>
               </h1>
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300">
-                Solutions Architect & Tech Lead<br />
-                <span className="font-semibold text-blue-600 dark:text-blue-400">Based in Portugal, Europe</span>
+              <div>
+                <p className="text-xl text-slate-300 font-light">Principal Software Engineer</p>
+                <p className="text-base text-slate-500 mt-1">Solutions Architect · Tech Lead · JavaScript Expert</p>
+                <p className="text-sm text-blue-400 font-medium mt-2 flex items-center gap-1 justify-center lg:justify-start">
+                  <FaMapMarkerAlt size={12} /> Lisbon, Portugal, Europe
+                </p>
+              </div>
+              <p className="text-slate-400 leading-relaxed max-w-lg mx-auto lg:mx-0">
+                Full-Stack engineer with <span className="text-white font-semibold">9+ years</span> building scalable systems across startups and enterprises. Expert in <span className="text-blue-400 font-semibold">JavaScript, Node.js, AWS</span> and modern full-stack frameworks.
               </p>
-              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
-                Full-Stack Software Engineer with <strong className="text-slate-900 dark:text-white">9+ years</strong> of experience. 
-                Expert in <strong className="text-slate-900 dark:text-white">JavaScript, Node.js, AWS, MEAN/MERN Stack</strong> and serverless technologies.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <button
-                  onClick={() => scrollToSection("experience")}
-                  className="px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-700 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
-                >
-                  <FaCode size={16} />
-                  <span>View Experience</span>
-                  <FaArrowRight size={14} />
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                <button onClick={() => scrollTo("experience")} className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-semibold transition-all shadow-lg hover:shadow-blue-500/30 cursor-pointer">
+                  View Experience <FaArrowRight size={14} />
                 </button>
-                <a
-                  href="https://www.linkedin.com/in/arqam-dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex items-center space-x-2"
-                >
-                  <FaLinkedin size={16} />
-                  <span>Connect on LinkedIn</span>
+                <a href="https://www.linkedin.com/in/arqam-dev/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 border border-slate-600 hover:border-blue-500 text-slate-300 hover:text-white rounded-xl font-semibold transition-all cursor-pointer">
+                  <FaLinkedin size={14} className="text-blue-400" /> LinkedIn
+                </a>
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 border border-purple-600 hover:border-purple-400 text-purple-300 hover:text-white rounded-xl font-semibold transition-all cursor-pointer">
+                  <FaCalendarAlt size={13} /> Book Mentoring
                 </a>
               </div>
+              <div className="flex items-center gap-4 justify-center lg:justify-start">
+                {[
+                  { href: "https://www.linkedin.com/in/arqam-dev/", I: FaLinkedin, c: "hover:text-blue-400" },
+                  { href: "https://www.youtube.com/@codewitharqam", I: FaYoutube, c: "hover:text-red-400" },
+                  { href: "https://www.instagram.com/codewitharqam", I: FaInstagram, c: "hover:text-pink-400" },
+                  { href: "https://github.com/arqam-dev", I: FaGithub, c: "hover:text-white" },
+                  { href: "https://www.tiktok.com/@codewitharqam", I: FaTiktok, c: "hover:text-slate-300" },
+                ].map((s, i) => <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className={`text-slate-500 ${s.c} transition-colors cursor-pointer`}><s.I size={18} /></a>)}
+              </div>
             </div>
-            <div className="flex justify-center md:justify-end">
-              <div className="relative group">
-                {/* Animated rings */}
-                <div className="absolute inset-0 rounded-full border-4 border-blue-400 opacity-20 animate-ping"></div>
-                <div className="absolute inset-0 rounded-full border-4 border-purple-400 opacity-20 animate-pulse"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-                <div className="relative w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/arqam-pic.jpg"
-                    alt="Muhammad Arqam"
-                    width={384}
-                    height={384}
-                    className="object-cover w-full h-full"
-                    priority
-                  />
+            {/* Photo */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="relative">
+                <div className="absolute -inset-4 rounded-full border border-blue-500/20 animate-pulse" />
+                <div className="absolute -inset-8 rounded-full border border-purple-500/10" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full blur-2xl" />
+                <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-white/10 shadow-2xl shadow-blue-500/10">
+                  <Image src="/arqam-pic.jpg" alt="Muhammad Arqam" width={320} height={320} className="object-cover w-full h-full" priority />
                 </div>
+                <span className="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">9+ Years</span>
+                <span className="absolute -bottom-3 -left-3 bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">🇵🇹 Portugal</span>
               </div>
             </div>
           </div>
         </div>
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-600 animate-bounce-gentle">
+          <div className="w-5 h-8 border-2 border-slate-700 rounded-full flex items-start justify-center pt-1.5">
+            <div className="w-1 h-2 bg-slate-600 rounded-full animate-bounce" />
+          </div>
+        </div>
       </section>
 
-      {/* Work Experience Section */}
-      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            Work Experience
-          </h2>
-          <div className="space-y-8">
-            {workExperience.map((exp, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-slate-800 rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-blue-600"
-              >
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                  <div>
-                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                      {exp.role}
-                    </h3>
-                    <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 mb-2">
-                      <FaMapMarkerAlt size={16} />
-                      <span className="font-semibold">{exp.company}</span>
-                      <span className="text-slate-500 dark:text-slate-400">• {exp.location}</span>
+      {/* ── STATS ── */}
+      <div ref={statsRef} className="bg-slate-50 dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-2 md:grid-cols-4 gap-6">
+          {statsData.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <div key={i} className="text-center group">
+                <div className={`inline-flex w-12 h-12 rounded-2xl bg-gradient-to-br ${s.color} items-center justify-center mb-3 shadow-md group-hover:scale-110 transition-transform`}>
+                  <Icon className="text-white" size={20} />
+                </div>
+                <div className="text-3xl font-black text-slate-900 dark:text-white">{countersStarted ? s.value : "0"}</div>
+                <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">{s.label}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── EXPERIENCE ── */}
+      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md flex-shrink-0">
+              <FaCode className="text-white" size={18} />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Work Experience</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">9+ years · 3 continents · 5 companies</p>
+            </div>
+          </div>
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-[23px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-slate-200 dark:to-slate-700 hidden md:block" />
+            <div className="space-y-8">
+              {workExperience.map((exp, idx) => (
+                <div key={idx} className="flex gap-6">
+                  <div className="hidden md:flex flex-col items-center flex-shrink-0">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${exp.color} flex items-center justify-center shadow-lg text-white text-xs font-black z-10 flex-shrink-0`}>
+                      {String(idx + 1).padStart(2, "0")}
                     </div>
-                    {exp.office && (
-                      <p className="text-slate-600 dark:text-slate-400 text-sm mb-2">
-                        Office: {exp.office}
-                      </p>
-                    )}
                   </div>
-                  <div className="text-right mt-4 md:mt-0">
-                    <p className="text-slate-600 dark:text-slate-400 font-medium">{exp.period}</p>
+                  <div className="flex-1 group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{exp.role}</h3>
+                        <p className="text-slate-500 dark:text-slate-400 text-sm flex items-center gap-1.5 mt-1">
+                          <FaMapMarkerAlt size={11} /> {exp.company} · {exp.location}
+                        </p>
+                        <p className="text-xs text-slate-400 italic mt-0.5">{exp.subtitle}</p>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg whitespace-nowrap flex-shrink-0">
+                        <FaCalendarAlt size={10} /> {exp.period}
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {exp.techs.map((t, j) => <span key={j} className="text-xs font-medium px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-md border border-slate-200 dark:border-slate-700">{t}</span>)}
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-1.5">
+                      {exp.highlights.map((h, j) => (
+                        <div key={j} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                          <FaCheckCircle className="text-emerald-500 mt-0.5 flex-shrink-0" size={12} /> {h}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <p className="text-slate-700 dark:text-slate-300 mb-4">{exp.roles}</p>
-                {exp.locations && (
-                  <p className="text-slate-600 dark:text-slate-400 mb-4">
-                    <strong>Locations:</strong> {exp.locations}
-                  </p>
-                )}
-                <div className="mb-4">
-                  <p className="text-slate-700 dark:text-slate-300 mb-2">
-                    <strong>Technologies:</strong> <span className="text-blue-600 dark:text-blue-400">{exp.technologies}</span>
-                  </p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Responsibilities:</h4>
-                  <ul className="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-400">
-                    {exp.responsibilities.map((resp, i) => (
-                      <li key={i}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            Skills & Technologies
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skills.map((skill, index) => {
-              const Icon = skill.icon;
+      {/* ── SKILLS ── */}
+      <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-md flex-shrink-0">
+              <FaBolt className="text-white" size={18} />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Skills & Tech Stack</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">Technologies I use daily</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {techGroups.map((g, i) => {
+              const Icon = g.icon;
               return (
-                <div
-                  key={index}
-                  className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-700 dark:to-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <Icon className="text-blue-600 dark:text-blue-400" size={24} />
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                        {skill.name}
-                      </h3>
-                    </div>
-                    <span className="text-blue-600 dark:text-blue-400 font-bold">
-                      {skill.percentage}%
-                    </span>
+                <div key={i} className={`rounded-2xl border p-5 ${g.card} hover:shadow-md transition-all duration-200`}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Icon size={15} className="text-slate-500 dark:text-slate-400" />
+                    <span className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${g.badge}`}>{g.name}</span>
                   </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-2.5">
-                    <div
-                      className="bg-gradient-to-r from-teal-400 via-cyan-500 to-teal-600 dark:from-teal-500 dark:via-cyan-600 dark:to-teal-700 h-2.5 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.percentage}%` }}
-                    ></div>
+                  <div className="flex flex-wrap gap-2">
+                    {g.techs.map((t, j) => (
+                      <span key={j} className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm hover:scale-105 transition-transform cursor-default">{t}</span>
+                    ))}
                   </div>
                 </div>
               );
@@ -427,98 +337,72 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Education Section */}
-      <section id="education" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            Education & Training
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
-              <div className="flex items-start space-x-4">
-                <FaGraduationCap className="text-blue-600 dark:text-blue-400 mt-1" size={32} />
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    MPhil - Post Graduation (18 Years)
-                  </h3>
-                  <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
-                    University of Engineering and Technology, Lahore, Pakistan
-                  </p>
-                  <p className="text-slate-500 dark:text-slate-500 mb-4">
-                    Advanced studies in programming and technology, software development and system architecture.
-                  </p>
-                  <a
-                    href="https://www.uet.edu.pk/home/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline flex items-center space-x-2"
-                  >
-                    <FaGlobe size={16} />
-                    <span>Visit Website</span>
-                  </a>
+      {/* ── EDUCATION ── */}
+      <section id="education" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600 flex items-center justify-center shadow-md flex-shrink-0">
+              <FaGraduationCap className="text-white" size={18} />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Education</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">Academic background</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { icon: "🎓", degree: "MPhil — Post Graduation", school: "University of Engineering & Technology", location: "Lahore, Pakistan", desc: "Advanced studies in computer science, software architecture and system design.", link: "https://www.uet.edu.pk/home/" },
+              { icon: "🏛️", degree: "Post Graduation Certificate", school: "University of Lisbon", location: "Lisbon, Portugal", desc: "Continuing education in technology and innovation at one of Europe's leading universities.", link: "https://www.ulisboa.pt/" },
+            ].map((e, i) => (
+              <div key={i} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl flex-shrink-0">{e.icon}</span>
+                  <div>
+                    <h3 className="font-bold text-slate-900 dark:text-white text-lg">{e.degree}</h3>
+                    <p className="text-blue-600 dark:text-blue-400 font-semibold text-sm mt-0.5">{e.school}</p>
+                    <p className="text-slate-500 text-xs flex items-center gap-1 mt-1"><FaMapMarkerAlt size={10} /> {e.location}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mt-3">{e.desc}</p>
+                    <a href={e.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 text-sm font-medium mt-3 hover:underline">
+                      <FaExternalLinkAlt size={10} /> Visit Website
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-xl">
-              <div className="flex items-start space-x-4">
-                <FaBook className="text-blue-600 dark:text-blue-400 mt-1" size={32} />
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    Post Graduation Certification
-                  </h3>
-                  <p className="text-lg text-slate-600 dark:text-slate-400 mb-2">
-                    University of Lisbon, Lisbon, Portugal
-                  </p>
-                  <a
-                    href="https://www.ulisboa.pt/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline flex items-center space-x-2"
-                  >
-                    <FaGlobe size={16} />
-                    <span>Visit Website</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Publications Section */}
-      <section id="publications" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            Publications & Projects
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {publications.map((pub, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-slate-700 dark:to-slate-900 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300"
-              >
+      {/* ── PUBLICATIONS ── */}
+      <section id="publications" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-12">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-600 to-orange-500 flex items-center justify-center shadow-md flex-shrink-0">
+              <FaRocket className="text-white" size={18} />
+            </div>
+            <div>
+              <h2 className="text-3xl font-black text-slate-900 dark:text-white">Open Source Projects</h2>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-0.5">Published NPM packages</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {pubs.map((p, i) => (
+              <div key={i} className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium">
-                    {pub.year}
-                  </span>
-                  <span className="px-3 py-1 bg-purple-600 text-white rounded-full text-sm font-medium">
-                    {pub.type}
-                  </span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl">{p.icon}</span>
+                    <div>
+                      <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{p.type} · {p.year}</p>
+                      <h3 className="font-bold text-slate-900 dark:text-white font-mono text-lg">{p.title}</h3>
+                    </div>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
+                    <FaNpm className="text-red-600 dark:text-red-400" size={15} />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-                  {pub.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400 mb-4">
-                  {pub.description}
-                </p>
-                <a
-                  href={pub.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:underline font-medium"
-                >
-                  <FaGithub size={18} />
-                  <span>View on NPM</span>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">{p.desc}</p>
+                <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors">
+                  View on NPM <FaExternalLinkAlt size={11} />
                 </a>
               </div>
             ))}
@@ -526,154 +410,65 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-900 dark:text-white">
-            Get In Touch
-          </h2>
-          <div className="bg-white dark:bg-slate-800 rounded-2xl p-8 md:p-12 shadow-xl">
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <FaEnvelope className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Email</h3>
-                  <a href="mailto:codewitharqam@gmail.com" className="text-blue-600 dark:text-blue-400 hover:underline">
-                    codewitharqam@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <FaPhone className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
-                <div className="flex-1 relative group">
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Phone</h3>
-                  <div className="inline-flex items-center">
-                    <span className="text-blue-600 dark:text-blue-400 blur-sm select-none pointer-events-none">
-                      (+351) 000000000
-                    </span>
-                    <FaExclamationTriangle 
-                      className="ml-2 text-yellow-500 dark:text-yellow-400 cursor-help" 
-                      size={16}
-                    />
+      {/* ── CONTACT ── */}
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-3">Let&apos;s Build Something Great</h2>
+            <p className="text-slate-400 text-lg max-w-xl mx-auto">Open to senior/principal engineering roles, tech leadership, and consulting engagements.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            {[
+              { I: FaEnvelope, label: "Email", value: "codewitharqam@gmail.com", href: "mailto:codewitharqam@gmail.com", c: "text-blue-400" },
+              { I: FaMapMarkerAlt, label: "Location", value: "Lisbon, Portugal, Europe", href: null, c: "text-emerald-400" },
+              { I: FaLinkedin, label: "LinkedIn", value: "/in/arqam-dev", href: "https://www.linkedin.com/in/arqam-dev/", c: "text-blue-400" },
+              { I: FaCalendarAlt, label: "Free Mentoring", value: "Book a session", href: "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu", c: "text-purple-400" },
+            ].map((c, i) => {
+              const inner = (
+                <div className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all group">
+                  <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                    <c.I className={c.c} size={18} />
                   </div>
-                  <div className="absolute left-0 top-full mt-2 w-64 p-3 bg-slate-900 dark:bg-slate-800 text-white text-xs rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none z-50 border border-slate-700">
-                    <div className="flex items-start space-x-2">
-                      <FaExclamationTriangle className="text-yellow-400 mt-0.5 flex-shrink-0" size={14} />
-                      <p>Phone number is hidden due to too many queries in pipeline</p>
-                    </div>
+                  <div>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{c.label}</p>
+                    <p className="text-white font-medium text-sm">{c.value}</p>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <FaMapMarkerAlt className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">Location</h3>
-                  <p className="text-slate-600 dark:text-slate-400">Lisbon, Portugal</p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4">
-                <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                  <FaLinkedin className="text-blue-600 dark:text-blue-400" size={24} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">LinkedIn</h3>
-                  <a
-                    href="https://www.linkedin.com/in/arqam-dev/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
-                  >
-                    Connect with me
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-slate-200 dark:border-slate-700 pt-8">
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 text-center">
-                Follow Me On
-              </h3>
-              <div className="flex justify-center space-x-6">
-                <a
-                  href="https://www.linkedin.com/in/arqam-dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-slate-600 text-white rounded-full hover:bg-slate-700 transition-colors duration-200"
-                  aria-label="LinkedIn"
-                  title="LinkedIn Profile"
-                >
-                  <FaLinkedin size={24} />
-                </a>
-                <a
-                  href="https://www.youtube.com/@codewitharqam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-slate-600 text-white rounded-full hover:bg-slate-700 transition-colors duration-200"
-                  aria-label="YouTube"
-                >
-                  <FaYoutube size={24} />
-                </a>
-                <a
-                  href="https://www.instagram.com/codewitharqam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-slate-600 text-white rounded-full hover:bg-slate-700 transition-colors duration-200"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram size={24} />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@codewitharqam"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-black dark:bg-white text-white dark:text-black rounded-full hover:opacity-80 transition-colors duration-200"
-                  aria-label="TikTok"
-                >
-                  <FaTiktok size={24} />
-                </a>
-                <a
-                  href="https://github.com/arqam-dev"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 rounded-full hover:bg-slate-700 dark:hover:bg-slate-300 transition-colors duration-200"
-                  aria-label="GitHub"
-                >
-                  <FaGithub size={24} />
-                </a>
-              </div>
-            </div>
+              );
+              return c.href ? <a key={i} href={c.href} target="_blank" rel="noopener noreferrer" className="cursor-pointer">{inner}</a> : <div key={i}>{inner}</div>;
+            })}
+          </div>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <a href="https://www.linkedin.com/in/arqam-dev/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all shadow-lg hover:shadow-blue-500/30 cursor-pointer">
+              <FaLinkedin size={18} /> Connect on LinkedIn
+            </a>
+            <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2u6eGe7KMtG7nwQDNGC-UxAlHH21vlDjC3juwWY6IW19sIeWux52A3ZN4jx6EbojIFQKnnP-yu" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 border border-purple-500 hover:bg-purple-600 text-white rounded-xl font-bold transition-all cursor-pointer">
+              <FaCalendarAlt size={16} /> Book Free Mentoring
+            </a>
+          </div>
+          <div className="mt-12 pt-8 border-t border-white/10 flex justify-center gap-5">
+            {[
+              { href: "https://www.linkedin.com/in/arqam-dev/", I: FaLinkedin },
+              { href: "https://www.youtube.com/@codewitharqam", I: FaYoutube },
+              { href: "https://www.instagram.com/codewitharqam", I: FaInstagram },
+              { href: "https://github.com/arqam-dev", I: FaGithub },
+              { href: "https://www.tiktok.com/@codewitharqam", I: FaTiktok },
+            ].map((s, i) => (
+              <a key={i} href={s.href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-400 hover:text-white transition-all cursor-pointer">
+                <s.I size={16} />
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 dark:bg-black text-white py-8 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-slate-400">
-            © {new Date().getFullYear()} Muhammad Arqam. All rights reserved.
-          </p>
-          <p className="text-slate-500 text-sm mt-2">
-            Full-Stack Software Engineer & Solutions Architect | Portugal, Europe
-          </p>
-          <div className="mt-4">
-            <a
-              href="https://www.linkedin.com/in/arqam-dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
-            >
-              <FaLinkedin size={18} />
-              <span className="text-sm">Connect on LinkedIn</span>
-            </a>
-          </div>
-        </div>
+      <footer className="bg-slate-950 text-slate-600 py-6 px-4 text-center border-t border-slate-900">
+        <p className="text-sm">© {new Date().getFullYear()} Muhammad Arqam · Principal Software Engineer · Lisbon, Portugal</p>
       </footer>
     </div>
   );
 }
-

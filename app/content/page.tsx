@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
@@ -194,387 +194,254 @@ function ContentPageContent() {
     setExpandedConcepts(newExpanded);
   };
 
-  // Close sidebar when clicking outside on mobile
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isSidebarOpen && !target.closest('.sidebar') && !target.closest('.sidebar-toggle')) {
-        setIsSidebarOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isSidebarOpen]);
+  // category accent colors for cards
+  const categoryAccents: Record<string, { gradient: string; text: string; badge: string; icon: string }> = {
+    "Frontend": { gradient: "from-cyan-500 to-blue-600", text: "text-cyan-600 dark:text-cyan-400", badge: "bg-cyan-50 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300", icon: "bg-cyan-100 dark:bg-cyan-900/40" },
+    "Backend": { gradient: "from-violet-500 to-purple-600", text: "text-violet-600 dark:text-violet-400", badge: "bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300", icon: "bg-violet-100 dark:bg-violet-900/40" },
+    "Full Stack": { gradient: "from-blue-500 to-indigo-600", text: "text-blue-600 dark:text-blue-400", badge: "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300", icon: "bg-blue-100 dark:bg-blue-900/40" },
+    "Cloud": { gradient: "from-sky-500 to-blue-600", text: "text-sky-600 dark:text-sky-400", badge: "bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300", icon: "bg-sky-100 dark:bg-sky-900/40" },
+    "DevOps": { gradient: "from-orange-500 to-red-600", text: "text-orange-600 dark:text-orange-400", badge: "bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300", icon: "bg-orange-100 dark:bg-orange-900/40" },
+    "Database": { gradient: "from-amber-500 to-orange-600", text: "text-amber-600 dark:text-amber-400", badge: "bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300", icon: "bg-amber-100 dark:bg-amber-900/40" },
+    "Mobile": { gradient: "from-pink-500 to-rose-600", text: "text-pink-600 dark:text-pink-400", badge: "bg-pink-50 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300", icon: "bg-pink-100 dark:bg-pink-900/40" },
+    "CS Fundamentals": { gradient: "from-teal-500 to-cyan-600", text: "text-teal-600 dark:text-teal-400", badge: "bg-teal-50 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300", icon: "bg-teal-100 dark:bg-teal-900/40" },
+    "Tools": { gradient: "from-slate-500 to-slate-700", text: "text-slate-600 dark:text-slate-400", badge: "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300", icon: "bg-slate-100 dark:bg-slate-800" },
+    "System Design": { gradient: "from-indigo-500 to-blue-700", text: "text-indigo-600 dark:text-indigo-400", badge: "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300", icon: "bg-indigo-100 dark:bg-indigo-900/40" },
+    "Quality Assurance": { gradient: "from-emerald-500 to-green-600", text: "text-emerald-600 dark:text-emerald-400", badge: "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300", icon: "bg-emerald-100 dark:bg-emerald-900/40" },
+    "Comparisons": { gradient: "from-rose-500 to-pink-600", text: "text-rose-600 dark:text-rose-400", badge: "bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300", icon: "bg-rose-100 dark:bg-rose-900/40" },
+    "Professional": { gradient: "from-yellow-500 to-amber-600", text: "text-yellow-600 dark:text-yellow-400", badge: "bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300", icon: "bg-yellow-100 dark:bg-yellow-900/40" },
+    "AI/ML": { gradient: "from-fuchsia-500 to-purple-700", text: "text-fuchsia-600 dark:text-fuchsia-400", badge: "bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-700 dark:text-fuchsia-300", icon: "bg-fuchsia-100 dark:bg-fuchsia-900/40" },
+    "Interesting Topics": { gradient: "from-violet-500 to-indigo-600", text: "text-violet-600 dark:text-violet-400", badge: "bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300", icon: "bg-violet-100 dark:bg-violet-900/40" },
+  };
+  const getAccent = (cat: string) => categoryAccents[cat] || categoryAccents["Tools"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-lg border-b border-slate-200 dark:border-slate-700">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+      {/* â”€â”€ Navbar â”€â”€ */}
+      <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700/60 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="sidebar-toggle md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
-                aria-label="Toggle sidebar"
-              >
-                <FaBars size={20} />
-              </button>
-              <Link href="/" className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity">
-                <Image
-                  src="/codewitharqam-logo.svg"
-                  alt="CodeWithArqam Logo"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8 md:w-10 md:h-10"
-                />
-                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  CodeWithArqam
-                </span>
-              </Link>
-            </div>
-            <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:block w-full max-w-2xl px-4">
+          <div className="flex items-center h-14 gap-3">
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="sidebar-toggle md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg cursor-pointer">
+              <FaBars size={18} />
+            </button>
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity flex-shrink-0">
+              <Image src="/codewitharqam-logo.svg" alt="CodeWithArqam Logo" width={28} height={28} className="w-7 h-7" />
+              <span className="hidden sm:block text-base font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">CodeWithArqam</span>
+            </Link>
+            {/* Search */}
+            <div className="flex-1 max-w-xl mx-auto">
               <div className="relative">
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search concepts, topics..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-            <div className="md:hidden flex-1 max-w-2xl mx-4">
-              <div className="relative">
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search concepts, topics..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                <input type="text" placeholder="Search concepts, topics..." value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2 text-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white dark:focus:bg-slate-700 transition-all" />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer">
+                    <FaTimes size={12} />
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
       </header>
 
+      {/* â”€â”€ Hero Banner â”€â”€ */}
+      <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950">
+        <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.08) 1px, transparent 0)', backgroundSize: '28px 28px'}} />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-3xl -translate-x-1/4 translate-y-1/2" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                &#127891; Learning Hub
+              </span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+              Explore &amp; Master
+            </h1>
+            <p className="mt-3 text-blue-200/80 text-base sm:text-lg max-w-lg">
+              Deep-dive concept guides, interview prep, and hands-on quizzes - everything you need to level up.
+            </p>
+            <div className="flex flex-wrap gap-4 mt-6">
+              <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2.5 border border-white/15">
+                <span className="text-2xl font-bold text-white">{concepts.length}</span>
+                <span className="text-white/60 text-sm">Concept Guides</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2.5 border border-white/15">
+                <span className="text-2xl font-bold text-white">{categories.length - 1}</span>
+                <span className="text-white/60 text-sm">Categories</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 rounded-xl px-4 py-2.5 border border-white/15">
+                <span className="text-2xl font-bold text-white">4</span>
+                <span className="text-white/60 text-sm">Interview Sets</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="flex max-w-7xl mx-auto">
-        {/* Sidebar */}
-        <aside
-          className={`sidebar fixed md:sticky top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 overflow-y-auto transition-transform duration-300 z-30 ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-          }`}
-        >
+        {/* â”€â”€ Sidebar â”€â”€ */}
+        <aside className={`sidebar fixed md:sticky top-14 left-0 h-[calc(100vh-3.5rem)] w-60 flex-shrink-0 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700/60 overflow-y-auto transition-transform duration-300 z-30 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}>
           <div className="p-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Categories</h2>
-              <button
-                onClick={() => setIsSidebarOpen(false)}
-                className="md:hidden p-1 text-slate-600 dark:text-slate-300"
-                aria-label="Close sidebar"
-              >
-                <FaTimes size={18} />
-              </button>
+              <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Categories</span>
+              <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-slate-600 cursor-pointer"><FaTimes size={14} /></button>
             </div>
-            <div className="space-y-1">
-              {categories.map((category, index) => {
-                const isInterviewQuestions = category === "Interview Questions";
+            <div className="space-y-0.5">
+              {categories.map(category => {
+                const isIQ = category === "Interview Questions";
                 const isSelected = selectedCategory === category;
+                const accent = getAccent(category);
                 return (
-                  <button
-                    key={category}
-                    onClick={() => {
-                      setSelectedCategory(category);
-                      setIsSidebarOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2.5 rounded-lg transition-all duration-300 relative overflow-visible group cursor-pointer ${
+                  <button key={category} onClick={() => { setSelectedCategory(category); setIsSidebarOpen(false); }}
+                    className={`w-full text-left px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 cursor-pointer flex items-center justify-between gap-2 ${
                       isSelected
-                        ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white font-semibold shadow-lg shadow-slate-500/30 scale-[1.02]"
-                          : "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium"
-                        : isInterviewQuestions
-                          ? "bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 text-white font-semibold shadow-md shadow-slate-500/20 hover:scale-[1.01] hover:shadow-lg"
-                          : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
-                    }`}
-                  >
-                    {isInterviewQuestions && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer rounded-lg"></div>
-                        {isSelected && (
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-md animate-pulse rounded-lg"></div>
-                        )}
-                      </>
-                    )}
-                    {isInterviewQuestions && (
-                      <span className="absolute -top-1 -right-1 z-10 text-[10px] bg-slate-600 dark:bg-slate-500 text-white px-1.5 py-0.5 rounded-full font-bold shadow-md border border-white/20">
-                        New
-                      </span>
-                    )}
-                    <span className="relative flex items-center whitespace-nowrap pr-8">
-                      <span className="truncate">{category}</span>
-                    </span>
+                        ? isIQ ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md' : `bg-gradient-to-r ${accent.gradient} text-white shadow-sm`
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                    }`}>
+                    <span className="truncate">{category}</span>
+                    {isIQ && <span className="text-[9px] bg-white/20 text-white px-1.5 py-0.5 rounded-full font-bold flex-shrink-0">HOT</span>}
                   </button>
                 );
               })}
             </div>
           </div>
         </aside>
+        {isSidebarOpen && <div className="fixed inset-0 bg-black/50 z-20 md:hidden" onClick={() => setIsSidebarOpen(false)} />}
 
-        {/* Overlay for mobile */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-20 md:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-
-        {/* Main Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-              Learn & Explore
-            </h1>
-            <p className="text-lg text-slate-600 dark:text-slate-400">
-              Comprehensive guides, tutorials, and resources for software development
-            </p>
-          </div>
-
-          {/* Category Filter Pills (Mobile) */}
-          <div className="md:hidden mb-6 overflow-x-auto">
-            <div className="flex space-x-2 pb-2">
-              {categories.map((category) => {
-                const isInterviewQuestions = category === "Interview Questions";
-                const isSelected = selectedCategory === category;
-                return (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 relative overflow-visible cursor-pointer ${
-                      isSelected
-                        ? isInterviewQuestions
-                          ? "bg-gradient-to-r from-slate-500 via-slate-600 to-slate-500 text-white shadow-lg shadow-slate-500/30 scale-105"
-                          : "bg-blue-600 text-white"
-                        : isInterviewQuestions
-                          ? "bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 text-white shadow-md shadow-slate-500/20"
-                          : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
-                    }`}
-                  >
-                    {isInterviewQuestions && (
-                      <>
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 via-slate-500/20 to-slate-400/20 animate-shimmer rounded-full"></div>
-                        {isSelected && (
-                          <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-400 via-slate-500 to-slate-400 opacity-20 blur-sm animate-pulse rounded-full"></div>
-                        )}
-                      </>
-                    )}
-                    {isInterviewQuestions && (
-                      <span className="absolute -top-1 -right-1 z-10 text-[10px] bg-slate-600 dark:bg-slate-500 text-white px-1.5 py-0.5 rounded-full font-bold shadow-md border border-white/20">
-                        New
-                      </span>
-                    )}
-                    <span className="relative flex items-center pr-6">
-                      <span>{category}</span>
-                    </span>
-                  </button>
-                );
-              })}
+        {/* â”€â”€ Main Content â”€â”€ */}
+        <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">
+          {/* Search feedback */}
+          {searchQuery && (
+            <div className="mb-5 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+              <FaSearch size={12} />
+              <span><strong className="text-slate-700 dark:text-slate-200">{filteredConcepts.length}</strong> result{filteredConcepts.length !== 1 ? 's' : ''} for "<em>{searchQuery}</em>"</span>
+              <button onClick={() => setSearchQuery("")} className="text-blue-600 hover:underline cursor-pointer text-xs">Clear</button>
             </div>
-          </div>
+          )}
 
-          {/* Concepts Grid */}
+          {/* â”€â”€ Concepts Grid â”€â”€ */}
           {!showInterviewQuestions && (
             Object.keys(groupedConcepts).length === 0 ? (
-              <div className="text-center py-12">
-                <FaQuestionCircle className="mx-auto text-slate-400 mb-4" size={48} />
-                <p className="text-lg text-slate-600 dark:text-slate-400">
-                  No concepts found matching your search.
-                </p>
+              <div className="text-center py-20">
+                <FaQuestionCircle className="mx-auto text-slate-300 dark:text-slate-600 mb-4" size={56} />
+                <p className="text-slate-500 dark:text-slate-400 text-lg">No concepts match your search.</p>
+                <button onClick={() => setSearchQuery("")} className="mt-3 text-blue-600 hover:underline text-sm cursor-pointer">Clear search</button>
               </div>
             ) : (
-              <div className="space-y-8">
-                {Object.entries(groupedConcepts).map(([category, categoryConcepts]) => (
-                  <div key={category}>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center space-x-2">
-                      <span className="w-1 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded"></span>
-                      <span>{category}</span>
-                      <span className="text-sm font-normal text-slate-500 dark:text-slate-400">
-                        ({categoryConcepts.length})
-                      </span>
-                    </h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {categoryConcepts.map((concept) => {
-                        const Icon = concept.icon;
-                        const isExpanded = expandedConcepts.has(concept.slug);
-                        
-                        return (
-                          <div
-                            key={concept.slug}
-                            className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 group"
-                          >
-                            <div className="flex items-start justify-between mb-3">
-                              <div className="flex items-center space-x-3">
-                                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                                  <Icon className="text-blue-600 dark:text-blue-400" size={20} />
+              <div className="space-y-10">
+                {Object.entries(groupedConcepts).map(([category, categoryConcepts]) => {
+                  const accent = getAccent(category);
+                  return (
+                    <div key={category}>
+                      {/* Category header */}
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className={`w-1 h-8 rounded-full bg-gradient-to-b ${accent.gradient}`} />
+                        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{category}</h2>
+                        <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${accent.badge}`}>{categoryConcepts.length} topics</span>
+                      </div>
+                      {/* Cards grid */}
+                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {categoryConcepts.map(concept => {
+                          const Icon = concept.icon;
+                          return (
+                            <Link key={concept.slug} href={`/concepts/${concept.slug}`}
+                              className="group relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden flex flex-col">
+                              {/* Top accent bar */}
+                              <div className={`h-1 bg-gradient-to-r ${accent.gradient}`} />
+                              <div className="p-5 flex flex-col flex-1">
+                                <div className="flex items-start gap-3 mb-3">
+                                  <div className={`p-2.5 rounded-xl ${accent.icon} flex-shrink-0`}>
+                                    <Icon className={accent.text} size={18} />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h3 className="font-semibold text-slate-900 dark:text-white text-[0.92rem] leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{concept.name}</h3>
+                                    <span className={`text-[10px] font-semibold uppercase tracking-wider ${accent.text} opacity-70`}>{category}</span>
+                                  </div>
                                 </div>
-                                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                  {concept.name}
-                                </h3>
+                                {concept.description && (
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed flex-1 line-clamp-2">{concept.description}</p>
+                                )}
+                                <div className="mt-4 flex items-center justify-between">
+                                  <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-gradient-to-r ${accent.gradient} text-white shadow-sm group-hover:shadow-md transition-shadow`}>
+                                    <FaBook size={11} />
+                                    Study Guide
+                                  </span>
+                                  <FaChevronRight className={`${accent.text} group-hover:translate-x-1 transition-transform`} size={13} />
+                                </div>
                               </div>
-                            </div>
-                            
-                            {concept.description && (
-                              <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                                {concept.description}
-                              </p>
-                            )}
-
-                            <div className="flex items-center justify-between">
-                              <Link
-                                href={`/concepts/${concept.slug}`}
-                                className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transform hover:scale-105 transition-all duration-200"
-                              >
-                                <FaBook size={14} />
-                                <span>Read More</span>
-                              </Link>
-                              <button
-                                onClick={() => toggleConcept(concept.slug)}
-                                className="p-2 text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                                aria-label="Toggle details"
-                              >
-                                <FaChevronRight
-                                  className={`transform transition-transform duration-200 ${
-                                    isExpanded ? "rotate-90" : ""
-                                  }`}
-                                  size={16}
-                                />
-                              </button>
-                            </div>
-
-                            {isExpanded && (
-                              <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                                <Link
-                                  href={`/concepts/${concept.slug}`}
-                                  className="block w-full text-center px-4 py-2 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors text-sm font-medium"
-                                >
-                                  Explore Full Content
-                                </Link>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
+                            </Link>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )
           )}
 
-          {/* Interview Questions Section - Shown when "Interview Questions" category is selected OR when "All" is selected (at the end) */}
+          {/* â”€â”€ Interview Questions Section â”€â”€ */}
           {(showInterviewQuestions || showInterviewQuestionsInAll) && (
-            <div className={`space-y-8 animate-fadeIn ${showInterviewQuestionsInAll ? 'mt-12' : ''}`}>
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-200/20 via-slate-300/20 to-slate-200/20 dark:from-slate-700/20 dark:via-slate-600/20 dark:to-slate-700/20 rounded-2xl blur-2xl"></div>
-                <div className="relative bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-800/50 dark:via-slate-700/50 dark:to-slate-800/50 rounded-2xl p-8 border-2 border-slate-200 dark:border-slate-700">
-                  <div className="flex items-center space-x-4 mb-6">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full blur-lg opacity-30 dark:opacity-20 animate-pulse"></div>
-                      <div className="relative p-4 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 rounded-full">
-                        <FaQuestionCircle className="text-white" size={32} />
-                      </div>
-                    </div>
-                    <div>
-                      <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
-                        Interview Questions
-                      </h2>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        Prepare for your next technical interview with comprehensive Q&A
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {interviewQuestionCategories.map((category, index) => {
-                      const Icon = category.icon;
-                      return (
-                        <Link
-                          key={category.slug}
-                          href={`/interview-questions/${category.slug}`}
-                          className="group relative bg-white dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer overflow-hidden"
-                          style={{
-                            animationDelay: `${index * 100}ms`,
-                            animation: 'fadeInUp 0.6s ease-out forwards'
-                          }}
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-br from-slate-100/0 via-slate-200/0 to-slate-100/0 dark:from-slate-700/0 dark:via-slate-600/0 dark:to-slate-700/0 group-hover:from-slate-100/50 group-hover:via-slate-200/50 group-hover:to-slate-100/50 dark:group-hover:from-slate-700/30 dark:group-hover:via-slate-600/30 dark:group-hover:to-slate-700/30 transition-all duration-500"></div>
-                          <div className="relative">
-                            <div className="flex items-center space-x-3 mb-3">
-                              <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-slate-300 to-slate-400 rounded-lg blur-md opacity-0 group-hover:opacity-30 dark:group-hover:opacity-20 transition-opacity duration-300"></div>
-                                <div className="relative p-3 bg-slate-100 dark:bg-slate-700 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                                  <Icon className="text-slate-600 dark:text-slate-300" size={24} />
-                                </div>
-                              </div>
-                              <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
-                                {category.name}
-                              </h3>
-                            </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
-                              {category.description}
-                            </p>
-                            <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-slate-500 to-slate-600 dark:from-slate-600 dark:to-slate-700 text-white rounded-lg text-sm font-medium group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
-                              <span>View Questions</span>
-                              <FaChevronRight className="transform group-hover:translate-x-1 transition-transform" size={12} />
-                            </div>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
+            <div className={showInterviewQuestionsInAll ? 'mt-14' : ''}>
+              {showInterviewQuestionsInAll && (
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-1 h-8 rounded-full bg-gradient-to-b from-violet-500 to-indigo-600" />
+                  <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Interview Questions</h2>
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300">4 categories</span>
                 </div>
+              )}
+              {showInterviewQuestions && (
+                <div className="mb-8">
+                  <h1 className="text-3xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">Interview Questions</h1>
+                  <p className="text-slate-500 dark:text-slate-400">Prepare for your next technical interview with comprehensive Q&amp;A sets.</p>
+                </div>
+              )}
+              <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
+                {interviewQuestionCategories.map((iq, i) => {
+                  const Icon = iq.icon;
+                  const iqColors = [
+                    { gradient: "from-cyan-500 to-blue-600", icon: "bg-cyan-100 dark:bg-cyan-900/30", text: "text-cyan-600 dark:text-cyan-400", badge: "bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300" },
+                    { gradient: "from-violet-500 to-purple-600", icon: "bg-violet-100 dark:bg-violet-900/30", text: "text-violet-600 dark:text-violet-400", badge: "bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300" },
+                    { gradient: "from-amber-500 to-orange-600", icon: "bg-amber-100 dark:bg-amber-900/30", text: "text-amber-600 dark:text-amber-400", badge: "bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300" },
+                    { gradient: "from-indigo-500 to-blue-700", icon: "bg-indigo-100 dark:bg-indigo-900/30", text: "text-indigo-600 dark:text-indigo-400", badge: "bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300" },
+                  ][i % 4];
+                  return (
+                    <Link key={iq.slug} href={`/interview-questions/${iq.slug}`}
+                      className="group relative bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200 overflow-hidden flex flex-col">
+                      <div className={`h-1.5 bg-gradient-to-r ${iqColors.gradient}`} />
+                      <div className="p-6 flex flex-col flex-1">
+                        <div className={`w-12 h-12 rounded-2xl ${iqColors.icon} flex items-center justify-center mb-4`}>
+                          <Icon className={iqColors.text} size={22} />
+                        </div>
+                        <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">{iq.name}</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed flex-1">{iq.description}</p>
+                        <div className="mt-5 flex items-center gap-2">
+                          <span className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-gradient-to-r ${iqColors.gradient} text-white shadow-sm`}>
+                            Practice Now
+                            <FaChevronRight size={10} className="group-hover:translate-x-0.5 transition-transform" />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}
         </main>
       </div>
 
-      {/* Scroll to Top Button */}
+      {/* Scroll to Top */}
       {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 z-50"
-          aria-label="Scroll to top"
-        >
-          <FaArrowUp size={20} />
+        <button onClick={scrollToTop} className="fixed bottom-8 right-8 p-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-200 z-50 cursor-pointer" aria-label="Scroll to top">
+          <FaArrowUp size={17} />
         </button>
       )}
-
-      {/* Floating Action Buttons */}
-      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end space-y-3">
-        {/* View Reviews Button - Disabled for now */}
-        {/* <button
-          onClick={() => setShowReviewsDrawer(true)}
-          className="group"
-          aria-label="View Reviews"
-        >
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
-            <div className="relative px-5 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white rounded-full font-semibold text-base shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 border-2 border-white/20 backdrop-blur-sm cursor-pointer">
-              <FaComments className="text-purple-200" size={16} />
-              <span className="hidden sm:inline">View Reviews</span>
-              <span className="sm:hidden">Reviews</span>
-            </div>
-          </div>
-        </button> */}
-
-        {/* Write Review Button - Opens drawer to write reviews - Hidden when scroll to top is visible */}
-        {!showScrollTop && <FloatingWriteReviewButton />}
-      </div>
-
-      {/* Interactive Reviews Drawer */}
+      {!showScrollTop && <FloatingWriteReviewButton />}
       <ReviewsDrawer isOpen={showReviewsDrawer} onClose={() => setShowReviewsDrawer(false)} />
     </div>
   );
@@ -583,7 +450,7 @@ function ContentPageContent() {
 export default function ContentPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">Loading content...</p>
@@ -594,4 +461,3 @@ export default function ContentPage() {
     </Suspense>
   );
 }
-
